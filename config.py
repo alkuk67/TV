@@ -23,6 +23,7 @@ source_urls = [
     "https://raw.githubusercontent.com/yoursmile66/TVBox/main/live.txt",
     "https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv4.m3u",
     "https://iptv.1989.click/playlist.m3u",
+    "https://iptv.1989.click/myTV/playlist.m3u",
     "https://live.zbds.top/tv/iptv6.txt",
     "https://live.zbds.top/tv/iptv4.txt"
 ]
@@ -66,7 +67,7 @@ announcements = [
 epg_urls = [
     "http://e.erw.cc/e.xml.gz",
     "https://gitee.com/taksssss/tv/raw/main/epg/112114.xml.gz",
-    "https://iptv.1989.click/epg.xml.gz“,
+    "https://iptv.1989.click/epg.xml.gz",
     "https://github.776512.xyz/https://raw.githubusercontent.com/atsushi444/iptv-epg/refs/heads/main/EPG.xml"
 ]
 
