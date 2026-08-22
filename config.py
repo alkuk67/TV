@@ -15,10 +15,12 @@ source_urls = [
     "http://45.192.97.170:6001/txt",
     "https://tvlive.yuan77.workers.dev/xymm",
     "http://47.100.209.208:20002",
+    "http://193.123.86.190:14888/TV/iptv.php",
     "https://raw.githubusercontent.com/YueChan/Live/refs/heads/main/GNTV.m3u",
     "https://raw.githubusercontent.com/Kimentanm/aptv/refs/heads/master/m3u/iptv.m3u",
     "https://raw.githubusercontent.com/Guovin/iptv-api/refs/heads/gd/output/result.txt",
     "https://raw.githubusercontent.com/Guovin/iptv-api/refs/heads/gd/output/ipv6/result.txt",
+    "https://raw.githubusercontent.com/yoursmile66/TVBox/main/live.txt",
     "https://live.zbds.top/tv/iptv6.txt",
     "https://live.zbds.top/tv/iptv4.txt"
 ]
@@ -61,7 +63,7 @@ announcements = [
 # 建议将最全面的源放在最后，作为保底
 epg_urls = [
     "http://e.erw.cc/e.xml.gz",
-    "https://github.776512.xyz/https://raw.githubusercontent.com/kuke31/xmlgz/main/e.xml.gz",
+    "https://gitee.com/taksssss/tv/raw/main/epg/112114.xml.gz",
     "https://github.776512.xyz/https://raw.githubusercontent.com/atsushi444/iptv-epg/refs/heads/main/EPG.xml"
 ]
 
