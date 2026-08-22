@@ -21,6 +21,7 @@ source_urls = [
     "https://raw.githubusercontent.com/Guovin/iptv-api/refs/heads/gd/output/result.txt",
     "https://raw.githubusercontent.com/Guovin/iptv-api/refs/heads/gd/output/ipv6/result.txt",
     "https://raw.githubusercontent.com/yoursmile66/TVBox/main/live.txt",
+    "https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv4.m3u",
     "https://live.zbds.top/tv/iptv6.txt",
     "https://live.zbds.top/tv/iptv4.txt"
 ]
