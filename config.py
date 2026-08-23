@@ -19,6 +19,7 @@ source_urls = [
     "http://iptv.4666888.xyz/FYTV.m3u",
     "https://php.946985.filegear-sg.me/jackTV.m3u",
     "https://live.445569.xyz/live.m3u",
+    "https://iptv.852851.xyz/sub/1ZHX2oLQXJSw/playlist.m3u",
     "https://raw.githubusercontent.com/YueChan/Live/refs/heads/main/GNTV.m3u",
     "https://raw.githubusercontent.com/Kimentanm/aptv/refs/heads/master/m3u/iptv.m3u",
     "https://raw.githubusercontent.com/Guovin/iptv-api/refs/heads/gd/output/result.txt",
