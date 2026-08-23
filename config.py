@@ -22,6 +22,7 @@ source_urls = [
     "https://iptv.852851.xyz/sub/1ZHX2oLQXJSw/playlist.m3u",
     "https://raw.githubusercontent.com/YueChan/Live/refs/heads/main/GNTV.m3u",
     "https://raw.githubusercontent.com/Kimentanm/aptv/refs/heads/master/m3u/iptv.m3u",
+    "https://raw.githubusercontent.com/akuku9/testtt/refs/heads/main/test/tgtest.txt",
     "https://raw.githubusercontent.com/Guovin/iptv-api/refs/heads/gd/output/result.txt",
     "https://raw.githubusercontent.com/Guovin/iptv-api/refs/heads/gd/output/ipv6/result.txt",
     "https://raw.githubusercontent.com/yoursmile66/TVBox/main/live.txt",
