@@ -16,6 +16,9 @@ source_urls = [
     "https://tvlive.yuan77.workers.dev/xymm",
     "http://47.100.209.208:20002",
     "http://193.123.86.190:14888/TV/iptv.php",
+    "http://iptv.4666888.xyz/FYTV.m3u",
+    "https://php.946985.filegear-sg.me/jackTV.m3u",
+    "https://codeberg.org/Jsnzkpg/Jsnzkpg/raw/branch/Jsnzkpg/Jsnzkpg1.m3u",
     "https://raw.githubusercontent.com/YueChan/Live/refs/heads/main/GNTV.m3u",
     "https://raw.githubusercontent.com/Kimentanm/aptv/refs/heads/master/m3u/iptv.m3u",
     "https://raw.githubusercontent.com/Guovin/iptv-api/refs/heads/gd/output/result.txt",
@@ -24,6 +27,7 @@ source_urls = [
     "https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv4.m3u",
     "https://iptv.1989.click/playlist.m3u",
     "https://iptv.1989.click/myTV/playlist.m3u",
+    "https://cdn.qd.je/live.m3u",
     "https://live.zbds.top/tv/iptv6.txt",
     "https://live.zbds.top/tv/iptv4.txt"
 ]
@@ -67,8 +71,7 @@ announcements = [
 epg_urls = [
     "http://e.erw.cc/e.xml.gz",
     "https://gitee.com/taksssss/tv/raw/main/epg/112114.xml.gz",
-    "https://iptv.1989.click/epg.xml.gz",
-    "https://github.776512.xyz/https://raw.githubusercontent.com/atsushi444/iptv-epg/refs/heads/main/EPG.xml"
+    "https://iptv.1989.click/epg.xml.gz"
 ]
 
 # ── 质量检测 — HTTP 快筛 ─────────────────────────────────────────────
@@ -94,7 +97,7 @@ check_max_conn   = 50
 # ffprobe_max_streams: ffprobe 最多读取的流数量，避免大文件探流耗时过长
 ffmpeg_path        = ""        # 空 = 使用系统 PATH 里的 ffprobe
 enable_ffprobe     = True
-ffprobe_timeout    = 4.0
+ffprobe_timeout    = 3.5
 min_bitrate        = 0         # min_bitrate = 200000 → 码率>0 且 <200kbps 的源会被淘汰；码率=0 的源不受影响
 min_resolution     = "720"     # 宽度最低 720px
 ffprobe_max_streams = 3
