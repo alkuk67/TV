@@ -209,8 +209,37 @@ def _url_sort_key(url: str, check_results: dict, category: str = ""):
                         speed_kbps = deep.get("speed_kbps", 0)
                     break
     layer_rank = 0 if layer in ("ffprobe", "deep") else 1
-    # 排序：IP 版本 > 来源 > 层级 > 速度 > 码率 > 分辨率
-    return (ipv6_rank, source_rank, layer_rank, -speed_kbps, -bitrate, -width)
+    
+    # 根据排序模式调整权重
+    sort_mode = getattr(config, "sort_mode", "balanced")
+    if sort_mode == "speed":
+        # 速度优先：速度+码率60%，画质40%
+        speed_weight = 0.6
+        quality_weight = 0.4
+    elif sort_mode == "quality":
+        # 画质优先：画质65%，速度+稳定35%
+        speed_weight = 0.35
+        quality_weight = 0.65
+    else:  # balanced
+        # 综合平衡：速度+稳定48%，画质52%
+        speed_weight = 0.48
+        quality_weight = 0.52
+    
+    # 归一化速度和画质分数到 0-1000 范围
+    max_speed = max(speed_kbps, 1)
+    max_bitrate = max(bitrate, 1)
+    max_width = max(width, 1)
+    
+    # 码率与速度合并为45%，分辨率占55%
+    speed_score = (speed_kbps / max_speed) * 1000 if max_speed > 0 else 0
+    bitrate_score = (bitrate / max_bitrate) * 1000 if max_bitrate > 0 else 0
+    quality_score = (speed_score * 0.5 + bitrate_score * 0.5) * 0.45 + (width / max_width) * 1000 * 0.55
+    
+    # 综合评分：速度+稳定 * speed_weight + 画质 * quality_weight + 层级奖励
+    combined_score = speed_score * speed_weight + quality_score * quality_weight + layer_rank * 500
+    
+    # 排序：IP 版本 > 来源 > 综合评分（降序，用负数）
+    return (ipv6_rank, source_rank, -combined_score)
 
 def _get_meta_suffix(url: str, check_results: dict) -> str:
     """从 check_results 提取 ffprobe 元数据和速度信息，生成后缀如 【1920x1080@256kbps 1.7Mbps】"""
@@ -297,6 +326,10 @@ async def async_main():
 
     if config.enable_quality_check:
         logging.info("[质量检测] 开始...")
+        # ISP 运营商预过滤（在检测前剔除不符合要求的 URL，节省探测开销）
+        channels, isp_removed = await quality_checker._isp_filter_urls(channels)
+        if isp_removed > 0:
+            logging.info(f"[ISP] 预过滤移除 {isp_removed} 个 URL")
         check_results, fail_domains = await quality_checker.check_all(channels)
         channels = quality_checker.filter_dead_urls(channels, check_results)
         _print_domain_suggestions(fail_domains)
@@ -379,3 +412,6 @@ if __name__ == "__main__":
         asyncio.run(async_main())
     finally:
         quality_checker._shutdown_ffprobe_executor()
+
+
+

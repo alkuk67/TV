@@ -23,18 +23,33 @@ async def _fetch_json(session, url, timeout):
 
 
 async def _fetch_text(session, url, timeout):
-    """通用文本请求（UTF-8）"""
+    """通用文本请求（自动识别 UTF-8/GBK 编码）"""
     try:
         async with session.get(url, timeout=timeout) as resp:
             resp.raise_for_status()
-            return await resp.text(encoding="utf-8")
+            raw = await resp.read()
+            # 先尝试 GBK（很多老旧服务器用 GBK）
+            try:
+                text_gbk = raw.decode("gbk")
+                # 检查是否包含有效中文
+                if any("\u4e00" <= c <= "\u9fa5" for c in text_gbk):
+                    return text_gbk
+            except UnicodeDecodeError:
+                pass
+            # 尝试 UTF-8
+            try:
+                return raw.decode("utf-8")
+            except UnicodeDecodeError:
+                pass
+            # 兜底
+            return raw.decode("utf-8", errors="replace")
     except Exception as e:
         return None
 
 
 async def fetch_nodes():
     """从速度测试站拉取节点列表，按 allowed_orgs 过滤。"""
-    hotel_api = config.hotel_config.get("hotel_api", "https://iptvs-speed.humorously.cn/")
+    hotel_api = config.hotel_config.get("hotel_api")
     allowed_orgs = config.hotel_config.get("allowed_orgs", [])
     timeout = aiohttp.ClientTimeout(total=15)
     connector = aiohttp.TCPConnector(limit=5, ssl=False)
@@ -92,8 +107,7 @@ async def parse_zhgxtrv(session, host, timeout):
         channel_url = parts[1].strip()
         if not name or not channel_url:
             continue
-        if re.search(r"[\u4e00-\u9fa5]", name):
-            result[name] = channel_url
+        result[name] = channel_url
     return result
 
 

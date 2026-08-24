@@ -14,6 +14,19 @@ source_priority = "hotel"
 # 每频道最大线路数，0 = 不限制
 max_lines_per_channel = 8
 
+# ── 排序模式 ──────────────────────────────────────────────────────
+# "speed" = 速度优先（60%）画质40%
+# "quality" = 画质优先（65%）速度稳定35%
+# "balanced" = 综合平衡（分辨率55%+速度码率45%）
+sort_mode = "balanced"
+
+# ── ISP 运营商过滤 ────────────────────────────────────────────────
+# allowed_isps: 只保留指定运营商的接口，空列表=不过滤
+#               可选值: "China Telecom", "China Mobile", "China Unicom",
+#                       "China Education & Research Network",
+#                       "China Science & Technology Network", "Dr.Peng"
+allowed_isps = ["China Mobile"]
+
 # ── 订阅源 ───────────────────────────────────────────────────────
 # 每个 URL 都是一个 IPTV 直播源文件（支持 m3u 或 txt 格式）
 # main.py 会依次请求这些地址，提取频道名和播放地址
@@ -96,7 +109,7 @@ epg_urls = [
 # check_max_conn       : 最大并发检测数，调高可加速但更占带宽
 enable_quality_check = True
 check_timeout    = 3.5
-check_max_conn   = 80
+check_max_conn   = 60
 
 # ── 质量检测 — FFprobe 中度探测 ───────────────────────────────────────
 # enable_ffprobe     : True=启用第二层 FFprobe 探测，False=仅 HTTP 快筛

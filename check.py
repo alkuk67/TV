@@ -445,6 +445,88 @@ async def _check_single(session, url, http_timeout, ffprobe_timeout, ffprobe_sem
     return fast
 
 
+async def _isp_filter_urls(channels):
+    """
+    ISP 运营商预过滤：在检测前剔除不符合 allowed_isps 的 URL。
+    策略：IP 直连优先，域名才 DNS 解析。
+    """
+    import asyncio
+    import ipaddress
+    import socket
+    from urllib.parse import urlparse
+    from isp_checker import get_isp_checker
+
+    allowed = getattr(config, "allowed_isps", [])
+    if not allowed:
+        return channels, 0
+
+    checker = get_isp_checker()
+
+    # 第一阶段：收集所有唯一 hostname
+    host_to_urls: dict[str, set[str]] = {}
+    for cat, ch_dict in channels.items():
+        for ch_name, url_list in ch_dict.items():
+            for url in url_list:
+                clean = _strip_suffix(url)
+                parsed = urlparse(clean)
+                hostname = parsed.hostname or parsed.netloc.split("@")[-1].split(":")[0]
+                if hostname:
+                    host_to_urls.setdefault(hostname, set()).add(clean)
+
+    # 第二阶段：获取 IP 地址（IP 直连优先，域名才 DNS 解析）
+    ip_map: dict[str, str | None] = {}
+    hostnames_to_resolve = []
+    for hostname in host_to_urls:
+        try:
+            ipaddress.ip_address(hostname)
+            ip_map[hostname] = hostname
+        except ValueError:
+            hostnames_to_resolve.append(hostname)
+
+    if hostnames_to_resolve:
+        async def _resolve_one(hostname: str) -> str | None:
+            try:
+                addr_info = await asyncio.get_event_loop().run_in_executor(
+                    None, socket.getaddrinfo, hostname, None, socket.AF_UNSPEC, socket.SOCK_STREAM
+                )
+                return addr_info[0][4][0] if addr_info else None
+            except Exception:
+                return None
+
+        tasks = [_resolve_one(h) for h in hostnames_to_resolve]
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+        for hostname, result in zip(hostnames_to_resolve, results):
+            if isinstance(result, Exception):
+                ip_map[hostname] = None
+            else:
+                ip_map[hostname] = result[0][4][0] if result and len(result) > 0 and len(result[0]) > 4 else None
+
+    # 第三阶段：批量 ISP 过滤
+    filtered_channels = {}
+    removed = 0
+    for cat, ch_dict in channels.items():
+        filtered_ch = {}
+        for ch_name, url_list in ch_dict.items():
+            valid_urls = []
+            for url in url_list:
+                clean = _strip_suffix(url)
+                parsed = urlparse(clean)
+                hostname = parsed.hostname or parsed.netloc.split("@")[-1].split(":")[0]
+                ip_str = ip_map.get(hostname) if hostname else None
+                if ip_str and not checker.is_allowed(ip_str, allowed):
+                    removed += 1
+                    continue
+                valid_urls.append(url)
+            if valid_urls:
+                filtered_ch[ch_name] = valid_urls
+        if filtered_ch:
+            filtered_channels[cat] = filtered_ch
+
+    if removed > 0:
+        logger.info(f"[ISP] 预过滤移除 {removed} 个 URL，allowed={allowed}")
+    return filtered_channels, removed
+
+
 async def check_all(channels):
     """
     双引擎并发检测所有频道的所有 URL。
