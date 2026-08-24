@@ -7,32 +7,46 @@
 # "ipv6" = IPv6 地址优先排在前面；"ipv4" = IPv4 优先
 ip_version_priority = "ipv6"
 
-# ── 数据源列表 ───────────────────────────────────────────────────────
+# ── 源优先级 ────────────────────────────────────────────────────────
+# "hotel" = 酒店源优先排在前面；"subscription" = 订阅源优先
+source_priority = "hotel"
+
+# 每频道最大线路数，0 = 不限制
+max_lines_per_channel = 8
+
+# ── 订阅源 ───────────────────────────────────────────────────────
 # 每个 URL 都是一个 IPTV 直播源文件（支持 m3u 或 txt 格式）
 # main.py 会依次请求这些地址，提取频道名和播放地址
 # 注：被注释掉的源暂时停用，可取消注释启用
 source_urls = [
-    "http://45.192.97.170:6001/txt",
-    "https://tvlive.yuan77.workers.dev/xymm",
-    "http://47.100.209.208:20002",
-    "http://193.123.86.190:14888/TV/iptv.php",
-    "http://iptv.4666888.xyz/FYTV.m3u",
-    "https://php.946985.filegear-sg.me/jackTV.m3u",
-    "https://live.445569.xyz/live.m3u",
-    "https://iptv.852851.xyz/sub/1ZHX2oLQXJSw/playlist.m3u",
-    "https://raw.githubusercontent.com/YueChan/Live/refs/heads/main/GNTV.m3u",
-    "https://raw.githubusercontent.com/Kimentanm/aptv/refs/heads/master/m3u/iptv.m3u",
-    "https://raw.githubusercontent.com/akuku9/testtt/refs/heads/main/test/tgtest.txt",
-    "https://raw.githubusercontent.com/Guovin/iptv-api/refs/heads/gd/output/result.txt",
-    "https://raw.githubusercontent.com/Guovin/iptv-api/refs/heads/gd/output/ipv6/result.txt",
-    "https://raw.githubusercontent.com/yoursmile66/TVBox/main/live.txt",
-    "https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv4.m3u",
-    "https://iptv.1989.click/playlist.m3u",
-    "https://iptv.1989.click/myTV/playlist.m3u",
-    "https://cdn.qd.je/live.m3u",
-    "https://live.zbds.top/tv/iptv6.txt",
-    "https://live.zbds.top/tv/iptv4.txt"
+     "http://45.192.97.170:6001/txt",
+     "https://tvlive.yuan77.workers.dev/xymm",
+     "http://47.100.209.208:20002",
+     "http://193.123.86.190:14888/TV/iptv.php",
+     "http://iptv.4666888.xyz/FYTV.m3u",
+     "https://php.946985.filegear-sg.me/jackTV.m3u",
+     "https://live.445569.xyz/live.m3u",
+     "https://iptv.852851.xyz/sub/1ZHX2oLQXJSw/playlist.m3u",
+     "https://raw.githubusercontent.com/Kimentanm/aptv/refs/heads/master/m3u/iptv.m3u",
+     "https://raw.githubusercontent.com/akuku9/testtt/refs/heads/main/test/tgtest.txt",
+     "https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv4.m3u",
+     "https://iptv.1989.click/playlist.m3u",
+     "https://iptv.1989.click/myTV/playlist.m3u",
+     "https://cdn.qd.je/live.m3u",
+     "https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.txt"
 ]
+
+# ── 酒店源 ────────────────────────────────────────────
+# hotel_api   : 酒店源 API 地址
+# enabled   : True=启用酒店源抓取，False=跳过
+# allowed_orgs : 只保留指定运营商的节点，空列表=不过滤
+#              可选值: "China Telecom", "China Unicom", "China Mobile",
+#                      "Alibaba Cloud", "Tencent" 等
+hotel_config = {
+    "hotel_api": "https://iptvs-speed.humorously.cn",
+    "enabled": True,
+    "allowed_orgs": ["China Mobile","Alibaba Cloud"],
+}
 
 # ── URL 黑名单 ───────────────────────────────────────────────────────
 # 播放地址包含以下任意子串时会被自动过滤掉
@@ -82,7 +96,7 @@ epg_urls = [
 # check_max_conn       : 最大并发检测数，调高可加速但更占带宽
 enable_quality_check = True
 check_timeout    = 3.5
-check_max_conn   = 50
+check_max_conn   = 80
 
 # ── 质量检测 — FFprobe 中度探测 ───────────────────────────────────────
 # enable_ffprobe     : True=启用第二层 FFprobe 探测，False=仅 HTTP 快筛
@@ -103,3 +117,12 @@ ffprobe_timeout    = 3.5
 min_bitrate        = 0         # min_bitrate = 200000 → 码率>0 且 <200kbps 的源会被淘汰；码率=0 的源不受影响
 min_resolution     = "720"     # 宽度最低 720px
 ffprobe_max_streams = 3
+
+# ── 深度探测配置 ───────────────────────────────────────────────────────
+# enable_deep_probe  : True=启用第三层深度探测（仅对 m3u8 流），False=仅中度探测
+#                      深度探测会检查分片时长、数量等，更准确但更慢
+# deep_probe_timeout : 单个 URL 深度探测超时（秒）
+#                      IPTV 流通常 5~10 秒即可探完，设为 10 秒以容忍慢源
+enable_deep_probe  = False
+deep_probe_timeout = 8.0
+
