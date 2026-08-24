@@ -123,6 +123,9 @@ ffprobe_max_streams = 3
 #                      深度探测会检查分片时长、数量等，更准确但更慢
 # deep_probe_timeout : 单个 URL 深度探测超时（秒）
 #                      IPTV 流通常 5~10 秒即可探完，设为 10 秒以容忍慢源
-enable_deep_probe  = False
-deep_probe_timeout = 8.0
-
+# min_speed_kbps     : 最小速度阈值（kbps），低于此值的源会被过滤
+#                      0 = 不过滤（只评分不淘汰）
+#                      建议 2000（2 Mbps）避免推流卡顿
+enable_deep_probe  = True
+deep_probe_timeout = 5.0
+min_speed_kbps     = 2500  # 2.5 Mbps
