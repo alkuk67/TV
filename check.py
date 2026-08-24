@@ -140,7 +140,7 @@ def _run_ffprobe(url, timeout, max_streams):
 
 
 def _deep_probe_m3u8(url, timeout):
-    """深度探测 m3u8 直播流：检查分片稳定性和播放连续性"""
+    """深度探测 m3u8 直播流：检查分片稳定性、播放连续性和下载速度"""
     ffprobe = _find_ffprobe()
     result = {
         "status": "ok",
@@ -149,8 +149,11 @@ def _deep_probe_m3u8(url, timeout):
         "segment_count": 0,
         "is_live": False,
         "quality_score": 0,
+        "speed_kbps": 0,  # 新增：下载速度（kbps）
+        "bandwidth_score": 0,  # 新增：带宽评分
     }
     
+    # ===== 第一部分：ffprobe 基础探测 =====
     cmd = [
         ffprobe,
         "-v", "quiet",
@@ -217,6 +220,86 @@ def _deep_probe_m3u8(url, timeout):
     except Exception as e:
         result["status"] = "error"
         result["detail"] = str(e)
+    
+    # ===== 第二部分：速度测试（下载多个 TS 分片） =====
+    if result["status"] in ("ok", "ok_no_ts") and _is_m3u8_url(url):
+        import time
+        import urllib.request
+        
+        # 下载 m3u8 playlist
+        m3u8_start = time.time()
+        try:
+            with urllib.request.urlopen(url, timeout=3) as resp:
+                m3u8_content = resp.read().decode("utf-8", errors="replace")
+            m3u8_elapsed = time.time() - m3u8_start
+        except:
+            result["detail"] += " m3u8_fail"
+            result["speed_kbps"] = 0
+            return result
+        
+        # 解析 m3u8，收集 TS 分片 URL（最多 5 个）
+        base_url = _get_base_url(url)
+        ts_urls = []
+        for line in m3u8_content.splitlines():
+            line = line.strip()
+            if line and not line.startswith("#"):
+                if line.endswith(".ts"):
+                    ts_urls.append(line)
+                elif "/" not in line and base_url and len(ts_urls) < 5:
+                    ts_urls.append(base_url + line)
+            if len(ts_urls) >= 5:
+                break
+        
+        if not ts_urls:
+            result["detail"] += " no_ts"
+            result["speed_kbps"] = 0
+            return result
+        
+        # 下载前 3 个 TS 分片，综合计算速度
+        total_bytes = len(m3u8_content.encode())
+        total_time = m3u8_elapsed
+        ts_downloaded = 0
+        
+        for ts_rel in ts_urls[:3]:
+            # 处理相对路径和绝对路径
+            ts_url = ts_rel if ts_rel.startswith("http") else base_url + ts_rel
+            
+            try:
+                ts_start = time.time()
+                with urllib.request.urlopen(ts_url, timeout=3) as ts_resp:
+                    ts_data = ts_resp.read()
+                ts_elapsed = time.time() - ts_start
+                
+                total_bytes += len(ts_data)
+                total_time += ts_elapsed
+                ts_downloaded += 1
+            except:
+                continue
+        
+        # 计算综合速度
+        if total_time > 0:
+            speed_kbps = total_bytes * 8 / total_time / 1024
+            result["speed_kbps"] = int(speed_kbps)
+            result["detail"] += f" {ts_downloaded}ts_avg"
+        else:
+            result["speed_kbps"] = 0
+        
+        # 根据速度评分
+        speed = result["speed_kbps"]
+        if speed >= 3000:  # >= 3 Mbps
+            result["bandwidth_score"] = 90
+        elif speed >= 2000:  # >= 2 Mbps
+            result["bandwidth_score"] = 70
+        elif speed >= 1000:  # >= 1 Mbps
+            result["bandwidth_score"] = 50
+        else:
+            result["bandwidth_score"] = 30
+        
+        # 更新 detail 信息
+        if result["speed_kbps"] > 0:
+            result["detail"] += f" speed={result['speed_kbps']}kbps"
+        else:
+            result["detail"] += " speed=unknown"
     
     return result
 
@@ -347,8 +430,8 @@ async def _check_single(session, url, http_timeout, ffprobe_timeout, ffprobe_sem
             fast["ffprobe"] = probe
             return fast
         fast["ffprobe"] = probe
-        # 第三层：深度探测（仅对 m3u8 流）
-        if _is_m3u8_url(clean_url) and config.enable_deep_probe:
+        # 第三层：深度探测（对所有通过中度探测的源）
+        if config.enable_deep_probe:
             deep = await _deep_probe_async(clean_url, config.deep_probe_timeout)
             if deep["status"] == "ok":
                 fast["deep"] = deep
@@ -395,6 +478,8 @@ async def check_all(channels):
         f"开始质量检测，共 {len(all_tasks)} 个 URL，并发数 {config.check_max_conn}，"
         f"HTTP 超时 {config.check_timeout}s"
         + (f"，FFprobe 启用，超时 {config.ffprobe_timeout}s" if config.enable_ffprobe else "")
+        + (f"，深度探测启用，超时 {config.deep_probe_timeout}s" if config.enable_deep_probe else "")
+        + (f"，最小速度 {config.min_speed_kbps}kbps" if getattr(config, "min_speed_kbps", 0) > 0 else "")
     )
 
     async with aiohttp.ClientSession(connector=connector, timeout=timeout) as session:
