@@ -192,6 +192,7 @@ def _url_sort_key(url: str, check_results: dict, category: str = ""):
     layer = "fast"
     bitrate = 0
     width = 0
+    speed_kbps = 0  # 新增：下载速度
     if check_results:
         for cat_ch in check_results.values():
             for ch_urls in cat_ch.values():
@@ -202,12 +203,17 @@ def _url_sort_key(url: str, check_results: dict, category: str = ""):
                     if fp:
                         bitrate = fp.get("bitrate", 0)
                         width = fp.get("width", 0)
+                    # 新增：获取速度信息
+                    deep = r.get("deep", {})
+                    if deep:
+                        speed_kbps = deep.get("speed_kbps", 0)
                     break
     layer_rank = 0 if layer in ("ffprobe", "deep") else 1
-    return (ipv6_rank, source_rank, layer_rank, -bitrate, -width)
+    # 排序：IP 版本 > 来源 > 层级 > 速度 > 码率 > 分辨率
+    return (ipv6_rank, source_rank, layer_rank, -speed_kbps, -bitrate, -width)
 
 def _get_meta_suffix(url: str, check_results: dict) -> str:
-    """从 check_results 提取 ffprobe 元数据，生成后缀如 【1920x1080@256kbps】"""
+    """从 check_results 提取 ffprobe 元数据和速度信息，生成后缀如 【1920x1080@256kbps 1.7Mbps】"""
     clean = url.split(chr(36), 1)[0] if chr(36) in url else url
     if not check_results:
         return ""
@@ -215,6 +221,10 @@ def _get_meta_suffix(url: str, check_results: dict) -> str:
         for ch_urls in cat_ch.values():
             r = ch_urls.get(clean, {})
             fp = r.get("ffprobe", {})
+            # 获取深度探测的速度信息
+            deep = r.get("deep", {})
+            speed_kbps = deep.get("speed_kbps", 0) if deep else 0
+            
             if fp and fp.get("status") == "ok":
                 w, h = fp.get("width", 0), fp.get("height", 0)
                 br = fp.get("bitrate", 0)
@@ -223,8 +233,21 @@ def _get_meta_suffix(url: str, check_results: dict) -> str:
                     parts.append(f"{w}x{h}")
                 if br > 0:
                     parts.append(f"{br//1000}kbps")
+                # 添加速度信息
+                if speed_kbps > 0:
+                    if speed_kbps >= 1000:
+                        parts.append(f"{speed_kbps//1000}Mbps")
+                    else:
+                        parts.append(f"{speed_kbps}kbps")
                 if parts:
-                    return " 【" + "@".join(parts) + "】"
+                    # 分辨率和码率用 @ 连接，速度单独放后面
+                    if len(parts) >= 2 and "x" in parts[0]:
+                        # 有分辨率，格式：【1920x1080@256kbps 4Mbps】
+                        res_br = "@".join(parts[:-1])
+                        speed = parts[-1]
+                        return f" 【{res_br} {speed}】"
+                    else:
+                        return " 【" + " ".join(parts) + "】"
     return ""
 
 def _print_domain_suggestions(fail_domains: dict):
