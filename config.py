@@ -87,7 +87,7 @@ announcements = [
 epg_urls = [
     "http://e.erw.cc/e.xml.gz",
     "https://gitee.com/taksssss/tv/raw/main/epg/112114.xml.gz",
-    "https://iptv.1989.click/epg.xml.gz"
+    "http://epg.51zmt.top:8000/e.xml.gz"
 ]
 
 # ── 质量检测 — HTTP 快筛 ─────────────────────────────────────────────
