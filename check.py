@@ -44,41 +44,45 @@ def _get_base_url(url: str) -> str:
 
 
 async def _http_fast_check(session, url, timeout):
-    """HTTP 快筛：拉 playlist 验证可达性"""
-    result = {"url": url, "status": "unknown", "detail": "", "layer": "fast"}
+    import time
+    result = {'url': url, 'status': 'unknown', 'detail': '', 'layer': 'fast'}
+    req_start = time.time()
     try:
         async with session.get(url, timeout=aiohttp.ClientTimeout(total=timeout)) as resp:
             if resp.status != 200:
-                result["status"] = "failed"
-                result["detail"] = f"http_status={resp.status}"
+                result['status'] = 'failed'
+                result['detail'] = f'http_status={resp.status}'
+                result['response_time_ms'] = int((time.time() - req_start) * 1000)
                 return result
             text = await resp.text()
             if not text or len(text) < 10:
-                result["status"] = "empty"
-                result["detail"] = "playlist is empty"
+                result['status'] = 'empty'
+                result['detail'] = 'playlist is empty'
+                result['response_time_ms'] = int((time.time() - req_start) * 1000)
                 return result
-            if ".m3u8" in url or "index.m3u8" in url:
+            if '.m3u8' in url or 'index.m3u8' in url:
                 ts_lines = [l.strip() for l in text.splitlines()
-                            if l.strip() and not l.strip().startswith("#") and l.strip()]
-                result["ts_count"] = len(ts_lines)
+                            if l.strip() and not l.strip().startswith('#') and l.strip()]
+                result['ts_count'] = len(ts_lines)
                 if not ts_lines:
-                    result["status"] = "ok_no_ts"
-                    result["detail"] = "live m3u8 (no ENDLIST)"
+                    result['status'] = 'ok_no_ts'
+                    result['detail'] = 'live m3u8 (no ENDLIST)'
                 else:
-                    result["status"] = "ok"
-                    result["detail"] = f"playlist_ok ts_entries={len(ts_lines)}"
+                    result['status'] = 'ok'
+                    result['detail'] = f'playlist_ok ts_entries={len(ts_lines)}'
             else:
-                result["status"] = "ok"
-                result["detail"] = "http_ok"
+                result['status'] = 'ok'
+                result['detail'] = 'http_ok'
+            result['response_time_ms'] = int((time.time() - req_start) * 1000)
     except asyncio.TimeoutError:
-        result["status"] = "timeout"
-        result["detail"] = f"timeout >{timeout}s"
+        result['status'] = 'timeout'
+        result['detail'] = f'timeout >{timeout}s'
+        result['response_time_ms'] = 9999
     except Exception as e:
-        result["status"] = "error"
-        result["detail"] = str(e)
+        result['status'] = 'error'
+        result['detail'] = str(e)
+        result['response_time_ms'] = 9999
     return result
-
-
 def _find_ffprobe():
     """查找 ffprobe 可执行文件"""
     import shutil

@@ -25,7 +25,7 @@ sort_mode = "balanced"
 #               可选值: "China Telecom", "China Mobile", "China Unicom",
 #                       "China Education & Research Network",
 #                       "China Science & Technology Network", "Dr.Peng"
-allowed_isps = ["China Mobile"]
+allowed_isps = []
 
 # ── 订阅源 ───────────────────────────────────────────────────────
 # 每个 URL 都是一个 IPTV 直播源文件（支持 m3u 或 txt 格式）
@@ -58,7 +58,7 @@ source_urls = [
 hotel_config = {
     "hotel_api": "https://iptvs-speed.humorously.cn",
     "enabled": True,
-    "allowed_orgs": ["China Mobile","Alibaba Cloud"],
+    "allowed_orgs": [],
 }
 
 # ── URL 黑名单 ───────────────────────────────────────────────────────
@@ -128,7 +128,7 @@ ffmpeg_path        = ""        # 空 = 使用系统 PATH 里的 ffprobe
 enable_ffprobe     = True
 ffprobe_timeout    = 3.5
 min_bitrate        = 0         # min_bitrate = 200000 → 码率>0 且 <200kbps 的源会被淘汰；码率=0 的源不受影响
-min_resolution     = "720"     # 宽度最低 720px
+min_resolution     = "1080"     # 宽度最低 720px
 ffprobe_max_streams = 3
 
 # ── 深度探测配置 ───────────────────────────────────────────────────────

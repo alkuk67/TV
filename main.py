@@ -174,25 +174,17 @@ def _get_source_type(url: str, category: str = "") -> str:
 
 
 def _url_sort_key(url: str, check_results: dict, category: str = ""):
-    """
-    排序 key：IP版本优先 > 来源（根据 source_priority） > 质量
-    ip_version_priority="ipv6" 时 IPv6 优先，否则 IPv4 优先
-    source_priority="hotel" 时酒店源优先，否则订阅源优先
-    返回 (ipv6_rank, source_rank, layer_rank, -bitrate, -width)，sorted 升序排列
-    """
     clean = url.split(chr(36), 1)[0] if chr(36) in url else url
-    # IP 版本排序：优先选择 config 中指定的版本
     is_v6 = is_ipv6(url)
     ipv6_first = config.ip_version_priority == "ipv6"
     ipv6_rank = 0 if (is_v6 and ipv6_first) or (not is_v6 and not ipv6_first) else 1
-    # 来源排序：根据 source_priority 配置
     source_priority = config.source_priority
     source_rank = 0 if _get_source_type(url, category) == source_priority else 1
-    # 质量排序
     layer = "fast"
     bitrate = 0
     width = 0
-    speed_kbps = 0  # 新增：下载速度
+    speed_kbps = 0
+    response_time_ms = 0
     if check_results:
         for cat_ch in check_results.values():
             for ch_urls in cat_ch.values():
@@ -203,43 +195,37 @@ def _url_sort_key(url: str, check_results: dict, category: str = ""):
                     if fp:
                         bitrate = fp.get("bitrate", 0)
                         width = fp.get("width", 0)
-                    # 新增：获取速度信息
                     deep = r.get("deep", {})
                     if deep:
                         speed_kbps = deep.get("speed_kbps", 0)
+                    response_time_ms = r.get("response_time_ms", 0)
                     break
     layer_rank = 0 if layer in ("ffprobe", "deep") else 1
-    
-    # 根据排序模式调整权重
     sort_mode = getattr(config, "sort_mode", "balanced")
     if sort_mode == "speed":
-        # 速度优先：速度+码率60%，画质40%
         speed_weight = 0.6
         quality_weight = 0.4
     elif sort_mode == "quality":
-        # 画质优先：画质65%，速度+稳定35%
         speed_weight = 0.35
         quality_weight = 0.65
-    else:  # balanced
-        # 综合平衡：速度+稳定48%，画质52%
+    else:
         speed_weight = 0.48
         quality_weight = 0.52
-    
-    # 归一化速度和画质分数到 0-1000 范围
     max_speed = max(speed_kbps, 1)
     max_bitrate = max(bitrate, 1)
     max_width = max(width, 1)
-    
-    # 码率与速度合并为45%，分辨率占55%
     speed_score = (speed_kbps / max_speed) * 1000 if max_speed > 0 else 0
     bitrate_score = (bitrate / max_bitrate) * 1000 if max_bitrate > 0 else 0
     quality_score = (speed_score * 0.5 + bitrate_score * 0.5) * 0.45 + (width / max_width) * 1000 * 0.55
-    
-    # 综合评分：速度+稳定 * speed_weight + 画质 * quality_weight + 层级奖励
     combined_score = speed_score * speed_weight + quality_score * quality_weight + layer_rank * 500
-    
-    # 排序：IP 版本 > 来源 > 综合评分（降序，用负数）
-    return (ipv6_rank, source_rank, -combined_score)
+    max_latency = 2000
+    if response_time_ms > 0:
+        latency_score = max(0, (1 - response_time_ms / max_latency)) * 1000
+    else:
+        latency_score = 500
+    final_score = latency_score * 0.3 + combined_score * 0.7
+    return (ipv6_rank, source_rank, response_time_ms, -final_score)
+
 
 def _get_meta_suffix(url: str, check_results: dict) -> str:
     """从 check_results 提取 ffprobe 元数据和速度信息，生成后缀如 【1920x1080@256kbps 1.7Mbps】"""

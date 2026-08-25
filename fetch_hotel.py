@@ -112,7 +112,9 @@ async def parse_zhgxtrv(session, host, timeout):
 
 
 async def parse_jsmpeg(session, host, timeout):
-    """JSMPEG: 返回 {channel_name: rtp_url}"""
+    """JSMPEG: 返回 {channel_name: http_url}
+    尝试将 RTP 流转换为 HTTP stream 格式
+    """
     result = {}
     url = f"{host}/streamer/list"
     data = await _fetch_json(session, url, timeout)
@@ -120,8 +122,21 @@ async def parse_jsmpeg(session, host, timeout):
         return result
     for item in data:
         name = item.get("name", "").strip()
+        key = item.get("key", "").strip()
         source = item.get("source", "").strip()
-        if name and source:
+        
+        if not name or not key:
+            continue
+        
+        # 尝试转换为 HTTP stream URL
+        # 格式: http://host/hls/{key}/index.m3u8
+        http_url = f"{host}/hls/{key}/index.m3u8"
+        
+        # 如果 source 是 RTP，使用转换后的 HTTP URL
+        # 否则保留原始 source
+        if source.startswith("rtp://"):
+            result[name] = http_url
+        else:
             result[name] = source
     return result
 
