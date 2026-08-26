@@ -440,12 +440,12 @@ async def _check_single(session, url, http_timeout, ffprobe_timeout, ffprobe_sem
             if deep["status"] == "ok":
                 fast["deep"] = deep
                 fast["layer"] = "deep"
+                # 深度探测成功后才做播放测试
+                pb = await _playback_test_async(clean_url, getattr(config, "playback_test_timeout", 5))
+                fast["playback"] = pb  # 无论成功失败都记录
             else:
                 fast["deep"] = deep
-                # 深度探测失败不阻塞，保留基础探测结果
                 fast["layer"] = "ffprobe"
-        else:
-            fast["layer"] = "ffprobe"
     return fast
 
 
@@ -566,6 +566,7 @@ async def check_all(channels):
         + (f"，FFprobe 启用，超时 {config.ffprobe_timeout}s" if config.enable_ffprobe else "")
         + (f"，深度探测启用，超时 {config.deep_probe_timeout}s" if config.enable_deep_probe else "")
         + (f"，最小速度 {config.min_speed_kbps}kbps" if getattr(config, "min_speed_kbps", 0) > 0 else "")
+        + (f"，播放测试启用, 超时 {config.playback_test_timeout}s" if getattr(config, "enable_playback_test", False) else "")
     )
 
     async with aiohttp.ClientSession(connector=connector, timeout=timeout) as session:
@@ -616,8 +617,7 @@ def filter_dead_urls(channels, check_results):
         for ch_name, url_list in ch_dict.items():
             valid = []
             for url in url_list:
-                cl = _strip_suffix(url)
-                r = check_results.get(cat, {}).get(ch_name, {}).get(cl, {})
+                r = check_results.get(cat, {}).get(ch_name, {}).get(url, {})
                 # 接受 ffprobe 或 deep 层检测通过的源
                 if r.get("status") in ("ok", "ok_no_ts") and r.get("layer") in ("ffprobe", "deep"):
                     valid.append(url)
@@ -631,3 +631,4 @@ def filter_dead_urls(channels, check_results):
     kept = sum(len(urls) for c in filtered for urls in filtered[c].values())
     logger.info(f"过滤后: 保留 {kept} 个有效源，移除 {removed} 个失效源")
     return filtered
+

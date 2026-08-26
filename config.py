@@ -20,12 +20,10 @@ max_lines_per_channel = 8
 # "balanced" = 综合平衡（分辨率55%+速度码率45%）
 sort_mode = "balanced"
 
-# ── ISP 运营商过滤 ────────────────────────────────────────────────
-# allowed_isps: 只保留指定运营商的接口，空列表=不过滤
-#               可选值: "China Telecom", "China Mobile", "China Unicom",
-#                       "China Education & Research Network",
-#                       "China Science & Technology Network", "Dr.Peng"
-allowed_isps = []
+# ── ISP 运营商分类 ────────────────────────────────────────────────
+# enable_isp_split: True=生成运营商分类文件，False=仅输出全局文件
+enable_isp_split = True
+
 
 # ── 订阅源 ───────────────────────────────────────────────────────
 # 每个 URL 都是一个 IPTV 直播源文件（支持 m3u 或 txt 格式）
@@ -47,6 +45,7 @@ source_urls = [
      "https://iptv.1989.click/myTV/playlist.m3u",
      "https://cdn.qd.je/live.m3u",
      "https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.txt"
+    
 ]
 
 # ── 酒店源 ────────────────────────────────────────────
@@ -140,5 +139,13 @@ ffprobe_max_streams = 3
 #                      0 = 不过滤（只评分不淘汰）
 #                      建议 2000（2 Mbps）避免推流卡顿
 enable_deep_probe  = True
+enable_playback_test = True  # 播放测试（测首帧时间 + 解码稳定性），默认关闭（较慢）
+playback_test_timeout = 5     # 播放测试超时（秒）
 deep_probe_timeout = 5.0
 min_speed_kbps     = 2500  # 2.5 Mbps
+
+# ── 开发者模式 ────────────────────────────────────────────────────
+# developer_mode: True=启用详细日志输出（用于调试各解析功能）
+#                False=仅输出正常日志
+developer_mode = False
+

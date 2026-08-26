@@ -18,7 +18,21 @@ async def _fetch_json(session, url, timeout):
             resp.raise_for_status()
             text = await resp.text()
             return json.loads(text)
+    except asyncio.TimeoutError:
+        if config.developer_mode:
+            logger.warning(f"[JSON请求] 超时: {url}")
+        return None
+    except aiohttp.ClientResponseError as e:
+        if config.developer_mode:
+            logger.warning(f"[JSON请求] HTTP错误 {e.status}: {url} - {e.message}")
+        return None
+    except json.JSONDecodeError as e:
+        if config.developer_mode:
+            logger.warning(f"[JSON请求] JSON解析失败: {url} - {e}")
+        return None
     except Exception as e:
+        if config.developer_mode:
+            logger.warning(f"[JSON请求] 请求失败: {url} - {type(e).__name__}: {e}")
         return None
 
 
@@ -78,14 +92,22 @@ async def parse_txiptv(session, host, timeout):
     result = {}
     url = f"{host}/iptv/live/1000.json?key=txiptv"
     data = await _fetch_json(session, url, timeout)
+    if config.developer_mode:
+        logger.debug(f"[TXIPTV] 请求URL: {url}")
     if not data or data.get("code") != 0:
+        if config.developer_mode:
+            logger.warning(f"[TXIPTV] 请求失败或code不为0: {data}")
         return result
+    if config.developer_mode:
+        logger.info(f"[TXIPTV] 获取到 {len(data.get('data', []))} 个频道")
     for ch in data.get("data", []):
         name = ch.get("name", "").strip()
         path = ch.get("url", "").strip()
         if name and path:
             full_url = path if path.startswith("http") else f"{host}{path}"
             result[name] = full_url
+            if config.developer_mode:
+                logger.debug(f"[TXIPTV] 频道: {name} -> {full_url}")
     return result
 
 
@@ -94,8 +116,14 @@ async def parse_zhgxtrv(session, host, timeout):
     result = {}
     url = f"{host}/ZHGXTV/Public/json/live_interface.txt"
     text = await _fetch_text(session, url, timeout)
+    if config.developer_mode:
+        logger.debug(f"[ZHGXTV] 请求URL: {url}")
     if not text:
+        if config.developer_mode:
+            logger.warning(f"[ZHGXTV] 请求失败或返回空")
         return result
+    if config.developer_mode:
+        logger.info(f"[ZHGXTV] 获取到 {len(text.splitlines())} 行数据")
     for line in text.splitlines():
         line = line.strip()
         if not line or "," not in line:
@@ -108,6 +136,8 @@ async def parse_zhgxtrv(session, host, timeout):
         if not name or not channel_url:
             continue
         result[name] = channel_url
+        if config.developer_mode:
+            logger.debug(f"[ZHGXTV] 频道: {name} -> {channel_url}")
     return result
 
 
@@ -118,8 +148,14 @@ async def parse_jsmpeg(session, host, timeout):
     result = {}
     url = f"{host}/streamer/list"
     data = await _fetch_json(session, url, timeout)
+    if config.developer_mode:
+        logger.debug(f"[JSMPEG] 请求URL: {url}")
     if not data or not isinstance(data, list):
+        if config.developer_mode:
+            logger.warning(f"[JSMPEG] 请求失败或数据格式错误: {data}")
         return result
+    if config.developer_mode:
+        logger.info(f"[JSMPEG] 获取到 {len(data)} 个流")
     for item in data:
         name = item.get("name", "").strip()
         key = item.get("key", "").strip()
@@ -136,8 +172,12 @@ async def parse_jsmpeg(session, host, timeout):
         # 否则保留原始 source
         if source.startswith("rtp://"):
             result[name] = http_url
+            if config.developer_mode:
+                logger.debug(f"[JSMPEG] RTP频道: {name} -> {http_url} (原source: {source})")
         else:
             result[name] = source
+            if config.developer_mode:
+                logger.debug(f"[JSMPEG] 频道: {name} -> {source}")
     return result
 
 
