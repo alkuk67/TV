@@ -7,11 +7,15 @@ from datetime import datetime
 import config
 import check as quality_checker
 import fetch_hotel
-import os
-import isp_checker
 import isp_checker
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s", handlers=[logging.FileHandler("function.log", "w", encoding="utf-8"), logging.StreamHandler()])
+# 为 fetch_hotel 模块单独设置 DEBUG 级别日志到独立文件
+fetch_logger = logging.getLogger("fetch_hotel")
+fetch_logger.setLevel(logging.DEBUG)
+fetch_handler = logging.FileHandler("fetch_hotel.log", "w", encoding="utf-8")
+fetch_handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
+fetch_logger.addHandler(fetch_handler)
 
 
 def parse_template(template_file):
@@ -118,10 +122,14 @@ def fetch_channels(url):
 
 def _normalize(name: str) -> str:
     s = name.strip()
+    # 去掉括号内容
     s = re.sub(r'[（\[(（\[).?[）\]\)]', '', s)
-    s = re.sub(r'(高清版|超清版|频道|卫视|高清|超清|HD|台)$', '', s)
-    while re.search(r'(高清版|超清版|频道|卫视|高清|超清|HD|台)$', s):
-        s = re.sub(r'(高清版|超清版|频道|卫视|高清|超清|HD|台)$', '', s)
+    # 去掉末尾常见后缀
+    suffixes = '高清版|超高清版|频道|卫视频|高清|超高清|HD|台|综艺|纪录|纪实|体育|电影|戏曲|科教|新闻|少儿|音乐|综合|法治|生活|军事|农业|农村|戏剧|文化|经济|社会|百科|世界|地理|历史|探索|发现|天文|游戏|汽车|旅游|时尚|女性|儿童|财经|老年|电视|公映|赛事|中文国际|国防军事|社会与法|奥林匹克|体育赛事|农业农村|电视剧'
+    s = re.sub(r'(' + suffixes + ')$', '', s)
+    while re.search(r'(' + suffixes + ')$', s):
+        s = re.sub(r'(' + suffixes + ')$', '', s)
+    # 去掉连字符和空格
     s = s.replace('-', '').replace(' ', '')
     return s
 
@@ -188,6 +196,7 @@ def _url_sort_key(url: str, check_results: dict, category: str = ""):
     width = 0
     speed_kbps = 0
     response_time_ms = 0
+    first_frame_time_ms = 9999
     if check_results:
         for cat_ch in check_results.values():
             for ch_urls in cat_ch.values():
@@ -202,6 +211,9 @@ def _url_sort_key(url: str, check_results: dict, category: str = ""):
                     if deep:
                         speed_kbps = deep.get("speed_kbps", 0)
                     response_time_ms = r.get("response_time_ms", 0)
+                    pb = r.get("playback", {})
+                    if pb:
+                        first_frame_time_ms = pb.get("first_frame_time_ms", 9999)
                     break
     layer_rank = 0 if layer in ("ffprobe", "deep") else 1
     sort_mode = getattr(config, "sort_mode", "balanced")
@@ -221,14 +233,13 @@ def _url_sort_key(url: str, check_results: dict, category: str = ""):
     bitrate_score = (bitrate / max_bitrate) * 1000 if max_bitrate > 0 else 0
     quality_score = (speed_score * 0.5 + bitrate_score * 0.5) * 0.45 + (width / max_width) * 1000 * 0.55
     combined_score = speed_score * speed_weight + quality_score * quality_weight + layer_rank * 500
-    max_latency = 2000
-    if response_time_ms > 0:
-        latency_score = max(0, (1 - response_time_ms / max_latency)) * 1000
+    max_first_frame = 2000
+    if 0 < first_frame_time_ms < 9999:
+        first_frame_score = max(0, (1 - first_frame_time_ms / max_first_frame)) * 1000
     else:
-        latency_score = 500
-    final_score = latency_score * 0.3 + combined_score * 0.7
-    return (ipv6_rank, source_rank, response_time_ms, -final_score)
-
+        first_frame_score = 0
+    final_score = first_frame_score * 0.4 + (1000 - min(response_time_ms, 2000)) / 2000 * 1000 * 0.2 + combined_score * 0.4
+    return (ipv6_rank, source_rank, first_frame_time_ms, response_time_ms, -final_score)
 
 def _get_meta_suffix(url: str, check_results: dict) -> str:
     """从 check_results 提取 ffprobe 元数据和速度信息，生成后缀如 【1920x1080@256kbps 1.7Mbps】"""
@@ -315,10 +326,6 @@ async def async_main():
 
     if config.enable_quality_check:
         logging.info("[质量检测] 开始...")
-        # ISP 运营商预过滤（在检测前剔除不符合要求的 URL，节省探测开销）
-        channels, isp_removed = await quality_checker._isp_filter_urls(channels)
-        if isp_removed > 0:
-            logging.info(f"[ISP] 预过滤移除 {isp_removed} 个 URL")
         check_results, fail_domains = await quality_checker.check_all(channels)
         channels = quality_checker.filter_dead_urls(channels, check_results)
         _print_domain_suggestions(fail_domains)
@@ -345,13 +352,11 @@ def updateChannelUrlsM3U(channels, template_channels, epg_id_map=None, check_res
                 name = name.replace("__TIME__", current_date)
             announcement["name"] = name
 
-    output_dir = "output"
-    os.makedirs(output_dir, exist_ok=True)
-    with open(os.path.join(output_dir, "live.m3u"), "w", encoding="utf-8") as f_m3u:
+    with open("live.m3u", "w", encoding="utf-8") as f_m3u:
         epg_attr = ",".join(chr(34)+epg_url+chr(34) for epg_url in config.epg_urls)
         f_m3u.write(f"#EXTM3U x-tvg-url={epg_attr}\n")
 
-        with open(os.path.join(output_dir, "live.txt"), "w", encoding="utf-8") as f_txt:
+        with open("live.txt", "w", encoding="utf-8") as f_txt:
             for group in config.announcements:
                 f_txt.write(f"{group['channel']},#genre#\n")
                 for announcement in group["entries"]:
@@ -401,139 +406,6 @@ def updateChannelUrlsM3U(channels, template_channels, epg_id_map=None, check_res
 
             f_txt.write("\n")
 
-
-
-
-def _get_domain(url: str) -> str:
-    """从 URL 中提取 hostname（不含端口和路径）"""
-    if not url:
-        return ''
-    stripped = url.split('\$', 1)[0] if '\$' in url else url
-    from urllib.parse import urlparse
-    parsed = urlparse(stripped)
-    return parsed.hostname or ''
-
-
-def _classify_by_isp(channels: dict) -> tuple:
-    """按运营商分类频道，返回 (isp_channels, cdn_channels)"""
-    checker = isp_checker.get_isp_checker()
-    isp_channels = {}
-    cdn_channels = {}
-    cdn_count = 0
-    isp_count = 0
-    import ipaddress
-    import socket
-    for category, ch_dict in channels.items():
-        for ch_name, url_list in ch_dict.items():
-            for url in url_list:
-                domain = _get_domain(url)
-                if not domain:
-                    continue
-                try:
-                    ip_obj = ipaddress.ip_address(domain)
-                    ip_str = str(ip_obj)
-                except ValueError:
-                    try:
-                        ip_str = socket.gethostbyname(domain)
-                    except Exception:
-                        ip_str = None
-                if ip_str:
-                    isp = checker.get_isp(ip_str)
-                    isp_name = isp if isp else 'CDN'
-                else:
-                    isp_name = 'CDN'
-                target = cdn_channels if isp_name == 'CDN' else isp_channels
-                target.setdefault(isp_name, {}).setdefault(category, {}).setdefault(ch_name, []).append(url)
-                if isp_name == 'CDN':
-                    cdn_count += 1
-                else:
-                    isp_count += 1
-    logging.info(f'[ISP分类] 完成，识别到 {len(isp_channels)} 个运营商组，CDN源 {cdn_count} 个，运营商源 {isp_count} 个')
-    return isp_channels, cdn_channels
-
-
-def _write_channel_file(filepath_txt, filepath_m3u, channels, template_channels, epg_id_map, check_results):
-    """写入单个运营商的频道文件"""
-    written_urls = set()
-    epg_id_map = epg_id_map or {}
-    current_date = datetime.now().strftime('%Y-%m-%d')
-    for group in config.announcements:
-        for announcement in group['entries']:
-            name = announcement.get('name')
-            if name is None or name == '__TIME__':
-                name = current_date
-            elif isinstance(name, str) and '__TIME__' in name:
-                name = name.replace('__TIME__', current_date)
-            announcement['name'] = name
-    with open(filepath_m3u, 'w', encoding='utf-8') as f_m3u:
-        epg_attr = ','.join(chr(34)+epg_url+chr(34) for epg_url in config.epg_urls)
-        f_m3u.write(f'#EXTM3U x-tvg-url={epg_attr}\n')
-        with open(filepath_txt, 'w', encoding='utf-8') as f_txt:
-            for group in config.announcements:
-                f_txt.write(f"{group['channel']},#genre#\n")
-                for announcement in group['entries']:
-                    f_m3u.write(f"""#EXTINF:-1 tvg-id="{announcement['name']}" tvg-name="{announcement['name']}" tvg-logo="{announcement['logo']}" group-title="{group['channel']}",{announcement['name']}\n""")
-                    f_m3u.write(f"{announcement['url']}\n")
-                    f_txt.write(f"{announcement['name']},{announcement['url']}\n")
-            for category, channel_list in template_channels.items():
-                f_txt.write(f"{category},#genre#\n")
-                if category in channels:
-                    for channel_name in channel_list:
-                        if channel_name in channels[category]:
-                            sorted_urls = sorted(channels[category][channel_name], key=lambda url: _url_sort_key(url, check_results, category))
-                            filtered_urls = []
-                            for url in sorted_urls:
-                                if url and url not in written_urls and not any(blacklist in url for blacklist in config.url_blacklist):
-                                    filtered_urls.append(url)
-                                    written_urls.add(url)
-                            if config.max_lines_per_channel > 0 and len(filtered_urls) > config.max_lines_per_channel:
-                                old_count = len(filtered_urls)
-                                filtered_urls = filtered_urls[:config.max_lines_per_channel]
-                                logging.info('[频道] %s 线路从 %d 截断至 %d', channel_name, old_count, config.max_lines_per_channel)
-                            total_urls = len(filtered_urls)
-                            for index, url in enumerate(filtered_urls, start=1):
-                                if is_ipv6(url):
-                                    extra = _get_meta_suffix(url, check_results)
-                                    url_suffix = f'\—IPV6{extra}' if total_urls == 1 else f'\—IPV6【线路{index}】{extra}'
-                                else:
-                                    extra = _get_meta_suffix(url, check_results)
-                                    url_suffix = f'\—IPV4{extra}' if total_urls == 1 else f'\—IPV4【线路{index}】{extra}'
-                                if '\$' in url:
-                                    base_url = url.split('\$', 1)[0]
-                                else:
-                                    base_url = url
-                                new_url = f"{base_url}{url_suffix}"
-                                tvg_id = epg_id_map.get(channel_name, channel_name)
-                                f_m3u.write(f'#EXTINF:-1 tvg-id="{tvg_id}" tvg-name="{channel_name}" tvg-logo="https://gcore.jsdelivr.net/gh/yuanzl77/TVlogo@master/png/{channel_name}.png" group-title="{category}",{channel_name}\n')
-                                f_m3u.write(new_url + '\n')
-                                f_txt.write(f'{channel_name},{new_url}\n')
-            f_txt.write('\n')
-
-
-def _output_isp_files(channels, template_channels, epg_id_map, check_results):
-    """按运营商分类输出频道文件"""
-    isp_channels, cdn_channels = _classify_by_isp(channels)
-    isp_abbr = {'China Mobile': 'cmcc', 'China Telecom': 'ct', 'China Unicom': 'cu',
-                'China Education & Research Network': 'cernet', 'China Science & Technology Network': 'cstnet',
-                'Dr.Peng': 'dp', 'CDN': 'cdn'}
-    output_dir = 'output'
-    os.makedirs(output_dir, exist_ok=True)
-    updateChannelUrlsM3U(channels, template_channels, epg_id_map, check_results)
-    logging.info('[输出] 已生成 %s/live.txt / %s/live.m3u', output_dir, output_dir)
-    for isp_name, isp_data in isp_channels.items():
-        abbr = isp_abbr.get(isp_name, isp_name.lower())
-        prefix = f'{abbr}_live'
-        merged = {}
-        for cat, ch_dict in isp_data.items():
-            merged[cat] = ch_dict
-        for cat, ch_dict in cdn_channels.items():
-            if cat not in merged:
-                merged[cat] = ch_dict
-            else:
-                for ch_name, urls in ch_dict.items():
-                    merged[cat].setdefault(ch_name, []).extend(urls)
-        _write_channel_file(os.path.join(output_dir, f'{prefix}.txt'), os.path.join(output_dir, f'{prefix}.m3u'), merged, template_channels, epg_id_map, check_results)
-        logging.info('[输出] 已生成 %s/%s.txt / %s/%s.m3u (%s)', output_dir, prefix, output_dir, prefix, isp_name)
 
 if __name__ == "__main__":
     try:
