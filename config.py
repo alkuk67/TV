@@ -109,7 +109,7 @@ epg_urls = [
 # check_max_conn       : 最大并发检测数，调高可加速但更占带宽
 enable_quality_check = True
 check_timeout    = 3.5
-check_max_conn   = 60
+check_max_conn   = 20
 
 # ── 质量检测 — FFprobe 中度探测 ───────────────────────────────────────
 # enable_ffprobe     : True=启用第二层 FFprobe 探测，False=仅 HTTP 快筛
@@ -141,6 +141,9 @@ ffprobe_max_streams = 5
 #                      建议 2000（2 Mbps）避免推流卡顿
 enable_deep_probe  = True
 enable_playback_test = True  # 播放测试（测首帧时间 + 解码稳定性），默认关闭（较慢）
+enable_stability_test = True   # 连续稳定性测试，默认开启
+stability_test_count = 3       # 探测次数，取中位数
+stability_test_interval = 1.0  # 每次间隔（秒）
 playback_test_timeout = 6.5     # 播放测试超时（秒）
 deep_probe_timeout = 6.5
 min_speed_kbps     = 2500  # 2.5 Mbps
