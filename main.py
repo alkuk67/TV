@@ -419,10 +419,7 @@ def _get_domain(url: str) -> str:
 
 
 def _classify_by_isp(channels: dict) -> tuple:
-    """按运营商分类频道，返回 (isp_channels, cdn_channels)
-
-    cdn_channels 保留原始 category key，合并时 CDN 源能挂回正确的频道分类。
-    """
+    """按运营商分类频道，返回 (isp_channels, cdn_channels)"""
     checker = isp_checker.get_isp_checker()
     isp_channels = {}
     cdn_channels = {}
@@ -436,31 +433,35 @@ def _classify_by_isp(channels: dict) -> tuple:
                 domain = _get_domain(url)
                 if not domain:
                     continue
+                all_ips = []
                 try:
                     ip_obj = ipaddress.ip_address(domain)
-                    ip_str = str(ip_obj)
+                    all_ips = [str(ip_obj)]
                 except ValueError:
                     try:
                         addr_info = socket.getaddrinfo(domain, None, socket.AF_UNSPEC, socket.SOCK_STREAM)
                         all_ips = [info[4][0] for info in addr_info]
-                        ipv6_first = config.ip_version_priority == "ipv6"
+                        ipv6_first = config.ip_version_priority == 'ipv6'
                         _v4 = [ip for ip in all_ips if ipaddress.ip_address(ip).version == 4]
                         _v6 = [ip for ip in all_ips if ipaddress.ip_address(ip).version == 6]
                         all_ips = (_v6 + _v4) if ipv6_first else (_v4 + _v6)
-                        ip_str = all_ips[0] if all_ips else None
                     except Exception:
-                        ip_str = None
-                isp = checker.get_isp(ip_str) if ip_str else None
-                if isp:
-                    isp_channels.setdefault(isp, {}).setdefault(category, {}).setdefault(ch_name, []).append(url)
-                    isp_count += 1
-                else:
-                    # 保留原始 category，CDN 源挂回原分类
+                        all_ips = []
+                
+                isp_matched = False
+                for ip_str in all_ips:
+                    isp = checker.get_isp(ip_str)
+                    if isp:
+                        isp_channels.setdefault(isp, {}).setdefault(category, {}).setdefault(ch_name, []).append(url)
+                        isp_count += 1
+                        isp_matched = True
+                        break
+                
+                if not isp_matched:
                     cdn_channels.setdefault(category, {}).setdefault(ch_name, []).append(url)
                     cdn_count += 1
     logging.info(f'[ISP分类] 完成，识别到 {len(isp_channels)} 个运营商组，CDN源 {cdn_count} 个，运营商源 {isp_count} 个')
     return isp_channels, cdn_channels
-
 
 
 def _write_channel_file(filepath_txt, filepath_m3u, channels, template_channels, epg_id_map, check_results):
@@ -521,7 +522,6 @@ def _write_channel_file(filepath_txt, filepath_m3u, channels, template_channels,
             f_txt.write('\n')
 
 
-
 def _output_isp_files(channels, template_channels, epg_id_map, check_results):
     """按运营商分类输出频道文件"""
     isp_channels, cdn_channels = _classify_by_isp(channels)
@@ -530,34 +530,45 @@ def _output_isp_files(channels, template_channels, epg_id_map, check_results):
                 'Dr.Peng': 'dp', 'CDN': 'cdn'}
     output_dir = 'output'
     os.makedirs(output_dir, exist_ok=True)
-    # 清理旧运营商文件（避免残留上次的结果）
-    for f in os.listdir(output_dir):
-        if re.match(r"^(cmcc|ct|cu|cernet|cstnet|dp|cdn)_live\\.(txt|m3u)$", f):
-            os.remove(os.path.join(output_dir, f))
-            logging.info('[输出] 已清理旧文件 %s', f)
     updateChannelUrlsM3U(channels, template_channels, epg_id_map, check_results)
     logging.info('[输出] 已生成 %s/live.txt / %s/live.m3u', output_dir, output_dir)
     for isp_name, isp_data in isp_channels.items():
         abbr = isp_abbr.get(isp_name, isp_name.lower())
-        prefix = f"{abbr}_live"
+        prefix = f'{abbr}_live'
         merged = {}
         for cat, ch_dict in isp_data.items():
             merged[cat] = ch_dict
         for cat, ch_dict in cdn_channels.items():
             if cat not in merged:
+                merged[cat] = ch_dict
+            else:
+                for ch_name, urls in ch_dict.items():
+                    merged[cat].setdefault(ch_name, []).extend(urls)
+        # 补充 CDN-only 分类到运营商文件
+        all_isp_cats = set(isp_data.keys())
+        cdn_only_cats = set(cdn_channels.keys()) - all_isp_cats
+        for cat in cdn_only_cats:
+            if cat not in merged:
                 merged[cat] = {}
-            for ch_name, urls in ch_dict.items():
-                merged[cat].setdefault(ch_name, []).extend(urls)
-        _write_channel_file(os.path.join(output_dir, f"{prefix}.txt"), os.path.join(output_dir, f"{prefix}.m3u"), merged, template_channels, epg_id_map, check_results)
-        logging.info("[输出] 已生成")
-
+            cat_cdn = cdn_channels.get(cat, {})
+            for ch_name, urls in cat_cdn.items():
+                if isinstance(urls, str):
+                    urls = [urls]
+                if ch_name not in merged[cat]:
+                    merged[cat][ch_name] = []
+                # 确保是列表再 extend
+                if isinstance(merged[cat][ch_name], list):
+                    merged[cat][ch_name].extend(urls)
+                else:
+                    merged[cat][ch_name] = urls
+        _write_channel_file(os.path.join(output_dir, f'{prefix}.txt'), os.path.join(output_dir, f'{prefix}.m3u'), merged, template_channels, epg_id_map, check_results)
+        logging.info('[输出] 已生成 %s/%s.txt / %s/%s.m3u (%s)', output_dir, prefix, output_dir, prefix, isp_name)
 
 if __name__ == "__main__":
     try:
         asyncio.run(async_main())
     finally:
         quality_checker._shutdown_ffprobe_executor()
-        import gc; gc.collect()
 
 
 
