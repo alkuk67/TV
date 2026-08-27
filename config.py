@@ -125,10 +125,10 @@ check_max_conn   = 60
 # ffprobe_max_streams: ffprobe 最多读取的流数量，避免大文件探流耗时过长
 ffmpeg_path        = ""        # 空 = 使用系统 PATH 里的 ffprobe
 enable_ffprobe     = True
-ffprobe_timeout    = 3.5
+ffprobe_timeout    = 4.5
 min_bitrate        = 0         # min_bitrate = 200000 → 码率>0 且 <200kbps 的源会被淘汰；码率=0 的源不受影响
 min_resolution     = "1080"     # 宽度最低 720px
-ffprobe_max_streams = 3
+ffprobe_max_streams = 5
 
 # ── 深度探测配置 ───────────────────────────────────────────────────────
 # enable_deep_probe  : True=启用第三层深度探测（仅对 m3u8 流），False=仅中度探测
@@ -140,8 +140,8 @@ ffprobe_max_streams = 3
 #                      建议 2000（2 Mbps）避免推流卡顿
 enable_deep_probe  = True
 enable_playback_test = True  # 播放测试（测首帧时间 + 解码稳定性），默认关闭（较慢）
-playback_test_timeout = 5     # 播放测试超时（秒）
-deep_probe_timeout = 5.0
+playback_test_timeout = 6.5     # 播放测试超时（秒）
+deep_probe_timeout = 6.5
 min_speed_kbps     = 2500  # 2.5 Mbps
 
 # ── 开发者模式 ────────────────────────────────────────────────────
