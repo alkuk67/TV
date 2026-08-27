@@ -367,7 +367,7 @@ async def _get_ffprobe_executor():
     global _ffprobe_executor
     if _ffprobe_executor is None:
         import concurrent.futures
-        _ffprobe_executor = concurrent.futures.ProcessPoolExecutor(max_workers=8)
+        _ffprobe_executor = concurrent.futures.ProcessPoolExecutor(max_workers=min(config.check_max_conn, 16))
     return _ffprobe_executor
 
 
@@ -445,6 +445,22 @@ async def _check_single(session, url, http_timeout, ffprobe_timeout, ffprobe_sem
             else:
                 fast["deep"] = deep
                 fast["layer"] = "ffprobe"
+    # 连续稳定性测试：对通过深度探测的源进行多次探测取中位数
+    if config.enable_stability_test and fast.get("layer") == "deep" and "deep" in fast:
+        import statistics as _stat
+        base_url = _get_base_url(clean_url)
+        loop = asyncio.get_event_loop()
+        speeds = []
+        for _ in range(min(getattr(config, "stability_test_count", 3), 5)):
+            import time as _time
+            _time.sleep(getattr(config, "stability_test_interval", 1.0))
+            deeper = await _deep_probe_async(clean_url, getattr(config, "deep_probe_timeout", 6.5))
+            if deeper.get("status") == "ok" and deeper.get("speed_kbps", 0) > 0:
+                speeds.append(deeper["speed_kbps"])
+        if speeds:
+            median_speed = _stat.median(speeds)
+            fast["deep"]["speed_kbps"] = median_speed
+            fast["deep"]["stability"] = "stable" if len(speeds) >= 2 else "single"
     return fast
 
 
