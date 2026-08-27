@@ -372,7 +372,6 @@ async def _get_ffprobe_executor():
 
 
 def _shutdown_ffprobe_executor():
-    """全局清理：关闭 ffprobe 进程池，避免 Event loop 关闭时的 RuntimeError"""
     global _ffprobe_executor
     if _ffprobe_executor is not None:
         try:
@@ -488,24 +487,31 @@ async def _isp_filter_urls(channels):
             hostnames_to_resolve.append(hostname)
 
     if hostnames_to_resolve:
-        async def _resolve_one(hostname: str) -> str | None:
+        ipv6_first = config.ip_version_priority == "ipv6"
+
+        async def _resolve_one(hostname: str) -> list:
             try:
                 addr_info = await asyncio.get_event_loop().run_in_executor(
                     None, socket.getaddrinfo, hostname, None, socket.AF_UNSPEC, socket.SOCK_STREAM
                 )
-                return addr_info[0][4][0] if addr_info else None
+                ips = [info[4][0] for info in addr_info]
+                v4 = [ip for ip in ips if ipaddress.ip_address(ip).version == 4]
+                v6 = [ip for ip in ips if ipaddress.ip_address(ip).version == 6]
+                ordered = (v6 + v4) if ipv6_first else (v4 + v6)
+                return ordered
             except Exception:
-                return None
+                return []
 
         tasks = [_resolve_one(h) for h in hostnames_to_resolve]
         results = await asyncio.gather(*tasks, return_exceptions=True)
         for hostname, result in zip(hostnames_to_resolve, results):
             if isinstance(result, Exception):
-                ip_map[hostname] = None
+                ip_map[hostname] = []
             else:
-                ip_map[hostname] = result[0][4][0] if result and len(result) > 0 and len(result[0]) > 4 else None
+                ip_map[hostname] = result  # list of IPs
 
-    # 第三阶段：批量 ISP 过滤
+
+    # 第三阶段：批量 ISP 过滤（支持多 IP，任一匹配即保留）
     filtered_channels = {}
     removed = 0
     for cat, ch_dict in channels.items():
@@ -619,7 +625,7 @@ def filter_dead_urls(channels, check_results):
             for url in url_list:
                 r = check_results.get(cat, {}).get(ch_name, {}).get(url, {})
                 # 接受 ffprobe 或 deep 层检测通过的源
-                if r.get("status") in ("ok", "ok_no_ts") and r.get("layer") in ("ffprobe", "deep"):
+                if (r.get("status") in ("ok", "ok_no_ts") and r.get("layer") in ("ffprobe", "deep")) or (r.get("status") in ("ok", "ok_no_ts") and r.get("layer") == "fast" and "ffprobe" in r):
                     valid.append(url)
             if valid:
                 filtered[cat][ch_name] = valid
