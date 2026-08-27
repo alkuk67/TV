@@ -9,7 +9,7 @@ import check as quality_checker
 import fetch_hotel
 import os
 import isp_checker
-import isp_checker
+
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s", handlers=[logging.FileHandler("function.log", "w", encoding="utf-8"), logging.StreamHandler()])
 
