@@ -498,10 +498,10 @@ def _write_channel_file(filepath_txt, filepath_m3u, channels, template_channels,
                             for index, url in enumerate(filtered_urls, start=1):
                                 if is_ipv6(url):
                                     extra = _get_meta_suffix(url, check_results)
-                                    url_suffix = f'\—IPV6{extra}' if total_urls == 1 else f'\—IPV6【线路{index}】{extra}'
+                                    url_suffix = f'$LR—IPV6{extra}' if total_urls == 1 else f'$LR—IPV6【线路{index}】{extra}'
                                 else:
                                     extra = _get_meta_suffix(url, check_results)
-                                    url_suffix = f'\—IPV4{extra}' if total_urls == 1 else f'\—IPV4【线路{index}】{extra}'
+                                    url_suffix = f'$LR—IPV4{extra}' if total_urls == 1 else f'$LR—IPV4【线路{index}】{extra}'
                                 if '\$' in url:
                                     base_url = url.split('\$', 1)[0]
                                 else:
