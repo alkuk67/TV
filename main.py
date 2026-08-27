@@ -532,6 +532,23 @@ def _output_isp_files(channels, template_channels, epg_id_map, check_results):
             else:
                 for ch_name, urls in ch_dict.items():
                     merged[cat].setdefault(ch_name, []).extend(urls)
+        # 补充 CDN-only 分类到运营商文件
+        all_isp_cats = set(isp_data.keys())
+        cdn_only_cats = set(cdn_channels.keys()) - all_isp_cats
+        for cat in cdn_only_cats:
+            if cat not in merged:
+                merged[cat] = {}
+            cat_cdn = cdn_channels.get(cat, {})
+            for ch_name, urls in cat_cdn.items():
+                if isinstance(urls, str):
+                    urls = [urls]
+                if ch_name not in merged[cat]:
+                    merged[cat][ch_name] = []
+                # 确保是列表再 extend
+                if isinstance(merged[cat][ch_name], list):
+                    merged[cat][ch_name].extend(urls)
+                else:
+                    merged[cat][ch_name] = urls
         _write_channel_file(os.path.join(output_dir, f'{prefix}.txt'), os.path.join(output_dir, f'{prefix}.m3u'), merged, template_channels, epg_id_map, check_results)
         logging.info('[输出] 已生成 %s/%s.txt / %s/%s.m3u (%s)', output_dir, prefix, output_dir, prefix, isp_name)
 
