@@ -634,7 +634,8 @@ async def check_all(channels):
     return results, fail_domains
 
 
-def filter_dead_urls(channels, check_results):
+
+def filter_dead_urls(channels, check_results, accept_layers=("ffprobe", "deep")):
     """
     根据检测结果过滤失效源，返回去重后的 channels。
     保留条件: status 为 "ok" 或 "ok_no_ts"，且 layer 为 "ffprobe" 或 "deep"（排除仅快筛无元数据的源）
@@ -647,7 +648,7 @@ def filter_dead_urls(channels, check_results):
             for url in url_list:
                 r = check_results.get(cat, {}).get(ch_name, {}).get(url, {})
                 # 接受 ffprobe 或 deep 层检测通过的源
-                if r.get("layer") in ("ffprobe", "deep") and r.get("status") in ("ok", "ok_no_ts"):
+                if r.get("layer") in accept_layers and r.get("status") in ("ok", "ok_no_ts"):
                     valid.append(url)
             if valid:
                 filtered[cat][ch_name] = valid
@@ -659,4 +660,5 @@ def filter_dead_urls(channels, check_results):
     kept = sum(len(urls) for c in filtered for urls in filtered[c].values())
     logger.info(f"过滤后: 保留 {kept} 个有效源，移除 {removed} 个失效源")
     return filtered
+
 
