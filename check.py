@@ -416,6 +416,8 @@ async def _check_single(session, url, http_timeout, ffprobe_timeout, ffprobe_sem
         # ffprobe 失败不阻塞，保留快筛结果
         if probe["status"] != "ok":
             fast["ffprobe"] = probe
+            
+            fast["layer"] = "ffprobe_fail"
             return fast
         # 质量过滤：bitrate 为 0 说明 ffprobe 无法读取码率字段（常见于 IPTV），跳过码率检查只检查分辨率
         min_br = config.min_bitrate if config.min_bitrate > 0 else 0
@@ -424,6 +426,8 @@ async def _check_single(session, url, http_timeout, ffprobe_timeout, ffprobe_sem
             probe["detail"] += f" low_bitrate={probe['bitrate']//1000}kbps < {min_br//1000}kbps"
             probe["layer"] = "ffprobe_fail"
             fast["ffprobe"] = probe
+            
+            fast["layer"] = "ffprobe_fail"
             return fast
         min_res = int(config.min_resolution) if config.min_resolution else 0
         if min_res > 0 and probe.get("width", 0) < min_res:
@@ -431,6 +435,8 @@ async def _check_single(session, url, http_timeout, ffprobe_timeout, ffprobe_sem
             probe["detail"] += f" low_resolution={probe['width']}px < {min_res}px"
             probe["layer"] = "ffprobe_fail"
             fast["ffprobe"] = probe
+            
+            fast["layer"] = "ffprobe_fail"
             return fast
         fast["ffprobe"] = probe
         # 第三层：深度探测（对所有通过中度探测的源）
@@ -641,7 +647,7 @@ def filter_dead_urls(channels, check_results):
             for url in url_list:
                 r = check_results.get(cat, {}).get(ch_name, {}).get(url, {})
                 # 接受 ffprobe 或 deep 层检测通过的源
-                if (r.get("status") in ("ok", "ok_no_ts") and r.get("layer") in ("ffprobe", "deep")) or (r.get("status") in ("ok", "ok_no_ts") and r.get("layer") == "fast" and "ffprobe" in r):
+                if r.get("layer") in ("ffprobe", "deep") and r.get("status") in ("ok", "ok_no_ts"):
                     valid.append(url)
             if valid:
                 filtered[cat][ch_name] = valid
