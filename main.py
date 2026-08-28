@@ -442,8 +442,17 @@ def _classify_by_isp(channels: dict) -> tuple:
                         addr_info = socket.getaddrinfo(domain, None, socket.AF_UNSPEC, socket.SOCK_STREAM)
                         all_ips = [info[4][0] for info in addr_info]
                         ipv6_first = config.ip_version_priority == 'ipv6'
-                        _v4 = [ip for ip in all_ips if ipaddress.ip_address(ip).version == 4]
-                        _v6 = [ip for ip in all_ips if ipaddress.ip_address(ip).version == 6]
+                        # Filter valid IPs before sorting
+                        _v4 = []
+                        _v6 = []
+                        for ip in all_ips:
+                            try:
+                                if ipaddress.ip_address(ip).version == 4:
+                                    _v4.append(ip)
+                                else:
+                                    _v6.append(ip)
+                            except ValueError:
+                                pass
                         all_ips = (_v6 + _v4) if ipv6_first else (_v4 + _v6)
                     except Exception:
                         all_ips = []
