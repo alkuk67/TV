@@ -9,6 +9,7 @@ import check as quality_checker
 import fetch_hotel
 import os
 import isp_checker
+import cache_manager
 
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s", handlers=[logging.FileHandler("function.log", "w", encoding="utf-8"), logging.StreamHandler()])
@@ -290,49 +291,119 @@ def _print_domain_suggestions(fail_domains: dict):
         logging.info(f"  {domain}  {info}")
 
 
+
 async def async_main():
     """异步主入口：fetch -> check -> write"""
-    epg_id_map = fetch_epg_id_map()
-    template_file = "demo.txt"
-    channels, template_channels = filter_source_urls(template_file)
+    import time
+    cache_mode = _get_cache_mode()
+    logging.info(f"[缓存] 运行模式: {cache_mode}")
 
-    # 酒店源抓取
+    cache_manager.init_db()
+
+    cached_sources = cache_manager.load_sources()
+    use_cache = cache_mode == "second" and cached_sources is not None
+
+    if use_cache:
+        logging.info("[缓存] 使用缓存的源数据，跳过网络抓取")
+        channels = {}
+        for source_type, cat_data in cached_sources["sources"].items():
+            for cat, items in cat_data.items():
+                # Handle both formats:
+                # New: {cat: {name: [urls]}} -> items is dict
+                # Old: {cat: {name: [urls]}} where value is list of urls -> items is dict of lists
+                if isinstance(items, dict):
+                    for name, url_list in items.items():
+                        if isinstance(url_list, list):
+                            channels.setdefault(cat, {}).setdefault(name, []).extend(url_list)
+                        else:
+                            channels.setdefault(cat, {}).setdefault(name, []).append(url_list)
+        epg_id_map = cached_sources.get("epg", {})
+        template_channels = parse_template("demo.txt")
+    else:
+        logging.info("[缓存] 执行完整抓取流程")
+        epg_id_map = fetch_epg_id_map()
+        template_file = "demo.txt"
+        channels, template_channels = filter_source_urls(template_file)
+
+    # 酒店源抓取（优先用缓存，缓存过期则重新抓取）
+    hotel_channels = {}
     if config.hotel_config.get("enabled", False):
-        logging.info("[酒店源] 开始抓取...")
-        hotel_channels = await fetch_hotel.fetch_all_from_hotel()
-        # 酒店源数据是 {cat: {name: [urls]}}，转成 {cat: [(name, url), ...]} 格式
-        st_flat = {}
-        for cat, ch_dict in hotel_channels.items():
-            st_flat[cat] = []
-            for name, urls in ch_dict.items():
-                for url in urls:
-                    st_flat[cat].append((name, url))
-        # 用 match_channels 做模糊匹配，只保留模板中有的频道
-        st_matched = match_channels(template_channels, st_flat)
-        # 合并到 channels
-        merged = 0
-        for cat, ch_dict in st_matched.items():
-            for name, urls in ch_dict.items():
-                channels.setdefault(cat, {}).setdefault(name, []).extend(urls)
-                merged += len(urls)
-        logging.info(f"[酒店源] 合并完成，共添加 {merged} 个 URL")
+        cached_hotel = cache_manager.load_hotel()
+        if cached_hotel:
+            hotel_channels = cached_hotel
+            logging.info("[酒店源] 使用缓存的酒店节点")
+        else:
+            logging.info("[酒店源] 开始抓取...")
+            hotel_channels = await fetch_hotel.fetch_all_from_hotel()
+            cache_manager.save_hotel(hotel_channels)
+
+    if not use_cache:
+        channels_for_cache = {}
+        for cat, ch_dict in channels.items():
+            is_hotel = cat in ("txiptv", "zhgxtv", "jsmpeg", "hsmdtv")
+            key = "hotel" if is_hotel else "subscription"
+            channels_for_cache.setdefault(key, {}).setdefault(cat, {})
+            for name, url_list in ch_dict.items():
+                channels_for_cache[key][cat].setdefault(name, []).extend(url_list)
+        cache_manager.save_sources(channels_for_cache, epg_id_map)
 
     if config.enable_quality_check:
         logging.info("[质量检测] 开始...")
-        # ISP 运营商预过滤（在检测前剔除不符合要求的 URL，节省探测开销）
         channels, isp_removed = await quality_checker._isp_filter_urls(channels)
         if isp_removed > 0:
             logging.info(f"[ISP] 预过滤移除 {isp_removed} 个 URL")
-        check_results, fail_domains = await quality_checker.check_all(channels)
-        channels = quality_checker.filter_dead_urls(channels, check_results)
-        _print_domain_suggestions(fail_domains)
+        stale_keys = cache_manager.get_stale_keys() if use_cache else []
+        check_results = cache_manager.get_cached_results() if use_cache and not stale_keys else {}
+        fail_domains = {}
+        if use_cache and stale_keys:
+            logging.info(f"[缓存] Run 2：{len(stale_keys)} 条结果超 12h，增量重测")
+        elif use_cache:
+            logging.info("[缓存] Run 2：所有结果在有效期内，直接复用")
+
+        if use_cache and stale_keys:
+            # 构建过期 URL 集合，只对它们做完整检测
+            stale_set = {(k[0], k[1], k[2]) for k in stale_keys}
+            stale_channels = {}
+            for cat, ch_dict in channels.items():
+                for ch, urls in ch_dict.items():
+                    stale_urls = [u for u in urls if (cat, ch, u) in stale_set]
+                    if stale_urls:
+                        stale_channels.setdefault(cat, {})[ch] = stale_urls
+            if stale_channels:
+                check_results, fail_domains = await quality_checker.check_all(stale_channels)
+                cache_manager.batch_upsert(check_results)
+            # 合并缓存结果
+            cached_results = cache_manager.get_cached_results()
+            for cat, ch_dict in cached_results.items():
+                for ch, url_dict in ch_dict.items():
+                    check_results.setdefault(cat, {}).setdefault(ch, {}).update(url_dict)
+            # 过滤时只接受 ffprobe/deep 层（缓存中已有完整数据）
+            channels = quality_checker.filter_dead_urls(channels, check_results)
+            _print_domain_suggestions(fail_domains if use_cache and stale_keys else {})
+        else:
+            # Run 1: 完整检测（HTTP + ffprobe + 深度探测）
+            check_results, fail_domains = await quality_checker.check_all(channels)
+            cache_manager.batch_upsert(check_results)
+            channels = quality_checker.filter_dead_urls(channels, check_results)
+            _print_domain_suggestions(fail_domains)
         logging.info("[质量检测] 完成")
 
-    # ISP 分类输出
     if config.enable_isp_split:
         _output_isp_files(channels, template_channels, epg_id_map, check_results)
     else:
         updateChannelUrlsM3U(channels, template_channels, epg_id_map, check_results)
+
+
+def _get_cache_mode():
+    import os, time
+    cache_manager.ensure_cache_dir()
+    lock_file = os.path.join(cache_manager.CACHE_DIR, ".run_lock")
+    if not os.path.exists(lock_file):
+        with open(lock_file, "w") as f:
+            f.write(str(time.time()))
+        return "first"
+    else:
+        return "second"
 
 
 def updateChannelUrlsM3U(channels, template_channels, epg_id_map=None, check_results=None):
@@ -442,17 +513,8 @@ def _classify_by_isp(channels: dict) -> tuple:
                         addr_info = socket.getaddrinfo(domain, None, socket.AF_UNSPEC, socket.SOCK_STREAM)
                         all_ips = [info[4][0] for info in addr_info]
                         ipv6_first = config.ip_version_priority == 'ipv6'
-                        # Filter valid IPs before sorting
-                        _v4 = []
-                        _v6 = []
-                        for ip in all_ips:
-                            try:
-                                if ipaddress.ip_address(ip).version == 4:
-                                    _v4.append(ip)
-                                else:
-                                    _v6.append(ip)
-                            except ValueError:
-                                pass
+                        _v4 = [ip for ip in all_ips if ipaddress.ip_address(ip).version == 4]
+                        _v6 = [ip for ip in all_ips if ipaddress.ip_address(ip).version == 6]
                         all_ips = (_v6 + _v4) if ipv6_first else (_v4 + _v6)
                     except Exception:
                         all_ips = []
@@ -578,6 +640,5 @@ if __name__ == "__main__":
         asyncio.run(async_main())
     finally:
         quality_checker._shutdown_ffprobe_executor()
-
 
 
