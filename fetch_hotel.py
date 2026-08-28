@@ -4,7 +4,6 @@
 import asyncio
 import json
 import logging
-import re
 import aiohttp
 import config
 
@@ -18,21 +17,7 @@ async def _fetch_json(session, url, timeout):
             resp.raise_for_status()
             text = await resp.text()
             return json.loads(text)
-    except asyncio.TimeoutError:
-        if config.developer_mode:
-            logger.warning(f"[JSON请求] 超时: {url}")
-        return None
-    except aiohttp.ClientResponseError as e:
-        if config.developer_mode:
-            logger.warning(f"[JSON请求] HTTP错误 {e.status}: {url} - {e.message}")
-        return None
-    except json.JSONDecodeError as e:
-        if config.developer_mode:
-            logger.warning(f"[JSON请求] JSON解析失败: {url} - {e}")
-        return None
-    except Exception as e:
-        if config.developer_mode:
-            logger.warning(f"[JSON请求] 请求失败: {url} - {type(e).__name__}: {e}")
+    except Exception:
         return None
 
 
@@ -42,22 +27,14 @@ async def _fetch_text(session, url, timeout):
         async with session.get(url, timeout=timeout) as resp:
             resp.raise_for_status()
             raw = await resp.read()
-            # 先尝试 GBK（很多老旧服务器用 GBK）
             try:
                 text_gbk = raw.decode("gbk")
-                # 检查是否包含有效中文
                 if any("\u4e00" <= c <= "\u9fa5" for c in text_gbk):
                     return text_gbk
             except UnicodeDecodeError:
                 pass
-            # 尝试 UTF-8
-            try:
-                return raw.decode("utf-8")
-            except UnicodeDecodeError:
-                pass
-            # 兜底
             return raw.decode("utf-8", errors="replace")
-    except Exception as e:
+    except Exception:
         return None
 
 
@@ -92,22 +69,14 @@ async def parse_txiptv(session, host, timeout):
     result = {}
     url = f"{host}/iptv/live/1000.json?key=txiptv"
     data = await _fetch_json(session, url, timeout)
-    if config.developer_mode:
-        logger.debug(f"[TXIPTV] 请求URL: {url}")
     if not data or data.get("code") != 0:
-        if config.developer_mode:
-            logger.warning(f"[TXIPTV] 请求失败或code不为0: {data}")
         return result
-    if config.developer_mode:
-        logger.info(f"[TXIPTV] 获取到 {len(data.get('data', []))} 个频道")
     for ch in data.get("data", []):
         name = ch.get("name", "").strip()
         path = ch.get("url", "").strip()
         if name and path:
             full_url = path if path.startswith("http") else f"{host}{path}"
             result[name] = full_url
-            if config.developer_mode:
-                logger.debug(f"[TXIPTV] 频道: {name} -> {full_url}")
     return result
 
 
@@ -116,14 +85,8 @@ async def parse_zhgxtrv(session, host, timeout):
     result = {}
     url = f"{host}/ZHGXTV/Public/json/live_interface.txt"
     text = await _fetch_text(session, url, timeout)
-    if config.developer_mode:
-        logger.debug(f"[ZHGXTV] 请求URL: {url}")
     if not text:
-        if config.developer_mode:
-            logger.warning(f"[ZHGXTV] 请求失败或返回空")
         return result
-    if config.developer_mode:
-        logger.info(f"[ZHGXTV] 获取到 {len(text.splitlines())} 行数据")
     for line in text.splitlines():
         line = line.strip()
         if not line or "," not in line:
@@ -131,53 +94,29 @@ async def parse_zhgxtrv(session, host, timeout):
         parts = line.split(",", 1)
         if len(parts) != 2:
             continue
-        name = parts[0].strip()
-        channel_url = parts[1].strip()
-        if not name or not channel_url:
-            continue
-        result[name] = channel_url
-        if config.developer_mode:
-            logger.debug(f"[ZHGXTV] 频道: {name} -> {channel_url}")
+        name, channel_url = parts[0].strip(), parts[1].strip()
+        if name and channel_url:
+            result[name] = channel_url
     return result
 
 
 async def parse_jsmpeg(session, host, timeout):
-    """JSMPEG: 返回 {channel_name: http_url}
-    尝试将 RTP 流转换为 HTTP stream 格式
-    """
+    """JSMPEG: 返回 {channel_name: http_url}"""
     result = {}
     url = f"{host}/streamer/list"
     data = await _fetch_json(session, url, timeout)
-    if config.developer_mode:
-        logger.debug(f"[JSMPEG] 请求URL: {url}")
     if not data or not isinstance(data, list):
-        if config.developer_mode:
-            logger.warning(f"[JSMPEG] 请求失败或数据格式错误: {data}")
         return result
-    if config.developer_mode:
-        logger.info(f"[JSMPEG] 获取到 {len(data)} 个流")
     for item in data:
         name = item.get("name", "").strip()
         key = item.get("key", "").strip()
         source = item.get("source", "").strip()
-        
         if not name or not key:
             continue
-        
-        # 尝试转换为 HTTP stream URL
-        # 格式: http://host/hls/{key}/index.m3u8
-        http_url = f"{host}/hls/{key}/index.m3u8"
-        
-        # 如果 source 是 RTP，使用转换后的 HTTP URL
-        # 否则保留原始 source
         if source.startswith("rtp://"):
-            result[name] = http_url
-            if config.developer_mode:
-                logger.debug(f"[JSMPEG] RTP频道: {name} -> {http_url} (原source: {source})")
+            result[name] = f"{host}/hls/{key}/index.m3u8"
         else:
             result[name] = source
-            if config.developer_mode:
-                logger.debug(f"[JSMPEG] 频道: {name} -> {source}")
     return result
 
 
@@ -185,21 +124,22 @@ async def fetch_all_from_hotel():
     """
     主入口：获取所有节点，按类型解析，返回 channels 格式。
     返回: {category: {channel_name: [urls]}}
-    category 使用 matchType 作为分类名（txiptv / zhgxtv / jsmpeg）
     """
     nodes = await fetch_nodes()
     if not nodes:
         return {}
+
     by_type = {}
     for node in nodes:
         mt = node.get("matchType", "unknown")
         by_type.setdefault(mt, []).append(node)
+
     check_timeout = getattr(config, "check_timeout", 5)
-    max_conn = getattr(config, "check_max_conn", 20)
     timeout = aiohttp.ClientTimeout(total=check_timeout)
-    connector = aiohttp.TCPConnector(limit=max_conn, ssl=False)
+    connector = aiohttp.TCPConnector(limit=config.check_max_conn, ssl=False)
     channels = {}
-    async def _parse_node_with_mt(mt, node):
+
+    async def _parse_node(mt, node, session):
         host = node.get("link", "").rstrip("/")
         try:
             if mt == "txiptv":
@@ -214,12 +154,16 @@ async def fetch_all_from_hotel():
                 channels.setdefault(mt, {}).setdefault(name, []).append(url)
         except Exception as e:
             logger.warning(f"[酒店源] {node.get('link')} 解析异常: {e}")
+
     async with aiohttp.ClientSession(connector=connector, timeout=timeout) as session:
-        tasks = [_parse_node_with_mt(mt, node) for mt, nl in by_type.items() for node in nl]
+        tasks = [_parse_node(mt, node, session) for mt, nl in by_type.items() for node in nl]
         await asyncio.gather(*tasks)
+
+    # 去重
     for cat in channels:
         for name in channels[cat]:
             channels[cat][name] = list(dict.fromkeys(channels[cat][name]))
+
     total = sum(len(urls) for ch in channels.values() for urls in ch.values())
     logger.info(f"[酒店源] 解析完成，共 {total} 个频道-URL 组合")
     return channels
