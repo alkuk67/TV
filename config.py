@@ -55,7 +55,7 @@ source_urls = [
 #              可选值: "China Telecom", "China Unicom", "China Mobile",
 #                      "Alibaba Cloud", "Tencent" 等
 hotel_config = {
-    "hotel_api": "https://iptvs-speed.humorously.cn",
+    "hotel_api": "https://iptvs.pes.im",
     "enabled": True,
     "allowed_orgs": [],
 }
