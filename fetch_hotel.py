@@ -5,7 +5,7 @@ import asyncio
 import json
 import logging
 import aiohttp
-import config
+import config.config as config
 
 logger = logging.getLogger(__name__)
 
@@ -27,13 +27,14 @@ async def _fetch_text(session, url, timeout):
         async with session.get(url, timeout=timeout) as resp:
             resp.raise_for_status()
             raw = await resp.read()
+            # 优先 UTF-8（大多数 ZHGXTV 接口是 UTF-8）
             try:
-                text_gbk = raw.decode("gbk")
-                if any("\u4e00" <= c <= "\u9fa5" for c in text_gbk):
-                    return text_gbk
+                text = raw.decode("utf-8")
+                return text
             except UnicodeDecodeError:
                 pass
-            return raw.decode("utf-8", errors="replace")
+            # GBK 兜底
+            return raw.decode("gbk", errors="replace")
     except Exception:
         return None
 
@@ -167,3 +168,4 @@ async def fetch_all_from_hotel():
     total = sum(len(urls) for ch in channels.values() for urls in ch.values())
     logger.info(f"[酒店源] 解析完成，共 {total} 个频道-URL 组合")
     return channels
+
