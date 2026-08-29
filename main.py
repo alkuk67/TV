@@ -165,7 +165,7 @@ def resolve_alias(name, alias_map):
     # normalize 后匹配
     norm = _normalize(n)
     if norm in alias_map:
-        return alias_map[n]
+        return alias_map[norm]
     # 正则匹配（re: 前缀）
     import re as _re
     for alias_pattern, std in alias_map.items():
