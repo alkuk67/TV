@@ -4,11 +4,14 @@ import requests
 import logging
 from collections import OrderedDict
 from datetime import datetime
-import config
+import os
+import sys
+sys.path.insert(0, os.path.dirname(__file__))
+import config.config as config
 import check as quality_checker
 import fetch_hotel
-import os
 import isp_checker
+import cache_manager
 
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s", handlers=[logging.FileHandler("function.log", "w", encoding="utf-8"), logging.StreamHandler()])
@@ -121,7 +124,7 @@ def _normalize(name: str) -> str:
     # 去掉括号内容
     s = re.sub(r'[（\[(（\[).?[）\]\)]', '', s)
     # 去掉末尾常见后缀
-    suffixes = '高清版|超高清版|频道|卫视频|高清|超高清|HD|台|综艺|纪录|纪实|体育|电影|戏曲|科教|新闻|少儿|音乐|综合|法治|生活|军事|农业|农村|戏剧|文化|经济|社会|百科|世界|地理|历史|探索|发现|天文|游戏|汽车|旅游|时尚|女性|儿童|财经|老年|电视|公映|赛事|中文国际|国防军事|社会与法|奥林匹克|体育赛事|农业农村|电视剧'
+    suffixes = '高清版|超高清版|频道|卫视频|高清|超高清|HD|hd|综艺|纪录|纪实|体育|电影|戏曲|科教|新闻|少儿|音乐|综合|法治|生活|军事|农业|农村|戏剧|文化|经济|社会|百科|世界|地理|历史|探索|发现|天文|游戏|汽车|旅游|时尚|女性|儿童|财经|老年|电视|公映|赛事|中文国际|国防军事|社会与法|奥林匹克|体育赛事|农业农村|电视剧'
     s = re.sub(r'(' + suffixes + ')$', '', s)
     while re.search(r'(' + suffixes + ')$', s):
         s = re.sub(r'(' + suffixes + ')$', '', s)
@@ -130,7 +133,36 @@ def _normalize(name: str) -> str:
     return s
 
 
-def match_channels(template_channels, all_channels):
+def load_alias_map(alias_file='config/alias.txt'):
+    alias_map = {}
+    try:
+        with open(alias_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith('#'):
+                    continue
+                parts = [p.strip() for p in line.split(',')]
+                if len(parts) < 2:
+                    continue
+                standard_name = parts[0]
+                for alias in parts[1:]:
+                    alias = alias.strip()
+                    if alias:
+                        alias_map[alias] = standard_name
+        logging.info('[别名映射] 从 %s 加载 %d 条别名规则', alias_file, len(alias_map))
+    except FileNotFoundError:
+        logging.warning('[别名映射] 未找到别名文件 %s，跳过别名匹配', alias_file)
+    except Exception as e:
+        logging.warning('[别名映射] 加载别名文件失败: %s', e)
+    return alias_map
+
+
+def resolve_alias(name, alias_map):
+    n = name.strip()
+    return alias_map.get(n) or alias_map.get(_normalize(n))
+
+
+def match_channels(template_channels, all_channels, alias_map=None):
     matched_channels = OrderedDict()
 
     for category, channel_list in template_channels.items():
@@ -139,13 +171,20 @@ def match_channels(template_channels, all_channels):
             norm_target = _normalize(channel_name)
             for online_category, online_channel_list in all_channels.items():
                 for online_channel_name, online_channel_url in online_channel_list:
-                    if _normalize(online_channel_name) == norm_target:
-                        matched_channels[category].setdefault(channel_name, []).append(online_channel_url)
+                    if alias_map:
+                        resolved = resolve_alias(online_channel_name, alias_map)
+                        if resolved and resolved == channel_name:
+                            matched_channels[category].setdefault(channel_name, []).append(online_channel_url)
+                        elif _normalize(online_channel_name) == norm_target:
+                            matched_channels[category].setdefault(channel_name, []).append(online_channel_url)
+                    else:
+                        if _normalize(online_channel_name) == norm_target:
+                            matched_channels[category].setdefault(channel_name, []).append(online_channel_url)
 
     return matched_channels
 
 
-def filter_source_urls(template_file):
+def filter_source_urls(template_file, alias_map=None):
     template_channels = parse_template(template_file)
     source_urls = config.source_urls
 
@@ -158,7 +197,7 @@ def filter_source_urls(template_file):
             else:
                 all_channels[category] = channel_list
 
-    matched_channels = match_channels(template_channels, all_channels)
+    matched_channels = match_channels(template_channels, all_channels, alias_map)
 
     return matched_channels, template_channels
 
@@ -290,49 +329,120 @@ def _print_domain_suggestions(fail_domains: dict):
         logging.info(f"  {domain}  {info}")
 
 
+
 async def async_main():
     """异步主入口：fetch -> check -> write"""
-    epg_id_map = fetch_epg_id_map()
-    template_file = "demo.txt"
-    channels, template_channels = filter_source_urls(template_file)
+    import time
+    alias_map = load_alias_map()
+    cache_mode = _get_cache_mode()
+    logging.info(f"[缓存] 运行模式: {cache_mode}")
 
-    # 酒店源抓取
+    cache_manager.init_db()
+
+    cached_sources = cache_manager.load_sources()
+    use_cache = cache_mode == "second" and cached_sources is not None
+
+    if use_cache:
+        logging.info("[缓存] 使用缓存的源数据，跳过网络抓取")
+        channels = {}
+        for source_type, cat_data in cached_sources["sources"].items():
+            for cat, items in cat_data.items():
+                # Handle both formats:
+                # New: {cat: {name: [urls]}} -> items is dict
+                # Old: {cat: {name: [urls]}} where value is list of urls -> items is dict of lists
+                if isinstance(items, dict):
+                    for name, url_list in items.items():
+                        if isinstance(url_list, list):
+                            channels.setdefault(cat, {}).setdefault(name, []).extend(url_list)
+                        else:
+                            channels.setdefault(cat, {}).setdefault(name, []).append(url_list)
+        epg_id_map = cached_sources.get("epg", {})
+        template_channels = parse_template("demo.txt")
+    else:
+        logging.info("[缓存] 执行完整抓取流程")
+        epg_id_map = fetch_epg_id_map()
+        template_file = "demo.txt"
+        channels, template_channels = filter_source_urls(template_file, alias_map)
+
+    # 酒店源抓取（优先用缓存，缓存过期则重新抓取）
+    hotel_channels = {}
     if config.hotel_config.get("enabled", False):
-        logging.info("[酒店源] 开始抓取...")
-        hotel_channels = await fetch_hotel.fetch_all_from_hotel()
-        # 酒店源数据是 {cat: {name: [urls]}}，转成 {cat: [(name, url), ...]} 格式
-        st_flat = {}
-        for cat, ch_dict in hotel_channels.items():
-            st_flat[cat] = []
-            for name, urls in ch_dict.items():
-                for url in urls:
-                    st_flat[cat].append((name, url))
-        # 用 match_channels 做模糊匹配，只保留模板中有的频道
-        st_matched = match_channels(template_channels, st_flat)
-        # 合并到 channels
-        merged = 0
-        for cat, ch_dict in st_matched.items():
-            for name, urls in ch_dict.items():
-                channels.setdefault(cat, {}).setdefault(name, []).extend(urls)
-                merged += len(urls)
-        logging.info(f"[酒店源] 合并完成，共添加 {merged} 个 URL")
+        cached_hotel = cache_manager.load_hotel()
+        if cached_hotel:
+            hotel_channels = cached_hotel
+            logging.info("[酒店源] 使用缓存的酒店节点")
+        else:
+            logging.info("[酒店源] 开始抓取...")
+            hotel_channels = await fetch_hotel.fetch_all_from_hotel()
+            cache_manager.save_hotel(hotel_channels)
+
+    if not use_cache:
+        channels_for_cache = {}
+        for cat, ch_dict in channels.items():
+            is_hotel = cat in ("txiptv", "zhgxtv", "jsmpeg", "hsmdtv")
+            key = "hotel" if is_hotel else "subscription"
+            channels_for_cache.setdefault(key, {}).setdefault(cat, {})
+            for name, url_list in ch_dict.items():
+                channels_for_cache[key][cat].setdefault(name, []).extend(url_list)
+        cache_manager.save_sources(channels_for_cache, epg_id_map)
 
     if config.enable_quality_check:
         logging.info("[质量检测] 开始...")
-        # ISP 运营商预过滤（在检测前剔除不符合要求的 URL，节省探测开销）
         channels, isp_removed = await quality_checker._isp_filter_urls(channels)
         if isp_removed > 0:
             logging.info(f"[ISP] 预过滤移除 {isp_removed} 个 URL")
-        check_results, fail_domains = await quality_checker.check_all(channels)
-        channels = quality_checker.filter_dead_urls(channels, check_results)
-        _print_domain_suggestions(fail_domains)
+        stale_keys = cache_manager.get_stale_keys() if use_cache else []
+        check_results = cache_manager.get_cached_results() if use_cache and not stale_keys else {}
+        fail_domains = {}
+        if use_cache and stale_keys:
+            logging.info(f"[缓存] Run 2：{len(stale_keys)} 条结果超 12h，增量重测")
+        elif use_cache:
+            logging.info("[缓存] Run 2：所有结果在有效期内，直接复用")
+
+        if use_cache and stale_keys:
+            # 构建过期 URL 集合，只对它们做完整检测
+            stale_set = {(k[0], k[1], k[2]) for k in stale_keys}
+            stale_channels = {}
+            for cat, ch_dict in channels.items():
+                for ch, urls in ch_dict.items():
+                    stale_urls = [u for u in urls if (cat, ch, u) in stale_set]
+                    if stale_urls:
+                        stale_channels.setdefault(cat, {})[ch] = stale_urls
+            if stale_channels:
+                check_results, fail_domains = await quality_checker.check_all(stale_channels)
+                cache_manager.batch_upsert(check_results)
+            # 合并缓存结果
+            cached_results = cache_manager.get_cached_results()
+            for cat, ch_dict in cached_results.items():
+                for ch, url_dict in ch_dict.items():
+                    check_results.setdefault(cat, {}).setdefault(ch, {}).update(url_dict)
+            # 过滤时只接受 ffprobe/deep 层（缓存中已有完整数据）
+            channels = quality_checker.filter_dead_urls(channels, check_results)
+            _print_domain_suggestions(fail_domains if use_cache and stale_keys else {})
+        else:
+            # Run 1: 完整检测（HTTP + ffprobe + 深度探测）
+            check_results, fail_domains = await quality_checker.check_all(channels)
+            cache_manager.batch_upsert(check_results)
+            channels = quality_checker.filter_dead_urls(channels, check_results)
+            _print_domain_suggestions(fail_domains)
         logging.info("[质量检测] 完成")
 
-    # ISP 分类输出
     if config.enable_isp_split:
         _output_isp_files(channels, template_channels, epg_id_map, check_results)
     else:
         updateChannelUrlsM3U(channels, template_channels, epg_id_map, check_results)
+
+
+def _get_cache_mode():
+    import os, time
+    cache_manager.ensure_cache_dir()
+    lock_file = os.path.join(cache_manager.CACHE_DIR, ".run_lock")
+    if not os.path.exists(lock_file):
+        with open(lock_file, "w") as f:
+            f.write(str(time.time()))
+        return "first"
+    else:
+        return "second"
 
 
 def updateChannelUrlsM3U(channels, template_channels, epg_id_map=None, check_results=None):
@@ -569,6 +679,5 @@ if __name__ == "__main__":
         asyncio.run(async_main())
     finally:
         quality_checker._shutdown_ffprobe_executor()
-
 
 
