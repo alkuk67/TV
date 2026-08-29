@@ -4,10 +4,12 @@ import requests
 import logging
 from collections import OrderedDict
 from datetime import datetime
-import config
+import os
+import sys
+sys.path.insert(0, os.path.dirname(__file__))
+import config.config as config
 import check as quality_checker
 import fetch_hotel
-import os
 import isp_checker
 import cache_manager
 
@@ -122,7 +124,7 @@ def _normalize(name: str) -> str:
     # 去掉括号内容
     s = re.sub(r'[（\[(（\[).?[）\]\)]', '', s)
     # 去掉末尾常见后缀
-    suffixes = '高清版|超高清版|频道|卫视频|高清|超高清|HD|台|综艺|纪录|纪实|体育|电影|戏曲|科教|新闻|少儿|音乐|综合|法治|生活|军事|农业|农村|戏剧|文化|经济|社会|百科|世界|地理|历史|探索|发现|天文|游戏|汽车|旅游|时尚|女性|儿童|财经|老年|电视|公映|赛事|中文国际|国防军事|社会与法|奥林匹克|体育赛事|农业农村|电视剧'
+    suffixes = '高清版|超高清版|频道|卫视频|高清|超高清|HD|hd|综艺|纪录|纪实|体育|电影|戏曲|科教|新闻|少儿|音乐|综合|法治|生活|军事|农业|农村|戏剧|文化|经济|社会|百科|世界|地理|历史|探索|发现|天文|游戏|汽车|旅游|时尚|女性|儿童|财经|老年|电视|公映|赛事|中文国际|国防军事|社会与法|奥林匹克|体育赛事|农业农村|电视剧'
     s = re.sub(r'(' + suffixes + ')$', '', s)
     while re.search(r'(' + suffixes + ')$', s):
         s = re.sub(r'(' + suffixes + ')$', '', s)
@@ -131,7 +133,36 @@ def _normalize(name: str) -> str:
     return s
 
 
-def match_channels(template_channels, all_channels):
+def load_alias_map(alias_file='config/alias.txt'):
+    alias_map = {}
+    try:
+        with open(alias_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith('#'):
+                    continue
+                parts = [p.strip() for p in line.split(',')]
+                if len(parts) < 2:
+                    continue
+                standard_name = parts[0]
+                for alias in parts[1:]:
+                    alias = alias.strip()
+                    if alias:
+                        alias_map[alias] = standard_name
+        logging.info('[别名映射] 从 %s 加载 %d 条别名规则', alias_file, len(alias_map))
+    except FileNotFoundError:
+        logging.warning('[别名映射] 未找到别名文件 %s，跳过别名匹配', alias_file)
+    except Exception as e:
+        logging.warning('[别名映射] 加载别名文件失败: %s', e)
+    return alias_map
+
+
+def resolve_alias(name, alias_map):
+    n = name.strip()
+    return alias_map.get(n) or alias_map.get(_normalize(n))
+
+
+def match_channels(template_channels, all_channels, alias_map=None):
     matched_channels = OrderedDict()
 
     for category, channel_list in template_channels.items():
@@ -140,13 +171,20 @@ def match_channels(template_channels, all_channels):
             norm_target = _normalize(channel_name)
             for online_category, online_channel_list in all_channels.items():
                 for online_channel_name, online_channel_url in online_channel_list:
-                    if _normalize(online_channel_name) == norm_target:
-                        matched_channels[category].setdefault(channel_name, []).append(online_channel_url)
+                    if alias_map:
+                        resolved = resolve_alias(online_channel_name, alias_map)
+                        if resolved and resolved == channel_name:
+                            matched_channels[category].setdefault(channel_name, []).append(online_channel_url)
+                        elif _normalize(online_channel_name) == norm_target:
+                            matched_channels[category].setdefault(channel_name, []).append(online_channel_url)
+                    else:
+                        if _normalize(online_channel_name) == norm_target:
+                            matched_channels[category].setdefault(channel_name, []).append(online_channel_url)
 
     return matched_channels
 
 
-def filter_source_urls(template_file):
+def filter_source_urls(template_file, alias_map=None):
     template_channels = parse_template(template_file)
     source_urls = config.source_urls
 
@@ -159,7 +197,7 @@ def filter_source_urls(template_file):
             else:
                 all_channels[category] = channel_list
 
-    matched_channels = match_channels(template_channels, all_channels)
+    matched_channels = match_channels(template_channels, all_channels, alias_map)
 
     return matched_channels, template_channels
 
@@ -295,6 +333,7 @@ def _print_domain_suggestions(fail_domains: dict):
 async def async_main():
     """异步主入口：fetch -> check -> write"""
     import time
+    alias_map = load_alias_map()
     cache_mode = _get_cache_mode()
     logging.info(f"[缓存] 运行模式: {cache_mode}")
 
@@ -323,7 +362,7 @@ async def async_main():
         logging.info("[缓存] 执行完整抓取流程")
         epg_id_map = fetch_epg_id_map()
         template_file = "demo.txt"
-        channels, template_channels = filter_source_urls(template_file)
+        channels, template_channels = filter_source_urls(template_file, alias_map)
 
     # 酒店源抓取（优先用缓存，缓存过期则重新抓取）
     hotel_channels = {}
