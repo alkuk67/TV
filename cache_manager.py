@@ -138,14 +138,18 @@ def get_stale_keys(threshold_seconds=RESULT_STALE_THRESHOLD):
 
 def batch_upsert(results_by_cat_ch):
     """
-    批量写入检测结果。
+    批量写入检测结果，仅保存通过检测的源（ok/ok_no_ts 且 layer 为 ffprobe/deep）。
+    失败/超时的源不写入，避免脏数据污染缓存。
     results_by_cat_ch: {category: {channel: {url: check_data}}}
     """
     conn = _get_conn()
     now = time.time()
+    written = 0
     for cat, ch_dict in results_by_cat_ch.items():
         for ch, url_dict in ch_dict.items():
             for url, data in url_dict.items():
+                if data.get("status") not in ("ok", "ok_no_ts") or data.get("layer") not in ("ffprobe", "deep"):
+                    continue
                 conn.execute(
                     """
                     INSERT INTO results (category, channel, url, check_data, checked_at)
@@ -155,10 +159,10 @@ def batch_upsert(results_by_cat_ch):
                     """,
                     (cat, ch, url, json.dumps(data, ensure_ascii=False), now),
                 )
+                written += 1
     conn.commit()
     conn.close()
-    total = sum(len(urls) for ch in results_by_cat_ch.values() for urls in ch.values())
-    logger.info(f"[缓存] results.db 写入 {total} 条结果")
+    logger.info(f"[缓存] results.db 写入 {written} 条有效结果（过滤了失败/超时源）")
 
 
 def get_cached_results():
