@@ -8,7 +8,7 @@ import json
 import logging
 import subprocess
 import aiohttp
-import config
+import config.config as config
 
 _ffprobe_executor = None
 
