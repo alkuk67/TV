@@ -159,7 +159,23 @@ def load_alias_map(alias_file='config/alias.txt'):
 
 def resolve_alias(name, alias_map):
     n = name.strip()
-    return alias_map.get(n) or alias_map.get(_normalize(n))
+    # 先精确匹配
+    if n in alias_map:
+        return alias_map[n]
+    # normalize 后匹配
+    norm = _normalize(n)
+    if norm in alias_map:
+        return alias_map[n]
+    # 正则匹配（re: 前缀）
+    import re as _re
+    for alias_pattern, std in alias_map.items():
+        if alias_pattern.startswith('re:'):
+            try:
+                if _re.match(alias_pattern[3:], n):
+                    return std
+            except Exception:
+                pass
+    return None
 
 
 def match_channels(template_channels, all_channels, alias_map=None):
