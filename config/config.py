@@ -22,7 +22,7 @@ sort_mode = "balanced"
 
 # ── ISP 运营商分类 ────────────────────────────────────────────────
 # enable_isp_split: True=生成运营商分类文件，False=仅输出全局文件
-enable_isp_split = False
+enable_isp_split = True
 
 
 # ── 订阅源 ───────────────────────────────────────────────────────
@@ -31,17 +31,17 @@ enable_isp_split = False
 # 注：被注释掉的源暂时停用，可取消注释启用
 source_urls = [
      "http://45.192.97.170:6001/txt",
-  #   "https://fd.776512.xyz/@yuanzl77/https/tvlive.yuan77.workers.dev/xymm",
+     "https://fd.776512.xyz/@yuanzl77/https/tvlive.yuan77.workers.dev/xymm",
    #  "http://47.100.209.208:20002",
   #   "http://193.123.86.190:14888/TV/iptv.php",
    #  "http://iptv.4666888.xyz/FYTV.m3u",
    #  "https://php.946985.filegear-sg.me/jackTV.m3u",
   #   "https://live.445569.xyz/live.m3u",
    #  "https://gh-proxy.org/https://raw.githubusercontent.com/Kimentanm/aptv/refs/heads/master/m3u/iptv.m3u",
-   #  "https://gh-proxy.org/https://raw.githubusercontent.com/yuanzl77/zf/refs/heads/main/testtg.txt",
+     "https://gh-proxy.org/https://raw.githubusercontent.com/yuanzl77/zf/refs/heads/main/testtg.txt",
    #  "https://gh-proxy.org/https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv4.m3u",
-    # "https://fd.776512.xyz/@yuanzl77/https/cdn.qd.je/live.m3u",
-  #   "https://gh-proxy.org/https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.txt"
+     "https://fd.776512.xyz/@yuanzl77/https/cdn.qd.je/live.m3u",
+     "https://gh-proxy.org/https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.txt"
 ]
 
 # 订阅源抓取超时（秒）
