@@ -1,0 +1,371 @@
+# -*- coding: utf-8 -*-
+import os, sys, json, time, subprocess, threading, re
+from http.server import HTTPServer, BaseHTTPRequestHandler
+from socketserver import ThreadingMixIn
+from urllib.parse import urlparse, parse_qs
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, ROOT)
+
+_run_process = None
+_run_start_time = None
+_run_progress = 0
+_run_phase = ""
+_run_lock = threading.Lock()
+_log_lock = threading.Lock()
+_config_cache = None
+_config_cache_time = 0
+
+def _load_config():
+    global _config_cache, _config_cache_time
+    now = time.time()
+    if _config_cache is None or now - _config_cache_time > 60:
+        config_path = os.path.join(ROOT, "config", "config.py")
+        try:
+            with open(config_path, "r", encoding="utf-8", errors="ignore") as f:
+                _config_cache = f.read()
+            _config_cache_time = now
+        except Exception:
+            pass
+    return _config_cache or ""
+
+def run_main():
+    global _run_process, _run_start_time, _run_progress, _run_phase
+    with _run_lock:
+        if _run_process and _run_process.poll() is None:
+            return {"error": "正在运行中"}
+        _run_progress = 5
+        _run_phase = "初始化中..."
+        _run_start_time = time.time()
+        log_path = os.path.join(ROOT, "function.log")
+        proc = subprocess.Popen(
+            [sys.executable, os.path.join(ROOT, "main.py")],
+            cwd=ROOT,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+            bufsize=1,
+        )
+        _run_process = proc
+        
+        def _read_log():
+            global _run_progress, _run_phase
+            patterns = [
+                (r"别名映射.*加载.*条别名规则", "加载别名规则...", 5),
+                (r"EPG映射.*加载成功", "加载EPG映射...", 10),
+                (r"EPG映射.*共合并加载.*个频道", "合并频道数据...", 15),
+                (r"酒店源.*开始抓取", "抓取酒店源...", 20),
+                (r"抓取成功.*包含频道分类", "抓取订阅源...", 25),
+                (r"开始质量检测.*共.*个 URL", "质量检测中...", 35),
+                (r"ISP.*预过滤移除.*个", "ISP预过滤中...", 50),
+                (r"ISP分类.*完成", "运营商分类完成...", 65),
+                (r"过滤后.*保留\s+(\d+)\s+个", "过滤失效源...", 75),
+                (r"质量检测完成", "质量检测完成...", 80),
+                (r"已生成.*live\.m3u", "生成输出文件...", 90),
+            ]
+            with open(log_path, "a", encoding="utf-8") as log_file:
+                for line in proc.stdout:
+                    line = line.strip()
+                    if line:
+                        with _log_lock:
+                            log_file.write(line + "\n")
+                            log_file.flush()
+                        for pattern, phase, prog in patterns:
+                            m = re.search(pattern, line)
+                            if m:
+                                _run_phase = phase
+                                _run_progress = prog
+                                break
+                    elif proc.poll() is not None:
+                        _run_progress = 100
+                        _run_phase = "完成"
+                        break
+            _run_process = None
+        
+        threading.Thread(target=_read_log, daemon=True).start()
+    return {"status": "running", "pid": proc.pid, "progress": 5, "phase": "初始化中..."}
+
+def stop_run():
+    global _run_process, _run_progress, _run_phase
+    with _run_lock:
+        if _run_process and _run_process.poll() is None:
+            _run_process.terminate()
+            _run_process = None
+            _run_progress = 0
+            _run_phase = ""
+            return {"status": "stopped"}
+        return {"error": "没有正在运行的任务"}
+
+def get_run_status():
+    global _run_process, _run_start_time, _run_progress, _run_phase
+    with _run_lock:
+        if _run_process is None:
+            log_path = os.path.join(ROOT, "function.log")
+            if os.path.exists(log_path):
+                try:
+                    with open(log_path, "r", encoding="utf-8", errors="ignore") as f:
+                        lines = f.readlines()[-50:]
+                    for line in reversed(lines):
+                        if "开始质量检测" in line:
+                            return {"status": "running", "from_log": True, "progress": 50, "phase": "质量检测中..."}
+                        elif "已生成" in line or "完成" in line:
+                            return {"status": "idle", "progress": 0, "phase": ""}
+                except Exception:
+                    pass
+            return {"status": "idle", "progress": 0, "phase": ""}
+        
+        ret = _run_process.poll()
+        if ret is not None:
+            return {"status": "done", "progress": 100, "phase": "完成"}
+        elapsed = time.time() - _run_start_time
+        return {"status": "running", "elapsed": round(elapsed), "progress": _run_progress, "phase": _run_phase}
+
+def cleanup_old_logs():
+    log_path = os.path.join(ROOT, "function.log")
+    if os.path.exists(log_path):
+        try:
+            with open(log_path, "r", encoding="utf-8", errors="ignore") as f:
+                lines = f.readlines()
+            if len(lines) > 2000:
+                with open(log_path, "w", encoding="utf-8") as f:
+                    f.writelines(lines[-700:])
+        except Exception:
+            pass
+
+class Handler(BaseHTTPRequestHandler):
+    def _send_json(self, data, code=200):
+        self.send_response(code)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.end_headers()
+        self.wfile.write(json.dumps(data, ensure_ascii=False).encode("utf-8"))
+
+    def _send_file_content(self, content, content_type="text/plain; charset=utf-8"):
+        self.send_response(200)
+        self.send_header("Content-Type", content_type)
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.end_headers()
+        self.wfile.write(content.encode("utf-8"))
+
+    def do_GET(self):
+        parsed = urlparse(self.path)
+        path = parsed.path.rstrip("/") or "/"
+        qs = parse_qs(parsed.query)
+        try:
+            if path == "/":
+                html_path = os.path.join(ROOT, "web", "index.html")
+                if os.path.isfile(html_path):
+                    with open(html_path, "r", encoding="utf-8") as f:
+                        self._send_file_content(f.read(), "text/html; charset=utf-8")
+                else:
+                    self._send_json({"error": "index.html not found"}, 404)
+            elif path == "/api/status":
+                status = get_run_status()
+                output_dir = os.path.join(ROOT, "output")
+                stats = {"files": 0, "size": 0, "last_update": ""}
+                if os.path.isdir(output_dir):
+                    files = os.listdir(output_dir)
+                    stats["files"] = len([f for f in files if f.endswith(".m3u") or f.endswith(".txt")])
+                    latest = None
+                    for f in files:
+                        fp = os.path.join(output_dir, f)
+                        if os.path.isfile(fp) and (f.endswith(".m3u") or f.endswith(".txt")):
+                            st = os.stat(fp).st_mtime
+                            if latest is None or st > latest:
+                                latest = st
+                    stats["last_update"] = time.strftime("%Y/%m/%d %H:%M:%S", time.localtime(latest)) if latest else ""
+                channels = 0
+                urls = 0
+                live_txt = os.path.join(ROOT, "output", "live.txt")
+                if os.path.isfile(live_txt):
+                    try:
+                        with open(live_txt, "r", encoding="utf-8", errors="ignore") as f:
+                            for line in f:
+                                line = line.strip()
+                                if line and not line.startswith("#"):
+                                    urls += 1
+                                    if "," in line:
+                                        parts = line.split(",")
+                                        if len(parts) >= 2:
+                                            channels += 1
+                    except Exception:
+                        pass
+                status.update({"channels": channels, "urls": urls, **stats})
+                self._send_json(status)
+            elif path == "/api/config":
+                self._send_json({"content": _load_config()})
+            elif path == "/api/file/demo.txt":
+                demo_path = os.path.join(ROOT, "config", "demo.txt")
+                content = ""
+                if os.path.isfile(demo_path):
+                    with open(demo_path, "r", encoding="utf-8", errors="ignore") as f:
+                        content = f.read()
+                self._send_json({"content": content})
+            elif path == "/api/file/alias.txt":
+                alias_path = os.path.join(ROOT, "config", "alias.txt")
+                content = ""
+                if os.path.isfile(alias_path):
+                    with open(alias_path, "r", encoding="utf-8", errors="ignore") as f:
+                        content = f.read()
+                self._send_json({"content": content})
+            elif path == "/api/logs":
+                tail = int(qs.get("tail", ["50"])[0]) if qs else 50
+                log_path = os.path.join(ROOT, "function.log")
+                log_lines = []
+                if os.path.exists(log_path):
+                    try:
+                        with open(log_path, "r", encoding="utf-8", errors="ignore") as lf:
+                            all_lines = lf.readlines()
+                        log_lines = [l.rstrip("\n") for l in all_lines[-tail:]]
+                    except Exception:
+                        pass
+                self._send_json({"lines": log_lines})
+            elif path == "/api/channels":
+                live_path = os.path.join(ROOT, "output", "live.txt")
+                groups = []
+                if os.path.isfile(live_path):
+                    try:
+                        with open(live_path, "r", encoding="utf-8", errors="ignore") as lf:
+                            lines = lf.readlines()
+                        current_group = None
+                        for line in lines:
+                            line = line.strip()
+                            if not line:
+                                continue
+                            if line.endswith("#genre#"):
+                                current_group = line[:-len("#genre#")].strip()
+                                groups.append({"name": current_group, "channels": []})
+                            elif current_group and "," in line:
+                                parts = line.split(",", 1)
+                                ch_name = parts[0].strip()
+                                ch_url = parts[1].strip()
+                                # extract resolution/speed from URL suffix like 【1920x1080 256kbps】
+                                res = ""
+                                speed = ""
+                                import re as _re
+                                m = _re.search(r"【([^】]+)】", ch_url)
+                                if m:
+                                    meta = m.group(1)
+                                    res_m = _re.search(r"(\d+x\d+)", meta)
+                                    if res_m:
+                                        res = res_m.group(1)
+                                    sp_m = _re.search(r"(\d+(?:kbps|Mbps))", meta)
+                                    if sp_m:
+                                        speed = sp_m.group(1)
+                                groups[-1]["channels"].append({"name": ch_name, "url": ch_url, "resolution": res, "speed": speed})
+                    except Exception:
+                        pass
+                self._send_json({"groups": groups})
+            elif path == "/api/output":
+                output_dir = os.path.join(ROOT, "output")
+                if os.path.isdir(output_dir):
+                    files = []
+                    for f in sorted(os.listdir(output_dir)):
+                        fp = os.path.join(output_dir, f)
+                        if os.path.isfile(fp):
+                            st = os.stat(fp)
+                            files.append({"name": f, "size": st.st_size, "mtime": st.st_mtime})
+                    self._send_json({"files": files})
+                else:
+                    self._send_json({"files": []})
+            elif path.startswith("/api/output/download/"):
+                filename = path[len("/api/output/download/"):]
+                fp = os.path.join(ROOT, "output", filename)
+                if os.path.isfile(fp):
+                    with open(fp, "rb") as f:
+                        data = f.read()
+                    self.send_response(200)
+                    self.send_header("Content-Type", "application/octet-stream")
+                    self.send_header("Content-Disposition", 'attachment; filename="' + filename + '"')
+                    self.send_header("Content-Length", str(len(data)))
+                    self.send_header("Connection", "close")
+                    self.end_headers()
+                    self.wfile.write(data)
+                else:
+                    self._send_json({"error": "Not found"}, 404)
+            elif path == "/channel_data.js":
+                js_path = os.path.join(ROOT, "web", "channel_data.js")
+                if os.path.isfile(js_path):
+                    with open(js_path, "r", encoding="utf-8") as f:
+                        content = f.read()
+                    self._send_file_content(content, "application/javascript; charset=utf-8")
+                else:
+                    self._send_json({"error": "channel_data.js not found"}, 404)
+            else:
+                self._send_json({"error": "Not found"}, 404)
+        except Exception as e:
+            self._send_json({"error": str(e)}, 500)
+
+    def do_POST(self):
+        parsed = urlparse(self.path)
+        path = parsed.path.rstrip("/") or "/"
+        content_length = int(self.headers.get("Content-Length", 0))
+        body = self.rfile.read(content_length).decode("utf-8") if content_length else ""
+        
+        try:
+            if path == "/api/run":
+                result = run_main()
+                self._send_json(result)
+            elif path == "/api/stop":
+                result = stop_run()
+                self._send_json(result)
+            elif path.startswith("/api/file/save/"):
+                filename = path[len("/api/file/save/"):]
+                if filename in ["demo.txt", "alias.txt"]:
+                    data = json.loads(body) if body else {}
+                    file_path = os.path.join(ROOT, "config", filename)
+                    with open(file_path, "w", encoding="utf-8") as f:
+                        f.write(data.get("content", ""))
+                    self._send_json({"ok": True})
+                else:
+                    self._send_json({"error": "Not found"}, 404)
+            elif path == "/api/config/save":
+                data = json.loads(body) if body else {}
+                config_path = os.path.join(ROOT, "config", "config.py")
+                with open(config_path, "w", encoding="utf-8", errors="ignore") as f:
+                    f.write(data.get("content", ""))
+                global _config_cache
+                _config_cache = None
+                self._send_json({"ok": True})
+            elif path == "/api/logs/clear":
+                log_path = os.path.join(ROOT, "function.log")
+                with open(log_path, "w", encoding="utf-8", errors="ignore") as f:
+                    f.write("")
+                self._send_json({"ok": True})
+            else:
+                self._send_json({"error": "Not found"}, 404)
+        except Exception as e:
+            self._send_json({"error": str(e)}, 500)
+
+    def do_DELETE(self):
+        parsed = urlparse(self.path)
+        path = parsed.path.rstrip("/") or "/"
+        try:
+            if path.startswith("/api/output/delete/"):
+                filename = path[len("/api/output/delete/"):]
+                fp = os.path.join(ROOT, "output", filename)
+                if os.path.isfile(fp):
+                    os.remove(fp)
+                    self._send_json({"ok": True})
+                else:
+                    self._send_json({"error": "File not found"}, 404)
+            else:
+                self._send_json({"error": "Not found"}, 404)
+        except Exception as e:
+            self._send_json({"error": str(e)}, 500)
+
+    def log_message(self, format, *args):
+        pass
+
+class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
+    daemon_threads = True
+
+if __name__ == "__main__":
+    PORT = 5077
+    server = ThreadedHTTPServer(("0.0.0.0", PORT), Handler)
+    print(f"[Web] IPTV dashboard started: http://localhost:{PORT}")
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        print("\n[Web] Stopped")
+        server.shutdown()

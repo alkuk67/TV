@@ -11,17 +11,6 @@ import aiohttp
 import config.config as config
 
 _ffprobe_executor = None
-_deep_probe_executor = None
-_stop_flag = False
-
-
-def set_stop_flag(value):
-    global _stop_flag
-    _stop_flag = value
-
-
-def check_stop_flag():
-    return _stop_flag
 
 logger = logging.getLogger(__name__)
 
@@ -382,15 +371,6 @@ async def _get_ffprobe_executor():
     return _ffprobe_executor
 
 
-async def _get_deep_probe_executor():
-    """获取深度探测专用进程池（与 ffprobe 分离，避免死锁）"""
-    global _deep_probe_executor
-    if _deep_probe_executor is None:
-        import concurrent.futures
-        _deep_probe_executor = concurrent.futures.ProcessPoolExecutor(max_workers=min(config.check_max_conn, 8))
-    return _deep_probe_executor
-
-
 def _shutdown_ffprobe_executor():
     global _ffprobe_executor
     if _ffprobe_executor is not None:
@@ -411,7 +391,7 @@ async def _ffprobe_async(url, timeout, max_streams):
 async def _deep_probe_async(url, timeout):
     """异步运行深度探测"""
     loop = asyncio.get_event_loop()
-    executor = await _get_deep_probe_executor()
+    executor = await _get_ffprobe_executor()
     return await loop.run_in_executor(executor, _deep_probe_m3u8, url, timeout)
 
 
@@ -594,12 +574,8 @@ async def check_all(channels):
 
     # FFprobe 并发限制（避免同时启动过多进程导致系统资源耗尽）
     async def _worker(cat, ch_name, url):
-        nonlocal completed
         async with semaphore:
             r = await _check_single(session, url, config.check_timeout, config.ffprobe_timeout)
-            completed += 1
-            if completed % 100 == 0 or completed == total:
-                logger.info(f"[质量检测] 进度: {completed}/{total} ({completed*100//total}%)")
             return (cat, ch_name, url, r)
 
     connector = aiohttp.TCPConnector(limit=config.check_max_conn, ssl=False)
@@ -610,8 +586,6 @@ async def check_all(channels):
             for url in url_list:
                 all_tasks.append(_worker(cat, ch_name, url))
 
-    completed = 0
-    total = len(all_tasks)
     fail_domains = {}
 
     logger.info(

@@ -22,7 +22,7 @@ sort_mode = "balanced"
 
 # ── ISP 运营商分类 ────────────────────────────────────────────────
 # enable_isp_split: True=生成运营商分类文件，False=仅输出全局文件
-enable_isp_split = True
+enable_isp_split = False
 
 
 # ── 订阅源 ───────────────────────────────────────────────────────
@@ -31,16 +31,22 @@ enable_isp_split = True
 # 注：被注释掉的源暂时停用，可取消注释启用
 source_urls = [
      "http://45.192.97.170:6001/txt",
-    
-     "https://raw.githubusercontent.com/akuku9/testtt/refs/heads/main/test/tgtest.txt"
+  #   "https://fd.776512.xyz/@yuanzl77/https/tvlive.yuan77.workers.dev/xymm",
+   #  "http://47.100.209.208:20002",
+  #   "http://193.123.86.190:14888/TV/iptv.php",
+   #  "http://iptv.4666888.xyz/FYTV.m3u",
+   #  "https://php.946985.filegear-sg.me/jackTV.m3u",
+  #   "https://live.445569.xyz/live.m3u",
+   #  "https://gh-proxy.org/https://raw.githubusercontent.com/Kimentanm/aptv/refs/heads/master/m3u/iptv.m3u",
+   #  "https://gh-proxy.org/https://raw.githubusercontent.com/yuanzl77/zf/refs/heads/main/testtg.txt",
+   #  "https://gh-proxy.org/https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv4.m3u",
+    # "https://fd.776512.xyz/@yuanzl77/https/cdn.qd.je/live.m3u",
+  #   "https://gh-proxy.org/https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.txt"
 ]
 
-# ── 酒店源 ────────────────────────────────────────────
-# hotel_api   : 酒店源 API 地址
-# enabled   : True=启用酒店源抓取，False=跳过
-# allowed_orgs : 只保留指定运营商的节点，空列表=不过滤
-#              可选值: "China Telecom", "China Unicom", "China Mobile",
-#                      "Alibaba Cloud", "Tencent" 等
+# 订阅源抓取超时（秒）
+fetch_timeout = 10
+
 hotel_config = {
     "hotel_api": "https://iptvs-speed.humorously.cn",
     "enabled": True,
@@ -56,7 +62,7 @@ url_blacklist = [
     "ali-m-l.cztv.com",
     "173.208.212.130:8181",
     "61.221.215.25:8800",
-    "http://38.75.136.137:98"
+    "38.75.136.137:98"
 ]
 
 # ── 公告条目 ────────────────────────────────────────────────────────
@@ -99,7 +105,7 @@ epg_urls = [
 # check_max_conn       : 最大并发检测数，调高可加速但更占带宽
 enable_quality_check = True
 check_timeout    = 3.5
-check_max_conn   = 20
+check_max_conn   = 10
 
 # ── 质量检测 — FFprobe 中度探测 ───────────────────────────────────────
 # enable_ffprobe     : True=启用第二层 FFprobe 探测，False=仅 HTTP 快筛
@@ -116,10 +122,10 @@ check_max_conn   = 20
 # ffprobe_max_streams: ffprobe 最多读取的流数量，避免大文件探流耗时过长
 ffmpeg_path        = ""        # 空 = 使用系统 PATH 里的 ffprobe
 enable_ffprobe     = True
-ffprobe_timeout    = 4.5
+ffprobe_timeout    = 5
 min_bitrate        = 0         # min_bitrate = 200000 → 码率>0 且 <200kbps 的源会被淘汰；码率=0 的源不受影响
 min_resolution     = "1080"     # 宽度最低 720px
-ffprobe_max_streams = 5
+ffprobe_max_streams = 3
 
 # ── 深度探测配置 ───────────────────────────────────────────────────────
 # enable_deep_probe  : True=启用第三层深度探测（仅对 m3u8 流），False=仅中度探测
@@ -130,16 +136,24 @@ ffprobe_max_streams = 5
 #                      0 = 不过滤（只评分不淘汰）
 #                      建议 2000（2 Mbps）避免推流卡顿
 enable_deep_probe  = True
-enable_playback_test = True  # 播放测试（测首帧时间 + 解码稳定性），默认关闭（较慢）
-enable_stability_test = True   # 连续稳定性测试，默认开启
-stability_test_count = 3       # 探测次数，取中位数
-stability_test_interval = 1.0  # 每次间隔（秒）
-playback_test_timeout = 6.5     # 播放测试超时（秒）
-deep_probe_timeout = 6.5
+enable_playback_test = False  # 播放测试（测首帧时间 + 解码稳定性），默认关闭（较慢）
+stability_test_count = 1
+stability_test_interval = 0.5
+playback_test_timeout = 5
+deep_probe_timeout = 10
 min_speed_kbps     = 2500  # 2.5 Mbps
 
-# ── 开发者模式 ────────────────────────────────────────────────────
-# developer_mode: True=启用详细日志输出（用于调试各解析功能）
-#                False=仅输出正常日志
-developer_mode = False
+
+
+
+
+
+
+
+
+
+
+
+
+
 

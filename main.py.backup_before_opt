@@ -1,7 +1,6 @@
 import re
 import asyncio
-import aiohttp
-import requests as sync_requests
+import requests
 import logging
 from collections import OrderedDict
 from datetime import datetime
@@ -10,10 +9,8 @@ import sys
 sys.path.insert(0, os.path.dirname(__file__))
 import config.config as config
 import check as quality_checker
-import check_phase2
 import fetch_hotel
 import isp_checker
-import cache_manager
 
 
 # 自定义格式：时间 - 级别 - 模块.函数:行号 - 消息
@@ -54,7 +51,7 @@ def fetch_epg_id_map():
     epg_id_map = {}
     for epg_url in config.epg_urls:
         try:
-            resp = sync_requests.get(epg_url, timeout=15)
+            resp = requests.get(epg_url, timeout=15)
             resp.raise_for_status()
             # .gz 链接需要解压，.xml 链接直接用
             if epg_url.endswith(".gz"):
@@ -85,7 +82,7 @@ def fetch_channels(url):
     channels = OrderedDict()
 
     try:
-        response = sync_requests.get(url, timeout=10)
+        response = requests.get(url)
         response.raise_for_status()
         response.encoding = "utf-8"
         lines = response.text.split("\n")
@@ -125,7 +122,7 @@ def fetch_channels(url):
         if channels:
             categories = ", ".join(channels.keys())
             logging.info(f"url: {url} 抓取成功，包含频道分类: {categories}")
-    except (sync_requests.RequestException, Exception) as e:
+    except requests.RequestException as e:
         logging.error(f"url: {url} 抓取失败。 Error: {e}")
 
     return channels
@@ -157,8 +154,6 @@ def load_alias_map(alias_file='config/alias.txt'):
                 if len(parts) < 2:
                     continue
                 standard_name = parts[0]
-                # 添加主名到自己
-                alias_map[standard_name] = standard_name
                 for alias in parts[1:]:
                     alias = alias.strip()
                     if alias:
@@ -192,62 +187,26 @@ def resolve_alias(name, alias_map):
     return None
 
 
-
-def _build_reverse_index(all_channels, alias_map):
-    """预建反向索引：normalize名称 -> [(online_name, url), ...]，大幅加速匹配"""
-    import re as _re
-    index = {}
-    # 预编译别名中的正则模式
-    regex_patterns = []
-    if alias_map:
-        for k, v in alias_map.items():
-            if k.startswith("re:"):
-                try:
-                    regex_patterns.append((_re.compile(k[3:]), v))
-                except Exception:
-                    pass
-    # 遍历所有在线URL，建立索引
-    for cat, entries in all_channels.items():
-        for name, url in entries:
-            # 1. 精确匹配别名
-            if alias_map and name in alias_map:
-                std = alias_map[name]
-                norm_std = _normalize(std)
-                index.setdefault(norm_std, []).append((name, url))
-                continue
-            # 2. normalize 后匹配
-            norm = _normalize(name)
-            index.setdefault(norm, []).append((name, url))
-            # 3. 正则别名匹配
-            if alias_map and regex_patterns:
-                for pat, std in regex_patterns:
-                    try:
-                        if pat.match(name):
-                            norm_std = _normalize(std)
-                            index.setdefault(norm_std, []).append((name, url))
-                    except Exception:
-                        pass
-    return index
-
-
 def match_channels(template_channels, all_channels, alias_map=None):
     matched_channels = OrderedDict()
-    total_matched_urls = 0
-    # 预建反向索引，O(N+M) 替代 O(N*M*K)
-    reverse_index = _build_reverse_index(all_channels, alias_map)
+
     for category, channel_list in template_channels.items():
         matched_channels[category] = OrderedDict()
         for channel_name in channel_list:
             norm_target = _normalize(channel_name)
-            matched_urls = reverse_index.get(norm_target, [])
-            if matched_urls:
-                matched_channels[category][channel_name] = [url for _, url in matched_urls]
-                total_matched_urls += len(matched_urls)
-    total_template = sum(len(ch) for ch in template_channels.values())
-    total_online = sum(len(url_list) for cat in all_channels.values() for name, url_list in cat)
-    logging.info(f"[匹配统计] 模板 {total_template} 频道，在线 {total_online} URL，匹配 {total_matched_urls} URL")
-    return matched_channels
+            for online_category, online_channel_list in all_channels.items():
+                for online_channel_name, online_channel_url in online_channel_list:
+                    if alias_map:
+                        resolved = resolve_alias(online_channel_name, alias_map)
+                        if resolved and resolved == channel_name:
+                            matched_channels[category].setdefault(channel_name, []).append(online_channel_url)
+                        elif _normalize(online_channel_name) == norm_target:
+                            matched_channels[category].setdefault(channel_name, []).append(online_channel_url)
+                    else:
+                        if _normalize(online_channel_name) == norm_target:
+                            matched_channels[category].setdefault(channel_name, []).append(online_channel_url)
 
+    return matched_channels
 
 
 def filter_source_urls(template_file, alias_map=None):
@@ -267,95 +226,6 @@ def filter_source_urls(template_file, alias_map=None):
 
     return matched_channels, template_channels
 
-
-
-
-async def fetch_channels_async(session, url, timeout):
-    channels = OrderedDict()
-    logging.info(f'[抓取] 开始: {url}')
-    try:
-        async with session.get(url, timeout=timeout) as response:
-            response.raise_for_status()
-            text = await response.text()
-            lines = text.split(chr(10))
-            current_category = None
-            is_m3u = any('#EXTINF' in line for line in lines[:15])
-            source_type = 'm3u' if is_m3u else 'txt'
-            logging.info(f'[抓取] {url} 获取成功，判断为{source_type}格式')
-
-            if is_m3u:
-                for line in lines:
-                    line = line.strip()
-                    if line.startswith('#EXTINF'):
-                        match = re.search(r'group-title="(.*?)",(.*)', line)
-                        if match:
-                            current_category = match.group(1).strip()
-                            channel_name = match.group(2).strip()
-                            if current_category not in channels:
-                                channels[current_category] = []
-                    elif line and not line.startswith('#'):
-                        channel_url = line.strip()
-                        if current_category and channel_name:
-                            channels[current_category].append((channel_name, channel_url))
-            else:
-                for line in lines:
-                    line = line.strip()
-                    if '#genre#' in line:
-                        current_category = line.split(',')[0].strip()
-                        channels[current_category] = []
-                    elif current_category:
-                        match = re.match(r'^(.*?),(.*?)$', line)
-                        if match:
-                            channel_name = match.group(1).strip()
-                            channel_url = match.group(2).strip()
-                            channels[current_category].append((channel_name, channel_url))
-                        elif line:
-                            channels[current_category].append((line, ''))
-            if channels:
-                total_urls = sum(len(urls) for urls in channels.values())
-                categories = ', '.join(channels.keys())
-                logging.info(f'[抓取] {url} 抓取成功，包含频道分类: {categories}')
-                logging.info(f'[抓取] {url} 共获取 {total_urls} 个 URL')
-                # 打印样本频道名用于调试
-                sample_channels = []
-                for cat in list(channels.values())[:3]:
-                    for name, url_sample in list(cat)[:5]:
-                        sample_channels.append(name)
-                logging.info(f'[抓取] {url} 样本频道: {sample_channels[:10]}')
-            else:
-                logging.warning(f'[抓取] {url} 未抓到任何频道数据')
-    except asyncio.TimeoutError:
-        logging.error(f'[抓取] {url} 超时 (>{timeout.total:.0f}s)')
-    except aiohttp.ClientError as e:
-        logging.error(f'[抓取] {url} 网络错误: {type(e).__name__}: {e}')
-    except Exception as e:
-        logging.error(f'[抓取] {url} 抓取失败。 Error: {type(e).__name__}: {e}')
-    return channels
-
-async def filter_source_urls_async(template_file, alias_map=None):
-    template_channels = parse_template(template_file)
-    source_urls = config.source_urls
-    fetch_timeout = aiohttp.ClientTimeout(total=getattr(config, 'fetch_timeout', 10))
-    connector = aiohttp.TCPConnector(limit=5, ssl=False)
-    
-    all_channels = OrderedDict()
-    async with aiohttp.ClientSession(connector=connector, timeout=fetch_timeout) as session:
-        tasks = [fetch_channels_async(session, url, fetch_timeout) for url in source_urls]
-        results = await asyncio.gather(*tasks, return_exceptions=True)
-        
-        logging.info('[抓取] 等待所有源完成...')
-        for url, fetched_channels in zip(source_urls, results):
-            if isinstance(fetched_channels, Exception):
-                logging.error(f'[抓取] {url} 异步抓取异常: {fetched_channels}')
-                continue
-            for category, channel_list in fetched_channels.items():
-                if category in all_channels:
-                    all_channels[category].extend(channel_list)
-                else:
-                    all_channels[category] = channel_list
-
-    matched_channels = match_channels(template_channels, all_channels, alias_map)
-    return matched_channels, template_channels
 
 def is_ipv6(url):
     """判断是否为 IPv6 地址"""
@@ -491,12 +361,14 @@ async def async_main():
     logging.info("[抓取] 执行完整抓取流程，config.source_urls=%d 个, hotel=%s", len(config.source_urls), config.hotel_config.get("enabled"))
     epg_id_map = fetch_epg_id_map()
     template_file = "config/demo.txt"
-    channels, template_channels = await filter_source_urls_async(template_file, alias_map)
+    channels, template_channels = filter_source_urls(template_file, alias_map)
 
     hotel_channels = {}
     if config.hotel_config.get("enabled", False):
         logging.info("[酒店源] 开始抓取...")
         hotel_channels = await fetch_hotel.fetch_all_from_hotel()
+        for cat, ch_dict in hotel_channels.items():
+            channels.setdefault(cat, {}).update(ch_dict)
     # 酒店源按模板分类匹配
     all_hotel = []
     for cat, ch_dict in hotel_channels.items():
@@ -506,75 +378,19 @@ async def async_main():
     if all_hotel:
         hotel_matched = match_channels(template_channels, {"hotel": all_hotel}, alias_map)
         for cat, ch_dict in hotel_matched.items():
-            for ch_name, url_list in ch_dict.items():
-                channels.setdefault(cat, {}).setdefault(ch_name, []).extend(url_list)
+            channels[cat].update(ch_dict)
         matched_count = sum(len(v) for v in channels.values())
         logging.info(f"[酒店源] 匹配到 {matched_count} 个频道")
 
-    if quality_checker.check_stop_flag():
-        logging.info('[主程序] 收到停止信号，退出')
-        return
-    if quality_checker.check_stop_flag():
-        logging.info('[主程序] 收到停止信号，退出')
-        return
     if config.enable_quality_check:
         logging.info("[质量检测] 开始... enable_ffprobe=%s, ffprobe_timeout=%ss, min_resolution=%s, enable_deep_probe=%s", config.enable_ffprobe, config.ffprobe_timeout, config.min_resolution, config.enable_deep_probe)
-        # 加载缓存的检测结果
-        cached_results = cache_manager.get_cached_results()
-        if cached_results:
-            total_cached = sum(len(ch) for c in cached_results.values() for ch in c.values())
-            logging.info('[缓存] 加载了 %d 条缓存结果', total_cached)
-        
-        # Check if stop requested
-        if quality_checker.check_stop_flag():
-            logging.info('[主程序] 收到停止信号，退出质量检测')
-            return
         channels, isp_removed = await quality_checker._isp_filter_urls(channels)
         if isp_removed > 0:
             logging.info(f"[ISP] 预过滤移除 {isp_removed} 个 URL")
-        
-        # 只检测新增或过期的 URL
-        all_urls = set()
-        for cat, ch_dict in channels.items():
-            for ch_name, url_list in ch_dict.items():
-                all_urls.update(url_list)
-        
-        cached_urls = set()
-        for cat, ch_dict in cached_results.items():
-            for ch_name, url_dict in ch_dict.items():
-                cached_urls.update(url_dict.keys())
-        
-        urls_to_check = all_urls - cached_urls
-        logging.info("[增量检测] 总URL=%d, 缓存=%d, 需检测=%d", len(all_urls), len(cached_urls), len(urls_to_check))
-        
-        if urls_to_check:
-            # 使用分层并行检测（如果启用）
-            if getattr(config, 'enable_layered_check', False):
-                logging.info("[质量检测] 使用分层并行检测模式...")
-                check_results, fail_domains = await quality_checker.check_all_layered(channels)
-            else:
-                check_results, fail_domains = await check_phase2.check_all_two_phase(channels)
-            
-            # 写入缓存
-            try:
-                cache_manager.batch_upsert(check_results)
-                logging.info("[缓存] 检测结果已写入缓存")
-            except Exception as e:
-                logging.warning(f"[缓存] 写入失败: {e}")
-        else:
-            # 所有 URL 都有缓存，直接使用
-            check_results = cached_results
-            fail_domains = {}
-            logging.info("[缓存] 所有 URL 均有有效缓存，跳过检测")
-        
-        # 合并缓存和最新结果
-        for cat, ch_dict in cached_results.items():
-            for ch_name, url_dict in ch_dict.items():
-                check_results.setdefault(cat, {}).setdefault(ch_name, {}).update(url_dict)
-        
-        channels = quality_checker.filter_dead_urls(channels, check_results, accept_layers=("fast", "ffprobe"))
+        check_results, fail_domains = await quality_checker.check_all(channels)
+        channels = quality_checker.filter_dead_urls(channels, check_results, accept_layers=("fast", "ffprobe", "deep"))
         _print_domain_suggestions(fail_domains)
-        logging.info('[质量检测] 完成')
+        logging.info("[质量检测] 完成")
 
     total_channels = sum(len(ch) for ch in channels.values())
     total_urls = sum(sum(len(urls) for urls in ch.values()) for ch in channels.values())
@@ -817,6 +633,5 @@ if __name__ == "__main__":
         asyncio.run(async_main())
     finally:
         quality_checker._shutdown_ffprobe_executor()
-
 
 

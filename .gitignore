@@ -1,3 +1,10 @@
 __pycache__/
 
 *.pyc
+
+# Web temp files
+web/__pycache__/
+*.pyc
+
+# Backups
+*.bak

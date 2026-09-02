@@ -8,6 +8,9 @@ import aiohttp
 import config.config as config
 
 logger = logging.getLogger(__name__)
+_logger_fmt = logging.Formatter("%(asctime)s - %(levelname)s - %(name)s:%(filename)s:%(lineno)d - %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
+for _h in logger.handlers:
+    _h.setFormatter(_logger_fmt)
 
 
 async def _fetch_json(session, url, timeout):
