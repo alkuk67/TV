@@ -1,319 +1,345 @@
 #EXTM3U x-tvg-url="http://e.erw.cc/e.xml.gz","https://gitee.com/taksssss/tv/raw/main/epg/112114.xml.gz","http://epg.51zmt.top:8000/e.xml.gz"
 #EXTINF:-1 tvg-id="www.776512.xyz" tvg-name="www.776512.xyz" tvg-logo="https://ts2.tc.mm.bing.net/th/id/OIP-C.2CL9t6gI2-c5n5DI9Sl_0QAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" group-title="公告-yuanzl77",www.776512.xyz
 https://liuliuliu.tv/api/channels/233/stream
-#EXTINF:-1 tvg-id="更新时间：2026-09-12" tvg-name="更新时间：2026-09-12" tvg-logo="https://ts2.tc.mm.bing.net/th/id/OIP-C.2CL9t6gI2-c5n5DI9Sl_0QAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" group-title="公告-yuanzl77",更新时间：2026-09-12
+#EXTINF:-1 tvg-id="更新时间：2026-09-13" tvg-name="更新时间：2026-09-13" tvg-logo="https://ts2.tc.mm.bing.net/th/id/OIP-C.2CL9t6gI2-c5n5DI9Sl_0QAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" group-title="公告-yuanzl77",更新时间：2026-09-13
 https://gitlab.com/lr77/IPTV/-/raw/main/%E4%B8%BB%E8%A7%92.mp4
 #EXTINF:-1 tvg-id="请勿传播" tvg-name="请勿传播" tvg-logo="https://ts2.tc.mm.bing.net/th/id/OIP-C.2CL9t6gI2-c5n5DI9Sl_0QAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" group-title="公告-yuanzl77",请勿传播
 https://liuliuliu.tv/api/channels/1997/stream
 #EXTINF:-1 tvg-id="1" tvg-name="CCTV1" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道",CCTV1
-http://tiger81.i234.me:8888/rtp/239.112.205.59:5140$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.129:8008$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="1" tvg-name="CCTV1" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道",CCTV1
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.118:5140$LR—IPV4【线路2】 【1920x1080@256kbps 2Mbps】
+http://115.171.216.14:4000/udp/225.1.8.1:8008$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="1" tvg-name="CCTV1" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道",CCTV1
-http://alist.xicp.fun:52057/rtp/239.254.96.96:8550$LR—IPV4【线路3】 【1920x1080@256kbps 2Mbps】
+http://www.ct123.online:8188/rtp/239.254.96.96:8550$LR—IPV4【线路3】 【1920x1080@256kbps 1Mbps】
+#EXTINF:-1 tvg-id="1" tvg-name="CCTV1" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道",CCTV1
+http://58.210.139.130:9901/tsfile/live/0001_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@8690kbps 4Mbps】
 #EXTINF:-1 tvg-id="2" tvg-name="CCTV2" tvg-logo="https://tb.zbds.top/logo/CCTV2.png" group-title="央视频道",CCTV2
-http://alist.xicp.fun:52057/rtp/239.69.1.102:10250$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.60:8084$LR—IPV4【线路1】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="2" tvg-name="CCTV2" tvg-logo="https://tb.zbds.top/logo/CCTV2.png" group-title="央视频道",CCTV2
-http://115.171.216.14:4000/udp/225.1.8.2:8084$LR—IPV4【线路2】 【1920x1080@256kbps 2Mbps】
+http://tiger81.i234.me:8888/rtp/239.112.205.78:5140$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="2" tvg-name="CCTV2" tvg-logo="https://tb.zbds.top/logo/CCTV2.png" group-title="央视频道",CCTV2
-https://php.jdshipin.com/TVOD/iptv.php?id=cctv2$LR—IPV4【线路3】 【1920x1080@3539kbps 11kbps】
+http://www.ct123.online:8188/rtp/239.69.1.102:10250$LR—IPV4【线路3】 【1920x1080@256kbps 1Mbps】
+#EXTINF:-1 tvg-id="2" tvg-name="CCTV2" tvg-logo="https://tb.zbds.top/logo/CCTV2.png" group-title="央视频道",CCTV2
+http://tiger81.i234.me:8888/rtp/239.109.205.106:8784$LR—IPV4【线路4】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="3" tvg-name="CCTV3" tvg-logo="https://tb.zbds.top/logo/CCTV3.png" group-title="央视频道",CCTV3
-http://219.155.101.174:4022/rtp/225.1.4.158:1194$LR—IPV4【线路1】 【1920x1080@254kbps 2Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.172:8001$LR—IPV4【线路1】 【1920x1080@128kbps 2Mbps】
 #EXTINF:-1 tvg-id="3" tvg-name="CCTV3" tvg-logo="https://tb.zbds.top/logo/CCTV3.png" group-title="央视频道",CCTV3
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.196:5140$LR—IPV4【线路2】 【1920x1080@256kbps 2Mbps】
-#EXTINF:-1 tvg-id="3" tvg-name="CCTV3" tvg-logo="https://tb.zbds.top/logo/CCTV3.png" group-title="央视频道",CCTV3
-http://alist.xicp.fun:52057/rtp/239.69.1.122:10370$LR—IPV4【线路3】 【1920x1080@257kbps 2Mbps】
-#EXTINF:-1 tvg-id="3" tvg-name="CCTV3" tvg-logo="https://tb.zbds.top/logo/CCTV3.png" group-title="央视频道",CCTV3
-http://120.238.84.45:9901/tsfile/live/1020_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@256kbps】
-#EXTINF:-1 tvg-id="3" tvg-name="CCTV3" tvg-logo="https://tb.zbds.top/logo/CCTV3.png" group-title="央视频道",CCTV3
-https://php.jdshipin.com/TVOD/iptv.php?id=cctv3$LR—IPV4【线路5】 【1280x720@1488kbps 11kbps】
+http://tiger81.i234.me:8888/rtp/239.112.205.221:5140$LR—IPV4【线路2】 【1920x1080@255kbps 1Mbps】
 #EXTINF:-1 tvg-id="4" tvg-name="CCTV4" tvg-logo="https://tb.zbds.top/logo/CCTV4.png" group-title="央视频道",CCTV4
-http://219.155.101.174:4022/rtp/225.1.5.30:1333$LR—IPV4【线路1】 【1920x1080@257kbps 2Mbps】
+http://home.yulei.online:9999/rtp/226.0.2.156:9160$LR—IPV4【线路1】 【1920x1080@128kbps 1Mbps】
 #EXTINF:-1 tvg-id="4" tvg-name="CCTV4" tvg-logo="https://tb.zbds.top/logo/CCTV4.png" group-title="央视频道",CCTV4
-http://alist.xicp.fun:52057/rtp/239.69.1.138:10466$LR—IPV4【线路2】 【1920x1080@256kbps 2Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.105:8092$LR—IPV4【线路2】 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="4" tvg-name="CCTV4" tvg-logo="https://tb.zbds.top/logo/CCTV4.png" group-title="央视频道",CCTV4
-https://php.jdshipin.com/TVOD/iptv.php?id=cctv4$LR—IPV4【线路3】 【1920x1080@2939kbps 11kbps】
+http://tiger81.i234.me:8888/rtp/239.109.205.159:9108$LR—IPV4【线路3】 【1920x1080@256kbps 1Mbps】
+#EXTINF:-1 tvg-id="4" tvg-name="CCTV4" tvg-logo="https://tb.zbds.top/logo/CCTV4.png" group-title="央视频道",CCTV4
+http://115.171.216.14:4000/udp/225.1.8.4:8092$LR—IPV4【线路4】 【1920x1080@256kbps 1Mbps】
+#EXTINF:-1 tvg-id="4" tvg-name="CCTV4" tvg-logo="https://tb.zbds.top/logo/CCTV4.png" group-title="央视频道",CCTV4
+http://www.ct123.online:8188/rtp/239.69.1.138:10466$LR—IPV4【线路5】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="5" tvg-name="CCTV5" tvg-logo="https://tb.zbds.top/logo/CCTV5.png" group-title="央视频道",CCTV5
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.197:5140$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.173:8001$LR—IPV4【线路1】 【1920x1080@128kbps 2Mbps】
 #EXTINF:-1 tvg-id="5" tvg-name="CCTV5" tvg-logo="https://tb.zbds.top/logo/CCTV5.png" group-title="央视频道",CCTV5
-http://wmh.wmh.ink:6633/udp/239.77.0.170:5146$LR—IPV4【线路2】 【1920x1080@256kbps 200kbps】
+http://tiger81.i234.me:8888/rtp/239.112.205.222:5140$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="5" tvg-name="CCTV5" tvg-logo="https://tb.zbds.top/logo/CCTV5.png" group-title="央视频道",CCTV5
-http://219.155.101.174:4022/rtp/225.1.4.159:1195$LR—IPV4【线路3】 【1920x1080@256kbps 2Mbps】
+http://tiger81.i234.me:8888/rtp/239.111.205.10:5140$LR—IPV4【线路3】 【1920x1080@96kbps 1Mbps】
 #EXTINF:-1 tvg-id="5" tvg-name="CCTV5" tvg-logo="https://tb.zbds.top/logo/CCTV5.png" group-title="央视频道",CCTV5
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.227:5140$LR—IPV4【线路4】 【1920x1080@256kbps 2Mbps】
+http://www.ct123.online:8188/rtp/239.69.1.123:10376$LR—IPV4【线路4】 【1920x1080@257kbps 1Mbps】
 #EXTINF:-1 tvg-id="5" tvg-name="CCTV5" tvg-logo="https://tb.zbds.top/logo/CCTV5.png" group-title="央视频道",CCTV5
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.195:5140$LR—IPV4【线路5】 【1920x1080@256kbps 2Mbps】
+http://tiger81.i234.me:8888/rtp/239.109.205.214:9208$LR—IPV4【线路5】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="5" tvg-name="CCTV5" tvg-logo="https://tb.zbds.top/logo/CCTV5.png" group-title="央视频道",CCTV5
-http://alist.xicp.fun:52057/rtp/239.69.1.123:10376$LR—IPV4【线路6】 【1920x1080@255kbps 2Mbps】
-#EXTINF:-1 tvg-id="5" tvg-name="CCTV5" tvg-logo="https://tb.zbds.top/logo/CCTV5.png" group-title="央视频道",CCTV5
-http://www.zyhfm.com:8088/rtp/239.69.1.123:10376$LR—IPV4【线路7】 【1920x1080@255kbps 66kbps】
+http://58.210.139.130:9901/tsfile/live/0005_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路6】 【1920x1080@256kbps 4Mbps】
 #EXTINF:-1 tvg-id="6" tvg-name="CCTV5+" tvg-logo="https://tb.zbds.top/logo/CCTV5+.png" group-title="央视频道",CCTV5+
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.220:5140$LR—IPV4【线路1】 【1920x1080@192kbps 2Mbps】
-#EXTINF:-1 tvg-id="6" tvg-name="CCTV5+" tvg-logo="https://tb.zbds.top/logo/CCTV5+.png" group-title="央视频道",CCTV5+
-http://219.155.101.174:4022/rtp/225.1.4.75:1104$LR—IPV4【线路2】 【1920x1080@254kbps 2Mbps】
-#EXTINF:-1 tvg-id="6" tvg-name="CCTV5+" tvg-logo="https://tb.zbds.top/logo/CCTV5+.png" group-title="央视频道",CCTV5+
-http://www.zyhfm.com:8088/rtp/239.254.96.234:9484$LR—IPV4【线路3】 【1920x1080@256kbps 103kbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.130:8004$LR—IPV4 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="7" tvg-name="CCTV6" tvg-logo="https://tb.zbds.top/logo/CCTV6.png" group-title="央视频道",CCTV6
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.198:5140$LR—IPV4 【1920x1080@256kbps 1Mbps】
+http://home.yulei.online:9999/rtp/226.0.2.210:9592$LR—IPV4【线路1】 【1920x1080@128kbps 2Mbps】
+#EXTINF:-1 tvg-id="7" tvg-name="CCTV6" tvg-logo="https://tb.zbds.top/logo/CCTV6.png" group-title="央视频道",CCTV6
+http://ddns.talesyuan.com:4022/rtp/239.3.1.174:8001$LR—IPV4【线路2】 【1920x1080@128kbps 2Mbps】
+#EXTINF:-1 tvg-id="7" tvg-name="CCTV6" tvg-logo="https://tb.zbds.top/logo/CCTV6.png" group-title="央视频道",CCTV6
+http://www.ct123.online:8188/rtp/239.69.1.124:10382$LR—IPV4【线路3】 【1920x1080@255kbps 1Mbps】
+#EXTINF:-1 tvg-id="7" tvg-name="CCTV6" tvg-logo="https://tb.zbds.top/logo/CCTV6.png" group-title="央视频道",CCTV6
+http://58.210.139.130:9901/tsfile/live/0006_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@128kbps 3Mbps】
 #EXTINF:-1 tvg-id="8" tvg-name="CCTV7" tvg-logo="https://tb.zbds.top/logo/CCTV7.png" group-title="央视频道",CCTV7
-http://219.155.101.174:4022/rtp/225.1.4.76:1105$LR—IPV4【线路1】 【1920x1080@255kbps 2Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.61:8104$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="8" tvg-name="CCTV7" tvg-logo="https://tb.zbds.top/logo/CCTV7.png" group-title="央视频道",CCTV7
-https://php.jdshipin.com/TVOD/iptv.php?id=cctv7$LR—IPV4【线路2】 【1280x720@1870kbps 12kbps】
+http://www.ct123.online:8188/rtp/239.69.1.103:10256$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
+#EXTINF:-1 tvg-id="8" tvg-name="CCTV7" tvg-logo="https://tb.zbds.top/logo/CCTV7.png" group-title="央视频道",CCTV7
+http://tiger81.i234.me:8888/rtp/239.112.205.83:5140$LR—IPV4【线路3】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="9" tvg-name="CCTV8" tvg-logo="https://tb.zbds.top/logo/CCTV8.png" group-title="央视频道",CCTV8
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.199:5140$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
+http://home.yulei.online:9999/rtp/226.0.2.211:9600$LR—IPV4【线路1】 【1920x1080@128kbps 2Mbps】
 #EXTINF:-1 tvg-id="9" tvg-name="CCTV8" tvg-logo="https://tb.zbds.top/logo/CCTV8.png" group-title="央视频道",CCTV8
-http://219.155.101.174:4022/rtp/225.1.4.161:1197$LR—IPV4【线路2】 【1920x1080@256kbps 2Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.175:8001$LR—IPV4【线路2】 【1920x1080@128kbps 2Mbps】
 #EXTINF:-1 tvg-id="9" tvg-name="CCTV8" tvg-logo="https://tb.zbds.top/logo/CCTV8.png" group-title="央视频道",CCTV8
-http://wmh.wmh.ink:6633/udp/239.77.0.172:5146$LR—IPV4【线路3】 【1920x1080@256kbps 914kbps】
+http://115.171.216.14:4000/udp/225.1.8.85:8000$LR—IPV4【线路3】 【1920x1080@128kbps 545kbps】
+#EXTINF:-1 tvg-id="9" tvg-name="CCTV8" tvg-logo="https://tb.zbds.top/logo/CCTV8.png" group-title="央视频道",CCTV8
+http://tiger81.i234.me:8888/rtp/239.112.205.224:5140$LR—IPV4【线路4】 【1920x1080@256kbps 1Mbps】
+#EXTINF:-1 tvg-id="9" tvg-name="CCTV8" tvg-logo="https://tb.zbds.top/logo/CCTV8.png" group-title="央视频道",CCTV8
+http://www.ct123.online:8188/rtp/239.69.1.125:10388$LR—IPV4【线路5】 【1920x1080@256kbps 1Mbps】
+#EXTINF:-1 tvg-id="9" tvg-name="CCTV8" tvg-logo="https://tb.zbds.top/logo/CCTV8.png" group-title="央视频道",CCTV8
+http://tiger81.i234.me:8888/rtp/239.109.205.90:8656$LR—IPV4【线路6】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="10" tvg-name="CCTV9" tvg-logo="https://tb.zbds.top/logo/CCTV9.png" group-title="央视频道",CCTV9
-http://115.171.216.14:4000/udp/225.1.8.9:8112$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.62:8112$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="10" tvg-name="CCTV9" tvg-logo="https://tb.zbds.top/logo/CCTV9.png" group-title="央视频道",CCTV9
-http://alist.xicp.fun:52057/rtp/239.69.1.104:10262$LR—IPV4【线路2】 【1920x1080@256kbps 2Mbps】
+http://tiger81.i234.me:8888/rtp/239.112.205.85:5140$LR—IPV4【线路2】 【1920x1080@256kbps 2Mbps】
+#EXTINF:-1 tvg-id="10" tvg-name="CCTV9" tvg-logo="https://tb.zbds.top/logo/CCTV9.png" group-title="央视频道",CCTV9
+http://www.ct123.online:8188/rtp/239.69.1.104:10262$LR—IPV4【线路3】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="11" tvg-name="CCTV10" tvg-logo="https://tb.zbds.top/logo/CCTV10.png" group-title="央视频道",CCTV10
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.122:5140$LR—IPV4【线路1】 【1920x1080@192kbps 2Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.63:8116$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="11" tvg-name="CCTV10" tvg-logo="https://tb.zbds.top/logo/CCTV10.png" group-title="央视频道",CCTV10
-http://115.171.216.14:4000/udp/225.1.8.10:8116$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
+http://tiger81.i234.me:8888/rtp/239.112.205.86:5140$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="11" tvg-name="CCTV10" tvg-logo="https://tb.zbds.top/logo/CCTV10.png" group-title="央视频道",CCTV10
-http://wmh.wmh.ink:6633/udp/239.77.1.113:5146$LR—IPV4【线路3】 【1920x1080@256kbps 2Mbps】
+http://tiger81.i234.me:8888/rtp/239.110.205.9:9782$LR—IPV4【线路3】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="11" tvg-name="CCTV10" tvg-logo="https://tb.zbds.top/logo/CCTV10.png" group-title="央视频道",CCTV10
-http://alist.xicp.fun:52057/rtp/239.69.1.105:10268$LR—IPV4【线路4】 【1920x1080@256kbps 2Mbps】
-#EXTINF:-1 tvg-id="11" tvg-name="CCTV10" tvg-logo="https://tb.zbds.top/logo/CCTV10.png" group-title="央视频道",CCTV10
-https://php.jdshipin.com/TVOD/iptv.php?id=cctv10$LR—IPV4【线路5】 【1280x720@2525kbps 12kbps】
+http://www.ct123.online:8188/rtp/239.69.1.105:10268$LR—IPV4【线路4】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="12" tvg-name="CCTV11" tvg-logo="https://tb.zbds.top/logo/CCTV11.png" group-title="央视频道",CCTV11
-http://115.171.216.14:4000/udp/225.1.8.73:8120$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.152:8120$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="12" tvg-name="CCTV11" tvg-logo="https://tb.zbds.top/logo/CCTV11.png" group-title="央视频道",CCTV11
-http://wmh.wmh.ink:6633/udp/239.77.1.238:5146$LR—IPV4【线路2】 【1920x1080@256kbps 2Mbps】
+http://home.yulei.online:9999/rtp/226.0.2.28:8136$LR—IPV4【线路2】 【1920x1080@252kbps 2Mbps】
 #EXTINF:-1 tvg-id="12" tvg-name="CCTV11" tvg-logo="https://tb.zbds.top/logo/CCTV11.png" group-title="央视频道",CCTV11
-http://alist.xicp.fun:52057/rtp/239.69.1.154:10560$LR—IPV4【线路3】 【1920x1080@256kbps 1Mbps】
+http://115.171.216.14:4000/udp/225.1.8.73:8120$LR—IPV4【线路3】 【1920x1080@256kbps 18kbps】
 #EXTINF:-1 tvg-id="12" tvg-name="CCTV11" tvg-logo="https://tb.zbds.top/logo/CCTV11.png" group-title="央视频道",CCTV11
-http://www.zyhfm.com:8088/rtp/239.69.1.154:10560$LR—IPV4【线路4】 【1920x1080@256kbps 140kbps】
+http://www.ct123.online:8188/rtp/239.69.1.154:10560$LR—IPV4【线路4】 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="12" tvg-name="CCTV11" tvg-logo="https://tb.zbds.top/logo/CCTV11.png" group-title="央视频道",CCTV11
-https://php.jdshipin.com/TVOD/iptv.php?id=cctv11$LR—IPV4【线路5】 【1920x1080@3180kbps 12kbps】
+http://tiger81.i234.me:8888/rtp/239.111.205.11:5140$LR—IPV4【线路5】 【1920x1080@96kbps 1Mbps】
 #EXTINF:-1 tvg-id="13" tvg-name="CCTV12" tvg-logo="https://tb.zbds.top/logo/CCTV12.png" group-title="央视频道",CCTV12
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.123:5140$LR—IPV4【线路1】 【1920x1080@192kbps 1Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.64:8124$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="13" tvg-name="CCTV12" tvg-logo="https://tb.zbds.top/logo/CCTV12.png" group-title="央视频道",CCTV12
-http://www.zyhfm.com:8088/rtp/239.69.1.106:10274$LR—IPV4【线路2】 【1920x1080@256kbps 266kbps】
+http://tiger81.i234.me:8888/rtp/239.110.205.10:9786$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="13" tvg-name="CCTV12" tvg-logo="https://tb.zbds.top/logo/CCTV12.png" group-title="央视频道",CCTV12
-https://php.jdshipin.com/TVOD/iptv.php?id=cctv12$LR—IPV4【线路3】 【1920x1080@3524kbps 11kbps】
+http://58.210.139.130:9901/tsfile/live/0012_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@256kbps 4Mbps】
 #EXTINF:-1 tvg-id="14" tvg-name="CCTV13" tvg-logo="https://tb.zbds.top/logo/CCTV13.png" group-title="央视频道",CCTV13
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.246:5140$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.124:8128$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="14" tvg-name="CCTV13" tvg-logo="https://tb.zbds.top/logo/CCTV13.png" group-title="央视频道",CCTV13
-http://115.171.216.14:4000/udp/225.1.1.10:8128$LR—IPV4【线路2】 【1920x1080@256kbps 2Mbps】
-#EXTINF:-1 tvg-id="14" tvg-name="CCTV13" tvg-logo="https://tb.zbds.top/logo/CCTV13.png" group-title="央视频道",CCTV13
-http://www.zyhfm.com:8088/rtp/239.254.96.161:9040$LR—IPV4【线路3】 【1920x1080@256kbps 51kbps】
-#EXTINF:-1 tvg-id="14" tvg-name="CCTV13" tvg-logo="https://tb.zbds.top/logo/CCTV13.png" group-title="央视频道",CCTV13
-https://php.jdshipin.com/TVOD/iptv.php?id=cctv13$LR—IPV4【线路4】 【1920x1080@4118kbps 11kbps】
-#EXTINF:-1 tvg-id="14" tvg-name="CCTV13" tvg-logo="https://tb.zbds.top/logo/CCTV13.png" group-title="央视频道",CCTV13
-https://cdn.qd.je/163189/cctv13-2$LR—IPV4【线路5】 【1920x1080@4071kbps 35kbps】
+https://cdn.qd.je/163189/cctv13-2$LR—IPV4【线路2】 【1920x1080@4071kbps 71kbps】
 #EXTINF:-1 tvg-id="15" tvg-name="CCTV14" tvg-logo="https://tb.zbds.top/logo/CCTV14.png" group-title="央视频道",CCTV14
-http://219.155.101.174:4022/rtp/225.1.4.80:1109$LR—IPV4【线路1】 【1920x1080@256kbps 1Mbps】
+http://home.yulei.online:9999/rtp/226.0.2.166:9240$LR—IPV4【线路1】 【1920x1080@127kbps 2Mbps】
 #EXTINF:-1 tvg-id="15" tvg-name="CCTV14" tvg-logo="https://tb.zbds.top/logo/CCTV14.png" group-title="央视频道",CCTV14
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.124:5140$LR—IPV4【线路2】 【1920x1080@192kbps 2Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.65:8132$LR—IPV4【线路2】 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="15" tvg-name="CCTV14" tvg-logo="https://tb.zbds.top/logo/CCTV14.png" group-title="央视频道",CCTV14
-http://alist.xicp.fun:52057/rtp/239.69.1.107:10280$LR—IPV4【线路3】 【1920x1080@256kbps 2Mbps】
+http://www.ct123.online:8188/rtp/239.69.1.107:10280$LR—IPV4【线路3】 【1920x1080@256kbps 1Mbps】
+#EXTINF:-1 tvg-id="15" tvg-name="CCTV14" tvg-logo="https://tb.zbds.top/logo/CCTV14.png" group-title="央视频道",CCTV14
+http://tiger81.i234.me:8888/rtp/239.110.205.20:9826$LR—IPV4【线路4】 【1920x1080@256kbps 1Mbps】
+#EXTINF:-1 tvg-id="15" tvg-name="CCTV14" tvg-logo="https://tb.zbds.top/logo/CCTV14.png" group-title="央视频道",CCTV14
+http://58.210.139.130:9901/tsfile/live/0014_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="16" tvg-name="CCTV15" tvg-logo="https://tb.zbds.top/logo/CCTV15.png" group-title="央视频道",CCTV15
-http://219.155.101.174:4022/rtp/225.1.4.216:1269$LR—IPV4【线路1】 【1920x1080@255kbps 2Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.153:8136$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="16" tvg-name="CCTV15" tvg-logo="https://tb.zbds.top/logo/CCTV15.png" group-title="央视频道",CCTV15
-http://alist.xicp.fun:52057/rtp/239.69.1.155:10566$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
+http://home.yulei.online:9999/rtp/226.0.2.32:8168$LR—IPV4【线路2】 【1920x1080@255kbps 2Mbps】
 #EXTINF:-1 tvg-id="16" tvg-name="CCTV15" tvg-logo="https://tb.zbds.top/logo/CCTV15.png" group-title="央视频道",CCTV15
-http://www.zyhfm.com:8088/rtp/239.69.1.155:10566$LR—IPV4【线路3】 【1920x1080@256kbps 96kbps】
+http://tiger81.i234.me:8888/rtp/239.112.205.214:5140$LR—IPV4【线路3】 【1920x1080@256kbps 1Mbps】
+#EXTINF:-1 tvg-id="16" tvg-name="CCTV15" tvg-logo="https://tb.zbds.top/logo/CCTV15.png" group-title="央视频道",CCTV15
+http://www.ct123.online:8188/rtp/239.69.1.155:10566$LR—IPV4【线路4】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="17" tvg-name="CCTV16" tvg-logo="https://tb.zbds.top/logo/CCTV16.png" group-title="央视频道",CCTV16
-https://php.jdshipin.com/TVOD/iptv.php?id=cctv16$LR—IPV4 【1920x1080@2921kbps 6kbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.184:8001$LR—IPV4【线路1】 【1920x1080@128kbps 2Mbps】
+#EXTINF:-1 tvg-id="17" tvg-name="CCTV16" tvg-logo="https://tb.zbds.top/logo/CCTV16.png" group-title="央视频道",CCTV16
+http://tiger81.i234.me:8888/rtp/239.111.205.133:5140$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
+#EXTINF:-1 tvg-id="17" tvg-name="CCTV16" tvg-logo="https://tb.zbds.top/logo/CCTV16.png" group-title="央视频道",CCTV16
+http://www.ct123.online:8188/rtp/239.69.1.247:11124$LR—IPV4【线路3】 【1920x1080@254kbps 2Mbps】
 #EXTINF:-1 tvg-id="18" tvg-name="CCTV17" tvg-logo="https://tb.zbds.top/logo/CCTV17.png" group-title="央视频道",CCTV17
-http://219.155.101.174:4022/rtp/225.1.4.226:2506$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
+http://home.yulei.online:9999/rtp/226.0.2.170:9272$LR—IPV4【线路1】 【1920x1080@127kbps 2Mbps】
 #EXTINF:-1 tvg-id="18" tvg-name="CCTV17" tvg-logo="https://tb.zbds.top/logo/CCTV17.png" group-title="央视频道",CCTV17
-http://www.zyhfm.com:8088/rtp/239.69.1.152:10548$LR—IPV4【线路2】 【1920x1080@256kbps 105kbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.151:8144$LR—IPV4【线路2】 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="18" tvg-name="CCTV17" tvg-logo="https://tb.zbds.top/logo/CCTV17.png" group-title="央视频道",CCTV17
-https://php.jdshipin.com/TVOD/iptv.php?id=cctv17$LR—IPV4【线路3】 【1920x1080@3371kbps 12kbps】
+http://tiger81.i234.me:8888/rtp/239.109.205.88:8640$LR—IPV4【线路3】 【1920x1080@256kbps 1Mbps】
+#EXTINF:-1 tvg-id="151" tvg-name="CETV1" tvg-logo="https://tb.zbds.top/logo/CETV1.png" group-title="央视频道",CETV1
+http://home.yulei.online:9999/rtp/226.0.2.181:9360$LR—IPV4【线路1】 【1920x1080@128kbps 2Mbps】
+#EXTINF:-1 tvg-id="151" tvg-name="CETV1" tvg-logo="https://tb.zbds.top/logo/CETV1.png" group-title="央视频道",CETV1
+http://tiger81.i234.me:8888/rtp/239.109.205.67:8472$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
+#EXTINF:-1 tvg-id="151" tvg-name="CETV1" tvg-logo="https://tb.zbds.top/logo/CETV1.png" group-title="央视频道",CETV1
+http://ddns.talesyuan.com:4022/rtp/239.3.1.68:4120$LR—IPV4【线路3】 【1920x1080@96kbps 1Mbps】
+#EXTINF:-1 tvg-id="151" tvg-name="CETV1" tvg-logo="https://tb.zbds.top/logo/CETV1.png" group-title="央视频道",CETV1
+http://www.ct123.online:8188/rtp/239.69.1.110:10298$LR—IPV4【线路4】 【1920x1080@255kbps 1Mbps】
+#EXTINF:-1 tvg-id="152" tvg-name="CETV2" tvg-logo="https://tb.zbds.top/logo/CETV2.png" group-title="央视频道",CETV2
+http://ddns.talesyuan.com:4022/rtp/239.3.1.80:4120$LR—IPV4 【1920x1080@96kbps 1Mbps】
+#EXTINF:-1 tvg-id="153" tvg-name="CETV3" tvg-logo="https://tb.zbds.top/logo/CETV3.png" group-title="央视频道",CETV3
+http://ddns.talesyuan.com:4022/rtp/239.3.1.69:4120$LR—IPV4 【1920x1080@96kbps 1Mbps】
+#EXTINF:-1 tvg-id="154" tvg-name="CETV4" tvg-logo="https://tb.zbds.top/logo/CETV4.png" group-title="央视频道",CETV4
+http://ddns.talesyuan.com:4022/rtp/239.3.1.85:4120$LR—IPV4【线路1】 【1920x1080@96kbps 1Mbps】
+#EXTINF:-1 tvg-id="154" tvg-name="CETV4" tvg-logo="https://tb.zbds.top/logo/CETV4.png" group-title="央视频道",CETV4
+http://tiger81.i234.me:8888/rtp/239.111.205.15:5140$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
+#EXTINF:-1 tvg-id="154" tvg-name="CETV4" tvg-logo="https://tb.zbds.top/logo/CETV4.png" group-title="央视频道",CETV4
+http://www.ct123.online:8188/rtp/239.69.2.29:11328$LR—IPV4【线路3】 【1920x1080@255kbps 1Mbps】
+#EXTINF:-1 tvg-id="154" tvg-name="CETV4" tvg-logo="https://tb.zbds.top/logo/CETV4.png" group-title="央视频道",CETV4
+http://tiger81.i234.me:8888/rtp/239.109.205.64:8448$LR—IPV4【线路4】 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="155" tvg-name="广东珠江" tvg-logo="https://tb.zbds.top/logo/广东珠江.png" group-title="广东频道",广东珠江
-https://cdn.qd.je/163189/gdzj$LR—IPV4 【1920x1080@256kbps 25kbps】
+https://cdn.qd.je/163189/gdzj$LR—IPV4 【1920x1080@256kbps 15kbps】
 #EXTINF:-1 tvg-id="156" tvg-name="广东体育" tvg-logo="https://tb.zbds.top/logo/广东体育.png" group-title="广东频道",广东体育
-https://cdn.qd.je/163189/gdty$LR—IPV4 【1920x1080@256kbps 25kbps】
+https://cdn.qd.je/163189/gdty$LR—IPV4 【1920x1080@256kbps 39kbps】
 #EXTINF:-1 tvg-id="经济科教" tvg-name="经济科教" tvg-logo="https://tb.zbds.top/logo/经济科教.png" group-title="广东频道",经济科教
-http://219.155.101.174:4022/rtp/225.1.4.183:1232$LR—IPV4【线路1】 【1920x1080@96kbps 2Mbps】
+http://home.yulei.online:9999/rtp/226.0.2.222:9688$LR—IPV4【线路1】 【1920x1080@127kbps 2Mbps】
 #EXTINF:-1 tvg-id="经济科教" tvg-name="经济科教" tvg-logo="https://tb.zbds.top/logo/经济科教.png" group-title="广东频道",经济科教
-http://219.155.101.174:4022/rtp/225.1.4.181:1230$LR—IPV4【线路2】 【1920x1080@96kbps 2Mbps】
+http://home.yulei.online:9999/rtp/226.0.2.84:8584$LR—IPV4【线路2】 【1920x1080@127kbps 2Mbps】
 #EXTINF:-1 tvg-id="经济科教" tvg-name="经济科教" tvg-logo="https://tb.zbds.top/logo/经济科教.png" group-title="广东频道",经济科教
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.187:5140$LR—IPV4【线路3】 【1920x1080@256kbps 2Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.199:9000$LR—IPV4【线路3】 【1920x1080@96kbps 1Mbps】
 #EXTINF:-1 tvg-id="经济科教" tvg-name="经济科教" tvg-logo="https://tb.zbds.top/logo/经济科教.png" group-title="广东频道",经济科教
-http://alist.xicp.fun:52057/rtp/239.69.2.11:11220$LR—IPV4【线路4】 【1920x1080@255kbps 1Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.83:4120$LR—IPV4【线路4】 【1920x1080@96kbps 1Mbps】
 #EXTINF:-1 tvg-id="经济科教" tvg-name="经济科教" tvg-logo="https://tb.zbds.top/logo/经济科教.png" group-title="广东频道",经济科教
-http://120.238.84.45:9901/tsfile/live/1088_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@256kbps 1Mbps】
+http://tiger81.i234.me:8888/rtp/239.112.205.90:5140$LR—IPV4【线路5】 【1920x1080@96kbps 173kbps】
+#EXTINF:-1 tvg-id="经济科教" tvg-name="经济科教" tvg-logo="https://tb.zbds.top/logo/经济科教.png" group-title="广东频道",经济科教
+http://ddns.talesyuan.com:4022/rtp/239.3.1.136:8032$LR—IPV4【线路6】 【1920x1080@256kbps 2Mbps】
+#EXTINF:-1 tvg-id="经济科教" tvg-name="经济科教" tvg-logo="https://tb.zbds.top/logo/经济科教.png" group-title="广东频道",经济科教
+http://www.ct123.online:8188/rtp/239.69.1.91:10186$LR—IPV4【线路7】 【1920x1080@255kbps 300kbps】
 #EXTINF:-1 tvg-id="83" tvg-name="深圳卫视" tvg-logo="https://tb.zbds.top/logo/深圳卫视.png" group-title="广东频道",深圳卫视
-http://219.155.101.174:4022/rtp/225.1.4.90:1119$LR—IPV4【线路1】 【1920x1080@255kbps 2Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.210:8056$LR—IPV4【线路1】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="83" tvg-name="深圳卫视" tvg-logo="https://tb.zbds.top/logo/深圳卫视.png" group-title="广东频道",深圳卫视
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.101:5140$LR—IPV4【线路2】 【1920x1080@192kbps 2Mbps】
-#EXTINF:-1 tvg-id="83" tvg-name="深圳卫视" tvg-logo="https://tb.zbds.top/logo/深圳卫视.png" group-title="广东频道",深圳卫视
-http://alist.xicp.fun:52057/rtp/239.254.96.137:8896$LR—IPV4【线路3】 【1920x1080@256kbps 2Mbps】
-#EXTINF:-1 tvg-id="83" tvg-name="深圳卫视" tvg-logo="https://tb.zbds.top/logo/深圳卫视.png" group-title="广东频道",深圳卫视
-http://www.zyhfm.com:8088/rtp/239.254.96.137:8896$LR—IPV4【线路4】 【1920x1080@256kbps 121kbps】
-#EXTINF:-1 tvg-id="茂名综合" tvg-name="茂名综合" tvg-logo="https://tb.zbds.top/logo/茂名综合.png" group-title="广东频道",茂名综合
-http://wmh.wmh.ink:6633/udp/239.77.0.206:5146$LR—IPV4 【1920x1080@256kbps 224kbps】
+http://tiger81.i234.me:8888/rtp/239.109.205.189:9602$LR—IPV4【线路2】 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="81" tvg-name="湖南卫视" tvg-logo="https://tb.zbds.top/logo/湖南卫视.png" group-title="卫视频道",湖南卫视
-http://219.155.101.174:4022/rtp/225.1.4.82:1111$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.112:3002$LR—IPV4【线路1】 【3840x2160@258kbps 2Mbps】
 #EXTINF:-1 tvg-id="81" tvg-name="湖南卫视" tvg-logo="https://tb.zbds.top/logo/湖南卫视.png" group-title="卫视频道",湖南卫视
-http://wmh.wmh.ink:6633/udp/239.77.0.46:5146$LR—IPV4【线路2】 【1920x1080@256kbps 503kbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.122:8160$LR—IPV4【线路2】 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="81" tvg-name="湖南卫视" tvg-logo="https://tb.zbds.top/logo/湖南卫视.png" group-title="卫视频道",湖南卫视
-http://www.zyhfm.com:8088/rtp/239.69.2.34:11358$LR—IPV4【线路3】 【3840x2160@256kbps 139kbps】
+http://tiger81.i234.me:8888/rtp/239.112.205.62:5140$LR—IPV4【线路3】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="88" tvg-name="浙江卫视" tvg-logo="https://tb.zbds.top/logo/浙江卫视.png" group-title="卫视频道",浙江卫视
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.100:5140$LR—IPV4 【1920x1080@256kbps 1Mbps】
+http://home.yulei.online:9999/rtp/226.0.2.144:9064$LR—IPV4【线路1】 【1920x1080@127kbps 2Mbps】
+#EXTINF:-1 tvg-id="88" tvg-name="浙江卫视" tvg-logo="https://tb.zbds.top/logo/浙江卫视.png" group-title="卫视频道",浙江卫视
+http://ddns.talesyuan.com:4022/rtp/239.3.1.133:8016$LR—IPV4【线路2】 【1920x1080@256kbps 2Mbps】
+#EXTINF:-1 tvg-id="88" tvg-name="浙江卫视" tvg-logo="https://tb.zbds.top/logo/浙江卫视.png" group-title="卫视频道",浙江卫视
+http://tiger81.i234.me:8888/rtp/239.112.205.64:5140$LR—IPV4【线路3】 【1920x1080@256kbps 1Mbps】
+#EXTINF:-1 tvg-id="88" tvg-name="浙江卫视" tvg-logo="https://tb.zbds.top/logo/浙江卫视.png" group-title="卫视频道",浙江卫视
+http://115.171.216.14:4000/udp/225.1.8.46:8036$LR—IPV4【线路4】 【1920x1080@256kbps 1Mbps】
+#EXTINF:-1 tvg-id="88" tvg-name="浙江卫视" tvg-logo="https://tb.zbds.top/logo/浙江卫视.png" group-title="卫视频道",浙江卫视
+http://tiger81.i234.me:8888/rtp/239.109.205.120:8896$LR—IPV4【线路5】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="80" tvg-name="东方卫视" tvg-logo="https://tb.zbds.top/logo/东方卫视.png" group-title="卫视频道",东方卫视
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.125:5140$LR—IPV4 【1920x1080@192kbps 2Mbps】
+http://www.ct123.online:8188/rtp/239.254.96.142:8926$LR—IPV4【线路1】 【1920x1080@256kbps 1Mbps】
+#EXTINF:-1 tvg-id="80" tvg-name="东方卫视" tvg-logo="https://tb.zbds.top/logo/东方卫视.png" group-title="卫视频道",东方卫视
+http://ddns.talesyuan.com:4022/rtp/239.3.1.209:8052$LR—IPV4【线路2】 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="90" tvg-name="北京卫视" tvg-logo="https://tb.zbds.top/logo/北京卫视.png" group-title="卫视频道",北京卫视
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.107:5140$LR—IPV4【线路1】 【1920x1080@192kbps 2Mbps】
+http://home.yulei.online:9999/rtp/226.0.2.177:9328$LR—IPV4【线路1】 【1920x1080@127kbps 1Mbps】
 #EXTINF:-1 tvg-id="90" tvg-name="北京卫视" tvg-logo="https://tb.zbds.top/logo/北京卫视.png" group-title="卫视频道",北京卫视
-http://alist.xicp.fun:52057/rtp/239.254.96.141:8920$LR—IPV4【线路2】 【1920x1080@256kbps 703kbps】
+http://tiger81.i234.me:8888/rtp/239.112.205.65:5140$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="90" tvg-name="北京卫视" tvg-logo="https://tb.zbds.top/logo/北京卫视.png" group-title="卫视频道",北京卫视
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.226:5140$LR—IPV4【线路3】 【1920x1080@256kbps 2Mbps】
+http://www.ct123.online:8188/rtp/239.69.2.22:11286$LR—IPV4【线路3】 【3840x2160@2108kbps 2Mbps】
+#EXTINF:-1 tvg-id="90" tvg-name="北京卫视" tvg-logo="https://tb.zbds.top/logo/北京卫视.png" group-title="卫视频道",北京卫视
+http://115.171.216.14:4000/udp/225.1.8.21:8002$LR—IPV4【线路4】 【1920x1080@127kbps 1Mbps】
+#EXTINF:-1 tvg-id="90" tvg-name="北京卫视" tvg-logo="https://tb.zbds.top/logo/北京卫视.png" group-title="卫视频道",北京卫视
+http://ddns.talesyuan.com:4022/rtp/239.3.1.140:8001$LR—IPV4【线路5】 【1920x1080@128kbps 2Mbps】
+#EXTINF:-1 tvg-id="90" tvg-name="北京卫视" tvg-logo="https://tb.zbds.top/logo/北京卫视.png" group-title="卫视频道",北京卫视
+http://tiger81.i234.me:8888/rtp/239.109.205.162:8898$LR—IPV4【线路6】 【1920x1080@256kbps 1Mbps】
+#EXTINF:-1 tvg-id="90" tvg-name="北京卫视" tvg-logo="https://tb.zbds.top/logo/北京卫视.png" group-title="卫视频道",北京卫视
+http://www.ct123.online:8188/rtp/239.254.96.141:8920$LR—IPV4【线路7】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="91" tvg-name="江苏卫视" tvg-logo="https://tb.zbds.top/logo/江苏卫视.png" group-title="卫视频道",江苏卫视
-http://219.155.101.174:4022/rtp/225.1.4.83:1112$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
+http://home.yulei.online:9999/rtp/226.0.2.176:9320$LR—IPV4【线路1】 【1920x1080@128kbps 21kbps】
 #EXTINF:-1 tvg-id="91" tvg-name="江苏卫视" tvg-logo="https://tb.zbds.top/logo/江苏卫视.png" group-title="卫视频道",江苏卫视
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.106:5140$LR—IPV4【线路2】 【1920x1080@256kbps 2Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.148:8072$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="91" tvg-name="江苏卫视" tvg-logo="https://tb.zbds.top/logo/江苏卫视.png" group-title="卫视频道",江苏卫视
-http://wmh.wmh.ink:6633/udp/239.77.1.18:5146$LR—IPV4【线路3】 【1920x1080@256kbps 2Mbps】
+http://tiger81.i234.me:8888/rtp/239.109.205.119:8368$LR—IPV4【线路3】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="91" tvg-name="江苏卫视" tvg-logo="https://tb.zbds.top/logo/江苏卫视.png" group-title="卫视频道",江苏卫视
-http://115.171.216.14:4000/udp/225.1.8.44:8028$LR—IPV4【线路4】 【1920x1080@256kbps 2Mbps】
-#EXTINF:-1 tvg-id="91" tvg-name="江苏卫视" tvg-logo="https://tb.zbds.top/logo/江苏卫视.png" group-title="卫视频道",江苏卫视
-http://alist.xicp.fun:52057/rtp/239.254.96.144:8938$LR—IPV4【线路5】 【1920x1080@256kbps 2Mbps】
+http://115.171.216.14:4000/udp/225.1.8.44:8028$LR—IPV4【线路4】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="87" tvg-name="安徽卫视" tvg-logo="https://tb.zbds.top/logo/安徽卫视.png" group-title="卫视频道",安徽卫视
-http://219.155.101.174:4022/rtp/225.1.4.87:1116$LR—IPV4【线路1】 【1920x1080@255kbps 2Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.240:8172$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="87" tvg-name="安徽卫视" tvg-logo="https://tb.zbds.top/logo/安徽卫视.png" group-title="卫视频道",安徽卫视
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.113:5140$LR—IPV4【线路2】 【1920x1080@192kbps 1Mbps】
+http://tiger81.i234.me:8888/rtp/239.110.205.11:9790$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="87" tvg-name="安徽卫视" tvg-logo="https://tb.zbds.top/logo/安徽卫视.png" group-title="卫视频道",安徽卫视
-http://alist.xicp.fun:52057/rtp/239.69.1.70:10060$LR—IPV4【线路3】 【1920x1080@256kbps 1Mbps】
+http://tiger81.i234.me:8888/rtp/239.112.205.72:5140$LR—IPV4【线路3】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="77" tvg-name="重庆卫视" tvg-logo="https://tb.zbds.top/logo/重庆卫视.png" group-title="卫视频道",重庆卫视
-http://219.155.101.174:4022/rtp/225.1.4.157:1308$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.156:8148$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="77" tvg-name="重庆卫视" tvg-logo="https://tb.zbds.top/logo/重庆卫视.png" group-title="卫视频道",重庆卫视
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.143:5140$LR—IPV4【线路2】 【1920x1080@192kbps 2Mbps】
-#EXTINF:-1 tvg-id="77" tvg-name="重庆卫视" tvg-logo="https://tb.zbds.top/logo/重庆卫视.png" group-title="卫视频道",重庆卫视
-http://120.238.84.45:9901/tsfile/live/1063_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@256kbps 2kbps】
+http://tiger81.i234.me:8888/rtp/239.109.205.70:8496$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="78" tvg-name="四川卫视" tvg-logo="https://tb.zbds.top/logo/四川卫视.png" group-title="卫视频道",四川卫视
-http://219.155.101.174:4022/rtp/225.1.4.151:1306$LR—IPV4【线路1】 【1920x1080@255kbps 1Mbps】
+http://home.yulei.online:9999/rtp/226.0.2.179:9344$LR—IPV4【线路1】 【1920x1080@128kbps 1Mbps】
 #EXTINF:-1 tvg-id="78" tvg-name="四川卫视" tvg-logo="https://tb.zbds.top/logo/四川卫视.png" group-title="卫视频道",四川卫视
-http://wmh.wmh.ink:6633/udp/239.77.0.60:5146$LR—IPV4【线路2】 【3840x2160@258kbps 2Mbps】
+http://tiger81.i234.me:8888/rtp/239.112.205.184:5140$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
+#EXTINF:-1 tvg-id="78" tvg-name="四川卫视" tvg-logo="https://tb.zbds.top/logo/四川卫视.png" group-title="卫视频道",四川卫视
+http://www.ct123.online:8188/rtp/239.69.1.169:10650$LR—IPV4【线路3】 【1920x1080@255kbps 1Mbps】
 #EXTINF:-1 tvg-id="96" tvg-name="东南卫视" tvg-logo="https://tb.zbds.top/logo/东南卫视.png" group-title="卫视频道",东南卫视
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.146:5140$LR—IPV4【线路1】 【1920x1080@192kbps 2Mbps】
-#EXTINF:-1 tvg-id="96" tvg-name="东南卫视" tvg-logo="https://tb.zbds.top/logo/东南卫视.png" group-title="卫视频道",东南卫视
-http://115.171.216.14:4000/udp/225.1.8.79:8148$LR—IPV4【线路2】 【1920x1080@256kbps 288kbps】
-#EXTINF:-1 tvg-id="96" tvg-name="东南卫视" tvg-logo="https://tb.zbds.top/logo/东南卫视.png" group-title="卫视频道",东南卫视
-http://alist.xicp.fun:52057/rtp/239.69.1.108:10286$LR—IPV4【线路3】 【1920x1080@256kbps 1Mbps】
+http://home.yulei.online:9999/rtp/226.0.2.188:9416$LR—IPV4 【1920x1080@127kbps 2Mbps】
 #EXTINF:-1 tvg-id="83" tvg-name="深圳卫视" tvg-logo="https://tb.zbds.top/logo/深圳卫视.png" group-title="卫视频道",深圳卫视
-http://wmh.wmh.ink:6633/udp/239.77.0.92:5146$LR—IPV4【线路1】 【256kbps 292kbps】
+http://tiger81.i234.me:8888/rtp/239.109.205.163:9002$LR—IPV4【线路1】 【256kbps 1Mbps】
 #EXTINF:-1 tvg-id="83" tvg-name="深圳卫视" tvg-logo="https://tb.zbds.top/logo/深圳卫视.png" group-title="卫视频道",深圳卫视
-http://wmh.wmh.ink:6633/udp/239.77.1.3:5146$LR—IPV4【线路2】
+http://home.yulei.online:9999/rtp/226.0.2.147:9088$LR—IPV4【线路2】 【128kbps 2Mbps】
 #EXTINF:-1 tvg-id="83" tvg-name="深圳卫视" tvg-logo="https://tb.zbds.top/logo/深圳卫视.png" group-title="卫视频道",深圳卫视
-http://120.238.84.45:9901/tsfile/live/1054_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】
+http://tiger81.i234.me:8888/rtp/239.112.205.67:5140$LR—IPV4【线路3】
 #EXTINF:-1 tvg-id="82" tvg-name="广东卫视" tvg-logo="https://tb.zbds.top/logo/广东卫视.png" group-title="卫视频道",广东卫视
-http://wmh.wmh.ink:6633/udp/239.77.0.84:5146$LR—IPV4【线路1】 【1920x1080@256kbps 1Mbps】
-#EXTINF:-1 tvg-id="82" tvg-name="广东卫视" tvg-logo="https://tb.zbds.top/logo/广东卫视.png" group-title="卫视频道",广东卫视
-http://wmh.wmh.ink:6633/udp/239.77.1.2:5146$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
-#EXTINF:-1 tvg-id="82" tvg-name="广东卫视" tvg-logo="https://tb.zbds.top/logo/广东卫视.png" group-title="卫视频道",广东卫视
-http://alist.xicp.fun:52057/rtp/239.254.96.140:8914$LR—IPV4【线路3】 【1920x1080@256kbps 1Mbps】
-#EXTINF:-1 tvg-id="82" tvg-name="广东卫视" tvg-logo="https://tb.zbds.top/logo/广东卫视.png" group-title="卫视频道",广东卫视
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.102:5140$LR—IPV4【线路4】 【1920x1080@192kbps 2Mbps】
-#EXTINF:-1 tvg-id="82" tvg-name="广东卫视" tvg-logo="https://tb.zbds.top/logo/广东卫视.png" group-title="卫视频道",广东卫视
-http://219.155.101.174:4022/rtp/225.1.4.166:1207$LR—IPV4【线路5】 【1920x1080@256kbps 2Mbps】
-#EXTINF:-1 tvg-id="82" tvg-name="广东卫视" tvg-logo="https://tb.zbds.top/logo/广东卫视.png" group-title="卫视频道",广东卫视
-http://wmh.wmh.ink:6633/udp/239.77.1.19:5146$LR—IPV4【线路6】 【1920x1080@256kbps 2Mbps】
-#EXTINF:-1 tvg-id="103" tvg-name="广西卫视" tvg-logo="https://tb.zbds.top/logo/广西卫视.png" group-title="卫视频道",广西卫视
-http://alist.xicp.fun:52057/rtp/239.69.1.191:10788$LR—IPV4【线路1】 【1920x1080@255kbps 1Mbps】
-#EXTINF:-1 tvg-id="103" tvg-name="广西卫视" tvg-logo="https://tb.zbds.top/logo/广西卫视.png" group-title="卫视频道",广西卫视
-http://219.155.101.174:4022/rtp/225.1.4.31:1060$LR—IPV4【线路2】 【1920x1080@255kbps 162kbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.138:8044$LR—IPV4 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="99" tvg-name="甘肃卫视" tvg-logo="https://tb.zbds.top/logo/甘肃卫视.png" group-title="卫视频道",甘肃卫视
-http://alist.xicp.fun:52057/rtp/239.69.2.23:11292$LR—IPV4 【1920x1080@256kbps 1Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.221:8001$LR—IPV4 【1920x1080@255kbps 2Mbps】
 #EXTINF:-1 tvg-id="79" tvg-name="贵州卫视" tvg-logo="https://tb.zbds.top/logo/贵州卫视.png" group-title="卫视频道",贵州卫视
-http://alist.xicp.fun:52057/rtp/239.69.1.150:10536$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
+http://home.yulei.online:9999/rtp/226.0.2.180:9352$LR—IPV4【线路1】 【1920x1080@126kbps 2Mbps】
 #EXTINF:-1 tvg-id="79" tvg-name="贵州卫视" tvg-logo="https://tb.zbds.top/logo/贵州卫视.png" group-title="卫视频道",贵州卫视
-http://219.155.101.174:4022/rtp/225.1.4.122:1302$LR—IPV4【线路2】 【1920x1080@255kbps 481kbps】
+http://tiger81.i234.me:8888/rtp/239.112.205.178:5140$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="93" tvg-name="河北卫视" tvg-logo="https://tb.zbds.top/logo/河北卫视.png" group-title="卫视频道",河北卫视
-http://www.zyhfm.com:8088/rtp/239.69.1.157:10578$LR—IPV4【线路1】 【1920x1080@256kbps 47kbps】
-#EXTINF:-1 tvg-id="93" tvg-name="河北卫视" tvg-logo="https://tb.zbds.top/logo/河北卫视.png" group-title="卫视频道",河北卫视
-http://120.238.84.45:9901/tsfile/live/1064_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
+http://tiger81.i234.me:8888/rtp/239.112.205.200:5140$LR—IPV4 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="100" tvg-name="河南卫视" tvg-logo="https://tb.zbds.top/logo/河南卫视.png" group-title="卫视频道",河南卫视
-http://219.155.101.174:4022/rtp/225.1.4.98:1127$LR—IPV4 【1920x1080@256kbps 2Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.163:8001$LR—IPV4【线路1】 【1920x1080@320kbps 2Mbps】
+#EXTINF:-1 tvg-id="100" tvg-name="河南卫视" tvg-logo="https://tb.zbds.top/logo/河南卫视.png" group-title="卫视频道",河南卫视
+http://tiger81.i234.me:8888/rtp/239.109.205.140:9026$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="92" tvg-name="黑龙江卫视" tvg-logo="https://tb.zbds.top/logo/黑龙江卫视.png" group-title="卫视频道",黑龙江卫视
-http://alist.xicp.fun:52057/rtp/239.254.96.138:8902$LR—IPV4【线路1】 【1920x1080@256kbps 1Mbps】
+http://tiger81.i234.me:8888/rtp/239.112.205.68:5140$LR—IPV4【线路1】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="92" tvg-name="黑龙江卫视" tvg-logo="https://tb.zbds.top/logo/黑龙江卫视.png" group-title="卫视频道",黑龙江卫视
-http://wmh.wmh.ink:6633/udp/239.77.1.6:5146$LR—IPV4【线路2】 【1920x1080@256kbps 2Mbps】
+http://www.ct123.online:8188/rtp/239.254.96.138:8902$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="85" tvg-name="湖北卫视" tvg-logo="https://tb.zbds.top/logo/湖北卫视.png" group-title="卫视频道",湖北卫视
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.114:5140$LR—IPV4【线路1】 【1920x1080@192kbps 2Mbps】
+http://115.171.216.14:4000/udp/225.1.8.47:8044$LR—IPV4【线路1】 【1920x1080@256kbps 146kbps】
 #EXTINF:-1 tvg-id="85" tvg-name="湖北卫视" tvg-logo="https://tb.zbds.top/logo/湖北卫视.png" group-title="卫视频道",湖北卫视
-http://www.zyhfm.com:8088/rtp/239.254.96.115:8664$LR—IPV4【线路2】 【1920x1080@255kbps 131kbps】
+http://www.ct123.online:8188/rtp/239.254.96.115:8664$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
+#EXTINF:-1 tvg-id="85" tvg-name="湖北卫视" tvg-logo="https://tb.zbds.top/logo/湖北卫视.png" group-title="卫视频道",湖北卫视
+http://tiger81.i234.me:8888/rtp/239.112.205.69:5140$LR—IPV4【线路3】 【1920x1080@256kbps 1Mbps】
+#EXTINF:-1 tvg-id="85" tvg-name="湖北卫视" tvg-logo="https://tb.zbds.top/logo/湖北卫视.png" group-title="卫视频道",湖北卫视
+http://tiger81.i234.me:8888/rtp/239.109.205.165:9006$LR—IPV4【线路4】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="95" tvg-name="江西卫视" tvg-logo="https://tb.zbds.top/logo/江西卫视.png" group-title="卫视频道",江西卫视
-http://wmh.wmh.ink:6633/udp/239.77.1.219:5146$LR—IPV4【线路1】 【1920x1080@256kbps 1Mbps】
-#EXTINF:-1 tvg-id="95" tvg-name="江西卫视" tvg-logo="https://tb.zbds.top/logo/江西卫视.png" group-title="卫视频道",江西卫视
-http://tiger81.i234.me:8888/rtp/239.109.205.96:8704$LR—IPV4【线路2】 【1920x1080@256kbps 2Mbps】
-#EXTINF:-1 tvg-id="95" tvg-name="江西卫视" tvg-logo="https://tb.zbds.top/logo/江西卫视.png" group-title="卫视频道",江西卫视
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.145:5140$LR—IPV4【线路3】 【1920x1080@256kbps 2Mbps】
-#EXTINF:-1 tvg-id="98" tvg-name="吉林卫视" tvg-logo="https://tb.zbds.top/logo/吉林卫视.png" group-title="卫视频道",吉林卫视
-http://alist.xicp.fun:52057/rtp/239.69.1.212:10914$LR—IPV4 【1920x1080@256kbps 2Mbps】
+http://tiger81.i234.me:8888/rtp/239.111.205.16:5140$LR—IPV4 【1920x1080@256kbps 96kbps】
+#EXTINF:-1 tvg-id="101" tvg-name="内蒙古卫视" tvg-logo="https://tb.zbds.top/logo/内蒙古卫视.png" group-title="卫视频道",内蒙古卫视
+http://ddns.talesyuan.com:4022/rtp/239.3.1.214:4220$LR—IPV4 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="86" tvg-name="辽宁卫视" tvg-logo="https://tb.zbds.top/logo/辽宁卫视.png" group-title="卫视频道",辽宁卫视
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.141:5140$LR—IPV4【线路1】 【1920x1080@192kbps 2Mbps】
-#EXTINF:-1 tvg-id="86" tvg-name="辽宁卫视" tvg-logo="https://tb.zbds.top/logo/辽宁卫视.png" group-title="卫视频道",辽宁卫视
-http://alist.xicp.fun:52057/rtp/239.69.1.71:10066$LR—IPV4【线路2】 【1920x1080@256kbps 2Mbps】
+http://tiger81.i234.me:8888/rtp/239.112.205.73:5140$LR—IPV4 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="108" tvg-name="宁夏卫视" tvg-logo="https://tb.zbds.top/logo/宁夏卫视.png" group-title="卫视频道",宁夏卫视
-http://alist.xicp.fun:52057/rtp/239.69.2.33:11352$LR—IPV4 【1920x1080@256kbps 2Mbps】
+http://home.yulei.online:9999/rtp/226.0.2.64:8424$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
+#EXTINF:-1 tvg-id="108" tvg-name="宁夏卫视" tvg-logo="https://tb.zbds.top/logo/宁夏卫视.png" group-title="卫视频道",宁夏卫视
+http://tiger81.i234.me:8888/rtp/239.110.205.93:7904$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="104" tvg-name="青海卫视" tvg-logo="https://tb.zbds.top/logo/青海卫视.png" group-title="卫视频道",青海卫视
-http://www.zyhfm.com:8088/rtp/239.69.2.24:11298$LR—IPV4 【1920x1080@255kbps 154kbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.213:4220$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
+#EXTINF:-1 tvg-id="104" tvg-name="青海卫视" tvg-logo="https://tb.zbds.top/logo/青海卫视.png" group-title="卫视频道",青海卫视
+http://tiger81.i234.me:8888/rtp/239.109.205.77:8552$LR—IPV4【线路2】 【1920x1080@255kbps 1Mbps】
+#EXTINF:-1 tvg-id="104" tvg-name="青海卫视" tvg-logo="https://tb.zbds.top/logo/青海卫视.png" group-title="卫视频道",青海卫视
+http://tiger81.i234.me:8888/rtp/239.111.205.105:5140$LR—IPV4【线路3】 【1920x1080@255kbps 1Mbps】
 #EXTINF:-1 tvg-id="89" tvg-name="山东卫视" tvg-logo="https://tb.zbds.top/logo/山东卫视.png" group-title="卫视频道",山东卫视
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.105:5140$LR—IPV4【线路1】 【1920x1080@192kbps 2Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.123:8164$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="89" tvg-name="山东卫视" tvg-logo="https://tb.zbds.top/logo/山东卫视.png" group-title="卫视频道",山东卫视
-http://120.238.84.45:9901/tsfile/live/1052_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@256kbps】
+http://tiger81.i234.me:8888/rtp/239.112.205.70:5140$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="84" tvg-name="天津卫视" tvg-logo="https://tb.zbds.top/logo/天津卫视.png" group-title="卫视频道",天津卫视
-http://219.155.101.174:4022/rtp/225.1.4.86:1115$LR—IPV4【线路1】 【1920x1080@255kbps 2Mbps】
+http://home.yulei.online:9999/rtp/226.0.2.148:9096$LR—IPV4【线路1】 【1920x1080@128kbps 2Mbps】
 #EXTINF:-1 tvg-id="84" tvg-name="天津卫视" tvg-logo="https://tb.zbds.top/logo/天津卫视.png" group-title="卫视频道",天津卫视
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.104:5140$LR—IPV4【线路2】 【1920x1080@192kbps 2Mbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.149:8076$LR—IPV4【线路2】 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="84" tvg-name="天津卫视" tvg-logo="https://tb.zbds.top/logo/天津卫视.png" group-title="卫视频道",天津卫视
-http://alist.xicp.fun:52057/rtp/239.69.1.68:10048$LR—IPV4【线路3】 【1920x1080@256kbps 1Mbps】
-#EXTINF:-1 tvg-id="84" tvg-name="天津卫视" tvg-logo="https://tb.zbds.top/logo/天津卫视.png" group-title="卫视频道",天津卫视
-http://www.zyhfm.com:8088/rtp/239.69.1.68:10048$LR—IPV4【线路4】 【1920x1080@256kbps 218kbps】
+http://tiger81.i234.me:8888/rtp/239.112.205.74:5140$LR—IPV4【线路3】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="105" tvg-name="新疆卫视" tvg-logo="https://tb.zbds.top/logo/新疆卫视.png" group-title="卫视频道",新疆卫视
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.202.46:5140$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
+http://home.yulei.online:9999/rtp/226.0.2.67:8448$LR—IPV4【线路1】 【1920x1080@255kbps 2Mbps】
 #EXTINF:-1 tvg-id="105" tvg-name="新疆卫视" tvg-logo="https://tb.zbds.top/logo/新疆卫视.png" group-title="卫视频道",新疆卫视
-http://219.155.101.174:4022/rtp/225.1.4.47:1076$LR—IPV4【线路2】 【1920x1080@255kbps 418kbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.188:8001$LR—IPV4【线路2】 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="105" tvg-name="新疆卫视" tvg-logo="https://tb.zbds.top/logo/新疆卫视.png" group-title="卫视频道",新疆卫视
-http://alist.xicp.fun:52057/rtp/239.69.2.30:11334$LR—IPV4【线路3】 【1920x1080@256kbps 1Mbps】
+http://tiger81.i234.me:8888/rtp/239.110.205.95:7896$LR—IPV4【线路3】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="94" tvg-name="云南卫视" tvg-logo="https://tb.zbds.top/logo/云南卫视.png" group-title="卫视频道",云南卫视
-http://219.155.101.174:4022/rtp/225.1.4.152:1307$LR—IPV4 【1920x1080@256kbps 200kbps】
+http://www.ct123.online:8188/rtp/239.69.2.25:11304$LR—IPV4【线路1】 【1920x1080@255kbps 1Mbps】
+#EXTINF:-1 tvg-id="94" tvg-name="云南卫视" tvg-logo="https://tb.zbds.top/logo/云南卫视.png" group-title="卫视频道",云南卫视
+http://tiger81.i234.me:8888/rtp/239.109.205.215:9216$LR—IPV4【线路2】 【1920x1080@255kbps 1Mbps】
 #EXTINF:-1 tvg-id="106" tvg-name="西藏卫视" tvg-logo="https://tb.zbds.top/logo/西藏卫视.png" group-title="卫视频道",西藏卫视
-http://alist.xicp.fun:52057/rtp/239.69.2.31:11340$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
+http://tiger81.i234.me:8888/rtp/239.111.205.58:5140$LR—IPV4【线路1】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="106" tvg-name="西藏卫视" tvg-logo="https://tb.zbds.top/logo/西藏卫视.png" group-title="卫视频道",西藏卫视
-http://219.155.101.174:4022/rtp/225.1.4.46:1075$LR—IPV4【线路2】 【1920x1080@255kbps 398kbps】
-#EXTINF:-1 tvg-id="106" tvg-name="西藏卫视" tvg-logo="https://tb.zbds.top/logo/西藏卫视.png" group-title="卫视频道",西藏卫视
-http://www.zyhfm.com:8088/rtp/239.69.2.31:11340$LR—IPV4【线路3】 【1920x1080@256kbps 109kbps】
-#EXTINF:-1 tvg-id="274" tvg-name="海峡卫视" tvg-logo="https://tb.zbds.top/logo/海峡卫视.png" group-title="卫视频道",海峡卫视
-https://cdn.qd.je/163189/hxws$LR—IPV4 【1920x1080@4106kbps 34kbps】
-#EXTINF:-1 tvg-id="193" tvg-name="凤凰中文" tvg-logo="https://tb.zbds.top/logo/凤凰中文.png" group-title="港·澳·台",凤凰中文
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.202.35:5140$LR—IPV4【线路1】 【1920x1080@192kbps 2Mbps】
-#EXTINF:-1 tvg-id="193" tvg-name="凤凰中文" tvg-logo="https://tb.zbds.top/logo/凤凰中文.png" group-title="港·澳·台",凤凰中文
-http://www.zyhfm.com:8088/rtp/239.69.2.20:11274$LR—IPV4【线路2】 【1920x1080@255kbps 81kbps】
-#EXTINF:-1 tvg-id="193" tvg-name="凤凰中文" tvg-logo="https://tb.zbds.top/logo/凤凰中文.png" group-title="港·澳·台",凤凰中文
-https://cdn.qd.je/163189/fhzw$LR—IPV4【线路3】 【1920x1080@3674kbps 24kbps】
+http://ddns.talesyuan.com:4022/rtp/239.3.1.154:8001$LR—IPV4【线路2】 【1920x1080@192kbps 2Mbps】
+#EXTINF:-1 tvg-id="110" tvg-name="兵团卫视" tvg-logo="https://tb.zbds.top/logo/兵团卫视.png" group-title="卫视频道",兵团卫视
+http://tiger81.i234.me:8888/rtp/239.111.205.60:5140$LR—IPV4【线路1】 【1920x1080@256kbps 1Mbps】
+#EXTINF:-1 tvg-id="110" tvg-name="兵团卫视" tvg-logo="https://tb.zbds.top/logo/兵团卫视.png" group-title="卫视频道",兵团卫视
+http://tiger81.i234.me:8888/rtp/239.110.205.92:7908$LR—IPV4【线路2】 【1920x1080@256kbps 1Mbps】
 #EXTINF:-1 tvg-id="194" tvg-name="凤凰资讯" tvg-logo="https://tb.zbds.top/logo/凤凰资讯.png" group-title="港·澳·台",凤凰资讯
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.202.36:5140$LR—IPV4【线路1】 【1920x1080@192kbps 2Mbps】
-#EXTINF:-1 tvg-id="194" tvg-name="凤凰资讯" tvg-logo="https://tb.zbds.top/logo/凤凰资讯.png" group-title="港·澳·台",凤凰资讯
-http://alist.xicp.fun:52057/rtp/239.69.2.19:11268$LR—IPV4【线路2】 【1920x1080@255kbps 1Mbps】
-#EXTINF:-1 tvg-id="194" tvg-name="凤凰资讯" tvg-logo="https://tb.zbds.top/logo/凤凰资讯.png" group-title="港·澳·台",凤凰资讯
-https://cdn.qd.je/163189/fhzx$LR—IPV4【线路3】 【1920x1080@3488kbps 21kbps】
+https://cdn.qd.je/163189/fhzx$LR—IPV4 【1920x1080@4000kbps 17kbps】
 #EXTINF:-1 tvg-id="284" tvg-name="凤凰香港" tvg-logo="https://tb.zbds.top/logo/凤凰香港.png" group-title="港·澳·台",凤凰香港
-https://cdn.qd.je/163189/fhhk$LR—IPV4 【1920x1080@4081kbps 21kbps】
+https://cdn.qd.je/163189/fhhk$LR—IPV4 【1920x1080@4193kbps 18kbps】
 #EXTINF:-1 tvg-id="189" tvg-name="翡翠台" tvg-logo="https://tb.zbds.top/logo/翡翠台.png" group-title="港·澳·台",翡翠台
-https://cdn.qd.je/163189/fct$LR—IPV4【线路1】 【1920x1080@256kbps 20kbps】
+https://cdn.qd.je/163189/fct$LR—IPV4【线路1】 【1920x1080@256kbps 17kbps】
 #EXTINF:-1 tvg-id="189" tvg-name="翡翠台" tvg-logo="https://tb.zbds.top/logo/翡翠台.png" group-title="港·澳·台",翡翠台
-https://cdn.qd.je/163189/fct2$LR—IPV4【线路2】 【1920x1080@4524kbps 80kbps】
-#EXTINF:-1 tvg-id="190" tvg-name="明珠台" tvg-logo="https://tb.zbds.top/logo/明珠台.png" group-title="港·澳·台",明珠台
-https://cdn.qd.je/163189/mzt$LR—IPV4【线路1】 【1920x1080@750kbps 79kbps】
-#EXTINF:-1 tvg-id="190" tvg-name="明珠台" tvg-logo="https://tb.zbds.top/logo/明珠台.png" group-title="港·澳·台",明珠台
-https://cdn.qd.je/163189/mztvtt$LR—IPV4【线路2】 【1920x1080@2112kbps 207kbps】
+https://cdn.qd.je/163189/fct2$LR—IPV4【线路2】 【1920x1080@4542kbps 53kbps】
+#EXTINF:-1 tvg-id="135" tvg-name="卡酷少儿" tvg-logo="https://tb.zbds.top/logo/卡酷少儿.png" group-title="少儿频道",卡酷少儿
+http://111.59.139.82:11888/tsfile/live/1056_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4 【1920x1080@256kbps 9Mbps】
 #EXTINF:-1 tvg-id="175" tvg-name="动漫秀场" tvg-logo="https://tb.zbds.top/logo/动漫秀场.png" group-title="少儿频道",动漫秀场
-http://jellyfin.eversouthhangzhou.com.cn:8188/rtp/233.50.201.184:5140$LR—IPV4 【1920x1080@256kbps 2Mbps】
-#EXTINF:-1 tvg-id="168" tvg-name="金鹰卡通" tvg-logo="https://tb.zbds.top/logo/金鹰卡通.png" group-title="少儿频道",金鹰卡通
-http://219.155.101.174:4022/rtp/225.1.4.49:1078$LR—IPV4【线路1】 【1920x1080@256kbps 2Mbps】
-#EXTINF:-1 tvg-id="168" tvg-name="金鹰卡通" tvg-logo="https://tb.zbds.top/logo/金鹰卡通.png" group-title="少儿频道",金鹰卡通
-http://alist.xicp.fun:52057/rtp/239.69.1.248:11130$LR—IPV4【线路2】 【1920x1080@258kbps 1Mbps】
-#EXTINF:-1 tvg-id="168" tvg-name="金鹰卡通" tvg-logo="https://tb.zbds.top/logo/金鹰卡通.png" group-title="少儿频道",金鹰卡通
-http://www.zyhfm.com:8088/rtp/239.69.1.248:11130$LR—IPV4【线路3】 【1920x1080@256kbps 122kbps】
+http://home.yulei.online:9999/rtp/226.0.2.183:9376$LR—IPV4【线路1】 【1920x1080@127kbps 1Mbps】
+#EXTINF:-1 tvg-id="175" tvg-name="动漫秀场" tvg-logo="https://tb.zbds.top/logo/动漫秀场.png" group-title="少儿频道",动漫秀场
+http://www.ct123.online:8188/rtp/239.69.2.6:11190$LR—IPV4【线路2】 【1920x1080@255kbps 1Mbps】
 #EXTINF:-1 tvg-id="182" tvg-name="CHC影迷电影" tvg-logo="https://tb.zbds.top/logo/CHC影迷电影.png" group-title="影视频道",CHC影迷电影
-http://www.zyhfm.com:8088/rtp/239.69.1.241:11088$LR—IPV4 【1920x1080@256kbps 50kbps】
+http://www.ct123.online:8188/rtp/239.69.1.241:11088$LR—IPV4【线路1】 【1920x1080@254kbps 1Mbps】
+#EXTINF:-1 tvg-id="182" tvg-name="CHC影迷电影" tvg-logo="https://tb.zbds.top/logo/CHC影迷电影.png" group-title="影视频道",CHC影迷电影
+http://111.59.139.82:11888/tsfile/live/1060_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@256kbps 9Mbps】
+#EXTINF:-1 tvg-id="180" tvg-name="CHC动作电影" tvg-logo="https://tb.zbds.top/logo/CHC动作电影.png" group-title="影视频道",CHC动作电影
+http://www.ct123.online:8188/rtp/239.69.1.242:11094$LR—IPV4 【1920x1080@256kbps 2Mbps】
 #EXTINF:-1 tvg-id="181" tvg-name="CHC家庭影院" tvg-logo="https://tb.zbds.top/logo/CHC家庭影院.png" group-title="影视频道",CHC家庭影院
-http://219.155.101.174:4022/rtp/225.1.4.209:1262$LR—IPV4 【1920x1080@256kbps 343kbps】
+http://home.yulei.online:9999/rtp/226.0.2.240:9820$LR—IPV4【线路1】 【1920x1080@128kbps 2Mbps】
+#EXTINF:-1 tvg-id="181" tvg-name="CHC家庭影院" tvg-logo="https://tb.zbds.top/logo/CHC家庭影院.png" group-title="影视频道",CHC家庭影院
+http://115.171.216.14:4000/udp/225.1.8.253:4120$LR—IPV4【线路2】 【1920x1080@96kbps 1Mbps】
+#EXTINF:-1 tvg-id="181" tvg-name="CHC家庭影院" tvg-logo="https://tb.zbds.top/logo/CHC家庭影院.png" group-title="影视频道",CHC家庭影院
+http://ddns.talesyuan.com:4022/rtp/239.3.1.71:4120$LR—IPV4【线路3】 【1920x1080@96kbps 1Mbps】
