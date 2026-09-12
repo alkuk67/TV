@@ -30,7 +30,7 @@ enable_isp_split = False
 # main.py 会依次请求这些地址，提取频道名和播放地址
 # 注：被注释掉的源暂时停用，可取消注释启用
 source_urls = [
-    "http://45.192.97.170:6001/txt",
+    "https://cdn.qd.je/live.m3u",
 ]
 
 # 订阅源抓取超时（秒）
@@ -127,7 +127,7 @@ stability_test_interval = 1.0
 ffprobe_path       = ""        # 空 = 使用系统 PATH 里的 ffprobe
 enable_ffprobe     = True
 ffprobe_max_streams = 3
-ffprobe_timeout    = 8
+ffprobe_timeout    = 5
 # bitrate_sample_sec : 每次 ffprobe 采样的秒数，用 packet 大小计算真实码率
 #                      0 = 不采样（仅依赖容器声明的 bit_rate，TS 流通常无此字段）
 #                      建议 2~5 秒，增加探测时间但获得准确码率数据
