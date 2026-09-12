@@ -8,3 +8,6 @@ web/__pycache__/
 
 # Backups
 *.bak
+
+# Stop signal for graceful shutdown
+.stop_signal

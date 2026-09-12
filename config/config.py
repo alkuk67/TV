@@ -8,8 +8,8 @@
 ip_version_priority = "ipv6"
 
 # ── 源优先级 ────────────────────────────────────────────────────────
-# "hotel" = 酒店源优先排在前面；"subscription" = 订阅源优先
-source_priority = "hotel"
+# 优先级从高到低；可选值："hotel"、"multicast"、"subscription"
+source_priority = ["multicast","hotel","subscription"]
 
 # 每频道最大线路数，0 = 不限制
 max_lines_per_channel = 8
@@ -22,7 +22,7 @@ sort_mode = "balanced"
 
 # ── ISP 运营商分类 ────────────────────────────────────────────────
 # enable_isp_split: True=生成运营商分类文件，False=仅输出全局文件
-enable_isp_split = True
+enable_isp_split = False
 
 
 # ── 订阅源 ───────────────────────────────────────────────────────
@@ -30,27 +30,24 @@ enable_isp_split = True
 # main.py 会依次请求这些地址，提取频道名和播放地址
 # 注：被注释掉的源暂时停用，可取消注释启用
 source_urls = [
-     "http://45.192.97.170:6001/txt",
-     "https://fd.776512.xyz/@yuanzl77/https/tvlive.yuan77.workers.dev/xymm",
-   #  "http://47.100.209.208:20002",
-  #   "http://193.123.86.190:14888/TV/iptv.php",
-   #  "http://iptv.4666888.xyz/FYTV.m3u",
-   #  "https://php.946985.filegear-sg.me/jackTV.m3u",
-  #   "https://live.445569.xyz/live.m3u",
-   #  "https://gh-proxy.org/https://raw.githubusercontent.com/Kimentanm/aptv/refs/heads/master/m3u/iptv.m3u",
-     "https://gh-proxy.org/https://raw.githubusercontent.com/yuanzl77/zf/refs/heads/main/testtg.txt",
-   #  "https://gh-proxy.org/https://raw.githubusercontent.com/suxuang/myIPTV/main/ipv4.m3u",
-     "https://fd.776512.xyz/@yuanzl77/https/cdn.qd.je/live.m3u",
-     "https://gh-proxy.org/https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.txt"
+    "http://45.192.97.170:6001/txt",
 ]
 
 # 订阅源抓取超时（秒）
 fetch_timeout = 10
 
 hotel_config = {
-    "hotel_api": "https://iptvs-speed.humorously.cn",
+    "hotel_api": "https://iptvs.pes.im",
     "enabled": True,
     "allowed_orgs": [],
+}
+
+
+multicast_config = {
+    "multicast_api": "https://github.776512.xyz/https://raw.githubusercontent.com/alkuk67/iptv-scrape/refs/heads/main/data/channels_all.json",
+    "enabled": True,
+    "enabled_location": "",
+    "enabled_operator": "",
 }
 
 # ── URL 黑名单 ───────────────────────────────────────────────────────
@@ -99,61 +96,58 @@ epg_urls = [
     "http://epg.51zmt.top:8000/e.xml.gz"
 ]
 
-# ── 质量检测 — HTTP 快筛 ─────────────────────────────────────────────
-# enable_quality_check : True=启用质量检测（测活后过滤失效源），False=直接输出不过滤
-# check_timeout        : 单个 URL HTTP 请求超时时间（秒），超时视为失效
+# 频道图标模板：用 channel_name 变量替换，空字符串则不输出 tvg-logo
+channel_logo_template = "https://tb.zbds.top/logo/{channel_name}.png"
+
+# ── 质量检测 — # ── 质量检测 — HTTP 检测（第一层）──...──
+# enable_quality_check : True=启用质量检测（HTTP + FFprobe），False=直接输出不过滤
+# check_timeout        : 单个 URL HTTP 请求超时（秒），超时视为失效
 # check_max_conn       : 最大并发检测数，调高可加速但更占带宽
 enable_quality_check = True
 check_timeout    = 3.5
 check_max_conn   = 10
 
-# ── 质量检测 — FFprobe 中度探测 ───────────────────────────────────────
-# enable_ffprobe     : True=启用第二层 FFprobe 探测，False=仅 HTTP 快筛
-#                      建议先在少量频道上测试稳定性，再全量开启
-# ffmpeg_path        : FFprobe 可执行文件路径
+# ── 质量检测 — FFprobe 检测（第二层，参考 iptv-checker-rs）──...
+# enable_ffprobe     : True=启用 FFprobe 探流，False=仅 HTTP 快筛
+enable_moderate_probe = True
+deep_probe_timeout    = 6.5
+stability_test_count    = 1
+stability_test_interval = 1.0
+#                      推荐 True，能拿到分辨率/码率/视频编解码器等元数据
+# ffprobe_path       : FFprobe 可执行文件路径（用于第二层元数据探测）
 #                      空字符串 = 使用系统 PATH 里的 ffprobe
 #                      Windows 如不在 PATH 中，填绝对路径即可
-# ffprobe_timeout    : 单个 URL FFprobe 探流超时（秒）
-#                      IPTV 流通常 1~3 秒即可探完，设为 8 秒以容忍慢源
-# min_bitrate        : 最低码率阈值（bps），低于此值且 ffprobe 能读到码率时被过滤
-#                      设为 0 = 不限制码率（IPTV 流常读不到码率字段，此时代偿跳过检查）
-# min_resolution     : 最低分辨率宽度要求（字符串，如 "720" 表示宽 >= 720px）
-#                      设为空字符串 "" = 不限制分辨率
-# ffprobe_max_streams: ffprobe 最多读取的流数量，避免大文件探流耗时过长
-ffmpeg_path        = ""        # 空 = 使用系统 PATH 里的 ffprobe
+# ffprobe_timeout    : 单个 URL FFprobe 超时（秒）
+#                      IPTV 流通常 1~3 秒即可探完，设为 5 秒以容忍慢源
+# min_bitrate        : 最低码率阈值（bps）
+#                      仅当 ffprobe 能读到码率字段且 > 0 时才走过滤
+#                      0 = 不限制（IPTV 流常读不到码率，常不会被过滤）
+# min_resolution     : 最低分辨率宽度（字符串，如 "720" 表示宽 >= 720px）
+#                      空字符串 "" = 不限制分辨率
+ffprobe_path       = ""        # 空 = 使用系统 PATH 里的 ffprobe
 enable_ffprobe     = True
-ffprobe_timeout    = 5
-min_bitrate        = 0         # min_bitrate = 200000 → 码率>0 且 <200kbps 的源会被淘汰；码率=0 的源不受影响
-min_resolution     = "1080"     # 宽度最低 720px
 ffprobe_max_streams = 3
-
-# ── 深度探测配置 ───────────────────────────────────────────────────────
-# enable_deep_probe  : True=启用第三层深度探测（仅对 m3u8 流），False=仅中度探测
-#                      深度探测会检查分片时长、数量等，更准确但更慢
-# deep_probe_timeout : 单个 URL 深度探测超时（秒）
-#                      IPTV 流通常 5~10 秒即可探完，设为 10 秒以容忍慢源
-# min_speed_kbps     : 最小速度阈值（kbps），低于此值的源会被过滤
-#                      0 = 不过滤（只评分不淘汰）
-#                      建议 2000（2 Mbps）避免推流卡顿
-enable_deep_probe  = True
-enable_playback_test = False  # 播放测试（测首帧时间 + 解码稳定性），默认关闭（较慢）
-stability_test_count = 1
-stability_test_interval = 0.5
-playback_test_timeout = 5
-deep_probe_timeout = 10
-min_speed_kbps     = 2500  # 2.5 Mbps
+ffprobe_timeout    = 8
+# bitrate_sample_sec : 每次 ffprobe 采样的秒数，用 packet 大小计算真实码率
+#                      0 = 不采样（仅依赖容器声明的 bit_rate，TS 流通常无此字段）
+#                      建议 2~5 秒，增加探测时间但获得准确码率数据
+bitrate_sample_sec = 3
+min_bitrate        = 0
+min_resolution     = "1080"
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+# ── 质量检测 — 速度测试（第三层，可选，默认关闭）──...
+# 仅针对 m3u8 流。通过下载前 N 个 TS 分片并取平均速度，作为排序依据
+# 较慢的源会被排到后面，但默认不过滤（只排序不淘汰）
+# enable_speed_test   : True=启用下载测速，False=不启用
+# speed_test_timeout  : 单个 TS 分片下载超时（秒）
+# speed_test_segments : 取平均的分片数量（推荐 3，太大拖慢整体检测）
+# min_speed_kbps      : 最小下载速度阈值（kbps）
+#                      0 = 不过滤，只参与排序
+#                      > 0 = 低于此值的源会被过滤掉（推荐 2500 = 2.5 Mbps；
+#                      无测速结果的源会被保留，避免误杀）
+enable_speed_test   = True
+speed_test_timeout  = 5
+speed_test_segments = 3
+min_speed_kbps      = 0
+speed_test_max_bytes = 512 * 1024

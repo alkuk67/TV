@@ -1,0 +1,18 @@
+# 版本历史与 Python 缓存
+.git/
+__pycache__/
+*.pyc
+
+# 敏感/本地数据（运行时由挂载卷提供）
+config/settings.json
+server_backup.json
+*.log
+
+# 运行时生成目录（由挂载卷提供）
+cache/
+output/
+
+# 本地调试残留
+_*.py
+test/
+image/

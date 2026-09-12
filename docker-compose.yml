@@ -1,0 +1,17 @@
+services:
+  iptv:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: iptv-aggregator
+    restart: unless-stopped
+    ports:
+      - "${IPTV_PORT:-5077}:${IPTV_PORT:-5077}"
+    volumes:
+      - ./config:/app/config
+      - ./cache:/app/cache
+      - ./output:/app/output
+      - ./function.log:/app/function.log
+    environment:
+      - TZ=Asia/Shanghai
+      - PORT=${IPTV_PORT:-5077}

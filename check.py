@@ -26,6 +26,16 @@ def check_stop_flag():
 logger = logging.getLogger(__name__)
 
 
+
+def clear_stop_signal():
+    global _stop_flag
+    _stop_flag = False
+
+
+def request_stop_via_signal():
+    global _stop_flag
+    _stop_flag = True
+
 def _strip_suffix(url: str) -> str:
     """去掉 $LR... 等播放器自定义后缀"""
     if "$" in url:
@@ -94,11 +104,156 @@ async def _http_fast_check(session, url, timeout):
         result['detail'] = str(e)
         result['response_time_ms'] = 9999
     return result
+
+async def _http_byte_check(session, url, timeout, min_bytes=100000):
+    """For rtp/udp proxy URLs: download and check byte count.
+    Downloads until min_bytes reached or timeout, then decides ok/failed."""
+    import time
+    result = {"url": url, "status": "unknown", "detail": "", "layer": "fast", "bytes": 0}
+    req_start = time.time()
+    try:
+        async with session.get(url, timeout=aiohttp.ClientTimeout(total=timeout)) as resp:
+            if resp.status != 200:
+                result["status"] = "failed"
+                result["detail"] = f"http_status={resp.status}"
+                return result
+            total_bytes = 0
+            # Keep reading until we have enough bytes or timeout
+            while total_bytes < min_bytes:
+                remaining = timeout - (time.time() - req_start)
+                if remaining <= 0:
+                    break
+                try:
+                    data = await resp.content.read(min(65536, min_bytes - total_bytes + 1024))
+                    if not data:
+                        break
+                    total_bytes += len(data)
+                except Exception:
+                    break
+            result["bytes"] = total_bytes
+            elapsed = time.time() - req_start
+            if total_bytes >= min_bytes:
+                result["status"] = "ok"
+                kbps = total_bytes * 8 / elapsed / 1000 if elapsed > 0 else 0
+                result["detail"] = f"bytes={total_bytes} kbps={kbps:.0f}"
+            else:
+                result["status"] = "failed"
+                result["detail"] = f"bytes={total_bytes} < {min_bytes}"
+            result["response_time_ms"] = int(elapsed * 1000)
+    except asyncio.TimeoutError:
+        result["status"] = "timeout"
+        result["detail"] = f"timeout >{timeout}s"
+        result["response_time_ms"] = 9999
+    except Exception as e:
+        result["status"] = "error"
+        result["detail"] = str(e)[:60]
+        result["response_time_ms"] = 9999
+    return result
+
+async def _download_speed_test(session, url, timeout, segments=3):
+    """Download a bounded amount of stream data to estimate throughput."""
+    import time
+    result = {
+        "status": "skip",
+        "detail": "",
+        "speed_kbps": 0,
+        "stream_quality": {"first_frame_delay_ms": 0, "jitter_ms": 0, "packet_loss": 0.0},
+    }
+    req_start = time.time()
+    total_bytes = 0
+    first_chunk_ms = 0
+    chunk_intervals = []
+    last_read_at = None
+    try:
+        async with session.get(url, timeout=aiohttp.ClientTimeout(total=timeout)) as resp:
+            if resp.status != 200:
+                result["detail"] = f"http_status={resp.status}"
+                return result
+            chunk_size = 65536
+            max_bytes = getattr(config, "speed_test_max_bytes", 512 * 1024)
+            while total_bytes < max_bytes and time.time() - req_start < timeout:
+                read_start = time.time()
+                data = await resp.content.read(chunk_size)
+                if not data:
+                    break
+                read_at = time.time()
+                if total_bytes == 0:
+                    first_chunk_ms = int((read_start - req_start) * 1000)
+                if last_read_at is not None:
+                    chunk_intervals.append((read_at - last_read_at) * 1000)
+                last_read_at = read_at
+                total_bytes += len(data)
+        elapsed = time.time() - req_start
+        if total_bytes and elapsed > 0:
+            result["speed_kbps"] = int(total_bytes * 8 / elapsed / 1024)
+            result["status"] = "ok"
+            result["detail"] = f"download={total_bytes}B {result['speed_kbps']}kbps"
+            result["stream_quality"]["first_frame_delay_ms"] = first_chunk_ms
+            if len(chunk_intervals) >= 2:
+                mean = sum(chunk_intervals) / len(chunk_intervals)
+                variance = sum((x - mean) ** 2 for x in chunk_intervals) / len(chunk_intervals)
+                result["stream_quality"]["jitter_ms"] = int(variance ** 0.5)
+        else:
+            result["detail"] = "no_data"
+    except asyncio.TimeoutError:
+        if total_bytes:
+            elapsed = time.time() - req_start
+            result["speed_kbps"] = int(total_bytes * 8 / elapsed / 1024)
+            result["status"] = "ok"
+            result["detail"] = f"download={total_bytes}B {result['speed_kbps']}kbps"
+            result["stream_quality"]["first_frame_delay_ms"] = first_chunk_ms
+            if len(chunk_intervals) >= 2:
+                mean = sum(chunk_intervals) / len(chunk_intervals)
+                variance = sum((x - mean) ** 2 for x in chunk_intervals) / len(chunk_intervals)
+                result["stream_quality"]["jitter_ms"] = int(variance ** 0.5)
+        else:
+            result["status"] = "timeout"
+            result["detail"] = f"timeout >{timeout}s"
+    except Exception as e:
+        result["detail"] = str(e)[:60]
+    return result
+
+
+async def _check_http_ffprobe(session, url, http_timeout, ffprobe_timeout):
+    """HTTP 快筛 + FFprobe 元数据检测，供所有 HTTP 流统一复用。"""
+    if any(x in url for x in ("/rtp/", "/udp/")):
+        fast = await _http_byte_check(session, url, http_timeout, min_bytes=50000)
+    else:
+        fast = await _http_fast_check(session, url, http_timeout)
+    if fast["status"] not in ("ok", "ok_no_ts"):
+        fast["layer"] = "fast_fail"
+        return fast
+    if config.enable_ffprobe:
+        probe = await _ffprobe_thread_async(url, ffprobe_timeout, config.ffprobe_max_streams)
+        if probe["status"] != "ok":
+            fast["ffprobe"] = probe
+            fast["layer"] = "ffprobe_fail"
+            return fast
+        fast["ffprobe"] = probe
+        if "speed_x" in probe:
+            fast["ffprobe_speed"] = {"speed_x": probe["speed_x"]}
+        if getattr(config, "enable_speed_test", False):
+            fast["deep"] = await _download_speed_test(session, url, getattr(config, "speed_test_timeout", 5), getattr(config, "speed_test_segments", 3))
+            if isinstance(fast.get("deep"), dict):
+                fast["stream_quality"] = fast["deep"].get("stream_quality", {})
+        fast["layer"] = "ffprobe"
+        return fast
+    fast["layer"] = "fast"
+    return fast
+
+
+async def _ffprobe_thread_async(url, timeout, max_streams):
+    """用线程池异步运行 ffprobe（避开 Windows ProcessPoolExecutor 问题）"""
+    loop = asyncio.get_event_loop()
+    return await loop.run_in_executor(None, _run_ffprobe, url, timeout, max_streams)
+
+
+
 def _find_ffprobe():
     """查找 ffprobe 可执行文件"""
     import shutil
-    if config.ffmpeg_path:
-        return config.ffmpeg_path
+    if config.ffprobe_path:
+        return config.ffprobe_path
     path = shutil.which("ffprobe")
     return path or "ffprobe"
 
@@ -106,13 +261,18 @@ def _find_ffprobe():
 def _run_ffprobe(url, timeout, max_streams):
     """运行 ffprobe 探流，返回元数据字典"""
     ffprobe = _find_ffprobe()
+    sample_sec = getattr(config, "bitrate_sample_sec", 0)
     cmd = [
         ffprobe,
         "-v", "quiet",
+        "-probesize", "1M",
+        "-analyzeduration", "1500000",
         "-print_format", "json",
         "-show_streams",
-        "-i", url,
     ]
+    if sample_sec > 0:
+        cmd += ["-show_entries", "packet=size,pts_time", "-read_intervals", f"%+{sample_sec}"]
+    cmd += ["-rw_timeout", str(int(timeout * 1000000)), "-i", url]
     try:
         proc = subprocess.run(
             cmd, capture_output=True, text=False,
@@ -136,6 +296,19 @@ def _run_ffprobe(url, timeout, max_streams):
             result["bitrate"] = int(video_stream["bit_rate"])
         elif audio_stream and audio_stream.get("bit_rate"):
             result["bitrate"] = int(audio_stream["bit_rate"])
+        # packet 采样计算真实码率（TS 无 bit_rate 字段时 fallback）
+        if result["bitrate"] == 0 and sample_sec > 0:
+            pkts = data.get("packets", [])
+            if len(pkts) >= 2:
+                total_bytes = sum(int(p.get("size", 0) or 0) for p in pkts)
+                try:
+                    pts_vals = [float(p["pts_time"]) for p in pkts if p.get("pts_time") is not None]
+                    if len(pts_vals) >= 2:
+                        duration = max(pts_vals) - min(pts_vals)
+                        if duration > 0:
+                            result["bitrate"] = int(total_bytes * 8 / duration)
+                except (ValueError, TypeError):
+                    pass
         detail_parts = []
         if video_stream:
             res = f"{result['width']}x{result['height']}"
@@ -319,61 +492,6 @@ def _deep_probe_m3u8(url, timeout):
     return result
 
 
-def _playback_test(url, timeout, test_duration=3):
-    """播放测试：尝试解码前 N 秒内容，验证可播放性"""
-    ffprobe = _find_ffprobe()
-    result = {
-        "status": "ok",
-        "detail": "",
-        "decoded_frames": 0,
-        "decode_errors": 0,
-    }
-    
-    cmd = [
-        "ffmpeg",
-        "-y",
-        "-v", "error",
-        "-i", url,
-        "-t", str(test_duration),
-        "-f", "null",
-        "-"
-    ]
-    try:
-        proc = subprocess.run(
-            cmd, capture_output=True, text=True,
-            timeout=timeout + 5,
-        )
-        
-        stderr = proc.stderr or ""
-        
-        import re as re_module
-        frames_match = re_module.search(r"frame=\s*(\d+)", stderr)
-        if frames_match:
-            result["decoded_frames"] = int(frames_match.group(1))
-        
-        error_match = re_module.findall(r"error|Error", stderr)
-        result["decode_errors"] = len(error_match)
-        
-        if proc.returncode != 0 and result["decoded_frames"] == 0:
-            result["status"] = "failed"
-            result["detail"] = "decode_failed"
-        elif result["decode_errors"] > 10:
-            result["status"] = "degraded"
-            result["detail"] = f"high_error_rate errors={result['decode_errors']}"
-        else:
-            result["status"] = "ok"
-            result["detail"] = f"decoded={result['decoded_frames']}f errors={result['decode_errors']}"
-            
-    except subprocess.TimeoutExpired:
-        result["status"] = "timeout"
-        result["detail"] = f"playback_test timeout >{timeout}s"
-    except Exception as e:
-        result["status"] = "error"
-        result["detail"] = str(e)
-    
-    return result
-
-
 async def _get_ffprobe_executor():
     global _ffprobe_executor
     if _ffprobe_executor is None:
@@ -415,79 +533,38 @@ async def _deep_probe_async(url, timeout):
     return await loop.run_in_executor(executor, _deep_probe_m3u8, url, timeout)
 
 
-async def _playback_test_async(url, timeout, test_duration=3):
-    """异步运行播放测试"""
-    loop = asyncio.get_event_loop()
-    executor = await _get_ffprobe_executor()
-    return await loop.run_in_executor(executor, _playback_test, url, timeout, test_duration)
-
-
 async def _check_single(session, url, http_timeout, ffprobe_timeout, ffprobe_semaphore=None):
-    """单 URL 三层检测：HTTP 快筛 + FFprobe 基础探测 + 深度探测"""
+    """单 URL 检测：HTTP 快筛 + FFprobe 基础探测 + 中度探测"""
     clean_url = _strip_suffix(url)
-    # 第一层：HTTP 快筛
-    fast = await _http_fast_check(session, clean_url, http_timeout)
+    # 第一层：HTTP 快筛 + FFprobe 元数据检测
+    fast = await _check_http_ffprobe(session, clean_url, http_timeout, ffprobe_timeout)
     if fast["status"] not in ("ok", "ok_no_ts"):
-        fast["layer"] = "fast_fail"
         return fast
-    # 第二层：FFprobe 基础探测
-    if config.enable_ffprobe:
-        probe = await _ffprobe_async(clean_url, ffprobe_timeout, config.ffprobe_max_streams)
-        # ffprobe 失败不阻塞，保留快筛结果
-        if probe["status"] != "ok":
-            fast["ffprobe"] = probe
-            
-            fast["layer"] = "ffprobe_fail"
-            return fast
-        # 质量过滤：bitrate 为 0 说明 ffprobe 无法读取码率字段（常见于 IPTV），跳过码率检查只检查分辨率
-        min_br = config.min_bitrate if config.min_bitrate > 0 else 0
-        if min_br > 0 and probe.get("bitrate", 0) > 0 and probe.get("bitrate", 0) < min_br:
-            probe["status"] = "failed"
-            probe["detail"] += f" low_bitrate={probe['bitrate']//1000}kbps < {min_br//1000}kbps"
-            probe["layer"] = "ffprobe_fail"
-            fast["ffprobe"] = probe
-            
-            fast["layer"] = "ffprobe_fail"
-            return fast
-        min_res = int(config.min_resolution) if config.min_resolution else 0
-        if min_res > 0 and probe.get("width", 0) < min_res:
-            probe["status"] = "failed"
-            probe["detail"] += f" low_resolution={probe['width']}px < {min_res}px"
-            probe["layer"] = "ffprobe_fail"
-            fast["ffprobe"] = probe
-            
-            fast["layer"] = "ffprobe_fail"
-            return fast
-        fast["ffprobe"] = probe
-        # 第三层：深度探测（对所有通过中度探测的源）
-        if config.enable_deep_probe:
-            deep = await _deep_probe_async(clean_url, config.deep_probe_timeout)
-            if deep["status"] == "ok":
-                fast["deep"] = deep
-                fast["layer"] = "deep"
-                # 深度探测成功后才做播放测试
-                pb = await _playback_test_async(clean_url, getattr(config, "playback_test_timeout", 5))
-                fast["playback"] = pb  # 无论成功失败都记录
-            else:
-                fast["deep"] = deep
-                fast["layer"] = "ffprobe"
-    # 连续稳定性测试：对通过深度探测的源进行多次探测取中位数
-    if config.enable_stability_test and fast.get("layer") == "deep" and "deep" in fast:
-        import statistics as _stat
-        base_url = _get_base_url(clean_url)
-        loop = asyncio.get_event_loop()
-        speeds = []
-        for _ in range(min(getattr(config, "stability_test_count", 3), 5)):
-            import time as _time
-            _time.sleep(getattr(config, "stability_test_interval", 1.0))
-            deeper = await _deep_probe_async(clean_url, getattr(config, "deep_probe_timeout", 6.5))
-            if deeper.get("status") == "ok" and deeper.get("speed_kbps", 0) > 0:
-                speeds.append(deeper["speed_kbps"])
-        if speeds:
-            median_speed = _stat.median(speeds)
-            fast["deep"]["speed_kbps"] = median_speed
-            fast["deep"]["stability"] = "stable" if len(speeds) >= 2 else "single"
+    # 可选深度探测：只补测速信息，不重复 FFprobe
+    if getattr(config, "enable_moderate_probe", False) and _is_m3u8_url(clean_url):
+        deep = await _deep_probe_async(clean_url, config.deep_probe_timeout)
+        fast["deep"] = deep
+        if deep["status"] == "ok":
+            fast["layer"] = "deep"
+        else:
+            fast["layer"] = "ffprobe"
+        # 中度探测复测：默认仅 1 次，避免重复拉流
+        if fast.get("layer") == "deep" and "deep" in fast:
+            import statistics as _stat
+            speeds = []
+            for _ in range(min(getattr(config, "stability_test_count", 1), 5)):
+                import time as _time
+                _time.sleep(getattr(config, "stability_test_interval", 1.0))
+                deeper = await _deep_probe_async(clean_url, getattr(config, "deep_probe_timeout", 6.5))
+                if deeper.get("status") == "ok" and deeper.get("speed_kbps", 0) > 0:
+                    speeds.append(deeper["speed_kbps"])
+            if speeds:
+                median_speed = _stat.median(speeds)
+                fast["deep"]["speed_kbps"] = median_speed
+                fast["deep"]["stability"] = "stable" if len(speeds) >= 2 else "single"
     return fast
+
+
 
 
 async def _isp_filter_urls(channels):
@@ -618,9 +695,7 @@ async def check_all(channels):
         f"开始质量检测，共 {len(all_tasks)} 个 URL，并发数 {config.check_max_conn}，"
         f"HTTP 超时 {config.check_timeout}s"
         + (f"，FFprobe 启用，超时 {config.ffprobe_timeout}s" if config.enable_ffprobe else "")
-        + (f"，深度探测启用，超时 {config.deep_probe_timeout}s" if config.enable_deep_probe else "")
-        + (f"，最小速度 {config.min_speed_kbps}kbps" if getattr(config, "min_speed_kbps", 0) > 0 else "")
-        + (f"，播放测试启用, 超时 {config.playback_test_timeout}s" if getattr(config, "enable_playback_test", False) else "")
+        + (f"，中度探测启用，超时 {config.deep_probe_timeout}s" if getattr(config, "enable_moderate_probe", False) else "")
     )
 
     async with aiohttp.ClientSession(connector=connector, timeout=timeout) as session:
@@ -674,7 +749,18 @@ def filter_dead_urls(channels, check_results, accept_layers=("ffprobe", "deep"))
             for url in url_list:
                 r = check_results.get(cat, {}).get(ch_name, {}).get(url, {})
                 # 接受 ffprobe 或 deep 层检测通过的源
-                if r.get("layer") in accept_layers and r.get("status") in ("ok", "ok_no_ts"):
+                fp = r.get("ffprobe", {})
+                min_resolution = str(getattr(config, "min_resolution", "0") or "0")
+                min_bitrate = getattr(config, "min_bitrate", 0)
+                resolution_ok = not min_resolution.isdigit() or int(min_resolution) <= 0 or fp.get("width", 0) >= int(min_resolution)
+                bitrate_ok = not min_bitrate or fp.get("bitrate", 0) <= 0 or fp.get("bitrate", 0) >= min_bitrate
+                if (
+                    r.get("layer") in accept_layers
+                    and r.get("status") in ("ok", "ok_no_ts")
+                    and resolution_ok
+                    and bitrate_ok
+                    and (not getattr(config, "min_speed_kbps", 0) or r.get("deep", {}).get("speed_kbps", 0) >= config.min_speed_kbps)
+                ):
                     valid.append(url)
             if valid:
                 filtered[cat][ch_name] = valid

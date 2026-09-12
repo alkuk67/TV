@@ -1,4 +1,4 @@
-import re
+﻿import re
 import asyncio
 import aiohttp
 import requests as sync_requests
@@ -10,10 +10,9 @@ import sys
 sys.path.insert(0, os.path.dirname(__file__))
 import config.config as config
 import check as quality_checker
-import check_phase2
 import fetch_hotel
+import fetch_multicast
 import isp_checker
-import cache_manager
 
 
 # 自定义格式：时间 - 级别 - 模块.函数:行号 - 消息
@@ -25,7 +24,9 @@ file_handler = logging.FileHandler("function.log", "a", encoding="utf-8")
 file_handler.setFormatter(_file_fmt)
 stream_handler = logging.StreamHandler()
 stream_handler.setFormatter(_console_fmt)
-logging.basicConfig(level=logging.INFO, handlers=[file_handler, stream_handler])
+# 防止 server.py 以子进程/import 方式重复注册 handler（否则每条日志打印两遍）
+if not logging.getLogger().handlers:
+    logging.basicConfig(level=logging.INFO, handlers=[file_handler, stream_handler])
 logging.getLogger().setLevel(logging.INFO)
 
 
@@ -136,7 +137,7 @@ def _normalize(name: str) -> str:
     # 去掉括号内容
     s = re.sub(r'[（\[(（\[).?[）\]\)]', '', s)
     # 去掉末尾常见后缀
-    suffixes = '高清版|超高清版|频道|卫视频|高清|超高清|HD|hd|综艺|纪录|纪实|体育|电影|戏曲|科教|新闻|少儿|音乐|综合|法治|生活|军事|农业|农村|戏剧|文化|经济|社会|百科|世界|地理|历史|探索|发现|天文|游戏|汽车|旅游|时尚|女性|儿童|财经|老年|电视|公映|赛事|中文国际|国防军事|社会与法|奥林匹克|体育赛事|农业农村|电视剧'
+    suffixes = '高清版|超高清版|频道|卫视频|高清|超高清|SD|sd|HD|hd|综艺|纪录|纪实|体育|电影|戏曲|科教|新闻|少儿|音乐|综合|法治|生活|军事|农业|农村|戏剧|文化|经济|社会|百科|世界|地理|历史|探索|发现|天文|游戏|汽车|旅游|时尚|女性|儿童|财经|老年|电视|公映|赛事|中文国际|国防军事|社会与法|奥林匹克|体育赛事|农业农村|电视剧'
     s = re.sub(r'(' + suffixes + ')$', '', s)
     while re.search(r'(' + suffixes + ')$', s):
         s = re.sub(r'(' + suffixes + ')$', '', s)
@@ -364,9 +365,11 @@ def is_ipv6(url):
 
 
 def _get_source_type(url: str, category: str = "") -> str:
-    """识别 URL 来源类型：hotel（酒店源）或 subscription（订阅源）
-    酒店源的 category 为 matchType（txiptv/zhgxtv/jsmpeg），与订阅源分类名不冲突。"""
+    """识别 URL 来源类型：hotel、multicast 或 subscription。"""
     hotel_cats = {"txiptv", "zhgxtv", "jsmpeg"}
+    clean_url = url.split("$", 1)[0]
+    if "/rtp/" in clean_url or "/udp/" in clean_url:
+        return "multicast"
     if category in hotel_cats:
         return "hotel"
     return "subscription"
@@ -374,51 +377,140 @@ def _get_source_type(url: str, category: str = "") -> str:
 
 
 
+def _build_url_index(check_results: dict) -> dict:
+    """把 {cat:{ch:{url:data}}} 扁平化为 {clean_url: data}，避免每个 URL 排序时全表扫描。"""
+    index = {}
+    if not check_results:
+        return index
+    for ch_dict in check_results.values():
+        for url_dict in ch_dict.values():
+            for url, data in url_dict.items():
+                clean = url.split(chr(36), 1)[0] if chr(36) in url else url
+                index.setdefault(clean, data)
+    return index
+
+# 测速打分基准：按"实测速度 / 视频码率"的余量比打分；
+# ffprobe 读不到码率时按此默认码率估算（即标准示例中的 2.5 Mbps）
+DEFAULT_STREAM_BITRATE_KBPS = 2500
+
+
+def _speed_headroom_score(speed_kbps: float, bitrate_bps: int) -> float:
+    """按余量比给测速打分（-1000~1000），替代原来的绝对速度打分。
+
+    标准（以 2.5 Mbps 码率为例）：
+      实测 >=10 Mbps（4x 余量） → ✅ 1000，余量充足流畅
+      实测 5~10 Mbps（2~4x）    → 700~1000
+      实测 3~5 Mbps（1.2~2x）   → 500~700，可以播，波动时可能缓冲
+      实测 2~3 Mbps（0.8~1.2x） → 0~500，边缘
+      实测 <2 Mbps（<0.8x）     → ❌ 负分（-1000~0），带宽不够必卡，
+                                  码率画质再高也无法抵消，必排到能流畅的源之后
+    """
+    if speed_kbps <= 0:
+        return 0.0
+    bitrate_kbps = (bitrate_bps / 1000) if bitrate_bps and bitrate_bps > 0 else DEFAULT_STREAM_BITRATE_KBPS
+    ratio = speed_kbps / max(bitrate_kbps, 1.0)
+    if ratio >= 4.0:
+        return 1000.0
+    if ratio >= 2.0:
+        return 700 + (ratio - 2.0) / 2.0 * 300
+    if ratio >= 1.2:
+        return 500 + (ratio - 1.2) / 0.8 * 200
+    if ratio >= 0.8:
+        return (ratio - 0.8) / 0.4 * 500
+    # <0.8x：带宽不够必卡，随余量越低负分越深
+    return -1000 + ratio / 0.8 * 1000
+
+
 def _url_sort_key(url: str, check_results: dict, category: str = ""):
     clean = url.split(chr(36), 1)[0] if chr(36) in url else url
     is_v6 = is_ipv6(url)
     ipv6_first = config.ip_version_priority == "ipv6"
     ipv6_rank = 0 if (is_v6 and ipv6_first) or (not is_v6 and not ipv6_first) else 1
-    source_priority = config.source_priority
-    source_rank = 0 if _get_source_type(url, category) == source_priority else 1
-    layer = "fast"
+    source_type = _get_source_type(url, category)
+    source_priorities = config.source_priority
+    if isinstance(source_priorities, str):
+        source_priorities = [source_priorities]
+    source_rank = source_priorities.index(source_type) if source_type in source_priorities else len(source_priorities)
+    layer = "http"
     bitrate = 0
     width = 0
     speed_kbps = 0
     response_time_ms = 0
+    # check_results 为空（enable_quality_check=False）时下面这些不会被赋值，
+    # 必须先给默认值，否则引用时抛 NameError
+    ffprobe_speed_x = 0
+    first_frame_delay_ms = 0
+    jitter_ms = 0
+    packet_loss = 0.0
     if check_results:
-        for cat_ch in check_results.values():
-            for ch_urls in cat_ch.values():
-                r = ch_urls.get(clean, {})
-                if r:
-                    layer = r.get("layer", "fast")
-                    fp = r.get("ffprobe", {})
-                    if fp:
-                        bitrate = fp.get("bitrate", 0)
-                        width = fp.get("width", 0)
-                    deep = r.get("deep", {})
-                    if deep:
-                        speed_kbps = deep.get("speed_kbps", 0)
-                    response_time_ms = r.get("response_time_ms", 0)
-                    break
-    layer_rank = 0 if layer in ("ffprobe", "deep") else 1
+        r = _build_url_index(check_results).get(clean, {})
+        if r:
+            layer = r.get("layer", "http")
+            fp = r.get("ffprobe", {})
+            if fp:
+                bitrate = fp.get("bitrate", 0)
+                width = fp.get("width", 0)
+            sp = r.get("deep", {})
+            if sp:
+                speed_kbps = sp.get("speed_kbps", 0)
+            ffprobe_speed_x = fp.get("speed_x", 0) if fp else 0
+            sq = r.get("stream_quality", {})
+            first_frame_delay_ms = sq.get("first_frame_delay_ms", 0)
+            jitter_ms = sq.get("jitter_ms", 0)
+            packet_loss = sq.get("packet_loss", 0.0)
+            response_time_ms = r.get("response_time_ms", 0)
+    layer_rank = 0 if layer in ("fast", "ffprobe") else 1
     sort_mode = getattr(config, "sort_mode", "balanced")
-    if sort_mode == "speed":
-        speed_weight = 0.6
-        quality_weight = 0.4
-    elif sort_mode == "quality":
-        speed_weight = 0.35
+    if sort_mode == "quality":
         quality_weight = 0.65
     else:
-        speed_weight = 0.48
         quality_weight = 0.52
-    max_speed = max(speed_kbps, 1)
-    max_bitrate = max(bitrate, 1)
-    max_width = max(width, 1)
-    speed_score = (speed_kbps / max_speed) * 1000 if max_speed > 0 else 0
-    bitrate_score = (bitrate / max_bitrate) * 1000 if max_bitrate > 0 else 0
-    quality_score = (speed_score * 0.5 + bitrate_score * 0.5) * 0.45 + (width / max_width) * 1000 * 0.55
-    combined_score = speed_score * speed_weight + quality_score * quality_weight + layer_rank * 500
+    # 归一化基准必须是固定参考值。原来用 max(bitrate,1)/max(width,1) 会导致
+    # 每个源都相对自身归一，quality_score 恒为 1000，码率与分辨率完全失去排序作用
+    REF_BITRATE = 10_000_000  # 10 Mbps 视为满分码率
+    REF_WIDTH = 1920          # 1080p 视为满分宽度
+    bitrate_score = min(bitrate / REF_BITRATE, 1.0) * 1000
+    # 速度分按"实测速度/视频码率"余量比打分，而非绝对速度：
+    # 10 Mbps 线路跑 2.5 Mbps 的流是满分，但只跑到 2 Mbps 则必卡
+    speed_score = _speed_headroom_score(speed_kbps, bitrate)
+    quality_score = bitrate_score * 0.45 + min(width / REF_WIDTH, 1.0) * 1000 * 0.55
+    # FFmpeg speed score: speed>=1.0 adds bonus, speed<1.0 penalizes
+    ffprobe_speed_score = 0
+    if ffprobe_speed_x > 0:
+        if ffprobe_speed_x >= 1.0:
+            ffprobe_speed_score = min(ffprobe_speed_x * 200, 600)  # cap at 600
+        else:
+            ffprobe_speed_score = -(1.0 - ffprobe_speed_x) * 500   # penalty for slow
+    # Stream quality scores (never filter, only affect ranking)
+    # First frame delay: <200ms=+400, <500ms=+200, <1000ms=0, >2000ms=-300
+    ff_score = 0
+    if first_frame_delay_ms > 0:
+        if first_frame_delay_ms < 200:
+            ff_score = 400
+        elif first_frame_delay_ms < 500:
+            ff_score = 200
+        elif first_frame_delay_ms < 1000:
+            ff_score = 0
+        else:
+            ff_score = -min((first_frame_delay_ms - 1000) // 500 * 100, 300)
+    # Jitter: <100ms=+200, <300ms=+100, >500ms=-200
+    jit_score = 0
+    if jitter_ms > 0:
+        if jitter_ms < 100:
+            jit_score = 200
+        elif jitter_ms < 300:
+            jit_score = 100
+        elif jitter_ms < 500:
+            jit_score = 0
+        else:
+            jit_score = -min((jitter_ms - 300) // 200 * 100, 200)
+    # Packet loss: >0% penalizes
+    pl_score = 0
+    if packet_loss > 0:
+        pl_score = -int(packet_loss * 500)
+    # FFprobe 无元数据：说明分辨率/码率未知，排序时固定扣分
+    metadata_penalty = -300 if check_results and layer == "ffprobe_fail" else 0
+    combined_score = speed_score * 0.48 + quality_score * quality_weight + layer_rank * 500 + ffprobe_speed_score + ff_score + jit_score + pl_score + metadata_penalty
     max_latency = 2000
     if response_time_ms > 0:
         latency_score = max(0, (1 - response_time_ms / max_latency)) * 1000
@@ -429,41 +521,38 @@ def _url_sort_key(url: str, check_results: dict, category: str = ""):
 
 
 def _get_meta_suffix(url: str, check_results: dict) -> str:
-    """从 check_results 提取 ffprobe 元数据和速度信息，生成后缀如 【1920x1080@256kbps 1.7Mbps】"""
+    """从 check_results 提取 ffprobe 元数据，生成后缀如 【1920x1080@256kbps】"""
     clean = url.split(chr(36), 1)[0] if chr(36) in url else url
     if not check_results:
         return ""
-    for cat_ch in check_results.values():
-        for ch_urls in cat_ch.values():
-            r = ch_urls.get(clean, {})
-            fp = r.get("ffprobe", {})
-            # 获取深度探测的速度信息
-            deep = r.get("deep", {})
-            speed_kbps = deep.get("speed_kbps", 0) if deep else 0
-            
-            if fp and fp.get("status") == "ok":
-                w, h = fp.get("width", 0), fp.get("height", 0)
-                br = fp.get("bitrate", 0)
-                parts = []
-                if w and h:
-                    parts.append(f"{w}x{h}")
-                if br > 0:
-                    parts.append(f"{br//1000}kbps")
-                # 添加速度信息
-                if speed_kbps > 0:
-                    if speed_kbps >= 1000:
-                        parts.append(f"{speed_kbps//1000}Mbps")
-                    else:
-                        parts.append(f"{speed_kbps}kbps")
-                if parts:
-                    # 分辨率和码率用 @ 连接，速度单独放后面
-                    if len(parts) >= 2 and "x" in parts[0]:
-                        # 有分辨率，格式：【1920x1080@256kbps 4Mbps】
-                        res_br = "@".join(parts[:-1])
-                        speed = parts[-1]
-                        return f" 【{res_br} {speed}】"
-                    else:
-                        return " 【" + " ".join(parts) + "】"
+    r = _build_url_index(check_results).get(clean, {})
+    if not r:
+        return ""
+    fp = r.get("ffprobe", {})
+    sp = r.get("deep", {})
+    if fp and fp.get("status") == "ok":
+        w, h = fp.get("width", 0), fp.get("height", 0)
+        br = fp.get("bitrate", 0)
+        speed = sp.get("speed_kbps", 0) if sp else 0
+        parts = []
+        if w and h:
+            parts.append(f"{w}x{h}")
+        if br > 0:
+            parts.append(f"{br//1000}kbps")
+        if speed > 0:
+            if speed >= 1000:
+                parts.append(f"{speed//1000}Mbps")
+            else:
+                parts.append(f"{speed}kbps")
+        if parts or speed > 0:
+            res_str = f"{w}x{h}" if (w and h) else ""
+            bit_str = f"{br//1000}kbps" if br > 0 else ""
+            speed_str = ""
+            if speed > 0:
+                speed_str = f"{speed//1000}Mbps" if speed >= 1000 else f"{speed}kbps"
+            core = "@".join([s for s in [res_str, bit_str] if s])
+            suffix = f" 【{core} {speed_str}】" if speed_str else f" 【{core}】"
+            return suffix
     return ""
 
 def _print_domain_suggestions(fail_domains: dict):
@@ -487,6 +576,7 @@ def _print_domain_suggestions(fail_domains: dict):
 
 async def async_main():
     """异步主入口：fetch -> check -> write"""
+    quality_checker.clear_stop_signal()
     alias_map = load_alias_map()
     logging.info("[抓取] 执行完整抓取流程，config.source_urls=%d 个, hotel=%s", len(config.source_urls), config.hotel_config.get("enabled"))
     epg_id_map = fetch_epg_id_map()
@@ -511,70 +601,39 @@ async def async_main():
         matched_count = sum(len(v) for v in channels.values())
         logging.info(f"[酒店源] 匹配到 {matched_count} 个频道")
 
+    # 组播源
+    multicast_channels = {}
+    if config.multicast_config.get("enabled", False):
+        logging.info("[组播源] 开始抓取...")
+        multicast_channels = await fetch_multicast.fetch_multicast_channels()
+    all_multicast = []
+    for cat, ch_dict in multicast_channels.items():
+        for name, url_list in ch_dict.items():
+            for url in url_list:
+                all_multicast.append((name, url))
+    if all_multicast:
+        multicast_matched = match_channels(template_channels, {"multicast": all_multicast}, alias_map)
+        for cat, ch_dict in multicast_matched.items():
+            for ch_name, url_list in ch_dict.items():
+                channels.setdefault(cat, {}).setdefault(ch_name, []).extend(url_list)
+        matched_count = sum(len(v) for v in channels.values())
+        logging.info(f"[组播源] 匹配到 {matched_count} 个频道")
+
     if quality_checker.check_stop_flag():
         logging.info('[主程序] 收到停止信号，退出')
         return
-    if quality_checker.check_stop_flag():
-        logging.info('[主程序] 收到停止信号，退出')
-        return
+    check_results = None
     if config.enable_quality_check:
-        logging.info("[质量检测] 开始... enable_ffprobe=%s, ffprobe_timeout=%ss, min_resolution=%s, enable_deep_probe=%s", config.enable_ffprobe, config.ffprobe_timeout, config.min_resolution, config.enable_deep_probe)
-        # 加载缓存的检测结果
-        cached_results = cache_manager.get_cached_results()
-        if cached_results:
-            total_cached = sum(len(ch) for c in cached_results.values() for ch in c.values())
-            logging.info('[缓存] 加载了 %d 条缓存结果', total_cached)
-        
-        # Check if stop requested
-        if quality_checker.check_stop_flag():
-            logging.info('[主程序] 收到停止信号，退出质量检测')
-            return
+        logging.info("[质量检测] 开始全量检测（无缓存模式）... enable_ffprobe=%s, ffprobe_timeout=%ss, min_resolution=%s", config.enable_ffprobe, config.ffprobe_timeout, config.min_resolution)
+        # ISP 运营商预过滤
         channels, isp_removed = await quality_checker._isp_filter_urls(channels)
         if isp_removed > 0:
             logging.info(f"[ISP] 预过滤移除 {isp_removed} 个 URL")
-        
-        # 只检测新增或过期的 URL
-        all_urls = set()
-        for cat, ch_dict in channels.items():
-            for ch_name, url_list in ch_dict.items():
-                all_urls.update(url_list)
-        
-        cached_urls = set()
-        for cat, ch_dict in cached_results.items():
-            for ch_name, url_dict in ch_dict.items():
-                cached_urls.update(url_dict.keys())
-        
-        urls_to_check = all_urls - cached_urls
-        logging.info("[增量检测] 总URL=%d, 缓存=%d, 需检测=%d", len(all_urls), len(cached_urls), len(urls_to_check))
-        
-        if urls_to_check:
-            # 使用分层并行检测（如果启用）
-            if getattr(config, 'enable_layered_check', False):
-                logging.info("[质量检测] 使用分层并行检测模式...")
-                check_results, fail_domains = await quality_checker.check_all_layered(channels)
-            else:
-                check_results, fail_domains = await check_phase2.check_all_two_phase(channels)
-            
-            # 写入缓存
-            try:
-                cache_manager.batch_upsert(check_results)
-                logging.info("[缓存] 检测结果已写入缓存")
-            except Exception as e:
-                logging.warning(f"[缓存] 写入失败: {e}")
-        else:
-            # 所有 URL 都有缓存，直接使用
-            check_results = cached_results
-            fail_domains = {}
-            logging.info("[缓存] 所有 URL 均有有效缓存，跳过检测")
-        
-        # 合并缓存和最新结果
-        for cat, ch_dict in cached_results.items():
-            for ch_name, url_dict in ch_dict.items():
-                check_results.setdefault(cat, {}).setdefault(ch_name, {}).update(url_dict)
-        
-        channels = quality_checker.filter_dead_urls(channels, check_results, accept_layers=("fast", "ffprobe"))
+        # 直接全量检测
+        check_results, fail_domains = await quality_checker.check_all(channels)
+        channels = quality_checker.filter_dead_urls(channels, check_results, accept_layers=("fast", "ffprobe", "deep", "ffprobe_fail"))
         _print_domain_suggestions(fail_domains)
-        logging.info('[质量检测] 完成')
+        logging.info("[质量检测] 完成")
 
     total_channels = sum(len(ch) for ch in channels.values())
     total_urls = sum(sum(len(urls) for urls in ch.values()) for ch in channels.values())
@@ -648,7 +707,8 @@ def updateChannelUrlsM3U(channels, template_channels, epg_id_map=None, check_res
                                 new_url = f"{base_url}{url_suffix}"
 
                                 tvg_id = epg_id_map.get(channel_name, channel_name)
-                                f_m3u.write(f"#EXTINF:-1 tvg-id=\"{tvg_id}\" tvg-name=\"{channel_name}\" tvg-logo=\"https://gcore.jsdelivr.net/gh/yuanzl77/TVlogo@master/png/{channel_name}.png\" group-title=\"{category}\",{channel_name}\n")
+                                logo_url = config.channel_logo_template.format(channel_name=channel_name) if config.channel_logo_template else ""
+                                f_m3u.write(f'#EXTINF:-1 tvg-id="{tvg_id}" tvg-name="{channel_name}" tvg-logo="{logo_url}" group-title="{category}",{channel_name}\n')
                                 f_m3u.write(new_url + "\n")
                                 f_txt.write(f"{channel_name},{new_url}\n")
 
@@ -661,7 +721,7 @@ def _get_domain(url: str) -> str:
     """从 URL 中提取 hostname（不含端口和路径）"""
     if not url:
         return ''
-    stripped = url.split('\$', 1)[0] if '\$' in url else url
+    stripped = url.split('$', 1)[0] if '$' in url else url
     from urllib.parse import urlparse
     parsed = urlparse(stripped)
     return parsed.hostname or ''
@@ -758,13 +818,14 @@ def _write_channel_file(filepath_txt, filepath_m3u, channels, template_channels,
                                 else:
                                     extra = _get_meta_suffix(url, check_results)
                                     url_suffix = f'$LR—IPV4{extra}' if total_urls == 1 else f'$LR—IPV4【线路{index}】{extra}'
-                                if '\$' in url:
-                                    base_url = url.split('\$', 1)[0]
+                                if '$' in url:
+                                    base_url = url.split('$', 1)[0]
                                 else:
                                     base_url = url
                                 new_url = f"{base_url}{url_suffix}"
                                 tvg_id = epg_id_map.get(channel_name, channel_name)
-                                f_m3u.write(f'#EXTINF:-1 tvg-id="{tvg_id}" tvg-name="{channel_name}" tvg-logo="https://gcore.jsdelivr.net/gh/yuanzl77/TVlogo@master/png/{channel_name}.png" group-title="{category}",{channel_name}\n')
+                                logo_url = config.channel_logo_template.format(channel_name=channel_name) if config.channel_logo_template else ""
+                                f_m3u.write(f'#EXTINF:-1 tvg-id="{tvg_id}" tvg-name="{channel_name}" tvg-logo="{logo_url}" group-title="{category}",{channel_name}\n')
                                 f_m3u.write(new_url + '\n')
                                 f_txt.write(f'{channel_name},{new_url}\n')
             f_txt.write('\n')
@@ -813,10 +874,8 @@ def _output_isp_files(channels, template_channels, epg_id_map, check_results):
         logging.info('[输出] 已生成 %s/%s.txt / %s/%s.m3u (%s)', output_dir, prefix, output_dir, prefix, isp_name)
 
 if __name__ == "__main__":
-    try:
-        asyncio.run(async_main())
-    finally:
-        quality_checker._shutdown_ffprobe_executor()
+    quality_checker.clear_stop_signal()
+    asyncio.run(async_main())
 
 
 

@@ -8,6 +8,20 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f1f5f9; color: #1e293b; }
 .app { max-width: 1400px; margin: 0 auto; padding: 24px; }
+/* CodeMirror overrides */
+.CodeMirror { height: 100% !important; font-size: 13px; }
+·CodeMirror-foldgutter { display: none !important; width: 0 !important; }
+.CodeMirror-statusbar { display: none !important; height: 0 !important; visibility: hidden; }
+.CodeMirror-vscrollbar { display: block !important; }
+/* Hide horizontal scrollbar arrows */
+.CodeMirror-hscrollbar { display: none !important; }
+.CodeMirror-hscrollbar-wrapper { overflow: hidden !important; }
+.cm-s-eclipse .CodeMirror-hscrollbar { display: none !important; height: 0 !important; }
+.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler { display: none !important; }
+.CodeMirror { min-height: 500px; }
+.cm-s-eclipse .CodeMirror-gutters { background: transparent; }
+·CodeMirror-scroll { padding-bottom: 0; overflow-x: hidden !important; }
+.CodeMirror-hscrollbar { display: none !important; }
 .header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
 .logo { width: 48px; height: 48px; background: #2563eb; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; }
 .header h1 { font-size: 24px; font-weight: 600; }
@@ -46,6 +60,11 @@ textarea { width: 100%; min-height: 400px; font-family: monospace; font-size: 13
 .loading { padding: 40px; color: #94a3b8; }
 pre#log-preview { font-size: 12px; line-height: 1.6; padding: 12px; background: #f8fafc; border-radius: 8px; max-height: 400px; overflow-y: auto; white-space: pre-wrap; word-break: break-all; text-align: left; }
 pre#log-full { font-size: 12px; line-height: 1.8; padding: 12px; background: #f8fafc; border-radius: 8px; max-height: 600px; overflow-y: auto; white-space: pre-wrap; word-break: break-all; text-align: left; font-family: 'Consolas', 'Monaco', monospace; }
+
+/* Hide scroll arrows */
+.CodeMirror-scroll { -webkit-overflow-scrolling: touch; }
+.cm-s-eclipse .CodeMirror-foldgutter-folded::before,
+.cm-s-eclipse .CodeMirror-foldgutter-open::before { display: none; }
 </style>
 </head>
 <body>
@@ -56,38 +75,21 @@ pre#log-full { font-size: 12px; line-height: 1.8; padding: 12px; background: #f8
       <h1>IPTV 直播源管理</h1>
       <p>自动聚合 · 质量检测 · 运营商分类</p>
     </div>
-  </div>
   
   <div class="tabs">
     <div class="tab active" onclick="showTab('overview')">概览</div>
     <div class="tab" onclick="showTab('channels')">频道数据</div>
     <div class="tab" onclick="showTab('logs')">日志</div>
     <div class="tab" onclick="showTab('config')">配置</div>
+    <div class="tab" onclick="showTab('settings')">设置</div>
     <div class="tab" onclick="showTab('output')">输出文件</div>
-  </div>
   
   <div id="overview" class="tab-content">
     <div class="stats">
-      <div class="stat-card">
-        <div class="label">频道数量</div>
-        <div class="value" id="ch-count">--</div>
-        <div class="sub">唯一频道</div>
-      </div>
-      <div class="stat-card">
-        <div class="label">线路总数</div>
-        <div class="value" id="url-count">--</div>
-        <div class="sub">有效 URL</div>
-      </div>
-      <div class="stat-card">
-        <div class="label">输出文件</div>
-        <div class="value" id="file-count">--</div>
-        <div class="sub">m3u/txt 文件</div>
-      </div>
-      <div class="stat-card">
-        <div class="label">最后更新</div>
-        <div class="value" id="last-update">--</div>
-        <div class="sub">时间</div>
-      </div>
+      <div class="stat-card"><div class="label">频道数</div><div class="value" id="ch-count">--</div><div class="sub">个频道</div></div>
+      <div class="stat-card"><div class="label">URL 数</div><div class="value" id="url-count">--</div><div class="sub">条线路</div></div>
+      <div class="stat-card"><div class="label">输出文件</div><div class="value" id="file-count">--</div><div class="sub">个文件</div></div>
+      <div class="stat-card" style="border-color: #e5e7eb;"><div class="label">最后更新</div><div class="value" id="last-update">--</div><div class="sub">时间</div></div>
     </div>
     
     <div class="card">
@@ -100,73 +102,90 @@ pre#log-full { font-size: 12px; line-height: 1.8; padding: 12px; background: #f8
           <span id="percent-text" style="font-size: 14px; font-weight: 600; color: #2563eb;">0%</span>
         </div>
         <div class="progress">
-          <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
-        </div>
-      </div>
-    </div>
+          <div id="progress-bar" class="progress-bar" style="width: 0%"></div>\n    \n    </div>
     
     <div class="card">
       <h3>实时日志</h3>
       <pre id="log-preview" class="loading">等待任务启动...</pre>
     </div>
-  </div>
   
   <div id="logs" class="tab-content hidden">
     <div class="card">
       <h3>运行日志 <button class="btn btn-secondary" style="padding:4px 8px;font-size:12px;margin-left:10px" onclick="clearLogs()">清空</button></h3>
       <pre id="log-full" class="loading">暂无日志</pre>
     </div>
-  </div>
   
   <div id="channels" class="tab-content hidden">
     <div class="card">
       <h3>频道数据</h3>
       <input type="text" class="search" placeholder="搜索频道..." onkeyup="filterChannels(this.value)">
-      <div id="channel-list"></div>
-    </div>
-  </div>
-  
-  <div id="config" class="tab-content hidden">
+      <div id="channel-list"></div><div id="config" class="tab-content hidden">
     <div class="card">
       <h3>主配置 (config.py)</h3>
-      <textarea id="config-editor"></textarea>
+      <div id="config-editor" style="height: 500px;"></div>
       <div style="margin-top: 16px;">
         <button class="btn btn-primary" onclick="saveConfig()">💾 保存</button>
         <button class="btn btn-secondary" onclick="loadConfig()">🔄 刷新</button>
-      </div>
-    </div>
+      </div>\n    \n    </div>
 
     <div class="card">
       <h3>频道模板 (demo.txt)</h3>
-      <textarea id="demo-editor" style="min-height: 300px;"></textarea>
+      <textarea id="demo-editor" style="min-height: 300px; width: 100%; font-family: monospace; font-size: 13px; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; resize: vertical;"></textarea>
       <div style="margin-top: 16px;">
         <button class="btn btn-primary" onclick="saveDemo()">💾 保存</button>
         <button class="btn btn-secondary" onclick="loadDemo()">🔄 刷新</button>
-      </div>
-    </div>
+      </div>\n    \n    </div>
     <div class="card">
       <h3>别名规则 (alias.txt)</h3>
-      <textarea id="alias-editor" style="min-height: 300px;"></textarea>
+      <textarea id="alias-editor" style="min-height: 300px; width: 100%; font-family: monospace; font-size: 13px; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; resize: vertical;"></textarea>
       <div style="margin-top: 16px;">
         <button class="btn btn-primary" onclick="saveAlias()">💾 保存</button>
         <button class="btn btn-secondary" onclick="loadAlias()">🔄 刷新</button>
-      </div>
-    </div>
-    </div>
+      </div><div id="settings" class="tab-content hidden">
+    <div class="card">
+      <h3>系统设置</h3>
 
-  
-  <div id="output" class="tab-content hidden">
+      <div style="margin-top: 20px;">
+        <h4 style="font-size: 15px; color: #1e293b; margin-bottom: 12px;">🚀 开机自启</h4>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: #f8fafc; border-radius: 8px;">
+          <label style="flex: 1; font-size: 14px;">服务开机自动启动</label>
+          <label class="switch">
+            <input type="checkbox" id="setting-autostart">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <p style="font-size: 12px; color: #94a3b8; margin-top: 8px; margin-left: 4px;">在系统启动时自动运行 Web 服务</p>
+      </div>
+
+      <div style="margin-top: 20px;">
+        <h4 style="font-size: 15px; color: #1e293b; margin-bottom: 12px;">⏰ 定时运行</h4>
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px; background: #f8fafc; border-radius: 8px; margin-bottom: 12px;">
+          <span style="font-size: 14px; color: #334155;">启用定时运行</span>
+          <label class="switch">
+            <input type="checkbox" id="setting-schedule-enabled">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px; background: #f8fafc; border-radius: 8px;">
+          <div>
+            <label style="display: block; font-size: 13px; color: #64748b; margin-bottom: 6px;">每日运行时间</label>
+            <input type="time" id="setting-schedule-time" value="06:00" style="width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px;">
+          </div>
+          <div>
+            <label style="display: block; font-size: 13px; color: #64748b; margin-bottom: 6px;">运行间隔</label>
+            <select id="setting-schedule-interval" style="width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px;">
+              <option value="daily">每天</option>
+              <option value="weekly">每周</option>
+              <option value="monthly">每月</option>
+            </select>
+          </div><div id="output" class="tab-content hidden">
     <div class="card">
       <h3>输出文件</h3>
       <table class="table">
         <thead><tr><th>文件名</th><th>大小</th><th>修改时间</th><th>操作</th></tr></thead>
         <tbody id="output-tbody"><tr><td colspan="4" class="loading">加载中...</td></tr></tbody>
       </table>
-    </div>
-  </div>
-</div>
-
-<script src="channel_data.js?v=2"></script>
+    </div><script src="channel_data.js?v=3"></script>
 <script>
 function showTab(name) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -174,8 +193,9 @@ function showTab(name) {
   event.target.classList.add('active');
   document.getElementById(name).classList.remove('hidden');
   if (name === 'channels') renderChannels();
-  if (name === 'logs') { loadFullLogs(); refreshLogs(); }
+  if (name === 'logs') { logAutoScroll = true; refreshLogs(); }
   if (name === 'config') loadConfig();
+  if (name === 'settings') loadSettings();
   if (name === 'output') loadOutput();
 }
 
@@ -199,13 +219,13 @@ async function stopIPTV() {
     stopLogRefresh();
     const logEl = document.getElementById('log-preview');
     if (logEl) logEl.textContent = '等待任务启动...';
-    await loadOverview();
   } catch(e) {}
 }
 
 async function pollStatus() {
   try {
     const res = await fetch('/api/status');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     const phaseEl = document.getElementById('phase-text');
     const percentEl = document.getElementById('percent-text');
@@ -214,21 +234,21 @@ async function pollStatus() {
     if (percentEl) percentEl.textContent = (data.progress || 0) + '%';
     if (barEl) barEl.style.width = (data.progress || 0) + '%';
     if (data.status === 'done' || data.status === 'idle') {
-      loadOverview();
       stopLogRefresh();
       if (statusRefreshInterval) { clearInterval(statusRefreshInterval); statusRefreshInterval = null; }
       document.getElementById('progress-area').classList.add('hidden');
       document.getElementById('run-btn').style.display = 'inline-flex';
       document.getElementById('stop-btn').style.display = 'none';
-      // Refresh channel data and logs when task completes
       if (!document.getElementById('channels').classList.contains('hidden')) renderChannels();
-      if (!document.getElementById('logs').classList.contains('hidden')) { loadFullLogs(); refreshLogs(); }
+      if (!document.getElementById('logs').classList.contains('hidden')) { refreshLogs(); }
       return;
     }
-    setTimeout(pollStatus, 1000);
-  } catch(e) { console.error('pollStatus:', e); }
+    setTimeout(pollStatus, 3000);
+  } catch(e) { 
+    console.error('pollStatus error:', e);
+    if (statusRefreshInterval) { clearInterval(statusRefreshInterval); statusRefreshInterval = null; }
+  }
 }
-
 async function loadOverview() {
   try {
     const res = await fetch('/api/status');
@@ -253,7 +273,7 @@ async function loadOverview() {
     } else {
       if (statusRefreshInterval) { clearInterval(statusRefreshInterval); statusRefreshInterval = null; }
       statusRefreshInterval = setInterval(loadOverview, 10000);
-    }
+          }
   } catch(e) { console.error('loadOverview:', e); }
 }
 
@@ -347,7 +367,62 @@ async function renderChannels(filter='') {
     if (filtered.length > 200) {
       const more = document.createElement('div');
       more.style.cssText = 'text-align:center;padding:12px;color:#94a3b8;font-size:12px;border-top:1px dashed #e2e8f0;margin-top:8px;';
-      more.textContent = '仅显示前200个，请使用搜索功能筛选（共' + filtered.length + '个）';
+      more.innerHTML = '仅显示前200个，请使用搜索功能筛选（共' + filtered.length + '个）' +
+        ' <button id=\"show-all-btn\" style=\"background:none;border:1px solid #2563eb;color:#2563eb;border-radius:6px;padding:2px 10px;cursor:pointer;font-size:12px;margin-left:8px;\">展开全部</button>';
+      document.getElementById('show-all-btn').addEventListener('click', function() {
+        this.parentElement.remove();
+        filtered.slice(200).forEach(function(ch) {
+          const card = document.createElement('div');
+          card.style.cssText = 'background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px;transition:box-shadow 0.15s,border-color 0.15s;cursor:default;';
+          card.onmouseenter = function() { card.style.boxShadow = '0 4px 12px rgba(37,99,235,0.12)'; card.style.borderColor = '#2563eb'; };
+          card.onmouseleave = function() { card.style.boxShadow = ''; card.style.borderColor = '#e2e8f0'; };
+          const lines = lineCount[ch.name + '||' + ch.group] || 1;
+          const linesBadge = lines > 1
+            ? '<span style=\"background:#ede9fe;color:#7c3aed;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:600;\">' + lines + '线</span>'
+            : '<span style=\"background:#f1f5f9;color:#94a3b8;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:500;\">1线</span>';
+          const resBadge = ch.resolution
+            ? '<span style=\"background:#dbeafe;color:#2563eb;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:500;\">' + ch.resolution + '</span>'
+            : '<span style=\"background:#f1f5f9;color:#94a3b8;padding:2px 8px;border-radius:6px;font-size:12px;\">-</span>';
+          const speedBadge = ch.speed
+            ? '<span style=\"background:#dcfce7;color:#16a34a;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:500;\">' + ch.speed + '</span>'
+            : '<span style=\"background:#f1f5f9;color:#94a3b8;padding:2px 8px;border-radius:6px;font-size:12px;\">-</span>';
+          const groupTag = ch.group
+            ? '<span style=\"font-size:11px;color:#94a3b8;background:#f8fafc;border:1px solid #e2e8f0;padding:2px 8px;border-radius:6px;white-space:nowrap;\">' + ch.group + '</span>'
+            : '';
+          const firstUrl = (function() {
+            for (var gi = 0; gi < data.groups.length; gi++) {
+              var g = data.groups[gi];
+              for (var ci = 0; ci < g.channels.length; ci++) {
+                var c = g.channels[ci];
+                if (c.name === ch.name && c.group === ch.group) return c.url;
+              }
+            }
+            return ch.url;
+          })();
+          const copyBtn = '<button class=\"copy-btn\" data-url=\"' + firstUrl + '\" style=\"background:none;border:1px solid #e2e8f0;border-radius:6px;padding:4px 10px;cursor:pointer;color:#64748b;font-size:12px;transition:all 0.15s;white-space:nowrap;\">复制</button>';
+          card.innerHTML = '<div style=\"flex:1;min-width:0;\">' +
+            '<div style=\"display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;\">' +
+              '<span style=\"font-weight:600;color:#1e293b;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;\">' + ch.name + '</span>' +
+              groupTag +
+            '</div>' +
+            '<div style=\"display:flex;gap:6px;flex-wrap:wrap;\">' +
+              linesBadge + ' ' + resBadge + ' ' + speedBadge +
+            '</div>' +
+          '</div>' + '<div style=\"display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;\">' + timeTag + copyBtn + '</div>';
+          grid.appendChild(card);
+        });
+        document.querySelectorAll(".copy-btn").forEach(function(btn) {
+          btn.onmouseover = function() { this.style.background = "#2563eb"; this.style.color = "#fff"; this.style.borderColor = "#2563eb"; };
+          btn.onmouseout = function() { this.style.background = "none"; this.style.color = "#64748b"; this.style.borderColor = "#e2e8f0"; };
+          btn.onclick = function() {
+            navigator.clipboard.writeText(this.dataset.url).then(function() {
+              const orig = btn.textContent;
+              btn.textContent = "已复制";
+              setTimeout(function() { btn.textContent = orig; }, 1500);
+            });
+          };
+        });
+      });
       container.appendChild(more);
     }
     // Bind copy button events
@@ -368,7 +443,6 @@ async function renderChannels(filter='') {
 }
 function filterChannels(val) { renderChannels(val); }
 
-
 async function loadDemo() {
   const res = await fetch('/api/file/demo.txt');
   const data = await res.json();
@@ -387,16 +461,126 @@ async function saveAlias() {
   alert('alias.txt 已保存');
 }
 
+var configEditor = null;
+
 async function loadConfig() {
   const res = await fetch('/api/config');
   const data = await res.json();
-  document.getElementById('config-editor').value = data.content;
+  if (configEditor) {
+    configEditor.setValue(data.content);
+  } else {
+    configEditor = CodeMirror(document.getElementById('config-editor'), {
+      value: data.content,
+      mode: 'text/x-python',
+      theme: 'eclipse',
+      lineNumbers: true,
+      tabSize: 4,
+      indentWithTabs: false,
+      styleActiveLine: true,
+      readOnly: false,
+      lineWrapping: true,
+      foldGutter: false,
+      gutters: [],
+      fixedGutter: false
+    });
+  }
   await loadDemo();
   await loadAlias();
 }
 
+async function loadSettings() {
+  try {
+    const res = await fetch('/api/config');
+    const data = await res.json();
+    if (data.error) return;
+    // Parse config to extract settings
+    const lines = data.content.split('\n');
+    lines.forEach(line => {
+      if (line.includes('check_max_conn')) {
+        const m = line.match(/check_max_conn\s*=\s*(\d+)/);
+        if (m) document.getElementById('setting-concurrent').value = m[1];
+      }
+      if (line.includes('check_timeout')) {
+        const m = line.match(/check_timeout\s*=\s*([\d.]+)/);
+        if (m) document.getElementById('setting-timeout').value = m[1];
+      }
+      if (line.includes('ffprobe_timeout')) {
+        const m = line.match(/ffprobe_timeout\s*=\s*(\d+)/);
+        if (m) document.getElementById('setting-ffprobe').value = m[1];
+      }
+      if (line.includes('deep_probe_timeout')) {
+        const m = line.match(/deep_probe_timeout\s*=\s*(\d+)/);
+        if (m) document.getElementById('setting-deep').value = m[1];
+      }
+      if (line.includes('min_resolution')) {
+        const m = line.match(/min_resolution\s*=\s*"?(\d+)"?/);
+        if (m) document.getElementById('setting-resolution').value = m[1];
+      }
+      if (line.includes('sort_mode')) {
+        const m = line.match(/sort_mode\s*=\s*"([^"]+)"/);
+        if (m) document.getElementById('setting-sortmode').value = m[1];
+      }
+    });
+  } catch(e) { console.error(e); }
+}
+
+async function saveSettings() {
+  // Read current config
+  const res = await fetch('/api/config');
+  const data = await res.json();
+  if (data.error) { alert(data.error); return; }
+  
+  let content = data.content;
+  content = content.replace(/check_max_conn\s*=\s*\d+/, 'check_max_conn = ' + document.getElementById('setting-concurrent').value);
+  content = content.replace(/check_timeout\s*=\s*[\d.]+/, 'check_timeout = ' + document.getElementById('setting-timeout').value);
+  content = content.replace(/ffprobe_timeout\s*=\s*\d+/, 'ffprobe_timeout = ' + document.getElementById('setting-ffprobe').value);
+  content = content.replace(/deep_probe_timeout\s*=\s*\d+/, 'deep_probe_timeout = ' + document.getElementById('setting-deep').value);
+  content = content.replace(/min_resolution\s*=\s*"?\d+"?/, 'min_resolution = "' + document.getElementById('setting-resolution').value + '"');
+  content = content.replace(/sort_mode\s*=\s*"[^"]+"/, 'sort_mode = "' + document.getElementById('setting-sortmode').value + '"');
+  
+  await fetch('/api/config/save', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({content})});
+  alert('设置已保存，重启任务后生效');
+}
+
+async function loadSettings() {
+  // Load current settings
+  try {
+    const res = await fetch('/api/settings');
+    const data = await res.json();
+    if (data.autostart) document.getElementById('setting-autostart').checked = data.autostart;
+    if (data.schedule) {
+      document.getElementById('setting-schedule-time').value = data.schedule.time || '06:00';
+      document.getElementById('setting-schedule-interval').value = data.schedule.interval || 'daily';
+      document.getElementById('setting-schedule-enabled').checked = data.schedule.enabled || false;
+    }
+  } catch(e) { console.error(e); }
+}
+
+async function toggleAutostart() {
+  const enabled = document.getElementById('setting-autostart').checked;
+  await fetch('/api/settings/autostart', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({enabled})
+  });
+}
+
+async function saveSchedule() {
+  const config = {
+    time: document.getElementById('setting-schedule-time').value,
+    interval: document.getElementById('setting-schedule-interval').value,
+    enabled: document.getElementById('setting-schedule-enabled').checked
+  };
+  await fetch('/api/settings/schedule', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(config)
+  });
+  alert('定时设置已保存');
+}
+
 async function saveConfig() {
-  const content = document.getElementById('config-editor').value;
+  const content = configEditor ? configEditor.getValue() : document.getElementById('config-editor').value;
   await fetch('/api/config/save', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({content})});
   alert('配置已保存');
 }
@@ -406,26 +590,22 @@ async function loadOutput() {
   const data = await res.json();
   const tbody = document.getElementById('output-tbody');
   tbody.innerHTML = '';
+  if (!data.files || data.files.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="4" class="loading">暂无输出文件，请先运行任务</td></tr>';
+    return;
+  }
     data.files.forEach(f => {
     const tr = document.createElement('tr');
-    tr.innerHTML = '<td>' + f.name + '</td><td>' + (f.size/1024).toFixed(1) + ' KB</td><td>' + new Date(f.mtime*1000).toLocaleString('zh-CN') + '</td><td><button class="btn btn-secondary" style="padding:6px 12px;font-size:12px;margin-right:4px" onclick="previewFile(\'' + f.name + '\')">预览</button><button class="btn btn-secondary" style="padding:6px 12px;font-size:12px;margin-right:4px" onclick="downloadFile(\'' + f.name + '\')">下载</button><button class="btn btn-secondary" style="padding:6px 12px;font-size:12px;color:#dc2626" onclick="deleteFile(\'' + f.name + '\')">删除</button></td>';
+    tr.innerHTML = '<td>' + f.name + '</td><td>' + (f.size/1024).toFixed(1) + ' KB</td><td>' + new Date(f.modified*1000).toLocaleString('zh-CN') + '</td><td><button class="btn btn-secondary" style="padding:6px 12px;font-size:12px;margin-right:4px" onclick="previewFile(\'' + f.name + '\')">预览</button><button class="btn btn-secondary" style="padding:6px 12px;font-size:12px;margin-right:4px" onclick="downloadFile(\'' + f.name + '\')">下载</button><button class="btn btn-secondary" style="padding:6px 12px;font-size:12px;color:#dc2626" onclick="deleteFile(\'' + f.name + '\')">删除</button></td>';
     tbody.appendChild(tr);
   });
 }
 
 async function previewFile(filename) {
-  try {
-    const res = await fetch('/api/output/download/' + filename);
-    const text = await res.text();
-    const win = window.open('', '_blank');
-    win.document.write('<pre style="font-size:12px;padding:20px;">' + text.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</pre>');
-  } catch(e) {
-    alert('预览失败: ' + e.message);
-  }
-}
-
-
-async function downloadFile(filename){window.location.href='/api/output/download/'+filename}
+  const url = window.location.origin + "/output/" + filename;
+  const win = window.open(url, "_blank");
+  win.document.title = url;
+}async function downloadFile(filename){window.location.href='/api/output/download/'+filename}
 async function deleteFile(filename) {
   if (!confirm('确定要删除 ' + filename + ' 吗？')) return;
   try {
@@ -444,13 +624,18 @@ async function deleteFile(filename) {
 
 let logRefreshInterval = null;
 let statusRefreshInterval = null;
-const REFRESH_FAST = 1000;
+const REFRESH_FAST = 2000;
+
 const REFRESH_SLOW = 10000;
-let logAutoScroll = true; // track whether user wants auto-scroll
+let logAutoScroll = true;
+let isUserOnline = true;
+let lastActivityTime = Date.now();
+// Track user activity to detect inactivity
+document.addEventListener('mousemove', () => { isUserOnline = true; lastActivityTime = Date.now(); });
+document.addEventListener('keydown', () => { isUserOnline = true; lastActivityTime = Date.now(); });
+document.addEventListener('click', () => { isUserOnline = true; lastActivityTime = Date.now(); });
 
 function startLogRefresh() {
-  refreshLogs();
-  loadFullLogs();
   logRefreshInterval = setInterval(refreshLogs, REFRESH_FAST);
   // Enable auto-scroll by default, disable when user scrolls up
   var previewEl = document.getElementById('log-preview');
@@ -477,56 +662,41 @@ async function refreshLogs() {
   try {
     const res = await fetch('/api/logs?tail=500');
     const data = await res.json();
-    const logEl = document.getElementById('log-preview');
-    if (logEl) { 
-      const wasAtBottom = logEl.scrollTop + logEl.clientHeight >= logEl.scrollHeight - 2;
-      logEl.textContent = data.lines.map(l => l.trim()).join('\n');
-      if (logAutoScroll && wasAtBottom) logEl.scrollTop = logEl.scrollHeight;
+
+    const lines = data.lines.map(l => l.trim()).join('\n');
+    const previewEl = document.getElementById('log-preview');
+    const fullEl = document.getElementById('log-full');
+    if (previewEl) {
+      const wasAtBottom = previewEl.scrollTop + previewEl.clientHeight >= previewEl.scrollHeight - 2;
+      previewEl.textContent = lines;
+      if (logAutoScroll && wasAtBottom) previewEl.scrollTop = previewEl.scrollHeight;
+    }
+    if (fullEl) {
+      const wasAtBottom2 = fullEl.scrollTop + fullEl.clientHeight >= fullEl.scrollHeight - 2;
+      fullEl.textContent = lines.length > 0 ? lines : '暂无日志';
+      if (logAutoScroll && wasAtBottom2) fullEl.scrollTop = fullEl.scrollHeight;
     }
   } catch(e) {}
 }
-
-async function loadFullLogs() {
-  try {
-    const res = await fetch('/api/logs?tail=500');
-    const data = await res.json();
-    const logEl = document.getElementById('log-full');
-    if (logEl) {
-      if (data.lines.length > 0) {
-        const wasAtBottom2 = logEl.scrollTop + logEl.clientHeight >= logEl.scrollHeight - 2;
-        logEl.textContent = data.lines.map(l => l.trim()).join('\n');
-        if (logAutoScroll && wasAtBottom2) logEl.scrollTop = logEl.scrollHeight;
-      } else {
-        logEl.textContent = '暂无日志';
-      }
-    }
-  } catch(e) {}
-}
-
 async function clearLogs() {
   await fetch('/api/logs/clear', {method:'POST'});
   document.getElementById('log-full').textContent = '日志已清空';
 }
 
+// Check user inactivity every 30s, stop polling if away > 5min
+setInterval(function() {
+  if (isUserOnline && Date.now() - lastActivityTime > 300000) {
+    isUserOnline = false;
+    stopLogRefresh();
+  }
+}, 30000);
+
 loadOverview();
 </script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/python/python.min.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

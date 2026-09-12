@@ -74,7 +74,7 @@ CGTN俄语,CGTN俄罗斯语,cgtnrussian,cgtn俄语,CGTN Russian,CGTN Pусски
 翡翠台,TVb翡翠台,tvb翡翠台,TVB翡翠台,翡翠台(字幕),翡翠台备,翡翠台超清[Jade HD+],翡翠台超清,Jade HD+,翡翠台(多音轨字幕),TVB翡翠,无线翡翠,翡翠,tvb翡翠,[BD]翡翠台,[BD]翡翠,无线翡翠Pdtv,翡翠台2,b翡翠,高清翡翠台,黄金翡翠,TVB翡翠台 4K,TVB翡翠台 1080P,無綫翡翠台,翡翠台北美版,无线翡翠频晴,无线翡翠高码,黄金翡翠频晴,无线翡翠频伍,无线翡翠频陆,无线翡翠台,TVB翡翠台H.265,Jade,TVB Jade,TVB翡翠台4K,TVB翡翠台1080P,TVB翡翠台（备用）,TVB 翡翠台,TVB翡翠台 H.265,黄金翡翠频陆,TVB jade,TVB翡翠(马来),TVB翡翠台(备用)
 明珠台,TVb明珠台,tvb明珠台,TVB明珠台,TVB Pearl,明珠台(字幕),明珠,明珠台超清[Pearl HD+],明珠台超清,Pearl HD+,TVB明珠,明珠台(多音轨字幕),无线明珠,[BD]明珠台高清,[BD]明珠,无线明珠Pdtv,pearl,tvbpearl,re:^明珠台\s*\(.*?\).*$,無綫明珠台,TVBPearl,无线明珠频晴,无线明珠高码,无线明珠频陆,无线明珠台,Pearl,TVB 明珠台
 北京卫视,北京卫视4K,北京卫视4K超高清,北京衛視,北京卫视高清,北京卫视 高清,北京卫视 8m1080,[BD]北京卫视高清,[BD]北京卫视 8m1080,[BD]北京卫视 高清,北京卫视HD,[BD]北京卫视,北京卫视高清 1080P,北京卫视HD 1080P,北京卫视4k,北京卫视超高清,北京卫视4K 4K,北京卫视4K-25P,北京卫视4K25,北京卫视4K50,北京卫视hd,北京淘baby,BRTV北京卫视,北京卫视频晴,北京卫视HEVC,北京卫视_HEVC,BRTV_北京卫视_,Beijing Satellite TV,BRTV 北京卫视 (1080p),BRTV_北京卫视_(1080p),北京卫视SD,北京卫视咪咕,北京卫视4k超,北京卫视4K超,BRTV 北京卫视,BRTV 北京卫视 [Not 24/7]
-凤凰中文,凤凰卫视中文台,鳳凰衛視中文,鳳凰中文,鳳凰中文台,凤凰卫视中文,[BD]鳳凰衛視中文,[BD]凤凰中文,[BD]凤凰卫视中文,凤凰中文Pdtv,凤凰中文hd,凤凰中文台,凤凰卫视,鳳凰衛視中文台,凤凰中文频晴,Phoenix Chinese Channel,凤凰卫视 中文台,凤凰卫视频陆,凤凰中文ipv6
+凤凰中文,凤凰卫视中文台,鳳凰衛視中文,鳳凰中文,鳳凰中文台,凤凰卫视中文,[BD]鳳凰衛視中文,[BD]凤凰中文,[BD]凤凰卫视中文,凤凰中文Pdtv,凤凰中文hd,凤凰中文台,凤凰卫视,鳳凰衛視中文台,凤凰中文频晴,Phoenix Chinese Channel,凤凰卫视 中文台,凤凰卫视频陆,凤凰中文ipv6,凤凰中文台HD
 凤凰香港,凤凰卫视香港台,鳳凰香港,鳳凰香港台,鳳凰衛視香港,[BD]鳳凰衛視香港,[BD]凤凰卫视香港,凤凰香港Pdtv,鳳凰衛視香港台,凤凰香港频晴,凤凰香港频陆,备用源1:凤凰香港,备用源2:凤凰香港,Phoenix Hong Kong Channel,凤凰卫视 香港台
 福建文体,福建体育,福建体育频道,福建体育高清,福建体育频晴
 福建经济,福建经济
@@ -165,7 +165,7 @@ BesTV4K电影,BesTV4K电影 4K
 至臻视界,咪咕视频4K-2
 翡翠台4K,无线翡翠4K,翡翠台4k,翡翠4K,无线翡翠4Ktv
 爱上4K,爱上4K 4K
-CHC高清电影,CHC影迷電影,CHC影迷电影,chc影迷电影,[BD]chc影迷电影,[BD]chc电影,CHC影迷电影HD,chc,影迷电影,高清电影,chc高清电影,CHC高清电影
+CHC影迷电影,CHC影迷電影,chc影迷电影,chc影迷電影,[BD]chc电影,CHC影迷电影HD,chc,影迷电影,高清电影,chc高清电影,CHC高清电影HD,
 CHC家庭影院,chc家庭影院,[BD]chc家庭影院,CHC家庭影院HD,CHC高清影院高清,chc家庭,家庭影院
 CHC动作电影,CHC動作電影,chc动作电影,[BD]chc动作电影,CHC动作电影HD,CHC动作影院高清,动作电影
 生活时尚,[BD]生活时尚,生活时尚HD,生活时尚HD 1080P,sitv生活时尚,Lifestyle Channel
@@ -176,7 +176,7 @@ CGTN纪录,CGTN Documentary,cgtn documentary,[BD]cgtn纪录,[BD]cgtn documentary
 TVB Plus,TVBPlus,TVB plus 超清,TVB+,TVB PLUS(多音轨字幕),tvb plus超清,tvb+,tvbplus,tvb plus,TVBS Plus,Plus综合Pdtv,Plus综合,Plus综合频晴,无线Plus频伍,TVB82,82台,无线82台,TVB Plus 82,TVB综合频道,TVB Plus82,TVBplus,TVB Plus H.265,备用源1:TVB Plus,TVB综合,无线Plus台,TVB PLUS,TVBPLUS,Plus综合高码,TVB plus
 TVB星河,无线星河,TVB星河国语,TVB星河(多音轨字幕),无线星河Pdtv,tvb星河,tvb星河频道,星河,TVB无线星河,无线星河频晴,星河频道,备用源1:TVB星河,备用源2:TVB星河,TVB星河频道,无线星河国,无线星河粤,TVB Xing He,TVB XingHe
 TVBS亚洲,TVBS亚洲
-凤凰资讯,鳳凰資訊HD,鳳凰資訊台,鳳凰衛視資訊,[BD]凤凰卫视资讯,凤凰资讯Pdtv,凤凰资讯hd,凤凰资讯台,凤凰卫视资讯台,鳳凰衛視資訊台,凤凰资讯高清,凤凰信息频晴,凤凰资讯频陆,备用源1:凤凰资讯,Phoenix InfoNews Channel,凤凰卫视 资讯台,凤凰资讯ipv6
+凤凰资讯,鳳凰資訊HD,鳳凰資訊台,鳳凰衛視資訊,[BD]凤凰卫视资讯,凤凰资讯Pdtv,凤凰资讯hd,凤凰资讯台,凤凰卫视资讯台,鳳凰衛視資訊台,凤凰资讯高清,凤凰信息频晴,凤凰资讯频陆,备用源1:凤凰资讯,Phoenix InfoNews Channel,凤凰卫视 资讯台,凤凰资讯ipv6,凤凰资讯台HD
 香港卫视,香港衛視,香港卫视高清,香港卫视 高清,香港卫视 8m1080,香港卫视HKS,香港卫视频晴,卫视频晴
 华艺中文,華藝中文,华艺中文频道,華藝中文頻道
 ViuTV,VIUTV,ViuTV HD+,viutv高清,viutv,viutv香港,VIU TV,ViuTV1,ViuTV壹台,ViuTV-粤频晴,ViuTv_粤高码,ViuTv_英高码,ViuTV-英频晴,VIUTV'粤频晴,VIU TV H.265,备用源1:ViuTV,ViuTv粤高码,ViuTv英高码,VIUtv台粤,VIUTV1,VIUTV'粤,VIUTV台粤,VIUTV台-粤,备用源1:VIUTV
