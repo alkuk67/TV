@@ -114,3 +114,54 @@
 2026-09-13 06:24:43 - INFO - root:main.py:573 -   http://192.168.100.1  失败次数=1  (timeout=1)
 2026-09-13 06:24:43 - INFO - root:main.py:636 - [质量检测] 完成
 2026-09-13 06:24:43 - INFO - root:main.py:640 - [汇总] 频道分类 6 个，总频道数 64，总URL数 197
+2026-09-14 06:07:22 - INFO - root:main.py:167 - [别名映射] 从 config/alias.txt 加载 10022 条别名规则
+2026-09-14 06:07:22 - INFO - root:main.py:581 - [抓取] 执行完整抓取流程，config.source_urls=1 个, hotel=True
+2026-09-14 06:07:23 - INFO - root:main.py:73 - [EPG映射] 从 http://e.erw.cc/e.xml.gz 加载成功
+2026-09-14 06:07:30 - INFO - root:main.py:73 - [EPG映射] 从 https://gitee.com/taksssss/tv/raw/main/epg/112114.xml.gz 加载成功
+2026-09-14 06:07:31 - WARNING - root:main.py:75 - [EPG映射] 从 http://epg.51zmt.top:8000/e.xml.gz 加载失败，尝试下一个源: Not a gzipped file (b'<?')
+2026-09-14 06:07:31 - INFO - root:main.py:77 - [EPG映射] 共合并加载 744 个频道 ID
+2026-09-14 06:07:31 - INFO - root:main.py:276 - [抓取] 开始: https://cdn.qd.je/live.m3u
+2026-09-14 06:07:32 - INFO - root:main.py:285 - [抓取] https://cdn.qd.je/live.m3u 获取成功，判断为m3u格式
+2026-09-14 06:07:32 - INFO - root:main.py:318 - [抓取] https://cdn.qd.je/live.m3u 抓取成功，包含频道分类: mytv
+2026-09-14 06:07:32 - INFO - root:main.py:319 - [抓取] https://cdn.qd.je/live.m3u 共获取 121 个 URL
+2026-09-14 06:07:32 - INFO - root:main.py:325 - [抓取] https://cdn.qd.je/live.m3u 样本频道: ['翡翠台4K(字幕)', '凤凰中文', 'CCTV1港澳版', 'CCTV13', 'TVB Plus(字幕)']
+2026-09-14 06:07:32 - INFO - root:main.py:347 - [抓取] 等待所有源完成...
+2026-09-14 06:07:32 - INFO - root:main.py:249 - [匹配统计] 模板 133 频道，在线 3867 URL，匹配 45 URL
+2026-09-14 06:07:32 - INFO - root:main.py:588 - [酒店源] 开始抓取...
+2026-09-14 06:07:32 - INFO - fetch_hotel:fetch_hotel.py:57 - [酒店源] 共获取 1099 个节点
+2026-09-14 06:07:32 - INFO - fetch_hotel:fetch_hotel.py:67 - [酒店源] 类型分布: {'txiptv': 865, 'zhgxtv': 27, 'hsmdtv': 24, 'jsmpeg': 183}
+2026-09-14 06:07:36 - INFO - fetch_hotel:fetch_hotel.py:172 - [酒店源] 解析完成，共 314 个频道-URL 组合
+2026-09-14 06:07:36 - INFO - root:main.py:249 - [匹配统计] 模板 133 频道，在线 15882 URL，匹配 294 URL
+2026-09-14 06:07:36 - INFO - root:main.py:602 - [酒店源] 匹配到 81 个频道
+2026-09-14 06:07:36 - INFO - root:main.py:607 - [组播源] 开始抓取...
+2026-09-14 06:07:37 - INFO - fetch_multicast:fetch_multicast.py:105 - [组播源] 共 1201 条，保留 1201 条（dead=0，省份过滤=0，运营商过滤=0）
+2026-09-14 06:07:37 - INFO - root:main.py:249 - [匹配统计] 模板 133 频道，在线 58722 URL，匹配 710 URL
+2026-09-14 06:07:37 - INFO - root:main.py:620 - [组播源] 匹配到 88 个频道
+2026-09-14 06:07:37 - INFO - root:main.py:627 - [质量检测] 开始全量检测（无缓存模式）... enable_ffprobe=True, ffprobe_timeout=5s, min_resolution=1080
+2026-09-14 06:07:37 - INFO - check:check.py:694 - 开始质量检测，共 1049 个 URL，并发数 10，HTTP 超时 3.5s，FFprobe 启用，超时 5s，中度探测启用，超时 6.5s
+2026-09-14 06:08:24 - INFO - check:check.py:679 - [质量检测] 进度: 100/1049 (9%)
+2026-09-14 06:09:12 - INFO - check:check.py:679 - [质量检测] 进度: 200/1049 (19%)
+2026-09-14 06:10:06 - INFO - check:check.py:679 - [质量检测] 进度: 300/1049 (28%)
+2026-09-14 06:10:39 - INFO - check:check.py:679 - [质量检测] 进度: 400/1049 (38%)
+2026-09-14 06:11:06 - INFO - check:check.py:679 - [质量检测] 进度: 500/1049 (47%)
+2026-09-14 06:12:00 - INFO - check:check.py:679 - [质量检测] 进度: 600/1049 (57%)
+2026-09-14 06:12:41 - INFO - check:check.py:679 - [质量检测] 进度: 700/1049 (66%)
+2026-09-14 06:13:21 - INFO - check:check.py:679 - [质量检测] 进度: 800/1049 (76%)
+2026-09-14 06:14:12 - INFO - check:check.py:679 - [质量检测] 进度: 900/1049 (85%)
+2026-09-14 06:14:54 - INFO - check:check.py:679 - [质量检测] 进度: 1000/1049 (95%)
+2026-09-14 06:15:21 - INFO - check:check.py:679 - [质量检测] 进度: 1049/1049 (100%)
+2026-09-14 06:15:21 - INFO - check:check.py:732 - 质量检测完成: 总计=981 通过=390 失败=356 超时=70 错误=165
+2026-09-14 06:15:21 - INFO - check:check.py:773 - 过滤后: 保留 135 个有效源，移除 767 个失效源
+2026-09-14 06:15:21 - INFO - root:main.py:571 - [黑名单建议] 以下域名检测频繁失败，可考虑加入 url_blacklist：
+2026-09-14 06:15:21 - INFO - root:main.py:573 -   http://17782331118.top:8188  失败次数=123  (failed=123)
+2026-09-14 06:15:21 - INFO - root:main.py:573 -   http://183.234.143.5:5353udp:  失败次数=90  (error=90)
+2026-09-14 06:15:21 - INFO - root:main.py:573 -   http://171.119.206.200:6001  失败次数=82  (failed=70, timeout=12)
+2026-09-14 06:15:21 - INFO - root:main.py:573 -   http://27.11.251.110:8008  失败次数=82  (failed=82)
+2026-09-14 06:15:21 - INFO - root:main.py:573 -   http://10.8.8.200  失败次数=81  (timeout=81)
+2026-09-14 06:15:21 - INFO - root:main.py:573 -   http://49.234.31.101:7055udp:  失败次数=79  (error=79)
+2026-09-14 06:15:21 - INFO - root:main.py:573 -   http://219.155.101.174:4022  失败次数=50  (failed=50)
+2026-09-14 06:15:21 - INFO - root:main.py:573 -   http://123.157.31.182:7912  失败次数=33  (failed=33)
+2026-09-14 06:15:21 - INFO - root:main.py:573 -   http://111.4.59.41:60901  失败次数=15  (failed=15)
+2026-09-14 06:15:21 - INFO - root:main.py:573 -   http://home.yulei.online:9999  失败次数=7  (failed=7)
+2026-09-14 06:15:21 - INFO - root:main.py:636 - [质量检测] 完成
+2026-09-14 06:15:21 - INFO - root:main.py:640 - [汇总] 频道分类 6 个，总频道数 62，总URL数 135
