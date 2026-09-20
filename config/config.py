@@ -26,14 +26,14 @@ enable_isp_split = False
 
 # ── 订阅源 ───────────────────────────────────────────────────────
 source_urls = [
-    #"https://cdn.qd.je/live.m3u",
-    #"http://rihou.cc:567/gggg.nzk",
-    #"http://193.123.86.190:14888/TV/iptv.php",
-    #"https://gh.927223.xyz/https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u",
+    "https://cdn.qd.je/live.m3u",
+    "http://rihou.cc:567/gggg.nzk",
+    "http://193.123.86.190:14888/TV/iptv.php",
+    "https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u",
 ]
 
 # ── 订阅白名单（保底源）──────────────────────────────────────────────
-subscription_whitelist = ["http://192.168.1.31:2134"]
+subscription_whitelist = [#"http://192.168.1.31:2134"]
 
 # 订阅源抓取超时（秒）
 fetch_timeout = 10
@@ -89,7 +89,7 @@ channel_logo_template = "https://tb.zbds.top/logo/{channel_name}.png"
 # check_max_conn       : 最大并发检测数
 enable_quality_check = True
 check_timeout    = 3.5
-check_max_conn   = 20
+check_max_conn   = 10
 
 # ── 质量检测 — FFprobe 检测 ──...
 # enable_ffprobe     : True=启用 FFprobe 探流，False=仅 HTTP 快筛
