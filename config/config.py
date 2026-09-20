@@ -33,7 +33,7 @@ source_urls = [
 ]
 
 # ── 订阅白名单（保底源）──────────────────────────────────────────────
-subscription_whitelist = [#"http://192.168.1.31:2134"]
+subscription_whitelist = ["http://192.168.1.31:2134"]
 
 # 订阅源抓取超时（秒）
 fetch_timeout = 10
