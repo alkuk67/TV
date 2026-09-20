@@ -21,7 +21,7 @@ HTTP 快筛 → FFprobe 元数据探测 → 中度探测（仅 m3u8）→ 过滤
 ### 第二层：FFprobe 元数据探测
 - 开关：enable_ffprobe = True；ffprobe_path 为空时使用系统 PATH 中的 ffprobe
 - 功能：获取分辨率、码率、编解码器、speed_x 等元数据
-- 超时：ffprobe_timeout = 8s；最多探测 ffprobe_max_streams = 3 个流
+- 超时：ffprobe_timeout = 5s；最多探测 ffprobe_max_streams = 3 个流
 - 采样：bitrate_sample_sec = 3，用 packet 大小计算真实码率；0 = 不采样
 - 过滤条件：
   - 分辨率：min_resolution = "1080"，宽度 < 1080 的源被淘汰；"0"/空 = 不限制
@@ -87,7 +87,7 @@ filter_dead_urls(channels, check_results, accept_layers=("fast", "ffprobe", "dee
 | enable_ffprobe | True | 是否启用 FFprobe |
 | ffprobe_path | "" | FFprobe 可执行文件路径；空 = 用系统 PATH |
 | ffprobe_max_streams | 3 | FFprobe 最多探测流数 |
-| ffprobe_timeout | 8s | FFprobe 超时 |
+| ffprobe_timeout | 5s | FFprobe 超时 |
 | bitrate_sample_sec | 3 | 码率采样秒数；0 = 不采样 |
 | min_resolution | "1080" | 最低分辨率宽度；"0"/"" = 不限制 |
 | min_bitrate | 0 | 最低码率（bps）；0 = 不限制 |

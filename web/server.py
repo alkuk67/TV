@@ -5,6 +5,8 @@ from flask import Flask, request, jsonify, send_file, send_from_directory
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.middleware.proxy_fix import ProxyFix
 import subprocess
+import tempfile
+import urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
@@ -36,6 +38,7 @@ _config_lock = threading.Lock()
 _schedule_lock = threading.Lock()
 _schedule_thread = None
 _next_run_time = None
+_schedule_signature = None
 
 def request_stop():
     with _run_lock:
@@ -55,6 +58,18 @@ def _load_config():
             except Exception:
                 pass
     return _config_cache or ""
+
+
+def _proxy_enabled():
+    """检测当前任务运行环境是否配置了代理。"""
+    for name in ("HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY", "http_proxy", "https_proxy", "all_proxy"):
+        value = os.environ.get(name, "").strip()
+        if value and value.lower() not in ("0", "false", "no", "off"):
+            return True
+    try:
+        return bool(urllib.request.getproxies())
+    except Exception:
+        return False
 
 def _compute_next_run(settings):
     """Compute next run datetime from schedule settings (supports multiple times)."""
@@ -101,29 +116,40 @@ def _compute_next_run(settings):
 
 def _scheduler_loop():
     """Background loop that checks and triggers scheduled runs."""
-    global _schedule_thread
+    global _schedule_signature
     while True:
         try:
+            settings = _load_settings()
+            signature = json.dumps(settings.get("schedule", {}), ensure_ascii=False, sort_keys=True)
+            if signature != _schedule_signature:
+                # settings.json 可能被直接修改；只在新配置与当前不同时重算，避免把已到点任务推走
+                _compute_next_run(settings)
+                _schedule_signature = signature
             sched_enabled = _next_run_time is not None
             next_run = _next_run_time
             if sched_enabled and next_run:
                 from datetime import datetime
                 now = datetime.now()
-                diff = (next_run - now).total_seconds()
-                if 0 < diff <= 30:
+                # 到点即触发（错过时间可补跑），且只有真正触发时才推进 next_run。
+                # 原实现提前 30s 触发，此时 now 未到预定时间，_compute_next_run 不会推进，
+                # next_run 停在过去导致调度只触发一次后永久失效
+                if now >= next_run:
                     with _run_lock:
                         if _run_process is None or _run_process.poll() is not None:
                             threading.Thread(target=run_main, daemon=True).start()
                             _compute_next_run(_load_settings())
-            time.sleep(15)
+                            _schedule_signature = signature
+            time.sleep(5)
         except Exception:
             time.sleep(30)
 
 
 def _start_scheduler():
     global _schedule_thread
+    global _schedule_signature
     settings = _load_settings()
     _compute_next_run(settings)
+    _schedule_signature = json.dumps(settings.get("schedule", {}), ensure_ascii=False, sort_keys=True)
     if _schedule_thread is None or not _schedule_thread.is_alive():
         _schedule_thread = threading.Thread(target=_scheduler_loop, daemon=True)
         _schedule_thread.start()
@@ -147,8 +173,8 @@ def api_schedule():
         times = [t] if isinstance(t, str) else ["06:00"]
     return jsonify({
         "enabled": sched.get("enabled", False),
-        "times": times,
-        "time": times[0],
+        "times": sorted(set(times)),
+        "time": sorted(set(times))[0],
         "interval": sched.get("interval", "daily"),
         "next_run": get_next_run(),
     })
@@ -164,6 +190,7 @@ def api_schedule_set():
         times = [times]
     if not times:
         times = ["06:00"]
+    times = sorted(set(times))
     settings["schedule"].update({
         "enabled": data.get("enabled", False),
         "times": times,
@@ -217,12 +244,20 @@ def run_main():
     with _run_lock:
         if _run_process is not None and _run_process.poll() is None:
             return jsonify({"error": "正在运行中"}), 409
+        if _external_main_pids():
+            # Docker CMD 等外部启动的 main.py 正在运行，避免两个进程并发写 output
+            return jsonify({"error": "已有后台任务在运行"}), 409
         _run_progress = 5
         _run_phase = "初始化中..."
         global _stop_requested
         _stop_requested = False
         _run_start_time = time.time()
         log_path = os.path.join(ROOT, "function.log")
+        try:
+            open(log_path, "a", encoding="utf-8").close()
+        except OSError:
+            # function.log 缺失或挂载异常时回退到临时目录，保证运行与进度跟踪不中断
+            log_path = os.path.join(tempfile.gettempdir(), "function.log")
         proc = subprocess.Popen(
             [sys.executable, os.path.join(ROOT, "main.py")],
             cwd=ROOT,
@@ -230,10 +265,11 @@ def run_main():
             stderr=subprocess.STDOUT,
             text=True,
             bufsize=1,
+            env={**os.environ, "IPTV_SUPERVISED": "1"},
         )
         _run_process = proc
         def _read_log():
-            global _run_progress, _run_phase
+            global _run_progress, _run_phase, _run_process
             with open(log_path, "a", encoding="utf-8") as log_file:
                 for line in proc.stdout:
                     line = line.strip()
@@ -317,37 +353,46 @@ def _kill_external_main():
             pass
 
 
+def _stop_worker(proc):
+    """后台等待子进程退出，超时后强杀并清理状态。"""
+    global _run_process, _run_progress, _run_phase
+    deadline = time.time() + 20
+    while time.time() < deadline:
+        child_running = proc is not None and proc.poll() is None
+        if not child_running and not _external_main_pids():
+            break
+        time.sleep(0.25)
+    if proc is not None and proc.poll() is None:
+        proc.kill()
+    _kill_external_main()
+    with _run_lock:
+        if _run_process is not None and _run_process.poll() is not None:
+            _run_process = None
+        _run_progress = 0
+        _run_phase = ""
+
 def stop_run():
-    global _run_process, _run_progress, _run_phase, _stop_requested
+    global _run_progress, _run_phase, _stop_requested
     with _run_lock:
         _stop_requested = True
-        _kill_external_main()
-        if _run_process is not None and _run_process.poll() is None:
-            # Write stop signal file for graceful exit
-            _check.request_stop_via_signal()
-            for _ in range(60):
-                time.sleep(0.1)
-                if _run_process.poll() is not None:
-                    _run_process = None
-                    _run_progress = 0
-                    _run_phase = ""
-                    return jsonify({"status": "stopped", "progress": 0, "phase": ""})
-            # Fallback: force kill if still running after 6s
-            _run_process.kill()
-            _run_process = None
+        proc = _run_process
+    # 写停止标志文件：main.py（子进程或外部启动）在抓取/检测阶段轮询该文件优雅退出。
+    # 仅设本进程内标志对子进程无效，必须走文件
+    _check.request_stop_via_signal()
+    # 后台等待子进程退出，接口立即返回，前端不必等到停止完成
+    if proc is not None or _external_main_pids():
+        threading.Thread(target=_stop_worker, args=(proc,), daemon=True).start()
+    else:
+        with _run_lock:
             _run_progress = 0
             _run_phase = ""
-            return jsonify({"status": "stopped", "progress": 0, "phase": ""})
-        else:
-            _run_process = None
-            _run_progress = 0
-            _run_phase = ""
-            return jsonify({"status": "stopped", "progress": 0, "phase": ""})
-    return jsonify({"error": "无法停止"}), 500
+        return jsonify({"status": "stopped", "progress": 0, "phase": ""})
+    return jsonify({"status": "stopping", "progress": 0, "phase": ""})
 
 def get_run_status():
-    global _run_process, _run_start_time, _run_progress, _run_phase
+    global _run_process, _run_progress, _run_phase
     stats = {"channels": 0, "urls": 0, "files": 0, "last_update": ""}
+    proxy_enabled = _proxy_enabled()
     txt_path = os.path.join(ROOT, "output", "live.txt")
     if os.path.isfile(txt_path):
         try:
@@ -380,23 +425,24 @@ def get_run_status():
             ext = _external_main_pids()
             if ext:
                 progress, phase = _infer_external_progress()
-                return jsonify({"status": "running", "progress": progress, "phase": phase, "pid": ext[0], **result, **stats, "next_run": get_next_run(), "schedule_enabled": _load_settings().get("schedule", {}).get("enabled", False)})
-            return jsonify({"status": "idle", "progress": 0, "phase": "", **result, **stats, "next_run": get_next_run(), "schedule_enabled": _load_settings().get("schedule", {}).get("enabled", False)})
+                return jsonify({"status": "stopping" if _stop_requested else "running", "progress": progress, "phase": phase, "pid": ext[0], **result, **stats, "next_run": get_next_run(), "schedule_enabled": _load_settings().get("schedule", {}).get("enabled", False), "proxy_enabled": proxy_enabled})
+            return jsonify({"status": "idle", "progress": 0, "phase": "", **result, **stats, "next_run": get_next_run(), "schedule_enabled": _load_settings().get("schedule", {}).get("enabled", False), "proxy_enabled": proxy_enabled})
         ret = _run_process.poll()
         if ret is not None:
             _run_process = None
             _run_progress = 100
             _run_phase = "完成"
-            return jsonify({"status": "completed", "progress": 100, "phase": "完成", **result, **stats, "next_run": get_next_run(), "schedule_enabled": _load_settings().get("schedule", {}).get("enabled", False)})
+            return jsonify({"status": "completed", "progress": 100, "phase": "完成", **result, **stats, "next_run": get_next_run(), "schedule_enabled": _load_settings().get("schedule", {}).get("enabled", False), "proxy_enabled": proxy_enabled})
         elapsed = int(time.time() - _run_start_time) if _run_start_time else 0
         return jsonify({
-            "status": "running",
+            "status": "stopping" if _stop_requested else "running",
             "progress": _run_progress,
             "phase": _run_phase,
             "pid": _run_process.pid,
             "elapsed": elapsed,
             **result,
             **stats,
+            "proxy_enabled": proxy_enabled,
             "next_run": get_next_run()
         })
 
@@ -541,12 +587,8 @@ def api_config_save():
         with open(config_path, "w", encoding="utf-8", errors="ignore") as f:
             f.write(content)
         _config_cache = None
-    with _run_lock:
-        if _run_process is not None and _run_process.poll() is None:
-            try:
-                _run_process.send_signal(subprocess.signal.SIGUSR1)
-            except Exception:
-                pass
+    # 配置在下次运行时生效。不要向子进程发信号：main.py 没有注册 SIGUSR1 处理器，
+    # Linux/Docker 下默认动作是终止进程，会把正在运行的检测直接杀掉
     return jsonify({"ok": True, "message": "配置已保存"})
 
 @app.route("/channel_data.js")

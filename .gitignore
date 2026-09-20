@@ -11,3 +11,4 @@ web/__pycache__/
 
 # Stop signal for graceful shutdown
 .stop_signal
+stop.flag

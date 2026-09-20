@@ -138,8 +138,10 @@ async def fetch_all_from_hotel():
         mt = node.get("matchType", "unknown")
         by_type.setdefault(mt, []).append(node)
 
-    check_timeout = getattr(config, "check_timeout", 5)
-    timeout = aiohttp.ClientTimeout(total=check_timeout)
+    # 节点 API（频道列表 JSON/文本）响应体可能很大，用独立超时（默认 15s，
+    # 可在 hotel_config 里加 "timeout" 调整）。不能复用 check_timeout
+    # （3.5s，那是单流检测超时），否则大部分节点会解析超时
+    timeout = aiohttp.ClientTimeout(total=config.hotel_config.get("timeout", 15))
     connector = aiohttp.TCPConnector(limit=config.check_max_conn, ssl=False)
     channels = {}
 

@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IPTV 直播源管理</title>
+<link rel="icon" href="https://avatars.githubusercontent.com/u/158799657?v=4&s=32" type="image/png">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f1f5f9; color: #1e293b; }
@@ -23,6 +24,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .stat-card .label { font-size: 14px; color: #64748b; margin-bottom: 8px; }
 .stat-card .value { font-size: 24px; font-weight: 700; color: #0f172a; }
 .stat-card .sub { font-size: 12px; color: #94a3b8; margin-top: 4px; }
+.stat-card.proxy-on { border-color: #fde68a; background: #fffbeb; }
+.stat-card.proxy-on .value { color: #d97706; }
 .btn { padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; font-weight: 500; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
 .btn-primary { background: #2563eb; color: white; }
 .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
@@ -46,6 +49,48 @@ textarea { width: 100%; min-height: 400px; font-family: monospace; font-size: 13
 .loading { padding: 40px; color: #94a3b8; }
 pre#log-preview { font-size: 12px; line-height: 1.6; padding: 12px; background: #f8fafc; border-radius: 8px; max-height: 400px; overflow-y: auto; white-space: pre-wrap; word-break: break-all; text-align: left; }
 pre#log-full { font-size: 12px; line-height: 1.8; padding: 12px; background: #f8fafc; border-radius: 8px; max-height: 600px; overflow-y: auto; white-space: pre-wrap; word-break: break-all; text-align: left; font-family: 'Consolas', 'Monaco', monospace; }
+#last-update { transition: opacity 0.35s ease, transform 0.35s ease; }
+#last-update.update-flash { opacity: 0.25; transform: translateY(4px); }
+#last-update-card .label, #last-update-card .value, #last-update-card .sub { transition: opacity 0.3s ease, transform 0.3s ease; }
+#last-update-card.switching .label, #last-update-card.switching .value, #last-update-card.switching .sub { opacity: 0; transform: translateY(4px); }
+.tabs { overflow-x: auto; overflow-y: hidden; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { white-space: nowrap; }
+/* ── 桌面端侧边栏 ── */
+@media (min-width: 768px) {
+  .app { display: flex; gap: 0; padding: 0; max-width: none; min-height: 100vh; }
+  .sidebar { display: flex; flex-direction: column; width: 220px; min-height: 100vh; background: white; border-right: 1px solid #e2e8f0; padding: 24px 16px; flex-shrink: 0; position: sticky; top: 0; }
+  .sidebar-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; }
+  .sidebar-logo img { width: 36px; height: 36px; border-radius: 8px; }
+  .sidebar-logo span { font-size: 15px; font-weight: 600; color: #0f172a; line-height: 1.2; }
+  .sidebar-nav { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+  .sidebar-item { padding: 10px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: #64748b; cursor: pointer; transition: all 0.15s; }
+  .sidebar-item:hover { background: #f1f5f9; color: #2563eb; }
+  .sidebar-item.active { background: #eff6ff; color: #2563eb; font-weight: 600; }
+  .sidebar-status { padding-top: 16px; border-top: 1px solid #f1f5f9; display: flex; align-items: center; gap: 8px; font-size: 13px; color: #64748b; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #94a3b8; transition: background 0.3s; }
+  .status-dot.running { background: #22c55e; box-shadow: 0 0 6px rgba(34,197,94,0.5); }
+  .status-dot.stopping { background: #f59e0b; box-shadow: 0 0 6px rgba(245,158,11,0.5); }
+  .main { flex: 1; padding: 24px 32px; min-width: 0; overflow-x: auto; }
+  .header { display: flex !important; }
+  .tabs { display: none !important; }
+  .overview-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 16px; align-items: start; }
+}
+@media (max-width: 767px) {
+  .sidebar { display: none; }
+  .main { padding: 0; }
+}
+
+@media (max-width: 640px) {
+  .app { padding: 12px; }
+  .header { gap: 10px; margin-bottom: 16px; }
+  .header h1 { font-size: 18px; }
+  .header p { font-size: 12px; }
+  .header .btn { padding: 6px 10px; font-size: 12px; border-radius: 6px; }
+  .tabs { gap: 4px; margin-bottom: 16px; }
+  .tab { padding: 9px 12px; font-size: 13px; }
+  .card { padding: 16px; }
+}
 </style>
 <link rel="stylesheet" href="codemirror/codemirror.min.css">
 <link rel="stylesheet" href="codemirror/material-darker.min.css">
@@ -57,6 +102,25 @@ pre#log-full { font-size: 12px; line-height: 1.8; padding: 12px; background: #f8
 </head>
 <body>
 <div class="app">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <img src="https://avatars.githubusercontent.com/u/158799657?v=4&s=64" alt="logo">
+      <span>IPTV 管理</span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-item active" data-tab="overview" onclick="showTab('overview')">概览</div>
+      <div class="sidebar-item" data-tab="channels" onclick="showTab('channels')">频道数据</div>
+      <div class="sidebar-item" data-tab="logs" onclick="showTab('logs')">日志</div>
+      <div class="sidebar-item" data-tab="config" onclick="showTab('config')">配置</div>
+      <div class="sidebar-item" data-tab="output" onclick="showTab('output')">输出文件</div>
+      <div class="sidebar-item" data-tab="about" onclick="showTab('about')">关于</div>
+    </nav>
+    <div class="sidebar-status">
+      <span class="status-dot" id="status-dot"></span>
+      <span id="status-label">空闲</span>
+    </div>
+  </aside>
+  <main class="main">
   <div class="header">
     <a href="https://github.com/yuanzl77/IPTV" target="_blank" rel="noopener"
        style="display:flex;align-items:center;justify-content:center;text-decoration:none;flex-shrink:0;">
@@ -81,6 +145,7 @@ pre#log-full { font-size: 12px; line-height: 1.8; padding: 12px; background: #f8
     <div class="tab" onclick="showTab('logs')">日志</div>
     <div class="tab" onclick="showTab('config')">配置</div>
     <div class="tab" onclick="showTab('output')">输出文件</div>
+    <div class="tab" onclick="showTab('about')">关于</div>
   </div>
   
   <div id="overview" class="tab-content">
@@ -105,8 +170,14 @@ pre#log-full { font-size: 12px; line-height: 1.8; padding: 12px; background: #f8
         <div class="value" id="last-update">--</div>
         <div class="sub">时间</div>
       </div>
+      <div class="stat-card" id="proxy-card">
+        <div class="label">网络环境</div>
+        <div class="value" id="proxy-status">检测中</div>
+        <div class="sub" id="proxy-sub">正在检查代理...</div>
+      </div>
     </div>
     
+    <div class="overview-grid">
     <div class="card">
       <h3 style="display:flex;align-items:center;gap:10px;">
         <span>运行控制</span>
@@ -134,6 +205,7 @@ pre#log-full { font-size: 12px; line-height: 1.8; padding: 12px; background: #f8
     <div class="card">
       <h3>实时日志</h3>
       <pre id="log-preview" class="loading">等待任务启动...</pre>
+    </div>
     </div>
   </div>
   
@@ -192,8 +264,35 @@ pre#log-full { font-size: 12px; line-height: 1.8; padding: 12px; background: #f8
       </table>
     </div>
   </div>
-</div>
 
+  <div id="about" class="tab-content hidden">
+    <div class="card" style="padding:24px;">
+      <h3 style="display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:24px;font-weight:600;color:#0f172a;">
+        <span>关于</span>
+        <span id="app-version" style="font-size:13px;font-weight:400;color:#94a3b8;">v1.0.0</span>
+      </h3>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-left:3px solid #d97706;border-radius:8px;padding:12px 14px;">
+          <div style="font-size:13px;font-weight:600;color:#92400e;margin-bottom:4px;">免责声明</div>
+          <p style="font-size:13px;color:#78350f;line-height:1.8;margin:0;">
+            本工具仅用于技术学习与个人娱乐，不提供任何直播源数据；所有数据均由使用方自行获取与维护，无法保证可用性。因使用本工具产生的任何问题或后果，请自行负责，与作者无关。
+          </p>
+        </div>
+        <p style="font-size:14px;color:#475569;line-height:1.8;margin:0;">IPTV 直播源管理：自动聚合直播源、质量检测、运营商分类，并将结果输出为 m3u / txt 文件。</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span class="badge badge-info">自动聚合</span>
+          <span class="badge badge-success">质量检测</span>
+          <span class="badge badge-warning">运营商分类</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-top:12px;border-top:1px solid #f1f5f9;">
+          <span style="font-size:13px;color:#94a3b8;">
+            GitHub: <a href="https://github.com/yuanzl77/IPTV" target="_blank" rel="noopener" style="color:#2563eb;">https://github.com/yuanzl77/IPTV</a>
+          </span>
+          <button id="about-update-btn" onclick="aboutUpdate()" class="btn btn-secondary" style="padding:8px 16px;font-size:13px;">↻ 检查更新</button>
+        </div>
+      </div>
+    </div>
+</div>
 <!-- Login Overlay -->
 <div id="login-overlay" class="login-overlay">
   <div style="background:#fff;border-radius:16px;padding:32px;width:340px;max-width:90vw;box-shadow:0 20px 60px rgba(0,0,0,0.35);text-align:center;">
@@ -333,8 +432,13 @@ function esc(s) {
 function showTab(name) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
-  event.target.classList.add('active');
+  document.querySelectorAll('.sidebar-item').forEach(t => t.classList.remove('active'));
+  const sbItem = document.querySelector('.sidebar-item[data-tab="' + name + '"]');
+  if (sbItem) sbItem.classList.add('active');
+  const tabEl = document.querySelector('.tab[onclick="showTab(\'' + name + '\')"]');
+  if (tabEl) tabEl.classList.add('active');
   document.getElementById(name).classList.remove('hidden');
+  if (name === 'overview') resetLogPreview();
   if (name === 'channels') renderChannels();
   if (name === 'logs') { logAutoScroll = true; refreshLogs(); }
   if (name === 'config') loadConfig();
@@ -342,46 +446,102 @@ function showTab(name) {
 }
 
 async function runIPTV() {
-  const res = await fetch('/api/run', {method: 'POST'});
-  const data = await res.json();
-    document.getElementById('progress-area').classList.remove('hidden');
-  document.getElementById('run-btn').style.display = 'none';
-  document.getElementById('stop-btn').style.display = 'inline-flex';
-  startLogRefresh();
-  pollStatus();
+  _setStatusUI('running');
+  _setControlsUI('running');
+  stopRequested = false;
+  _stopStatusRefresh();
+  try {
+    const res = await fetch('/api/run', {method: 'POST'});
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || '启动失败');
+    if (!logRefreshInterval) startLogRefresh();
+    pollStatus();
+  } catch(e) {
+    alert(e.message);
+    loadOverview();
+  }
 }
 
 async function stopIPTV() {
+  stopRequested = true;
+  _setStatusUI('stopping');
+  _setControlsUI('stopping');
+  _stopStatusRefresh();
+  const phaseEl = document.getElementById('phase-text');
+  if (phaseEl) phaseEl.textContent = '停止中...';
+  if (!logRefreshInterval) startLogRefresh();
   try {
     const res = await fetch('/api/stop', {method: 'POST'});
-    const data = await res.json();
-        document.getElementById('run-btn').style.display = 'inline-flex';
-    document.getElementById('stop-btn').style.display = 'none';
-    document.getElementById('progress-area').classList.add('hidden');
-    stopLogRefresh();
-    const logEl = document.getElementById('log-preview');
-    if (logEl) logEl.textContent = '等待任务启动...';
-  } catch(e) {}
+    if (!res.ok) throw new Error('停止请求失败');
+    pollStatus();
+  } catch(e) {
+    alert(e.message);
+    loadOverview();
+  }
+}
+
+function _setStatusUI(status) {
+  const dot = document.getElementById('status-dot');
+  const label = document.getElementById('status-label');
+  if (dot) {
+    dot.classList.toggle('running', status === 'running');
+    dot.classList.toggle('stopping', status === 'stopping');
+  }
+  if (label) label.textContent = status === 'running' ? '运行中' : status === 'stopping' ? '停止中' : '空闲';
+}
+
+function _setProxyUI(enabled) {
+  const card = document.getElementById('proxy-card');
+  const value = document.getElementById('proxy-status');
+  const sub = document.getElementById('proxy-sub');
+  if (card) card.classList.toggle('proxy-on', !!enabled);
+  if (value) value.textContent = enabled ? '代理已开启' : '直连';
+  if (sub) sub.textContent = enabled ? '建议关闭代理后测试更准确' : '未检测到代理，测试更准确';
+}
+
+function _stopStatusRefresh() {
+  if (statusRefreshInterval) { clearInterval(statusRefreshInterval); statusRefreshInterval = null; }
+}
+
+function _setControlsUI(status) {
+  const active = status === 'running' || status === 'stopping';
+  const runBtn = document.getElementById('run-btn');
+  const stopBtn = document.getElementById('stop-btn');
+  const progressArea = document.getElementById('progress-area');
+  if (progressArea) progressArea.classList.toggle('hidden', !active);
+  if (runBtn) runBtn.style.display = active ? 'none' : 'inline-flex';
+  if (stopBtn) {
+    stopBtn.style.display = active ? 'inline-flex' : 'none';
+    stopBtn.disabled = status === 'stopping';
+    stopBtn.textContent = status === 'stopping' ? '⏹ 停止中...' : '⏹ 停止任务';
+  }
 }
 
 async function pollStatus() {
   try {
     const res = await fetch('/api/status');
     const data = await res.json();
+    _setStatusUI(data.status);
+    _setControlsUI(data.status);
+    if (stopRequested && (data.status === 'running' || data.status === 'stopping')) {
+      setTimeout(pollStatus, 500);
+      return;
+    }
     const phaseEl = document.getElementById('phase-text');
     const percentEl = document.getElementById('percent-text');
     const barEl = document.getElementById('progress-bar');
-    if (phaseEl) phaseEl.textContent = data.phase || '解析源中...';
+    if (phaseEl) phaseEl.textContent = data.status === 'stopping' ? '停止中...' : (data.phase || '解析源中...');
     if (percentEl) percentEl.textContent = (data.progress || 0) + '%';
     if (barEl) barEl.style.width = (data.progress || 0) + '%';
-    if (data.status === 'done' || data.status === 'idle') {
+    if (data.status === 'done' || data.status === 'completed' || data.status === 'idle') {
+      stopRequested = false;
       
       stopLogRefresh();
-      if (statusRefreshInterval) { clearInterval(statusRefreshInterval); statusRefreshInterval = null; }
-      document.getElementById('progress-area').classList.add('hidden');
-      document.getElementById('run-btn').style.display = 'inline-flex';
-      document.getElementById('stop-btn').style.display = 'none';
+      _stopStatusRefresh();
+      _setControlsUI('idle');
       // Refresh channel data and logs when task completes
+      // 任务完成后立刻刷新概览统计，并恢复常规轮询
+      loadOverview();
       if (!document.getElementById('channels').classList.contains('hidden')) renderChannels();
       if (!document.getElementById('logs').classList.contains('hidden')) { refreshLogs(); }
       return;
@@ -394,6 +554,10 @@ async function loadOverview() {
   try {
     const res = await fetch('/api/status');
     const data = await res.json();
+    const dot = document.getElementById('status-dot');
+    const label = document.getElementById('status-label');
+    _setStatusUI(data.status);
+    _setProxyUI(data.proxy_enabled);
     const chCount = document.getElementById('ch-count');
     const urlCount = document.getElementById('url-count');
     const fileCount = document.getElementById('file-count');
@@ -401,30 +565,41 @@ async function loadOverview() {
     if (chCount) chCount.textContent = data.channels || 0;
     if (urlCount) urlCount.textContent = data.urls || 0;
     if (fileCount) fileCount.textContent = data.files || 0;
-    if (lastUpdate) lastUpdate.textContent = data.last_update || '--';
-    // Schedule: cycle label when active
-    if (data.next_run && data.next_run !== _lastScheduleNextRun) {
-      _lastScheduleNextRun = data.next_run;
-      _scheduleNextRun = data.next_run;
-      if (data.schedule_enabled) {
+    _scheduleEnabled = !!data.schedule_enabled;
+    _realLastUpdate = data.last_update || '--';
+    if (data.next_run) _scheduleNextRun = data.next_run;
+    // Schedule on: rotate the single card between last-update and next-run
+    if (data.next_run && data.schedule_enabled) {
+      if (data.next_run !== _lastScheduleNextRun || !_labelToggleTimer) {
+        _lastScheduleNextRun = data.next_run;
         _startLabelCycle();
-      } else {
-        _stopLabelCycle();
       }
-    } else if (!data.next_run) {
+    } else {
       _stopLabelCycle();
+      if (lastUpdate) {
+        var lv = _realLastUpdate;
+        if (lv !== lastUpdate.textContent) {
+          lastUpdate.classList.add('update-flash');
+          lastUpdate.textContent = lv;
+          setTimeout(function() { lastUpdate.classList.remove('update-flash'); }, 400);
+        }
+      }
     }
-    if (data.status === 'running') {
+    if (data.status === 'running' || data.status === 'stopping') {
+      if (stopRequested) {
+        _stopStatusRefresh();
+        pollStatus();
+        return;
+      }
       document.getElementById('progress-area').classList.remove('hidden');
-      document.getElementById('phase-text').textContent = data.phase || '解析源中...';
+      _setControlsUI(data.status);
+      document.getElementById('phase-text').textContent = data.status === 'stopping' ? '停止中...' : (data.phase || '解析源中...');
       document.getElementById('percent-text').textContent = (data.progress || 0) + '%';
       document.getElementById('progress-bar').style.width = (data.progress || 0) + '%';
-      document.getElementById('run-btn').style.display = 'none';
-      document.getElementById('stop-btn').style.display = 'inline-flex';
-      startLogRefresh();
+      if (!logRefreshInterval) startLogRefresh();
         pollStatus();
     } else {
-      if (statusRefreshInterval) { clearInterval(statusRefreshInterval); statusRefreshInterval = null; }
+      _stopStatusRefresh();
       statusRefreshInterval = setInterval(loadOverview, 10000);
     }
   } catch(e) { console.error('loadOverview:', e); }
@@ -574,7 +749,7 @@ async function renderChannels(filter='') {
           btn.onmouseover = function() { this.style.background = "#2563eb"; this.style.color = "#fff"; this.style.borderColor = "#2563eb"; };
           btn.onmouseout = function() { this.style.background = "none"; this.style.color = "#64748b"; this.style.borderColor = "#e2e8f0"; };
           btn.onclick = function() {
-            navigator.clipboard.writeText(this.dataset.url).then(function() {
+            copyText(this.dataset.url).then(function() {
               const orig = btn.textContent;
               btn.textContent = "已复制";
               setTimeout(function() { btn.textContent = orig; }, 1500);
@@ -589,7 +764,7 @@ async function renderChannels(filter='') {
       btn.onmouseover = function() { this.style.background = "#2563eb"; this.style.color = "#fff"; this.style.borderColor = "#2563eb"; };
       btn.onmouseout = function() { this.style.background = "none"; this.style.color = "#64748b"; this.style.borderColor = "#e2e8f0"; };
       btn.onclick = function() {
-        navigator.clipboard.writeText(this.dataset.url).then(function() {
+        copyText(this.dataset.url).then(function() {
           const orig = btn.textContent;
           btn.textContent = "已复制";
           setTimeout(function() { btn.textContent = orig; }, 1500);
@@ -642,12 +817,37 @@ async function saveConfig() {
 }
 
 let _shareToken = '';
+// 兼容移动端：navigator.clipboard 在 http（非 localhost）下为 undefined
+function copyText(text) {
+  return new Promise(function(resolve, reject) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(resolve, function() {
+        _legacyCopy(text, resolve, reject);
+      });
+    } else {
+      _legacyCopy(text, resolve, reject);
+    }
+  });
+}
+function _legacyCopy(text, resolve, reject) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.left = '-9999px';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  var ok = false;
+  try { ok = document.execCommand('copy'); } catch(e) {}
+  document.body.removeChild(ta);
+  ok ? resolve() : reject(new Error('复制失败'));
+}
 function buildPlayUrl(filename) {
   return window.location.origin + '/output/' + encodeURIComponent(filename) + (_shareToken ? '?token=' + encodeURIComponent(_shareToken) : '');
 }
 async function copyPlayUrl(filename) {
   try {
-    await navigator.clipboard.writeText(buildPlayUrl(filename));
+    await copyText(buildPlayUrl(filename));
     alert('播放地址已复制');
   } catch(e) {
     alert('复制失败: ' + e.message);
@@ -707,10 +907,12 @@ async function deleteFile(filename) {
 
 let logRefreshInterval = null;
 let statusRefreshInterval = null;
+let stopRequested = false;
 const REFRESH_FAST = 2000;
 
 const REFRESH_SLOW = 10000;
 let logAutoScroll = true;
+let logIdleTimer = null;
 let isUserOnline = true;
 let lastActivityTime = Date.now();
 // Track user activity to detect inactivity
@@ -720,25 +922,47 @@ document.addEventListener('click', () => { isUserOnline = true; lastActivityTime
 
 function startLogRefresh() {
   logRefreshInterval = setInterval(refreshLogs, REFRESH_FAST);
-  // Enable auto-scroll by default, disable when user scrolls up
-  var previewEl = document.getElementById('log-preview');
-  var fullEl = document.getElementById('log-full');
-  function checkBottom(el) {
-    if (!el) return;
-    logAutoScroll = (el.scrollTop + el.clientHeight >= el.scrollHeight - 5);
-  }
-  if (previewEl) {
-    previewEl.addEventListener('mousedown', function() { logAutoScroll = false; });
-    previewEl.addEventListener('mouseup', function() { setTimeout(function(){ checkBottom(previewEl); }, 100); });
-  }
-  if (fullEl) {
-    fullEl.addEventListener('mousedown', function() { logAutoScroll = false; });
-    fullEl.addEventListener('mouseup', function() { setTimeout(function(){ checkBottom(fullEl); }, 100); });
-  }
+  _bindLogScroll(document.getElementById('log-preview'));
+  _bindLogScroll(document.getElementById('log-full'));
+}
+
+function _pauseLogAutoScroll() {
+  logAutoScroll = false;
+  if (logIdleTimer) clearTimeout(logIdleTimer);
+  logIdleTimer = setTimeout(function() {
+    logAutoScroll = true;
+    logIdleTimer = null;
+    var els = [document.getElementById('log-preview'), document.getElementById('log-full')];
+    els.forEach(function(el) { if (el) el.scrollTop = el.scrollHeight; });
+  }, 3000);
+}
+
+function _bindLogScroll(el) {
+  if (!el || el.dataset.logBound) return;
+  el.dataset.logBound = '1';
+  el.addEventListener('scroll', function() {
+    if (el.scrollTop + el.clientHeight >= el.scrollHeight - 5) {
+      logAutoScroll = true;
+      if (logIdleTimer) { clearTimeout(logIdleTimer); logIdleTimer = null; }
+    } else {
+      _pauseLogAutoScroll();
+    }
+  });
 }
 
 function stopLogRefresh() {
   if (logRefreshInterval) { clearInterval(logRefreshInterval); logRefreshInterval = null; }
+}
+// 切回概览时：未运行则清空实时日志，避免误以为是当前任务输出
+function resetLogPreview() {
+  if (stopRequested) return;
+  fetch('/api/status').then(r => r.json()).then(data => {
+    if (data.status !== 'running' && data.status !== 'stopping') {
+      stopLogRefresh();
+      const logEl = document.getElementById('log-preview');
+      if (logEl) logEl.textContent = '等待任务启动...';
+    }
+  }).catch(e => {});
 }
 
 async function refreshLogs() {
@@ -751,14 +975,12 @@ async function refreshLogs() {
     const previewEl = document.getElementById('log-preview');
     const fullEl = document.getElementById('log-full');
     if (previewEl) {
-      const wasAtBottom = previewEl.scrollTop + previewEl.clientHeight >= previewEl.scrollHeight - 2;
       previewEl.textContent = lines;
-      if (logAutoScroll && wasAtBottom) previewEl.scrollTop = previewEl.scrollHeight;
+      if (logAutoScroll) previewEl.scrollTop = previewEl.scrollHeight;
     }
     if (fullEl) {
-      const wasAtBottom2 = fullEl.scrollTop + fullEl.clientHeight >= fullEl.scrollHeight - 2;
       fullEl.textContent = lines.length > 0 ? lines : '暂无日志';
-      if (logAutoScroll && wasAtBottom2) fullEl.scrollTop = fullEl.scrollHeight;
+      if (logAutoScroll) fullEl.scrollTop = fullEl.scrollHeight;
     }
   } catch(e) {}
 }
@@ -786,6 +1008,7 @@ let _scheduleInterval = 'daily';
 let _scheduleEnabled = false;
 let _lastScheduleNextRun = null;
 let _scheduleNextRun = '--';
+let _realLastUpdate = '--';
 let _labelToggleTimer = null;
 
 async function openScheduleModal() {
@@ -795,7 +1018,7 @@ async function openScheduleModal() {
     document.getElementById('sch-enabled').checked = data.enabled;
     _scheduleInterval = data.interval || 'daily';
     // Load times
-    const times = data.times && data.times.length > 0 ? data.times : ['06:00'];
+    const times = (data.times && data.times.length > 0 ? data.times : ['06:00']).slice().sort();
     const list = document.getElementById('sch-times-list');
     list.innerHTML = '';
     times.forEach(t => addScheduleTime(t));
@@ -899,30 +1122,41 @@ function _updateNextRunDisplay(next_run) {
   }
 }
 
-// ── Cycling label for last-update card when schedule is active ───────────────
+// Single-card rotation: alternate last-update / next-run when schedule is on
 function _startLabelCycle() {
   if (_labelToggleTimer) clearInterval(_labelToggleTimer);
-  let showingExpected = false;
-  const cardEl = document.querySelector('#last-update-card');
-  const labelEl = cardEl ? cardEl.querySelector('.label') : null;
-  const valueEl = cardEl ? cardEl.querySelector('.value') : null;
-  const subEl = cardEl ? cardEl.querySelector('.sub') : null;
-  const storedLastUpdate = valueEl ? valueEl.textContent : '--';
-  const storedNextRun = _scheduleNextRun || '--';
-  _labelToggleTimer = setInterval(() => {
+  var showingExpected = false;
+  var cardEl = document.querySelector('#last-update-card');
+  var labelEl = cardEl ? cardEl.querySelector('.label') : null;
+  var valueEl = cardEl ? cardEl.querySelector('.value') : null;
+  var subEl = cardEl ? cardEl.querySelector('.sub') : null;
+  if (labelEl) labelEl.textContent = '\u6700\u540e\u66f4\u65b0';
+  if (valueEl) valueEl.textContent = _realLastUpdate || '--';
+  if (subEl) subEl.textContent = '\u65f6\u95f4';
+  _labelToggleTimer = setInterval(function() {
     showingExpected = !showingExpected;
-    if (labelEl) labelEl.textContent = showingExpected ? '预计更新' : '最后更新';
-    if (valueEl) valueEl.textContent = showingExpected ? storedNextRun : storedLastUpdate;
-    if (subEl) subEl.textContent = showingExpected ? '下次定时执行时间' : '时间';
-  }, 2000);
+    if (cardEl) {
+      cardEl.classList.remove('switching');
+      void cardEl.offsetWidth;
+      cardEl.classList.add('switching');
+    }
+    if (labelEl) labelEl.textContent = showingExpected ? '\u9884\u8ba1\u66f4\u65b0' : '\u6700\u540e\u66f4\u65b0';
+    if (valueEl) valueEl.textContent = showingExpected ? (_scheduleNextRun || '--') : (_realLastUpdate || '--');
+    if (subEl) subEl.textContent = showingExpected ? '\u4e0b\u6b21\u5b9a\u65f6\u6267\u884c\u65f6\u95f4' : '\u65f6\u95f4';
+    setTimeout(function() { if (cardEl) cardEl.classList.remove('switching'); }, 450);
+  }, 15000);
 }
 
 function _stopLabelCycle() {
   if (_labelToggleTimer) { clearInterval(_labelToggleTimer); _labelToggleTimer = null; }
-  const labelEl = document.querySelector('#last-update-card .label');
-  const subEl = document.querySelector('#last-update-card .sub');
-  if (labelEl) labelEl.textContent = '最后更新';
-  if (subEl) subEl.textContent = '时间';
+  var labelEl = document.querySelector('#last-update-card .label');
+  var valueEl = document.querySelector('#last-update-card .value');
+  var subEl = document.querySelector('#last-update-card .sub');
+  var cardEl = document.querySelector('#last-update-card');
+  if (cardEl) cardEl.classList.remove('switching');
+  if (labelEl) labelEl.textContent = '\u6700\u540e\u66f4\u65b0';
+  if (valueEl && _realLastUpdate) valueEl.textContent = _realLastUpdate;
+  if (subEl) subEl.textContent = '\u65f6\u95f4';
 }
 
 async function cleanupOldLogs() {
@@ -932,6 +1166,18 @@ async function cleanupOldLogs() {
     const data = await res.json();
     if (data.ok) alert('清理完成，保留 ' + data.kept + ' 条日志');
   } catch(e) { alert('清理失败: ' + e.message); }
+}
+
+function aboutUpdate() {
+  const btn = document.getElementById('about-update-btn');
+  if (!btn) return;
+  const original = btn.innerHTML;
+  btn.disabled = true;
+  btn.textContent = '更新功能尚未接入';
+  setTimeout(function() {
+    btn.innerHTML = original;
+    btn.disabled = false;
+  }, 2000);
 }
 </script>
 <script src="codemirror/codemirror.min.js"></script>
@@ -981,6 +1227,17 @@ function initAliasEditor(content) {
   });
 }
 
+// Sidebar status poll (every 10s, independent of overview tab)
+setInterval(async function() {
+  try {
+    const res = await fetch('/api/status');
+    const data = await res.json();
+    const dot = document.getElementById('status-dot');
+    const label = document.getElementById('status-label');
+    _setStatusUI(data.status);
+  } catch(e) {}
+}, 10000);
+
 // Also init demo editor
 let demoEditor = null;
 function initDemoEditor(content) {
@@ -995,6 +1252,6 @@ function initDemoEditor(content) {
   });
 }
 </script>
+</main>
 </body>
 </html>
-

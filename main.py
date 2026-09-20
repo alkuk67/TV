@@ -20,13 +20,25 @@ _FILE_FORMAT = "%(asctime)s - %(levelname)s - %(name)s:%(filename)s:%(lineno)d -
 _CONSOLE_FORMAT = "%(asctime)s - %(levelname)s - %(message)s"
 _file_fmt = logging.Formatter(_FILE_FORMAT, datefmt="%Y-%m-%d %H:%M:%S")
 _console_fmt = logging.Formatter(_CONSOLE_FORMAT, datefmt="%H:%M:%S")
-file_handler = logging.FileHandler("function.log", "a", encoding="utf-8")
-file_handler.setFormatter(_file_fmt)
+# server.py 以子进程方式启动 main.py 时设 IPTV_SUPERVISED=1；
+# 此时只注册 StreamHandler（stdout 由 server.py 统一捕获写 function.log），
+# 避免 FileHandler + stdout 中继导致 function.log 中每条日志出现两遍。
+_supervised = os.environ.get("IPTV_SUPERVISED") == "1"
+_handlers = []
+if not _supervised:
+    try:
+        file_handler = logging.FileHandler("function.log", "a", encoding="utf-8")
+        file_handler.setFormatter(_file_fmt)
+        _handlers.append(file_handler)
+    except OSError:
+        # function.log 缺失或挂载异常时只输出控制台，避免主程序启动即崩溃
+        pass
 stream_handler = logging.StreamHandler()
 stream_handler.setFormatter(_console_fmt)
+_handlers.append(stream_handler)
 # 防止 server.py 以子进程/import 方式重复注册 handler（否则每条日志打印两遍）
 if not logging.getLogger().handlers:
-    logging.basicConfig(level=logging.INFO, handlers=[file_handler, stream_handler])
+    logging.basicConfig(level=logging.INFO, handlers=_handlers)
 logging.getLogger().setLevel(logging.INFO)
 
 
@@ -105,6 +117,11 @@ def fetch_channels(url):
                         channel_name = match.group(2).strip()
                         if current_category not in channels:
                             channels[current_category] = []
+                    else:
+                        # 无 group-title 的 EXTINF：只更新频道名、不动当前分组，
+                        # 避免后续 URL 被记到上一个频道名下
+                        m2 = re.match(r'#EXTINF[^,]*,(.*)', line)
+                        channel_name = m2.group(1).strip() if m2 else None
                 elif line and not line.startswith("#"):
                     channel_url = line.strip()
                     if current_category and channel_name:
@@ -134,8 +151,10 @@ def fetch_channels(url):
 
 def _normalize(name: str) -> str:
     s = name.strip()
-    # 去掉括号内容
-    s = re.sub(r'[（\[(（\[).?[）\]\)]', '', s)
+    # 去掉括号及其内容，支持中英文圆括号/方括号/实心方头括号
+    s = re.sub(r'[（(【\[][^（）()【\]】]*[）)】\]]', '', s)
+    # 清理残余的孤立括号字符，以及名字中的 . 和 ?（旧版行为，保留避免已有匹配回归）
+    s = re.sub(r'[（）()【\]】.?]', '', s)
     # 去掉末尾常见后缀
     suffixes = '高清版|超高清版|频道|卫视频|高清|超高清|SD|sd|HD|hd|综艺|纪录|纪实|体育|电影|戏曲|科教|新闻|少儿|音乐|综合|法治|生活|军事|农业|农村|戏剧|文化|经济|社会|百科|世界|地理|历史|探索|发现|天文|游戏|汽车|旅游|时尚|女性|儿童|财经|老年|电视|公映|赛事|中文国际|国防军事|社会与法|奥林匹克|体育赛事|农业农村|电视剧'
     s = re.sub(r'(' + suffixes + ')$', '', s)
@@ -143,7 +162,8 @@ def _normalize(name: str) -> str:
         s = re.sub(r'(' + suffixes + ')$', '', s)
     # 去掉连字符和空格
     s = s.replace('-', '').replace(' ', '')
-    return s
+    # 全部被剥离时回退到原名，避免不同频道归一化成同一个空串而互相误匹配
+    return s or name.strip()
 
 
 def load_alias_map(alias_file='config/alias.txt'):
@@ -245,7 +265,8 @@ def match_channels(template_channels, all_channels, alias_map=None):
                 matched_channels[category][channel_name] = [url for _, url in matched_urls]
                 total_matched_urls += len(matched_urls)
     total_template = sum(len(ch) for ch in template_channels.values())
-    total_online = sum(len(url_list) for cat in all_channels.values() for name, url_list in cat)
+    # all_channels[category] 是 (频道名, url) 元组列表，直接取列表长度即 URL 数
+    total_online = sum(len(entries) for entries in all_channels.values())
     logging.info(f"[匹配统计] 模板 {total_template} 频道，在线 {total_online} URL，匹配 {total_matched_urls} URL")
     return matched_channels
 
@@ -294,6 +315,11 @@ async def fetch_channels_async(session, url, timeout):
                             channel_name = match.group(2).strip()
                             if current_category not in channels:
                                 channels[current_category] = []
+                        else:
+                            # 无 group-title 的 EXTINF：只更新频道名、不动当前分组，
+                            # 避免后续 URL 被记到上一个频道名下
+                            m2 = re.match(r'#EXTINF[^,]*,(.*)', line)
+                            channel_name = m2.group(1).strip() if m2 else None
                     elif line and not line.startswith('#'):
                         channel_url = line.strip()
                         if current_category and channel_name:
@@ -358,17 +384,55 @@ async def filter_source_urls_async(template_file, alias_map=None):
     matched_channels = match_channels(template_channels, all_channels, alias_map)
     return matched_channels, template_channels
 
+
+async def fetch_subscription_whitelist(template_channels, alias_map=None):
+    """抓取订阅白名单（保底源）并按模板匹配；不参与质量检测。"""
+    urls = getattr(config, "subscription_whitelist", []) or []
+    if not urls:
+        return {}
+    fetch_timeout = aiohttp.ClientTimeout(total=getattr(config, "fetch_timeout", 10))
+    connector = aiohttp.TCPConnector(limit=5, ssl=False)
+    all_channels = OrderedDict()
+    async with aiohttp.ClientSession(connector=connector, timeout=fetch_timeout) as session:
+        tasks = [fetch_channels_async(session, url, fetch_timeout) for url in urls]
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+        for url, fetched_channels in zip(urls, results):
+            if isinstance(fetched_channels, Exception):
+                logging.warning(f"[订阅白名单] {url} 抓取失败: {fetched_channels}")
+                continue
+            for category, channel_list in fetched_channels.items():
+                all_channels.setdefault(category, []).extend(channel_list)
+    return match_channels(template_channels, all_channels, alias_map)
+
 def is_ipv6(url):
     """判断是否为 IPv6 地址"""
     clean_url = url.rstrip("$")
     return re.match(r"^https?://\[.+\]", clean_url) is not None
 
 
+# 匹配阶段会丢失 URL 的来源信息（排序时 category 已是模板分类名），
+# 这里按 URL 记录来源类型，供 _get_source_type 排序时使用
+_url_source_types = {}
+
+
+# 订阅白名单匹配结果缓存，key=category/channel -> [url, ...]
+_whitelist_matched = {}
+
+
+def _mark_url_source(url_list, source_type):
+    for u in url_list:
+        _url_source_types[u.split("$", 1)[0]] = source_type
+
+
 def _get_source_type(url: str, category: str = "") -> str:
     """识别 URL 来源类型：hotel、multicast 或 subscription。"""
-    hotel_cats = {"txiptv", "zhgxtv", "jsmpeg"}
+    hotel_cats = {"txiptv", "zhgxtv", "jsmpeg", "hsmdtv"}
     clean_url = url.split("$", 1)[0]
-    if "/rtp/" in clean_url or "/udp/" in clean_url:
+    # 匹配阶段记录的来源优先
+    marked = _url_source_types.get(clean_url)
+    if marked:
+        return marked
+    if clean_url.startswith(("rtp://", "udp://")) or "/rtp/" in clean_url or "/udp/" in clean_url:
         return "multicast"
     if category in hotel_cats:
         return "hotel"
@@ -421,6 +485,10 @@ def _speed_headroom_score(speed_kbps: float, bitrate_bps: int) -> float:
     return -1000 + ratio / 0.8 * 1000
 
 
+# Temporary per-run cache for _build_url_index, rebuilt on each sort batch
+_url_index_cache = {}
+_url_index_src_id = None
+
 def _url_sort_key(url: str, check_results: dict, category: str = ""):
     clean = url.split(chr(36), 1)[0] if chr(36) in url else url
     is_v6 = is_ipv6(url)
@@ -438,12 +506,16 @@ def _url_sort_key(url: str, check_results: dict, category: str = ""):
     response_time_ms = 0
     # check_results 为空（enable_quality_check=False）时下面这些不会被赋值，
     # 必须先给默认值，否则引用时抛 NameError
-    ffprobe_speed_x = 0
     first_frame_delay_ms = 0
     jitter_ms = 0
     packet_loss = 0.0
     if check_results:
-        r = _build_url_index(check_results).get(clean, {})
+        global _url_index_src_id
+        if not _url_index_cache or _url_index_src_id is not id(check_results):
+            _url_index_cache.clear()
+            _url_index_cache.update(_build_url_index(check_results))
+            _url_index_src_id = id(check_results)
+        r = _url_index_cache.get(clean, {})
         if r:
             layer = r.get("layer", "http")
             fp = r.get("ffprobe", {})
@@ -453,16 +525,17 @@ def _url_sort_key(url: str, check_results: dict, category: str = ""):
             sp = r.get("deep", {})
             if sp:
                 speed_kbps = sp.get("speed_kbps", 0)
-            ffprobe_speed_x = fp.get("speed_x", 0) if fp else 0
             sq = r.get("stream_quality", {})
             first_frame_delay_ms = sq.get("first_frame_delay_ms", 0)
             jitter_ms = sq.get("jitter_ms", 0)
             packet_loss = sq.get("packet_loss", 0.0)
             response_time_ms = r.get("response_time_ms", 0)
-    layer_rank = 0 if layer in ("fast", "ffprobe") else 1
+    layer_rank = 1 if layer in ("fast", "ffprobe") else 0
     sort_mode = getattr(config, "sort_mode", "balanced")
     if sort_mode == "quality":
         quality_weight = 0.65
+    elif sort_mode == "speed":
+        quality_weight = 0.40
     else:
         quality_weight = 0.52
     # 归一化基准必须是固定参考值。原来用 max(bitrate,1)/max(width,1) 会导致
@@ -474,13 +547,6 @@ def _url_sort_key(url: str, check_results: dict, category: str = ""):
     # 10 Mbps 线路跑 2.5 Mbps 的流是满分，但只跑到 2 Mbps 则必卡
     speed_score = _speed_headroom_score(speed_kbps, bitrate)
     quality_score = bitrate_score * 0.45 + min(width / REF_WIDTH, 1.0) * 1000 * 0.55
-    # FFmpeg speed score: speed>=1.0 adds bonus, speed<1.0 penalizes
-    ffprobe_speed_score = 0
-    if ffprobe_speed_x > 0:
-        if ffprobe_speed_x >= 1.0:
-            ffprobe_speed_score = min(ffprobe_speed_x * 200, 600)  # cap at 600
-        else:
-            ffprobe_speed_score = -(1.0 - ffprobe_speed_x) * 500   # penalty for slow
     # Stream quality scores (never filter, only affect ranking)
     # First frame delay: <200ms=+400, <500ms=+200, <1000ms=0, >2000ms=-300
     ff_score = 0
@@ -510,14 +576,14 @@ def _url_sort_key(url: str, check_results: dict, category: str = ""):
         pl_score = -int(packet_loss * 500)
     # FFprobe 无元数据：说明分辨率/码率未知，排序时固定扣分
     metadata_penalty = -300 if check_results and layer == "ffprobe_fail" else 0
-    combined_score = speed_score * 0.48 + quality_score * quality_weight + layer_rank * 500 + ffprobe_speed_score + ff_score + jit_score + pl_score + metadata_penalty
+    combined_score = speed_score * 0.48 + quality_score * quality_weight + layer_rank * 500 + ff_score + jit_score + pl_score + metadata_penalty
     max_latency = 2000
     if response_time_ms > 0:
         latency_score = max(0, (1 - response_time_ms / max_latency)) * 1000
     else:
         latency_score = 500
     final_score = latency_score * 0.3 + combined_score * 0.7
-    return (ipv6_rank, source_rank, response_time_ms, -final_score)
+    return (ipv6_rank, source_rank, -final_score)
 
 
 def _get_meta_suffix(url: str, check_results: dict) -> str:
@@ -525,7 +591,12 @@ def _get_meta_suffix(url: str, check_results: dict) -> str:
     clean = url.split(chr(36), 1)[0] if chr(36) in url else url
     if not check_results:
         return ""
-    r = _build_url_index(check_results).get(clean, {})
+    global _url_index_src_id
+    if not _url_index_cache or _url_index_src_id is not id(check_results):
+        _url_index_cache.clear()
+        _url_index_cache.update(_build_url_index(check_results))
+        _url_index_src_id = id(check_results)
+    r = _url_index_cache.get(clean, {})
     if not r:
         return ""
     fp = r.get("ffprobe", {})
@@ -577,6 +648,7 @@ def _print_domain_suggestions(fail_domains: dict):
 async def async_main():
     """异步主入口：fetch -> check -> write"""
     quality_checker.clear_stop_signal()
+    _url_source_types.clear()
     alias_map = load_alias_map()
     logging.info("[抓取] 执行完整抓取流程，config.source_urls=%d 个, hotel=%s", len(config.source_urls), config.hotel_config.get("enabled"))
     epg_id_map = fetch_epg_id_map()
@@ -598,6 +670,7 @@ async def async_main():
         for cat, ch_dict in hotel_matched.items():
             for ch_name, url_list in ch_dict.items():
                 channels.setdefault(cat, {}).setdefault(ch_name, []).extend(url_list)
+                _mark_url_source(url_list, "hotel")
         matched_count = sum(len(v) for v in channels.values())
         logging.info(f"[酒店源] 匹配到 {matched_count} 个频道")
 
@@ -616,6 +689,7 @@ async def async_main():
         for cat, ch_dict in multicast_matched.items():
             for ch_name, url_list in ch_dict.items():
                 channels.setdefault(cat, {}).setdefault(ch_name, []).extend(url_list)
+                _mark_url_source(url_list, "multicast")
         matched_count = sum(len(v) for v in channels.values())
         logging.info(f"[组播源] 匹配到 {matched_count} 个频道")
 
@@ -631,9 +705,20 @@ async def async_main():
             logging.info(f"[ISP] 预过滤移除 {isp_removed} 个 URL")
         # 直接全量检测
         check_results, fail_domains = await quality_checker.check_all(channels)
-        channels = quality_checker.filter_dead_urls(channels, check_results, accept_layers=("fast", "ffprobe", "deep", "ffprobe_fail"))
+        if quality_checker.check_stop_flag():
+            logging.info('[主程序] 收到停止信号，退出')
+            return
+        channels = quality_checker.filter_dead_urls(channels, check_results, accept_layers=("fast", "ffprobe", "deep"))
         _print_domain_suggestions(fail_domains)
         logging.info("[质量检测] 完成")
+
+    # 订阅白名单：普通订阅源，但跳过质量检测；命中模板后垫在该频道线路最后
+    if getattr(config, "subscription_whitelist", None):
+        logging.info("[订阅白名单] 开始抓取保底源...")
+        _whitelist_matched.clear()
+        _whitelist_matched.update(await fetch_subscription_whitelist(template_channels, alias_map))
+        count = sum(len(v) for v in _whitelist_matched.values())
+        logging.info(f"[订阅白名单] 匹配到 {count} 个频道")
 
     total_channels = sum(len(ch) for ch in channels.values())
     total_urls = sum(sum(len(urls) for urls in ch.values()) for ch in channels.values())
@@ -644,8 +729,57 @@ async def async_main():
         updateChannelUrlsM3U(channels, template_channels, epg_id_map, check_results)
 
 
+def _write_channels_to_files(f_m3u, f_txt, channels, template_channels, epg_id_map, check_results, written_urls):
+    """Write sorted, filtered, whitelist-appended channel URLs to m3u and txt files."""
+    output_channels = set()
+    output_url_count = 0
+    for category, channel_list in template_channels.items():
+        f_txt.write(f"{category},#genre#\n")
+        if category in channels:
+            for channel_name in channel_list:
+                if channel_name in channels[category]:
+                    sorted_urls = sorted(
+                        channels[category][channel_name],
+                        key=lambda url: _url_sort_key(url, check_results, category)
+                    )
+                    filtered_urls = []
+                    for url in sorted_urls:
+                        if url and url not in written_urls and not any(blacklist in url for blacklist in config.url_blacklist):
+                            filtered_urls.append(url)
+                            written_urls.add(url)
+                    if config.max_lines_per_channel > 0 and len(filtered_urls) > config.max_lines_per_channel:
+                        filtered_urls = filtered_urls[:config.max_lines_per_channel]
+                    for wl_url in _whitelist_matched.get(category, {}).get(channel_name, []):
+                        if wl_url and wl_url not in written_urls:
+                            filtered_urls.append(wl_url)
+                            written_urls.add(wl_url)
+                    total_urls = len(filtered_urls)
+                    for index, url in enumerate(filtered_urls, start=1):
+                        if is_ipv6(url):
+                            extra = _get_meta_suffix(url, check_results)
+                            url_suffix = f"$LR\u2014IPV6{extra}" if total_urls == 1 else f"$LR\u2014IPV6\u3010\u7ebf\u8def{index}\u3011{extra}"
+                        else:
+                            extra = _get_meta_suffix(url, check_results)
+                            url_suffix = f"$LR\u2014IPV4{extra}" if total_urls == 1 else f"$LR\u2014IPV4\u3010\u7ebf\u8def{index}\u3011{extra}"
+                        if "$" in url:
+                            base_url = url.split("$", 1)[0]
+                        else:
+                            base_url = url
+                        new_url = f"{base_url}{url_suffix}"
+                        tvg_id = epg_id_map.get(channel_name, channel_name)
+                        logo_url = config.channel_logo_template.format(channel_name=channel_name) if config.channel_logo_template else ""
+                        f_m3u.write(f'#EXTINF:-1 tvg-id="{tvg_id}" tvg-name="{channel_name}" tvg-logo="{logo_url}" group-title="{category}",{channel_name}\n')
+                        f_m3u.write(new_url + "\n")
+                        f_txt.write(f"{channel_name},{new_url}\n")
+                        output_channels.add((category, channel_name))
+                        output_url_count += 1
+    f_txt.write("\n")
+    return len(output_channels), output_url_count
+
 def updateChannelUrlsM3U(channels, template_channels, epg_id_map=None, check_results=None):
     written_urls = set()
+    output_url_count = 0
+    ch_count = 0
     epg_id_map = epg_id_map or {}
 
     current_date = datetime.now().strftime("%Y-%m-%d")
@@ -671,52 +805,12 @@ def updateChannelUrlsM3U(channels, template_channels, epg_id_map=None, check_res
                     f_m3u.write(f"""#EXTINF:-1 tvg-id="{announcement['name']}" tvg-name="{announcement['name']}" tvg-logo="{announcement['logo']}" group-title="{group['channel']}",{announcement['name']}\n""")
                     f_m3u.write(f"{announcement['url']}\n")
                     f_txt.write(f"{announcement['name']},{announcement['url']}\n")
+                    output_url_count += 1
 
-            for category, channel_list in template_channels.items():
-                f_txt.write(f"{category},#genre#\n")
-                if category in channels:
-                    for channel_name in channel_list:
-                        if channel_name in channels[category]:
-                            sorted_urls = sorted(
-                                channels[category][channel_name],
-                                key=lambda url: _url_sort_key(url, check_results, category)
-                            )
-                            filtered_urls = []
-                            for url in sorted_urls:
-                                if url and url not in written_urls and not any(blacklist in url for blacklist in config.url_blacklist):
-                                    filtered_urls.append(url)
-                                    written_urls.add(url)
+            ch_count, ch_urls = _write_channels_to_files(f_m3u, f_txt, channels, template_channels, epg_id_map, check_results, written_urls)
+            output_url_count += ch_urls
 
-                            # 限制每频道最大线路数
-                            if config.max_lines_per_channel > 0 and len(filtered_urls) > config.max_lines_per_channel:
-                                old_count = len(filtered_urls)
-                                filtered_urls = filtered_urls[:config.max_lines_per_channel]
-                            total_urls = len(filtered_urls)
-                            for index, url in enumerate(filtered_urls, start=1):
-                                if is_ipv6(url):
-                                    extra = _get_meta_suffix(url, check_results)
-                                    url_suffix = f"$LR—IPV6{extra}" if total_urls == 1 else f"$LR—IPV6【线路{index}】{extra}"
-                                else:
-                                    extra = _get_meta_suffix(url, check_results)
-                                    url_suffix = f"$LR—IPV4{extra}" if total_urls == 1 else f"$LR—IPV4【线路{index}】{extra}"
-                                if "$" in url:
-                                    base_url = url.split("$", 1)[0]
-                                else:
-                                    base_url = url
-
-                                new_url = f"{base_url}{url_suffix}"
-
-                                tvg_id = epg_id_map.get(channel_name, channel_name)
-                                logo_url = config.channel_logo_template.format(channel_name=channel_name) if config.channel_logo_template else ""
-                                f_m3u.write(f'#EXTINF:-1 tvg-id="{tvg_id}" tvg-name="{channel_name}" tvg-logo="{logo_url}" group-title="{category}",{channel_name}\n')
-                                f_m3u.write(new_url + "\n")
-                                f_txt.write(f"{channel_name},{new_url}\n")
-
-            f_txt.write("\n")
-
-
-
-
+    logging.info("[输出统计] 最终输出 %d 频道 / %d URL", ch_count, output_url_count)
 def _get_domain(url: str) -> str:
     """从 URL 中提取 hostname（不含端口和路径）"""
     if not url:
@@ -777,15 +871,6 @@ def _write_channel_file(filepath_txt, filepath_m3u, channels, template_channels,
     """写入单个运营商的频道文件"""
     written_urls = set()
     epg_id_map = epg_id_map or {}
-    current_date = datetime.now().strftime('%Y-%m-%d')
-    for group in config.announcements:
-        for announcement in group['entries']:
-            name = announcement.get('name')
-            if name is None or name == '__TIME__':
-                name = current_date
-            elif isinstance(name, str) and '__TIME__' in name:
-                name = name.replace('__TIME__', current_date)
-            announcement['name'] = name
     with open(filepath_m3u, 'w', encoding='utf-8') as f_m3u:
         epg_attr = ','.join(chr(34)+epg_url+chr(34) for epg_url in config.epg_urls)
         f_m3u.write(f'#EXTM3U x-tvg-url={epg_attr}\n')
@@ -796,39 +881,7 @@ def _write_channel_file(filepath_txt, filepath_m3u, channels, template_channels,
                     f_m3u.write(f"""#EXTINF:-1 tvg-id="{announcement['name']}" tvg-name="{announcement['name']}" tvg-logo="{announcement['logo']}" group-title="{group['channel']}",{announcement['name']}\n""")
                     f_m3u.write(f"{announcement['url']}\n")
                     f_txt.write(f"{announcement['name']},{announcement['url']}\n")
-            for category, channel_list in template_channels.items():
-                f_txt.write(f"{category},#genre#\n")
-                if category in channels:
-                    for channel_name in channel_list:
-                        if channel_name in channels[category]:
-                            sorted_urls = sorted(channels[category][channel_name], key=lambda url: _url_sort_key(url, check_results, category))
-                            filtered_urls = []
-                            for url in sorted_urls:
-                                if url and url not in written_urls and not any(blacklist in url for blacklist in config.url_blacklist):
-                                    filtered_urls.append(url)
-                                    written_urls.add(url)
-                            if config.max_lines_per_channel > 0 and len(filtered_urls) > config.max_lines_per_channel:
-                                old_count = len(filtered_urls)
-                                filtered_urls = filtered_urls[:config.max_lines_per_channel]
-                            total_urls = len(filtered_urls)
-                            for index, url in enumerate(filtered_urls, start=1):
-                                if is_ipv6(url):
-                                    extra = _get_meta_suffix(url, check_results)
-                                    url_suffix = f'$LR—IPV6{extra}' if total_urls == 1 else f'$LR—IPV6【线路{index}】{extra}'
-                                else:
-                                    extra = _get_meta_suffix(url, check_results)
-                                    url_suffix = f'$LR—IPV4{extra}' if total_urls == 1 else f'$LR—IPV4【线路{index}】{extra}'
-                                if '$' in url:
-                                    base_url = url.split('$', 1)[0]
-                                else:
-                                    base_url = url
-                                new_url = f"{base_url}{url_suffix}"
-                                tvg_id = epg_id_map.get(channel_name, channel_name)
-                                logo_url = config.channel_logo_template.format(channel_name=channel_name) if config.channel_logo_template else ""
-                                f_m3u.write(f'#EXTINF:-1 tvg-id="{tvg_id}" tvg-name="{channel_name}" tvg-logo="{logo_url}" group-title="{category}",{channel_name}\n')
-                                f_m3u.write(new_url + '\n')
-                                f_txt.write(f'{channel_name},{new_url}\n')
-            f_txt.write('\n')
+            _write_channels_to_files(f_m3u, f_txt, channels, template_channels, epg_id_map, check_results, written_urls)
 
 
 def _output_isp_files(channels, template_channels, epg_id_map, check_results):
@@ -876,6 +929,5 @@ def _output_isp_files(channels, template_channels, epg_id_map, check_results):
 if __name__ == "__main__":
     quality_checker.clear_stop_signal()
     asyncio.run(async_main())
-
 
 

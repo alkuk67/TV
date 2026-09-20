@@ -8,20 +8,6 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f1f5f9; color: #1e293b; }
 .app { max-width: 1400px; margin: 0 auto; padding: 24px; }
-/* CodeMirror overrides */
-.CodeMirror { height: 100% !important; font-size: 13px; }
-·CodeMirror-foldgutter { display: none !important; width: 0 !important; }
-.CodeMirror-statusbar { display: none !important; height: 0 !important; visibility: hidden; }
-.CodeMirror-vscrollbar { display: block !important; }
-/* Hide horizontal scrollbar arrows */
-.CodeMirror-hscrollbar { display: none !important; }
-.CodeMirror-hscrollbar-wrapper { overflow: hidden !important; }
-.cm-s-eclipse .CodeMirror-hscrollbar { display: none !important; height: 0 !important; }
-.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler { display: none !important; }
-.CodeMirror { min-height: 500px; }
-.cm-s-eclipse .CodeMirror-gutters { background: transparent; }
-·CodeMirror-scroll { padding-bottom: 0; overflow-x: hidden !important; }
-.CodeMirror-hscrollbar { display: none !important; }
 .header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
 .logo { width: 48px; height: 48px; background: #2563eb; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; }
 .header h1 { font-size: 24px; font-weight: 600; }
@@ -60,40 +46,96 @@ textarea { width: 100%; min-height: 400px; font-family: monospace; font-size: 13
 .loading { padding: 40px; color: #94a3b8; }
 pre#log-preview { font-size: 12px; line-height: 1.6; padding: 12px; background: #f8fafc; border-radius: 8px; max-height: 400px; overflow-y: auto; white-space: pre-wrap; word-break: break-all; text-align: left; }
 pre#log-full { font-size: 12px; line-height: 1.8; padding: 12px; background: #f8fafc; border-radius: 8px; max-height: 600px; overflow-y: auto; white-space: pre-wrap; word-break: break-all; text-align: left; font-family: 'Consolas', 'Monaco', monospace; }
-
-/* Hide scroll arrows */
-.CodeMirror-scroll { -webkit-overflow-scrolling: touch; }
-.cm-s-eclipse .CodeMirror-foldgutter-folded::before,
-.cm-s-eclipse .CodeMirror-foldgutter-open::before { display: none; }
+#last-update { transition: opacity 0.35s ease, transform 0.35s ease; }
+#last-update.update-flash { opacity: 0.25; transform: translateY(4px); }
+#last-update-card .label, #last-update-card .value, #last-update-card .sub { transition: opacity 0.3s ease, transform 0.3s ease; }
+#last-update-card.switching .label, #last-update-card.switching .value, #last-update-card.switching .sub { opacity: 0; transform: translateY(4px); }
+.tabs { overflow-x: auto; overflow-y: hidden; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { white-space: nowrap; }
+@media (max-width: 640px) {
+  .app { padding: 12px; }
+  .header { gap: 10px; margin-bottom: 16px; }
+  .header h1 { font-size: 18px; }
+  .header p { font-size: 12px; }
+  .header .btn { padding: 6px 10px; font-size: 12px; border-radius: 6px; }
+  .tabs { gap: 4px; margin-bottom: 16px; }
+  .tab { padding: 9px 12px; font-size: 13px; }
+  .card { padding: 16px; }
+}
+</style>
+<link rel="stylesheet" href="codemirror/codemirror.min.css">
+<link rel="stylesheet" href="codemirror/material-darker.min.css">
+<link rel="stylesheet" href="">
+<style>
+.CodeMirror { border-radius: 10px; font-size: 13px; min-height: 300px; height: clamp(320px, 58vh, 660px); }
+.CodeMirror-scroll { padding: 4px; }
 </style>
 </head>
 <body>
 <div class="app">
   <div class="header">
-    <div class="logo">📺</div>
+    <a href="https://github.com/yuanzl77/IPTV" target="_blank" rel="noopener"
+       style="display:flex;align-items:center;justify-content:center;text-decoration:none;flex-shrink:0;">
+  <img src="https://avatars.githubusercontent.com/u/158799657?v=4&s=96"
+       alt="GitHub"
+       style="width:50px;height:50px;border-radius:12px;border:2px solid #e2e8f0;object-fit:cover;" />
+</a>
     <div>
       <h1>IPTV 直播源管理</h1>
       <p>自动聚合 · 质量检测 · 运营商分类</p>
     </div>
+    <div style="margin-left:auto;display:flex;gap:8px;flex-shrink:0;">
+      <button class="btn btn-secondary" onclick="openPwdModal()" style="white-space:nowrap;">🔒 访问密码</button>
+      <button class="btn btn-secondary" onclick="doLogout()" style="white-space:nowrap;">退出</button>
+    </div>
+    
+  </div>
   
   <div class="tabs">
     <div class="tab active" onclick="showTab('overview')">概览</div>
     <div class="tab" onclick="showTab('channels')">频道数据</div>
     <div class="tab" onclick="showTab('logs')">日志</div>
     <div class="tab" onclick="showTab('config')">配置</div>
-    <div class="tab" onclick="showTab('settings')">设置</div>
     <div class="tab" onclick="showTab('output')">输出文件</div>
+    <div class="tab" onclick="showTab('about')">关于</div>
+  </div>
   
   <div id="overview" class="tab-content">
     <div class="stats">
-      <div class="stat-card"><div class="label">频道数</div><div class="value" id="ch-count">--</div><div class="sub">个频道</div></div>
-      <div class="stat-card"><div class="label">URL 数</div><div class="value" id="url-count">--</div><div class="sub">条线路</div></div>
-      <div class="stat-card"><div class="label">输出文件</div><div class="value" id="file-count">--</div><div class="sub">个文件</div></div>
-      <div class="stat-card" style="border-color: #e5e7eb;"><div class="label">最后更新</div><div class="value" id="last-update">--</div><div class="sub">时间</div></div>
+      <div class="stat-card">
+        <div class="label">频道数量</div>
+        <div class="value" id="ch-count">--</div>
+        <div class="sub">唯一频道</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">线路总数</div>
+        <div class="value" id="url-count">--</div>
+        <div class="sub">有效 URL</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">输出文件</div>
+        <div class="value" id="file-count">--</div>
+        <div class="sub">m3u/txt 文件</div>
+      </div>
+      <div class="stat-card" id="last-update-card">
+        <div class="label">最后更新</div>
+        <div class="value" id="last-update">--</div>
+        <div class="sub">时间</div>
+      </div>
     </div>
     
     <div class="card">
-      <h3>运行控制</h3>
+      <h3 style="display:flex;align-items:center;gap:10px;">
+        <span>运行控制</span>
+        <button id="schedule-btn" onclick="openScheduleModal()"
+          style="background:none;border:1px solid #e2e8f0;border-radius:8px;padding:4px 10px;cursor:pointer;color:#64748b;font-size:13px;transition:all 0.15s;display:flex;align-items:center;gap:4px;"
+          onmouseover="this.style.background='#f1f5f9';this.style.borderColor='#2563eb';this.style.color='#2563eb'"
+          onmouseout="this.style.background='none';this.style.borderColor='#e2e8f0';this.style.color='#64748b'">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2"/><path d="M5 3L2 6"/><path d="M22 6l-3-3"/></svg>
+          定时任务
+        </button>
+      </h3>
       <button class="btn btn-primary" id="run-btn" onclick="runIPTV()">▶ 启动任务</button>
       <button class="btn btn-secondary" id="stop-btn" onclick="stopIPTV()" style="display:none">⏹ 停止任务</button>
       <div id="progress-area" class="hidden" style="margin-top: 20px;">
@@ -102,91 +144,237 @@ pre#log-full { font-size: 12px; line-height: 1.8; padding: 12px; background: #f8
           <span id="percent-text" style="font-size: 14px; font-weight: 600; color: #2563eb;">0%</span>
         </div>
         <div class="progress">
-          <div id="progress-bar" class="progress-bar" style="width: 0%"></div>\n    \n    </div>
+          <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
+        </div>
+      </div>
+    </div>
     
     <div class="card">
       <h3>实时日志</h3>
       <pre id="log-preview" class="loading">等待任务启动...</pre>
     </div>
+  </div>
   
   <div id="logs" class="tab-content hidden">
     <div class="card">
-      <h3>运行日志 <button class="btn btn-secondary" style="padding:4px 8px;font-size:12px;margin-left:10px" onclick="clearLogs()">清空</button></h3>
+      <h3>运行日志 <button class="btn btn-secondary" style="padding:4px 8px;font-size:12px;margin-left:10px" onclick="clearLogs()">清空</button>
+      <button class="btn btn-secondary" style="padding:4px 8px;font-size:12px;margin-left:6px" onclick="cleanupOldLogs()">清理7天前</button></h3>
       <pre id="log-full" class="loading">暂无日志</pre>
     </div>
+  </div>
   
   <div id="channels" class="tab-content hidden">
     <div class="card">
       <h3>频道数据</h3>
       <input type="text" class="search" placeholder="搜索频道..." onkeyup="filterChannels(this.value)">
-      <div id="channel-list"></div><div id="config" class="tab-content hidden">
+      <div id="channel-list"></div>
+    </div>
+  </div>
+  
+  <div id="config" class="tab-content hidden">
     <div class="card">
       <h3>主配置 (config.py)</h3>
-      <div id="config-editor" style="height: 500px;"></div>
+      <div id="config-editor" class="CodeMirror" style="background:#1e1e1e;border-radius:10px;min-height:310px;"></div>
+<input type="hidden" id="config-editor-value">
       <div style="margin-top: 16px;">
         <button class="btn btn-primary" onclick="saveConfig()">💾 保存</button>
         <button class="btn btn-secondary" onclick="loadConfig()">🔄 刷新</button>
-      </div>\n    \n    </div>
+      </div>
+    </div>
 
-    <div class="card">
+<div class="card">
       <h3>频道模板 (demo.txt)</h3>
-      <textarea id="demo-editor" style="min-height: 300px; width: 100%; font-family: monospace; font-size: 13px; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; resize: vertical;"></textarea>
+      <div id="demo-editor"></div>
       <div style="margin-top: 16px;">
         <button class="btn btn-primary" onclick="saveDemo()">💾 保存</button>
         <button class="btn btn-secondary" onclick="loadDemo()">🔄 刷新</button>
-      </div>\n    \n    </div>
+      </div>
+    </div>
     <div class="card">
       <h3>别名规则 (alias.txt)</h3>
-      <textarea id="alias-editor" style="min-height: 300px; width: 100%; font-family: monospace; font-size: 13px; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; resize: vertical;"></textarea>
+      <div id="alias-editor"></div>
       <div style="margin-top: 16px;">
         <button class="btn btn-primary" onclick="saveAlias()">💾 保存</button>
         <button class="btn btn-secondary" onclick="loadAlias()">🔄 刷新</button>
-      </div><div id="settings" class="tab-content hidden">
-    <div class="card">
-      <h3>系统设置</h3>
-
-      <div style="margin-top: 20px;">
-        <h4 style="font-size: 15px; color: #1e293b; margin-bottom: 12px;">🚀 开机自启</h4>
-        <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: #f8fafc; border-radius: 8px;">
-          <label style="flex: 1; font-size: 14px;">服务开机自动启动</label>
-          <label class="switch">
-            <input type="checkbox" id="setting-autostart">
-            <span class="slider"></span>
-          </label>
-        </div>
-        <p style="font-size: 12px; color: #94a3b8; margin-top: 8px; margin-left: 4px;">在系统启动时自动运行 Web 服务</p>
       </div>
+    </div>
+    </div>
 
-      <div style="margin-top: 20px;">
-        <h4 style="font-size: 15px; color: #1e293b; margin-bottom: 12px;">⏰ 定时运行</h4>
-        <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px; background: #f8fafc; border-radius: 8px; margin-bottom: 12px;">
-          <span style="font-size: 14px; color: #334155;">启用定时运行</span>
-          <label class="switch">
-            <input type="checkbox" id="setting-schedule-enabled">
-            <span class="slider"></span>
-          </label>
-        </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px; background: #f8fafc; border-radius: 8px;">
-          <div>
-            <label style="display: block; font-size: 13px; color: #64748b; margin-bottom: 6px;">每日运行时间</label>
-            <input type="time" id="setting-schedule-time" value="06:00" style="width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px;">
-          </div>
-          <div>
-            <label style="display: block; font-size: 13px; color: #64748b; margin-bottom: 6px;">运行间隔</label>
-            <select id="setting-schedule-interval" style="width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px;">
-              <option value="daily">每天</option>
-              <option value="weekly">每周</option>
-              <option value="monthly">每月</option>
-            </select>
-          </div><div id="output" class="tab-content hidden">
+  
+  <div id="output" class="tab-content hidden">
     <div class="card">
       <h3>输出文件</h3>
       <table class="table">
         <thead><tr><th>文件名</th><th>大小</th><th>修改时间</th><th>操作</th></tr></thead>
         <tbody id="output-tbody"><tr><td colspan="4" class="loading">加载中...</td></tr></tbody>
       </table>
-    </div><script src="channel_data.js?v=3"></script>
+    </div>
+  </div>
+
+  <div id="about" class="tab-content hidden">
+    <div class="card" style="padding:24px;max-width:760px;">
+      <h3 style="display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:24px;font-weight:600;color:#0f172a;">
+        <span>关于</span>
+        <span id="app-version" style="font-size:13px;font-weight:400;color:#94a3b8;">v1.0.0</span>
+      </h3>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-left:3px solid #d97706;border-radius:8px;padding:12px 14px;">
+          <div style="font-size:13px;font-weight:600;color:#92400e;margin-bottom:4px;">免责声明</div>
+          <p style="font-size:13px;color:#78350f;line-height:1.8;margin:0;">
+            本工具仅用于技术学习与个人娱乐，不提供任何直播源数据；所有数据均由使用方自行获取与维护，无法保证可用性。因使用本工具产生的任何问题或后果，请自行负责，与作者无关。
+          </p>
+        </div>
+        <p style="font-size:14px;color:#475569;line-height:1.8;margin:0;">IPTV 直播源管理：自动聚合直播源、质量检测、运营商分类，并将结果输出为 m3u / txt 文件。</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span class="badge badge-info">自动聚合</span>
+          <span class="badge badge-success">质量检测</span>
+          <span class="badge badge-warning">运营商分类</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-top:12px;border-top:1px solid #f1f5f9;">
+          <span style="font-size:13px;color:#94a3b8;">
+            GitHub: <a href="https://github.com/yuanzl77/IPTV" target="_blank" rel="noopener" style="color:#2563eb;">https://github.com/yuanzl77/IPTV</a>
+          </span>
+          <button id="about-update-btn" onclick="aboutUpdate()" class="btn btn-secondary" style="padding:8px 16px;font-size:13px;">↻ 检查更新</button>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- Login Overlay -->
+<div id="login-overlay" class="login-overlay">
+  <div style="background:#fff;border-radius:16px;padding:32px;width:340px;max-width:90vw;box-shadow:0 20px 60px rgba(0,0,0,0.35);text-align:center;">
+    <div style="font-size:34px;margin-bottom:10px;">🔒</div>
+    <h3 style="margin:0 0 6px;font-size:18px;color:#1e293b;">访问受保护</h3>
+    <p style="margin:0 0 18px;font-size:13px;color:#64748b;">该服务已启用密码保护，请输入访问密码</p>
+    <input type="password" id="login-pwd" placeholder="访问密码" onkeydown="if(event.key==='Enter')doLogin()" style="width:100%;box-sizing:border-box;padding:11px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;outline:none;">
+    <button onclick="doLogin()" style="width:100%;margin-top:12px;padding:11px;background:#2563eb;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:500;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">登 录</button>
+  </div>
+</div>
+
+<!-- Password Modal -->
+<div id="pwd-modal" class="modal-overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);z-index:1000;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:16px;padding:28px;width:380px;max-width:90vw;box-shadow:0 20px 60px rgba(0,0,0,0.2);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+      <h3 style="margin:0;font-size:16px;font-weight:600;color:#1e293b;">设置访问密码</h3>
+    </div>
+    <p style="margin:0 0 16px;font-size:13px;color:#64748b;">设置后所有数据接口需要密码才能访问；留空保存可取消密码保护。</p>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <input type="password" id="pwd-new" placeholder="新密码" style="width:100%;box-sizing:border-box;padding:11px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;outline:none;">
+      <input type="password" id="pwd-confirm" placeholder="确认新密码" style="width:100%;box-sizing:border-box;padding:11px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;outline:none;">
+    </div>
+    <div style="display:flex;gap:10px;margin-top:20px;">
+      <button onclick="savePassword()" style="flex:1;padding:11px;background:#2563eb;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:500;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">保存</button>
+      <button onclick="closePwdModal()" style="flex:1;padding:11px;background:#f1f5f9;color:#475569;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:500;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">取消</button>
+    </div>
+  </div>
+</div>
+
+<!-- Schedule Modal -->
+<div id="schedule-modal" class="modal-overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);z-index:1000;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:16px;padding:28px;width:400px;max-width:90vw;box-shadow:0 20px 60px rgba(0,0,0,0.2);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <h3 style="margin:0;font-size:16px;font-weight:600;color:#1e293b;">定时任务设置</h3>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <label style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;">
+        <span style="font-size:14px;color:#475569;">启用定时任务</span>
+        <input type="checkbox" id="sch-enabled" onchange="toggleScheduleInputs()" style="width:18px;height:18px;cursor:pointer;accent-color:#2563eb;">
+      </label>
+      <div>
+        <div style="font-size:13px;color:#64748b;font-weight:500;margin-bottom:8px;">执行时间</div>
+        <div id="sch-times-list" style="display:flex;flex-direction:column;gap:6px;"></div>
+        <button onclick="addScheduleTime()" id="add-time-btn" style="margin-top:6px;padding:6px 14px;background:none;border:1px dashed #cbd5e1;border-radius:8px;color:#64748b;cursor:pointer;font-size:13px;transition:all 0.15s;display:flex;align-items:center;gap:4px;" onmouseover="this.style.borderColor='#2563eb';this.style.color='#2563eb'" onmouseout="this.style.borderColor='#cbd5e1';this.style.color='#64748b'">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          添加时间
+        </button>
+      </div>
+      <label style="display:flex;flex-direction:column;gap:6px;">
+        <span style="font-size:13px;color:#64748b;font-weight:500;">执行频率</span>
+        <div style="display:flex;gap:8px;">
+          <button class="sch-interval-btn active" data-val="daily" onclick="setScheduleInterval(this)" style="flex:1;padding:10px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;color:#475569;cursor:pointer;font-size:13px;font-weight:500;transition:all 0.15s;">每天</button>
+          <button class="sch-interval-btn" data-val="weekly" onclick="setScheduleInterval(this)" style="flex:1;padding:10px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;color:#475569;cursor:pointer;font-size:13px;font-weight:500;transition:all 0.15s;">每周</button>
+          <button class="sch-interval-btn" data-val="monthly" onclick="setScheduleInterval(this)" style="flex:1;padding:10px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;color:#475569;cursor:pointer;font-size:13px;font-weight:500;transition:all 0.15s;">每月</button>
+        </div>
+      </label>
+      <div id="sch-next-run" style="font-size:13px;color:#2563eb;background:#eff6ff;padding:10px 14px;border-radius:8px;border:1px solid #bfdbfe;display:none;">
+        下次执行: --
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:20px;">
+      <button onclick="applySchedule()" style="flex:1;padding:11px;background:#2563eb;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:500;transition:background 0.15s;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">保存</button>
+      <button onclick="closeScheduleModal()" style="flex:1;padding:11px;background:#f1f5f9;color:#475569;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:500;transition:background 0.15s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">取消</button>
+    </div>
+  </div>
+</div>
+<style>
+.modal-overlay { display: none; align-items: center; justify-content: center; }
+.modal-overlay.show { display: flex; }
+.login-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15,23,42,0.85); align-items: center; justify-content: center; z-index: 9999; }
+.login-overlay.show { display: flex; }
+</style>
+
+<script src="channel_data.js?v=2"></script>
 <script>
+// ── 访问认证 ─────────────────────────────────────────────────────
+const _origFetch = window.fetch;
+window.fetch = function(url, opts) {
+  return _origFetch(url, opts).then(function(resp) {
+    if (resp.status === 401 && String(url).indexOf('/api/login') === -1) {
+      showLogin();
+    }
+    return resp;
+  });
+};
+
+function showLogin() {
+  const el = document.getElementById('login-overlay');
+  if (el) el.classList.add('show');
+}
+function hideLogin() {
+  const el = document.getElementById('login-overlay');
+  if (el) el.classList.remove('show');
+}
+async function doLogin() {
+  const pwd = document.getElementById('login-pwd').value;
+  const res = await fetch('/api/login', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({password: pwd})});
+  if (res.status === 200) {
+    document.getElementById('login-pwd').value = '';
+    hideLogin();
+    location.reload();
+  } else {
+    const data = await res.json().catch(function() { return {}; });
+    alert(data && data.error ? data.error : '密码错误');
+  }
+}
+async function doLogout() {
+  await fetch('/api/logout', {method:'POST'});
+  showLogin();
+}
+function openPwdModal() {
+  document.getElementById('pwd-new').value = '';
+  document.getElementById('pwd-confirm').value = '';
+  document.getElementById('pwd-modal').classList.add('show');
+}
+function closePwdModal() {
+  document.getElementById('pwd-modal').classList.remove('show');
+}
+async function savePassword() {
+  const pwd = document.getElementById('pwd-new').value;
+  const confirm = document.getElementById('pwd-confirm').value;
+  if (pwd !== confirm) { alert('两次输入的密码不一致'); return; }
+  const res = await fetch('/api/settings/password', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({password: pwd})});
+  if (res.status === 200) {
+    closePwdModal();
+    alert(pwd ? '密码已设置，下次访问需要登录' : '已取消密码保护');
+  } else {
+    alert('保存失败，请先登录');
+  }
+}
+// ── 主逻辑 ──────────────────────────────────────────────────────
+function esc(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
 function showTab(name) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
@@ -195,13 +383,13 @@ function showTab(name) {
   if (name === 'channels') renderChannels();
   if (name === 'logs') { logAutoScroll = true; refreshLogs(); }
   if (name === 'config') loadConfig();
-  if (name === 'settings') loadSettings();
   if (name === 'output') loadOutput();
 }
 
 async function runIPTV() {
   const res = await fetch('/api/run', {method: 'POST'});
   const data = await res.json();
+  stopRequested = false;
     document.getElementById('progress-area').classList.remove('hidden');
   document.getElementById('run-btn').style.display = 'none';
   document.getElementById('stop-btn').style.display = 'inline-flex';
@@ -210,23 +398,24 @@ async function runIPTV() {
 }
 
 async function stopIPTV() {
-  try {
-    const res = await fetch('/api/stop', {method: 'POST'});
-    const data = await res.json();
-        document.getElementById('run-btn').style.display = 'inline-flex';
-    document.getElementById('stop-btn').style.display = 'none';
-    document.getElementById('progress-area').classList.add('hidden');
-    stopLogRefresh();
-    const logEl = document.getElementById('log-preview');
-    if (logEl) logEl.textContent = '等待任务启动...';
-  } catch(e) {}
+  stopRequested = true;
+  document.getElementById('run-btn').style.display = 'inline-flex';
+  document.getElementById('stop-btn').style.display = 'none';
+  document.getElementById('progress-area').classList.add('hidden');
+  stopLogRefresh();
+  const logEl = document.getElementById('log-preview');
+  if (logEl) logEl.textContent = '等待任务启动...';
+  try { await fetch('/api/stop', {method: 'POST'}); } catch(e) {}
 }
 
 async function pollStatus() {
   try {
     const res = await fetch('/api/status');
-    if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
+    if (stopRequested && data.status === 'running') {
+      setTimeout(pollStatus, 500);
+      return;
+    }
     const phaseEl = document.getElementById('phase-text');
     const percentEl = document.getElementById('percent-text');
     const barEl = document.getElementById('progress-bar');
@@ -234,21 +423,22 @@ async function pollStatus() {
     if (percentEl) percentEl.textContent = (data.progress || 0) + '%';
     if (barEl) barEl.style.width = (data.progress || 0) + '%';
     if (data.status === 'done' || data.status === 'idle') {
+      stopRequested = false;
+      
       stopLogRefresh();
       if (statusRefreshInterval) { clearInterval(statusRefreshInterval); statusRefreshInterval = null; }
       document.getElementById('progress-area').classList.add('hidden');
       document.getElementById('run-btn').style.display = 'inline-flex';
       document.getElementById('stop-btn').style.display = 'none';
+      // Refresh channel data and logs when task completes
       if (!document.getElementById('channels').classList.contains('hidden')) renderChannels();
       if (!document.getElementById('logs').classList.contains('hidden')) { refreshLogs(); }
       return;
     }
-    setTimeout(pollStatus, 3000);
-  } catch(e) { 
-    console.error('pollStatus error:', e);
-    if (statusRefreshInterval) { clearInterval(statusRefreshInterval); statusRefreshInterval = null; }
-  }
+    setTimeout(pollStatus, 1000);
+  } catch(e) { console.error('pollStatus:', e); }
 }
+
 async function loadOverview() {
   try {
     const res = await fetch('/api/status');
@@ -260,8 +450,32 @@ async function loadOverview() {
     if (chCount) chCount.textContent = data.channels || 0;
     if (urlCount) urlCount.textContent = data.urls || 0;
     if (fileCount) fileCount.textContent = data.files || 0;
-    if (lastUpdate) lastUpdate.textContent = data.last_update || '--';
+    if (lastUpdate) {
+      const nextVal = data.last_update || '--';
+      if (nextVal !== lastUpdate.textContent) {
+        lastUpdate.classList.add('update-flash');
+        lastUpdate.textContent = nextVal;
+        setTimeout(function() { lastUpdate.classList.remove('update-flash'); }, 400);
+      }
+    }
+    // Schedule: cycle label when active
+    if (data.next_run && data.next_run !== _lastScheduleNextRun) {
+      _lastScheduleNextRun = data.next_run;
+      _scheduleNextRun = data.next_run;
+      if (data.schedule_enabled) {
+        _startLabelCycle();
+      } else {
+        _stopLabelCycle();
+      }
+    } else if (!data.next_run) {
+      _stopLabelCycle();
+    }
     if (data.status === 'running') {
+      if (stopRequested) {
+        if (statusRefreshInterval) { clearInterval(statusRefreshInterval); statusRefreshInterval = null; }
+        pollStatus();
+        return;
+      }
       document.getElementById('progress-area').classList.remove('hidden');
       document.getElementById('phase-text').textContent = data.phase || '解析源中...';
       document.getElementById('percent-text').textContent = (data.progress || 0) + '%';
@@ -273,7 +487,7 @@ async function loadOverview() {
     } else {
       if (statusRefreshInterval) { clearInterval(statusRefreshInterval); statusRefreshInterval = null; }
       statusRefreshInterval = setInterval(loadOverview, 10000);
-          }
+    }
   } catch(e) { console.error('loadOverview:', e); }
 }
 
@@ -287,7 +501,7 @@ async function renderChannels(filter='') {
     let allChannels = [];
     (data.groups || []).forEach(group => {
       (group.channels || []).forEach(ch => {
-        allChannels.push({name: ch.name, resolution: ch.resolution, speed: ch.speed, url: ch.url, group: group.name.replace(/,$/, '')});
+        allChannels.push({name: ch.name, resolution: ch.resolution, bitrate: ch.bitrate, speed: ch.speed, url: ch.url, group: group.name.replace(/,$/, '')});
       });
     });
     const seen = {};
@@ -324,7 +538,7 @@ async function renderChannels(filter='') {
     grid.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:12px;';
     filtered.slice(0, 200).forEach((ch, idx) => {
       const card = document.createElement('div');
-      card.style.cssText = 'background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px;transition:box-shadow 0.15s,border-color 0.15s;cursor:default;';
+      card.style.cssText = 'background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px;display:flex;align-items:center;justify-content:center;gap:12px;transition:box-shadow 0.15s,border-color 0.15s;cursor:default;';
       card.onmouseenter = () => { card.style.boxShadow = '0 4px 12px rgba(37,99,235,0.12)'; card.style.borderColor = '#2563eb'; };
       card.onmouseleave = () => { card.style.boxShadow = ''; card.style.borderColor = '#e2e8f0'; };
       const lines = lineCount[ch.name + '||' + ch.group] || 1;
@@ -332,13 +546,16 @@ async function renderChannels(filter='') {
         ? '<span style="background:#ede9fe;color:#7c3aed;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:600;">' + lines + '线</span>'
         : '<span style="background:#f1f5f9;color:#94a3b8;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:500;">1线</span>';
       const resBadge = ch.resolution
-        ? '<span style="background:#dbeafe;color:#2563eb;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:500;">' + ch.resolution + '</span>'
+        ? '<span style="background:#dbeafe;color:#2563eb;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:500;">' + esc(ch.resolution) + '</span>'
         : '<span style="background:#f1f5f9;color:#94a3b8;padding:2px 8px;border-radius:6px;font-size:12px;">-</span>';
+      const bitrateBadge = ch.bitrate
+        ? '<span style="background:#dcfce7;color:#16a34a;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:500;">' + esc(ch.bitrate) + '</span>'
+        : '';
       const speedBadge = ch.speed
-        ? '<span style="background:#dcfce7;color:#16a34a;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:500;">' + ch.speed + '</span>'
+        ? '<span style="background:#fee2e2;color:#dc2626;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:500;">' + esc(ch.speed) + '</span>'
         : '<span style="background:#f1f5f9;color:#94a3b8;padding:2px 8px;border-radius:6px;font-size:12px;">-</span>';
       const groupTag = ch.group
-        ? '<span style="font-size:11px;color:#94a3b8;background:#f8fafc;border:1px solid #e2e8f0;padding:2px 8px;border-radius:6px;white-space:nowrap;">' + ch.group + '</span>'
+        ? '<span style="font-size:11px;color:#94a3b8;background:#f8fafc;border:1px solid #e2e8f0;padding:2px 8px;border-radius:6px;white-space:nowrap;">' + esc(ch.group) + '</span>'
         : '';
       const firstUrl = (function() {
         for (const g of data.groups || []) {
@@ -348,17 +565,17 @@ async function renderChannels(filter='') {
         }
         return ch.url;
       })();
-      const copyBtn = '<button class="copy-btn" data-url="' + firstUrl + '" style="background:none;border:1px solid #e2e8f0;border-radius:6px;padding:4px 10px;cursor:pointer;color:#64748b;font-size:12px;transition:all 0.15s;white-space:nowrap;">复制</button>';
+      const copyBtn = '<button class="copy-btn" data-url="' + esc(firstUrl) + '" style="background:none;border:1px solid #e2e8f0;border-radius:6px;padding:4px 10px;cursor:pointer;color:#64748b;font-size:12px;transition:all 0.15s;white-space:nowrap;">复制</button>';
       const timeTag = updateTime
-        ? '<span style="font-size:11px;color:#94a3b8;">' + updateTime + '</span>'
+        ? '<span style="font-size:11px;color:#94a3b8;">' + esc(updateTime) + '</span>'
         : '';
       card.innerHTML = '<div style="flex:1;min-width:0;">' +
         '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">' +
-          '<span style="font-weight:600;color:#1e293b;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + ch.name + '</span>' +
+          '<span style="font-weight:600;color:#1e293b;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + esc(ch.name) + '</span>' +
           groupTag +
         '</div>' +
         '<div style="display:flex;gap:6px;flex-wrap:wrap;">' +
-          linesBadge + ' ' + resBadge + ' ' + speedBadge +
+          linesBadge + ' ' + resBadge + ' ' + bitrateBadge + ' ' + speedBadge +
         '</div>' +
       '</div>' + '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;">' + timeTag + copyBtn + '</div>';
       grid.appendChild(card);
@@ -381,13 +598,16 @@ async function renderChannels(filter='') {
             ? '<span style=\"background:#ede9fe;color:#7c3aed;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:600;\">' + lines + '线</span>'
             : '<span style=\"background:#f1f5f9;color:#94a3b8;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:500;\">1线</span>';
           const resBadge = ch.resolution
-            ? '<span style=\"background:#dbeafe;color:#2563eb;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:500;\">' + ch.resolution + '</span>'
+            ? '<span style=\"background:#dbeafe;color:#2563eb;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:500;\">' + esc(ch.resolution) + '</span>'
             : '<span style=\"background:#f1f5f9;color:#94a3b8;padding:2px 8px;border-radius:6px;font-size:12px;\">-</span>';
+          const bitrateBadge = ch.bitrate
+            ? '<span style=\"background:#dcfce7;color:#16a34a;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:500;\">' + esc(ch.bitrate) + '</span>'
+            : '';
           const speedBadge = ch.speed
-            ? '<span style=\"background:#dcfce7;color:#16a34a;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:500;\">' + ch.speed + '</span>'
+            ? '<span style=\"background:#fee2e2;color:#dc2626;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:500;\">' + esc(ch.speed) + '</span>'
             : '<span style=\"background:#f1f5f9;color:#94a3b8;padding:2px 8px;border-radius:6px;font-size:12px;\">-</span>';
           const groupTag = ch.group
-            ? '<span style=\"font-size:11px;color:#94a3b8;background:#f8fafc;border:1px solid #e2e8f0;padding:2px 8px;border-radius:6px;white-space:nowrap;\">' + ch.group + '</span>'
+            ? '<span style=\"font-size:11px;color:#94a3b8;background:#f8fafc;border:1px solid #e2e8f0;padding:2px 8px;border-radius:6px;white-space:nowrap;\">' + esc(ch.group) + '</span>'
             : '';
           const firstUrl = (function() {
             for (var gi = 0; gi < data.groups.length; gi++) {
@@ -399,14 +619,14 @@ async function renderChannels(filter='') {
             }
             return ch.url;
           })();
-          const copyBtn = '<button class=\"copy-btn\" data-url=\"' + firstUrl + '\" style=\"background:none;border:1px solid #e2e8f0;border-radius:6px;padding:4px 10px;cursor:pointer;color:#64748b;font-size:12px;transition:all 0.15s;white-space:nowrap;\">复制</button>';
+          const copyBtn = '<button class=\"copy-btn\" data-url=\"' + esc(firstUrl) + '\" style=\"background:none;border:1px solid #e2e8f0;border-radius:6px;padding:4px 10px;cursor:pointer;color:#64748b;font-size:12px;transition:all 0.15s;white-space:nowrap;\">复制</button>';
           card.innerHTML = '<div style=\"flex:1;min-width:0;\">' +
             '<div style=\"display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;\">' +
-              '<span style=\"font-weight:600;color:#1e293b;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;\">' + ch.name + '</span>' +
+              '<span style=\"font-weight:600;color:#1e293b;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;\">' + esc(ch.name) + '</span>' +
               groupTag +
             '</div>' +
             '<div style=\"display:flex;gap:6px;flex-wrap:wrap;\">' +
-              linesBadge + ' ' + resBadge + ' ' + speedBadge +
+              linesBadge + ' ' + resBadge + ' ' + bitrateBadge + ' ' + speedBadge +
             '</div>' +
           '</div>' + '<div style=\"display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;\">' + timeTag + copyBtn + '</div>';
           grid.appendChild(card);
@@ -443,169 +663,93 @@ async function renderChannels(filter='') {
 }
 function filterChannels(val) { renderChannels(val); }
 
+
 async function loadDemo() {
   const res = await fetch('/api/file/demo.txt');
   const data = await res.json();
-  document.getElementById('demo-editor').value = data.content;
+  initDemoEditor(data.content);
 }
 
 async function loadAlias() {
   const res = await fetch('/api/file/alias.txt');
   const data = await res.json();
-  document.getElementById('alias-editor').value = data.content;
+  initAliasEditor(data.content);
 }
 
 async function saveAlias() {
-  const content = document.getElementById('alias-editor').value;
+  const content = aliasEditor ? aliasEditor.getValue() : '';
   await fetch('/api/file/save/alias.txt', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({content})});
   alert('alias.txt 已保存');
 }
 
-var configEditor = null;
+async function saveDemo() {
+  const content = demoEditor ? demoEditor.getValue() : '';
+  await fetch('/api/file/save/demo.txt', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({content})});
+  alert('demo.txt 已保存');
+}
 
 async function loadConfig() {
   const res = await fetch('/api/config');
   const data = await res.json();
-  if (configEditor) {
-    configEditor.setValue(data.content);
-  } else {
-    configEditor = CodeMirror(document.getElementById('config-editor'), {
-      value: data.content,
-      mode: 'text/x-python',
-      theme: 'eclipse',
-      lineNumbers: true,
-      tabSize: 4,
-      indentWithTabs: false,
-      styleActiveLine: true,
-      readOnly: false,
-      lineWrapping: true,
-      foldGutter: false,
-      gutters: [],
-      fixedGutter: false
-    });
-  }
+  initConfigEditor(data.content);
   await loadDemo();
   await loadAlias();
 }
 
-async function loadSettings() {
-  try {
-    const res = await fetch('/api/config');
-    const data = await res.json();
-    if (data.error) return;
-    // Parse config to extract settings
-    const lines = data.content.split('\n');
-    lines.forEach(line => {
-      if (line.includes('check_max_conn')) {
-        const m = line.match(/check_max_conn\s*=\s*(\d+)/);
-        if (m) document.getElementById('setting-concurrent').value = m[1];
-      }
-      if (line.includes('check_timeout')) {
-        const m = line.match(/check_timeout\s*=\s*([\d.]+)/);
-        if (m) document.getElementById('setting-timeout').value = m[1];
-      }
-      if (line.includes('ffprobe_timeout')) {
-        const m = line.match(/ffprobe_timeout\s*=\s*(\d+)/);
-        if (m) document.getElementById('setting-ffprobe').value = m[1];
-      }
-      if (line.includes('deep_probe_timeout')) {
-        const m = line.match(/deep_probe_timeout\s*=\s*(\d+)/);
-        if (m) document.getElementById('setting-deep').value = m[1];
-      }
-      if (line.includes('min_resolution')) {
-        const m = line.match(/min_resolution\s*=\s*"?(\d+)"?/);
-        if (m) document.getElementById('setting-resolution').value = m[1];
-      }
-      if (line.includes('sort_mode')) {
-        const m = line.match(/sort_mode\s*=\s*"([^"]+)"/);
-        if (m) document.getElementById('setting-sortmode').value = m[1];
-      }
-    });
-  } catch(e) { console.error(e); }
-}
-
-async function saveSettings() {
-  // Read current config
-  const res = await fetch('/api/config');
-  const data = await res.json();
-  if (data.error) { alert(data.error); return; }
-  
-  let content = data.content;
-  content = content.replace(/check_max_conn\s*=\s*\d+/, 'check_max_conn = ' + document.getElementById('setting-concurrent').value);
-  content = content.replace(/check_timeout\s*=\s*[\d.]+/, 'check_timeout = ' + document.getElementById('setting-timeout').value);
-  content = content.replace(/ffprobe_timeout\s*=\s*\d+/, 'ffprobe_timeout = ' + document.getElementById('setting-ffprobe').value);
-  content = content.replace(/deep_probe_timeout\s*=\s*\d+/, 'deep_probe_timeout = ' + document.getElementById('setting-deep').value);
-  content = content.replace(/min_resolution\s*=\s*"?\d+"?/, 'min_resolution = "' + document.getElementById('setting-resolution').value + '"');
-  content = content.replace(/sort_mode\s*=\s*"[^"]+"/, 'sort_mode = "' + document.getElementById('setting-sortmode').value + '"');
-  
-  await fetch('/api/config/save', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({content})});
-  alert('设置已保存，重启任务后生效');
-}
-
-async function loadSettings() {
-  // Load current settings
-  try {
-    const res = await fetch('/api/settings');
-    const data = await res.json();
-    if (data.autostart) document.getElementById('setting-autostart').checked = data.autostart;
-    if (data.schedule) {
-      document.getElementById('setting-schedule-time').value = data.schedule.time || '06:00';
-      document.getElementById('setting-schedule-interval').value = data.schedule.interval || 'daily';
-      document.getElementById('setting-schedule-enabled').checked = data.schedule.enabled || false;
-    }
-  } catch(e) { console.error(e); }
-}
-
-async function toggleAutostart() {
-  const enabled = document.getElementById('setting-autostart').checked;
-  await fetch('/api/settings/autostart', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({enabled})
-  });
-}
-
-async function saveSchedule() {
-  const config = {
-    time: document.getElementById('setting-schedule-time').value,
-    interval: document.getElementById('setting-schedule-interval').value,
-    enabled: document.getElementById('setting-schedule-enabled').checked
-  };
-  await fetch('/api/settings/schedule', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(config)
-  });
-  alert('定时设置已保存');
-}
-
 async function saveConfig() {
-  const content = configEditor ? configEditor.getValue() : document.getElementById('config-editor').value;
+  const content = configEditor ? configEditor.getValue() : document.getElementById('config-editor-value').value;
   await fetch('/api/config/save', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({content})});
   alert('配置已保存');
 }
 
+let _shareToken = '';
+function buildPlayUrl(filename) {
+  return window.location.origin + '/output/' + encodeURIComponent(filename) + (_shareToken ? '?token=' + encodeURIComponent(_shareToken) : '');
+}
+async function copyPlayUrl(filename) {
+  try {
+    await navigator.clipboard.writeText(buildPlayUrl(filename));
+    alert('播放地址已复制');
+  } catch(e) {
+    alert('复制失败: ' + e.message);
+  }
+}
 async function loadOutput() {
   const res = await fetch('/api/output');
   const data = await res.json();
+  _shareToken = data.share_token || '';
   const tbody = document.getElementById('output-tbody');
   tbody.innerHTML = '';
-  if (!data.files || data.files.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="4" class="loading">暂无输出文件，请先运行任务</td></tr>';
-    return;
-  }
-    data.files.forEach(f => {
+  data.files.forEach(f => {
     const tr = document.createElement('tr');
-    tr.innerHTML = '<td>' + f.name + '</td><td>' + (f.size/1024).toFixed(1) + ' KB</td><td>' + new Date(f.modified*1000).toLocaleString('zh-CN') + '</td><td><button class="btn btn-secondary" style="padding:6px 12px;font-size:12px;margin-right:4px" onclick="previewFile(\'' + f.name + '\')">预览</button><button class="btn btn-secondary" style="padding:6px 12px;font-size:12px;margin-right:4px" onclick="downloadFile(\'' + f.name + '\')">下载</button><button class="btn btn-secondary" style="padding:6px 12px;font-size:12px;color:#dc2626" onclick="deleteFile(\'' + f.name + '\')">删除</button></td>';
+    tr.innerHTML = '<td>' + esc(f.name) + '</td><td>' + (f.size/1024).toFixed(1) + ' KB</td><td>' + new Date(f.mtime*1000).toLocaleString('zh-CN') + '</td><td>' +
+      '<button class="btn btn-secondary" style="padding:6px 12px;font-size:12px;margin-right:4px" onclick="previewFile(\'' + esc(f.name) + '\')">预览</button>' +
+      '<button class="btn btn-secondary" style="padding:6px 12px;font-size:12px;margin-right:4px" onclick="copyPlayUrl(\'' + esc(f.name) + '\')">播放地址</button>' +
+      '<button class="btn btn-secondary" style="padding:6px 12px;font-size:12px;margin-right:4px" onclick="downloadFile(\'' + esc(f.name) + '\')">下载</button>' +
+      '<button class="btn btn-secondary" style="padding:6px 12px;font-size:12px;color:#dc2626" onclick="deleteFile(\'' + esc(f.name) + '\')">删除</button></td>';
     tbody.appendChild(tr);
   });
 }
 
 async function previewFile(filename) {
-  const url = window.location.origin + "/output/" + filename;
-  const win = window.open(url, "_blank");
-  win.document.title = url;
-}async function downloadFile(filename){window.location.href='/api/output/download/'+filename}
+  window.open(buildPlayUrl(filename), '_blank');
+}
+
+
+
+async function downloadFile(filename) {
+  const res = await fetch('/api/output/download/' + encodeURIComponent(filename));
+  if (!res.ok) {
+    alert('下载失败：文件可能不存在或未登录 (' + res.status + ')');
+    return;
+  }
+  const blob = await res.blob();
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
 async function deleteFile(filename) {
   if (!confirm('确定要删除 ' + filename + ' 吗？')) return;
   try {
@@ -624,10 +768,12 @@ async function deleteFile(filename) {
 
 let logRefreshInterval = null;
 let statusRefreshInterval = null;
+let stopRequested = false;
 const REFRESH_FAST = 2000;
 
 const REFRESH_SLOW = 10000;
 let logAutoScroll = true;
+let logIdleTimer = null;
 let isUserOnline = true;
 let lastActivityTime = Date.now();
 // Track user activity to detect inactivity
@@ -637,21 +783,32 @@ document.addEventListener('click', () => { isUserOnline = true; lastActivityTime
 
 function startLogRefresh() {
   logRefreshInterval = setInterval(refreshLogs, REFRESH_FAST);
-  // Enable auto-scroll by default, disable when user scrolls up
-  var previewEl = document.getElementById('log-preview');
-  var fullEl = document.getElementById('log-full');
-  function checkBottom(el) {
-    if (!el) return;
-    logAutoScroll = (el.scrollTop + el.clientHeight >= el.scrollHeight - 5);
-  }
-  if (previewEl) {
-    previewEl.addEventListener('mousedown', function() { logAutoScroll = false; });
-    previewEl.addEventListener('mouseup', function() { setTimeout(function(){ checkBottom(previewEl); }, 100); });
-  }
-  if (fullEl) {
-    fullEl.addEventListener('mousedown', function() { logAutoScroll = false; });
-    fullEl.addEventListener('mouseup', function() { setTimeout(function(){ checkBottom(fullEl); }, 100); });
-  }
+  _bindLogScroll(document.getElementById('log-preview'));
+  _bindLogScroll(document.getElementById('log-full'));
+}
+
+function _pauseLogAutoScroll() {
+  logAutoScroll = false;
+  if (logIdleTimer) clearTimeout(logIdleTimer);
+  logIdleTimer = setTimeout(function() {
+    logAutoScroll = true;
+    logIdleTimer = null;
+    var els = [document.getElementById('log-preview'), document.getElementById('log-full')];
+    els.forEach(function(el) { if (el) el.scrollTop = el.scrollHeight; });
+  }, 3000);
+}
+
+function _bindLogScroll(el) {
+  if (!el || el.dataset.logBound) return;
+  el.dataset.logBound = '1';
+  el.addEventListener('scroll', function() {
+    if (el.scrollTop + el.clientHeight >= el.scrollHeight - 5) {
+      logAutoScroll = true;
+      if (logIdleTimer) { clearTimeout(logIdleTimer); logIdleTimer = null; }
+    } else {
+      _pauseLogAutoScroll();
+    }
+  });
 }
 
 function stopLogRefresh() {
@@ -663,18 +820,17 @@ async function refreshLogs() {
     const res = await fetch('/api/logs?tail=500');
     const data = await res.json();
 
+
     const lines = data.lines.map(l => l.trim()).join('\n');
     const previewEl = document.getElementById('log-preview');
     const fullEl = document.getElementById('log-full');
     if (previewEl) {
-      const wasAtBottom = previewEl.scrollTop + previewEl.clientHeight >= previewEl.scrollHeight - 2;
       previewEl.textContent = lines;
-      if (logAutoScroll && wasAtBottom) previewEl.scrollTop = previewEl.scrollHeight;
+      if (logAutoScroll) previewEl.scrollTop = previewEl.scrollHeight;
     }
     if (fullEl) {
-      const wasAtBottom2 = fullEl.scrollTop + fullEl.clientHeight >= fullEl.scrollHeight - 2;
       fullEl.textContent = lines.length > 0 ? lines : '暂无日志';
-      if (logAutoScroll && wasAtBottom2) fullEl.scrollTop = fullEl.scrollHeight;
+      if (logAutoScroll) fullEl.scrollTop = fullEl.scrollHeight;
     }
   } catch(e) {}
 }
@@ -691,13 +847,246 @@ setInterval(function() {
   }
 }, 30000);
 
-loadOverview();
+(async function initApp() {
+  const res = await fetch('/api/status');
+  if (res.status === 401) { showLogin(); return; }
+  loadOverview();
+})();
+
+// ── Schedule Management ──────────────────────────────────────────────────────
+let _scheduleInterval = 'daily';
+let _scheduleEnabled = false;
+let _lastScheduleNextRun = null;
+let _scheduleNextRun = '--';
+let _labelToggleTimer = null;
+
+async function openScheduleModal() {
+  try {
+    const res = await fetch('/api/schedule');
+    const data = await res.json();
+    document.getElementById('sch-enabled').checked = data.enabled;
+    _scheduleInterval = data.interval || 'daily';
+    // Load times
+    const times = data.times && data.times.length > 0 ? data.times : ['06:00'];
+    const list = document.getElementById('sch-times-list');
+    list.innerHTML = '';
+    times.forEach(t => addScheduleTime(t));
+    document.querySelectorAll('.sch-interval-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.val === _scheduleInterval);
+      btn.style.background = btn.classList.contains('active') ? '#2563eb' : '#fff';
+      btn.style.color = btn.classList.contains('active') ? '#fff' : '#475569';
+      btn.style.borderColor = btn.classList.contains('active') ? '#2563eb' : '#e2e8f0';
+    });
+    _updateNextRunDisplay(data.next_run);
+    toggleScheduleInputs();
+  } catch(e) {}
+  document.getElementById('schedule-modal').classList.add('show');
+}
+
+function closeScheduleModal() {
+  document.getElementById('schedule-modal').classList.remove('show');
+}
+// Poll schedule when modal is open
+setInterval(async () => {
+  const modal = document.getElementById('schedule-modal');
+  if (modal && modal.classList.contains('show')) {
+    try {
+      const res = await fetch('/api/schedule');
+      const data = await res.json();
+      _updateNextRunDisplay(data.next_run);
+    } catch(e) {}
+  }
+}, 30000);
+
+function addScheduleTime(value) {
+  const list = document.getElementById('sch-times-list');
+  const row = document.createElement('div');
+  row.style.cssText = 'display:flex;gap:8px;align-items:center;';
+  const inp = document.createElement('input');
+  inp.type = 'time';
+  inp.value = value || '06:00';
+  inp.style.cssText = 'flex:1;padding:10px 14px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;color:#1e293b;background:#fff;outline:none;';
+  const delBtn = document.createElement('button');
+  delBtn.textContent = '\u2715';
+  delBtn.style.cssText = 'background:none;border:1px solid #e2e8f0;border-radius:6px;padding:6px 10px;cursor:pointer;color:#94a3b8;font-size:14px;transition:all 0.15s;flex-shrink:0;';
+  delBtn.onmouseover = function() { this.style.background='#fee2e2';this.style.borderColor='#ef4444';this.style.color='#ef4444'; };
+  delBtn.onmouseout = function() { this.style.background='none';this.style.borderColor='#e2e8f0';this.style.color='#94a3b8'; };
+  delBtn.onclick = function() {
+    if (list.children.length > 1) row.remove();
+  };
+  row.appendChild(inp);
+  row.appendChild(delBtn);
+  list.appendChild(row);
+  if (_scheduleEnabled) { inp.disabled = false; }
+}
+
+function setScheduleInterval(btn) {
+  document.querySelectorAll('.sch-interval-btn').forEach(b => {
+    b.classList.remove('active');
+    b.style.background = '#fff';
+    b.style.color = '#475569';
+    b.style.borderColor = '#e2e8f0';
+  });
+  btn.classList.add('active');
+  btn.style.background = '#2563eb';
+  btn.style.color = '#fff';
+  btn.style.borderColor = '#2563eb';
+  _scheduleInterval = btn.dataset.val;
+}
+
+function toggleScheduleInputs() {
+  const enabled = document.getElementById('sch-enabled').checked;
+  document.querySelectorAll('#sch-times-list input[type=time]').forEach(inp => inp.disabled = !enabled);
+  document.getElementById('add-time-btn').disabled = !enabled;
+  document.querySelectorAll('.sch-interval-btn').forEach(b => b.disabled = !enabled);
+}
+
+async function applySchedule() {
+  const enabled = document.getElementById('sch-enabled').checked;
+  const timeInputs = document.querySelectorAll('#sch-times-list input[type=time]');
+  const times = Array.from(timeInputs).map(i => i.value).filter(v => v);
+  if (times.length === 0) { alert('请至少添加一个执行时间'); return; }
+  try {
+    const res = await fetch('/api/schedule', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({enabled, times, interval: _scheduleInterval}),
+    });
+    const data = await res.json();
+    if (data.ok) {
+      _scheduleEnabled = enabled;
+      _updateNextRunDisplay(data.next_run);
+      closeScheduleModal();
+    }
+  } catch(e) {}
+}
+
+function _updateNextRunDisplay(next_run) {
+  const el = document.getElementById('sch-next-run');
+  if (next_run && _scheduleEnabled) {
+    el.textContent = '下次执行: ' + next_run;
+    el.style.display = 'block';
+  } else {
+    el.style.display = 'none';
+  }
+}
+
+// ── Cycling label for last-update card when schedule is active ───────────────
+function _startLabelCycle() {
+  if (_labelToggleTimer) clearInterval(_labelToggleTimer);
+  let showingExpected = false;
+  const cardEl = document.querySelector('#last-update-card');
+  const labelEl = cardEl ? cardEl.querySelector('.label') : null;
+  const valueEl = cardEl ? cardEl.querySelector('.value') : null;
+  const subEl = cardEl ? cardEl.querySelector('.sub') : null;
+  const storedLastUpdate = valueEl ? valueEl.textContent : '--';
+  const storedNextRun = _scheduleNextRun || '--';
+  _labelToggleTimer = setInterval(() => {
+    showingExpected = !showingExpected;
+    if (cardEl) {
+      cardEl.classList.remove('switching');
+      void cardEl.offsetWidth;
+      cardEl.classList.add('switching');
+    }
+    if (labelEl) labelEl.textContent = showingExpected ? '预计更新' : '最后更新';
+    if (valueEl) valueEl.textContent = showingExpected ? storedNextRun : storedLastUpdate;
+    if (subEl) subEl.textContent = showingExpected ? '下次定时执行时间' : '时间';
+    setTimeout(() => { if (cardEl) cardEl.classList.remove('switching'); }, 450);
+  }, 30000);
+}
+
+function _stopLabelCycle() {
+  if (_labelToggleTimer) { clearInterval(_labelToggleTimer); _labelToggleTimer = null; }
+  const labelEl = document.querySelector('#last-update-card .label');
+  const subEl = document.querySelector('#last-update-card .sub');
+  const cardEl = document.querySelector('#last-update-card');
+  if (cardEl) cardEl.classList.remove('switching');
+  if (labelEl) labelEl.textContent = '最后更新';
+  if (subEl) subEl.textContent = '时间';
+}
+
+async function cleanupOldLogs() {
+  if (!confirm('确定清理7天前的日志？')) return;
+  try {
+    const res = await fetch('/api/logs/cleanup', {method: 'POST'});
+    const data = await res.json();
+    if (data.ok) alert('清理完成，保留 ' + data.kept + ' 条日志');
+  } catch(e) { alert('清理失败: ' + e.message); }
+}
+
+function aboutUpdate() {
+  const btn = document.getElementById('about-update-btn');
+  if (!btn) return;
+  const original = btn.innerHTML;
+  btn.disabled = true;
+  btn.textContent = '更新功能尚未接入';
+  setTimeout(function() {
+    btn.innerHTML = original;
+    btn.disabled = false;
+  }, 2000);
+}
 </script>
-<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/python/python.min.js"></script>
+<script src="codemirror/codemirror.min.js"></script>
+<script src="codemirror/python.min.js"></script>
+<script src="codemirror/closebrackets.min.js"></script>
+<script src="codemirror/matchbrackets.min.js"></script>
+<script src="codemirror/active-line.min.js"></script>
+<script>
+// Initialize CodeMirror for config editor
+let configEditor = null;
+function initConfigEditor(content) {
+  if (configEditor) {
+    configEditor.setValue(content || '');
+    return;
+  }
+  const el = document.getElementById('config-editor');
+  if (!el) return;
+  configEditor = CodeMirror(el, {
+    value: content || '',
+    mode: 'python',
+    theme: 'material-darker',
+    lineNumbers: true,
+    tabSize: 4,
+    indentWithTabs: false,
+    styleActiveLine: true,
+    autoCloseBrackets: true,
+    matchBrackets: true,
+    lineWrapping: true,
+    scrollbarStyle: 'native',
+  });
+  configEditor.on('change', function(cm) {
+    document.getElementById('config-editor-value').value = cm.getValue();
+  });
+}
+
+// Also init alias editor with Python mode
+let aliasEditor = null;
+function initAliasEditor(content) {
+  if (aliasEditor) { aliasEditor.setValue(content || ''); return; }
+  const el = document.getElementById('alias-editor');
+  if (!el) return;
+  aliasEditor = CodeMirror(el, {
+    value: content || '', mode: 'python', theme: 'material-darker',
+    lineNumbers: true, tabSize: 4, indentWithTabs: false,
+    styleActiveLine: true, autoCloseBrackets: true, matchBrackets: true,
+    lineWrapping: true, scrollbarStyle: 'native',
+  });
+}
+
+// Also init demo editor
+let demoEditor = null;
+function initDemoEditor(content) {
+  if (demoEditor) { demoEditor.setValue(content || ''); return; }
+  const el = document.getElementById('demo-editor');
+  if (!el) return;
+  demoEditor = CodeMirror(el, {
+    value: content || '', mode: 'python', theme: 'material-darker',
+    lineNumbers: true, tabSize: 4, indentWithTabs: false,
+    styleActiveLine: true, autoCloseBrackets: true, matchBrackets: true,
+    lineWrapping: true, scrollbarStyle: 'native',
+  });
+}
+</script>
 </body>
 </html>
-
-
-
 
