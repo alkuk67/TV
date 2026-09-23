@@ -850,3 +850,110 @@
 2026-09-23 06:15:20 - INFO - root:main.py:721 - [订阅白名单] 匹配到 0 个频道
 2026-09-23 06:15:20 - INFO - root:main.py:725 - [汇总] 频道分类 6 个，总频道数 58，总URL数 163
 2026-09-23 06:15:20 - INFO - root:main.py:813 - [输出统计] 最终输出 53 频道 / 137 URL
+2026-09-24 06:07:23 - INFO - root:main.py:187 - [别名映射] 从 config/alias.txt 加载 10022 条别名规则
+2026-09-24 06:07:23 - INFO - root:main.py:653 - [抓取] 执行完整抓取流程，config.source_urls=4 个, hotel=True
+2026-09-24 06:07:24 - INFO - root:main.py:85 - [EPG映射] 从 http://e.erw.cc/e.xml.gz 加载成功
+2026-09-24 06:07:34 - INFO - root:main.py:85 - [EPG映射] 从 https://gitee.com/taksssss/tv/raw/main/epg/112114.xml.gz 加载成功
+2026-09-24 06:07:35 - WARNING - root:main.py:87 - [EPG映射] 从 http://epg.51zmt.top:8000/e.xml.gz 加载失败，尝试下一个源: Not a gzipped file (b'<?')
+2026-09-24 06:07:35 - INFO - root:main.py:89 - [EPG映射] 共合并加载 816 个频道 ID
+2026-09-24 06:07:35 - INFO - root:main.py:297 - [抓取] 开始: https://cdn.qd.je/live.m3u
+2026-09-24 06:07:35 - INFO - root:main.py:297 - [抓取] 开始: http://rihou.cc:567/gggg.nzk
+2026-09-24 06:07:35 - INFO - root:main.py:297 - [抓取] 开始: http://193.123.86.190:14888/TV/iptv.php
+2026-09-24 06:07:35 - INFO - root:main.py:297 - [抓取] 开始: https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u
+2026-09-24 06:07:35 - INFO - root:main.py:306 - [抓取] https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u 获取成功，判断为m3u格式
+2026-09-24 06:07:35 - INFO - root:main.py:344 - [抓取] https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u 抓取成功，包含频道分类: 央视IPV4, 卫视IPV4, 卫视IPV4" catchup="append" catchup-source="?playseek=${(b)yyyyMMddHHmmss}-${(e)yyyyMMddHHmmss}, 4K8K频道, 历年春晚
+2026-09-24 06:07:35 - INFO - root:main.py:345 - [抓取] https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u 共获取 120 个 URL
+2026-09-24 06:07:35 - INFO - root:main.py:351 - [抓取] https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u 样本频道: ['CCTV1', 'CCTV2', 'CCTV3', 'CCTV4', 'CCTV5', '重温经典', '翡翠台', '五星体育', '湖南卫视', '北京卫视']
+2026-09-24 06:07:36 - INFO - root:main.py:306 - [抓取] http://193.123.86.190:14888/TV/iptv.php 获取成功，判断为m3u格式
+2026-09-24 06:07:36 - INFO - root:main.py:344 - [抓取] http://193.123.86.190:14888/TV/iptv.php 抓取成功，包含频道分类: 央视频道, 卫视频道, 睛彩频道, 咪视界, 历年春晚, 轮播
+2026-09-24 06:07:36 - INFO - root:main.py:345 - [抓取] http://193.123.86.190:14888/TV/iptv.php 共获取 188 个 URL
+2026-09-24 06:07:36 - INFO - root:main.py:351 - [抓取] http://193.123.86.190:14888/TV/iptv.php 样本频道: ['CCTV1', 'CCTV1', 'CCTV2', 'CCTV2', 'CCTV3', '安徽卫视', '安徽卫视', '北京卫视', '北京卫视', '重庆卫视']
+2026-09-24 06:07:36 - INFO - root:main.py:306 - [抓取] https://cdn.qd.je/live.m3u 获取成功，判断为m3u格式
+2026-09-24 06:07:36 - INFO - root:main.py:344 - [抓取] https://cdn.qd.je/live.m3u 抓取成功，包含频道分类: mytv
+2026-09-24 06:07:36 - INFO - root:main.py:345 - [抓取] https://cdn.qd.je/live.m3u 共获取 121 个 URL
+2026-09-24 06:07:36 - INFO - root:main.py:351 - [抓取] https://cdn.qd.je/live.m3u 样本频道: ['翡翠台4K(字幕)', '凤凰中文', 'CCTV1港澳版', 'CCTV13', 'TVB Plus(字幕)']
+2026-09-24 06:07:38 - INFO - root:main.py:306 - [抓取] http://rihou.cc:567/gggg.nzk 获取成功，判断为txt格式
+2026-09-24 06:07:38 - INFO - root:main.py:344 - [抓取] http://rihou.cc:567/gggg.nzk 抓取成功，包含频道分类: 猫TV影视, 欣赏港乐, 赛事精锦, 央卫咪咕, 欣赏频道, 网页音乐, 欣赏音乐, 特闽FYtv, 抖音网页, 荔枝网页, 虎牙频道, 爱奇频道, 广州电信, 童年频道, 亮剑全集, 雪豹全集, 凡人修仙, 华山论剑, Q-三国粤, 大时代粤, 流星花园, 还珠格格, 甄嬛传国, 大地恩情, 粤经典剧, 射雕英雄, 神雕侠侣, 视觉效果
+2026-09-24 06:07:38 - INFO - root:main.py:345 - [抓取] http://rihou.cc:567/gggg.nzk 共获取 1573 个 URL
+2026-09-24 06:07:38 - INFO - root:main.py:351 - [抓取] http://rihou.cc:567/gggg.nzk 样本频道: ['➡️抖舞陪看⬅️', '➡️白嫖软件⬅️', '➡️免费观看⬅️', '➡️大街网源⬅️', '➡️互相搬助⬅️', '⬇️港乐翻唱⬇️', '林咏诗翻唱一', '林咏诗翻唱二', '林咏诗翻唱三', '⬇️港乐粤翻⬇️']
+2026-09-24 06:07:38 - INFO - root:main.py:373 - [抓取] 等待所有源完成...
+2026-09-24 06:07:38 - INFO - root:main.py:270 - [匹配统计] 模板 133 频道，在线 2002 URL，匹配 245 URL
+2026-09-24 06:07:38 - INFO - root:main.py:660 - [酒店源] 开始抓取...
+2026-09-24 06:07:39 - INFO - fetch_hotel:fetch_hotel.py:57 - [酒店源] 共获取 796 个节点
+2026-09-24 06:07:39 - INFO - fetch_hotel:fetch_hotel.py:67 - [酒店源] 类型分布: {'txiptv': 732, 'hsmdtv': 25, 'zhgxtv': 28, 'jsmpeg': 11}
+2026-09-24 06:07:54 - INFO - fetch_hotel:fetch_hotel.py:174 - [酒店源] 解析完成，共 213 个频道-URL 组合
+2026-09-24 06:07:54 - INFO - root:main.py:270 - [匹配统计] 模板 133 频道，在线 213 URL，匹配 198 URL
+2026-09-24 06:07:54 - INFO - root:main.py:675 - [酒店源] 匹配到 87 个频道
+2026-09-24 06:07:54 - INFO - root:main.py:680 - [组播源] 开始抓取...
+2026-09-24 06:07:56 - INFO - fetch_multicast:fetch_multicast.py:105 - [组播源] 共 3553 条，保留 3542 条（dead=0，省份过滤=0，运营商过滤=0）
+2026-09-24 06:07:56 - INFO - root:main.py:270 - [匹配统计] 模板 133 频道，在线 3542 URL，匹配 2029 URL
+2026-09-24 06:07:56 - INFO - root:main.py:694 - [组播源] 匹配到 109 个频道
+2026-09-24 06:07:56 - INFO - root:main.py:701 - [质量检测] 开始全量检测（无缓存模式）... enable_ffprobe=True, ffprobe_timeout=6s, min_resolution=1080
+2026-09-24 06:07:56 - INFO - check:check.py:695 - 开始质量检测，共 2472 个 URL，并发数 10，HTTP 超时 3.5s，FFprobe 启用，超时 6s
+2026-09-24 06:08:51 - INFO - check:check.py:680 - [质量检测] 进度: 100/2472 (4%)
+2026-09-24 06:09:52 - INFO - check:check.py:680 - [质量检测] 进度: 200/2472 (8%)
+2026-09-24 06:10:55 - INFO - check:check.py:680 - [质量检测] 进度: 300/2472 (12%)
+2026-09-24 06:11:48 - INFO - check:check.py:680 - [质量检测] 进度: 400/2472 (16%)
+2026-09-24 06:12:46 - INFO - check:check.py:680 - [质量检测] 进度: 500/2472 (20%)
+2026-09-24 06:13:43 - INFO - check:check.py:680 - [质量检测] 进度: 600/2472 (24%)
+2026-09-24 06:14:38 - INFO - check:check.py:680 - [质量检测] 进度: 700/2472 (28%)
+2026-09-24 06:15:43 - INFO - check:check.py:680 - [质量检测] 进度: 800/2472 (32%)
+2026-09-24 06:16:44 - INFO - check:check.py:680 - [质量检测] 进度: 900/2472 (36%)
+2026-09-24 06:17:32 - INFO - check:check.py:680 - [质量检测] 进度: 1000/2472 (40%)
+2026-09-24 06:17:59 - INFO - check:check.py:680 - [质量检测] 进度: 1100/2472 (44%)
+2026-09-24 06:18:46 - INFO - check:check.py:680 - [质量检测] 进度: 1200/2472 (48%)
+2026-09-24 06:19:41 - INFO - check:check.py:680 - [质量检测] 进度: 1300/2472 (52%)
+2026-09-24 06:20:33 - INFO - check:check.py:680 - [质量检测] 进度: 1400/2472 (56%)
+2026-09-24 06:21:33 - INFO - check:check.py:680 - [质量检测] 进度: 1500/2472 (60%)
+2026-09-24 06:22:29 - INFO - check:check.py:680 - [质量检测] 进度: 1600/2472 (64%)
+2026-09-24 06:23:25 - INFO - check:check.py:680 - [质量检测] 进度: 1700/2472 (68%)
+2026-09-24 06:24:21 - INFO - check:check.py:680 - [质量检测] 进度: 1800/2472 (72%)
+2026-09-24 06:25:21 - INFO - check:check.py:680 - [质量检测] 进度: 1900/2472 (76%)
+2026-09-24 06:26:18 - INFO - check:check.py:680 - [质量检测] 进度: 2000/2472 (80%)
+2026-09-24 06:27:12 - INFO - check:check.py:680 - [质量检测] 进度: 2100/2472 (84%)
+2026-09-24 06:28:06 - INFO - check:check.py:680 - [质量检测] 进度: 2200/2472 (88%)
+2026-09-24 06:29:02 - INFO - check:check.py:680 - [质量检测] 进度: 2300/2472 (93%)
+2026-09-24 06:29:49 - INFO - check:check.py:680 - [质量检测] 进度: 2400/2472 (97%)
+2026-09-24 06:30:28 - INFO - check:check.py:680 - [质量检测] 进度: 2472/2472 (100%)
+2026-09-24 06:30:28 - INFO - check:check.py:735 - 质量检测完成: 总计=2188 通过=932 失败=129 超时=951 错误=176
+2026-09-24 06:30:28 - INFO - check:check.py:777 - 过滤后: 保留 467 个有效源，移除 1839 个失效源
+2026-09-24 06:30:28 - INFO - root:main.py:642 - [黑名单建议] 以下域名检测频繁失败，可考虑加入 url_blacklist：
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://183.30.201.117:10002  失败次数=214  (timeout=214)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://171.213.130.105:22222  失败次数=138  (failed=5, timeout=133)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://125.43.80.236:8090  失败次数=103  (timeout=103)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://175.0.78.167:9999  失败次数=92  (failed=3, timeout=89)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://183.234.143.5:5353udp:  失败次数=90  (error=90)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://59.173.53.59:8888  失败次数=72  (timeout=72)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://180.165.13.213:8881  失败次数=71  (failed=6, timeout=65)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://49.234.31.101:7027udp:  失败次数=66  (error=66)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://120.210.193.151:8006  失败次数=65  (timeout=65)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://123.189.66.98:4022  失败次数=59  (timeout=59)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://101.35.240.114:88  失败次数=57  (failed=57)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://220.192.160.171:10000  失败次数=38  (failed=9, timeout=29)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://183.141.143.39:8888  失败次数=36  (timeout=36)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://rihou.cc:555  失败次数=35  (empty=3, failed=4, timeout=28)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://120.233.73.4:19901  失败次数=32  (failed=1, timeout=31)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://111.196.130.52:20000  失败次数=31  (failed=4, timeout=27)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://110.177.176.224:5555  失败次数=31  (failed=1, timeout=30)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://www.sccckj.cn:8899  失败次数=26  (empty=1, failed=10, timeout=15)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://111.4.59.41:60901  失败次数=26  (timeout=26)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://175.3.238.52:4022  失败次数=23  (failed=2, timeout=21)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://113.205.161.234:8002  失败次数=22  (failed=9, timeout=13)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   https://cdn.qd.je  失败次数=14  (failed=11, timeout=3)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://139.227.221.147:9901  失败次数=10  (timeout=10)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://tvtj1.jxwltx.com:8003  失败次数=8  (timeout=8)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://36.129.58.18:9901  失败次数=6  (failed=6)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://iptv.4666888.xyz  失败次数=3  (error=1, timeout=2)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://tencentplaygzrb01.gztv.com  失败次数=3  (timeout=3)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://php.jdshipin.com:8880  失败次数=3  (failed=3)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   https://php.jdshipin.com  失败次数=1  (failed=1)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://180.114.162.2:2380  失败次数=1  (timeout=1)
+2026-09-24 06:30:28 - INFO - root:main.py:644 -   http://webcast.hkstv.tv  失败次数=1  (failed=1)
+2026-09-24 06:30:28 - INFO - root:main.py:713 - [质量检测] 完成
+2026-09-24 06:30:28 - INFO - root:main.py:717 - [订阅白名单] 开始抓取保底源...
+2026-09-24 06:30:28 - INFO - root:main.py:297 - [抓取] 开始: http://192.168.1.31:2134
+2026-09-24 06:30:38 - ERROR - root:main.py:355 - [抓取] http://192.168.1.31:2134 超时 (>10s)
+2026-09-24 06:30:38 - INFO - root:main.py:270 - [匹配统计] 模板 133 频道，在线 0 URL，匹配 0 URL
+2026-09-24 06:30:38 - INFO - root:main.py:721 - [订阅白名单] 匹配到 0 个频道
+2026-09-24 06:30:38 - INFO - root:main.py:725 - [汇总] 频道分类 6 个，总频道数 69，总URL数 467
+2026-09-24 06:30:38 - INFO - root:main.py:813 - [输出统计] 最终输出 66 频道 / 328 URL
