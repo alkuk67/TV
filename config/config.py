@@ -26,11 +26,11 @@ enable_isp_split = False
 
 # ── 订阅源 ───────────────────────────────────────────────────────
 source_urls = [
-    #"https://cdn.qd.je/live.m3u",
-    #"http://rihou.cc:567/gggg.nzk",
+    "https://cdn.qd.je/live.m3u",
+    "http://rihou.cc:567/gggg.nzk",
     #"http://193.123.86.190:14888/TV/iptv.php",
     #"https://gh.927223.xyz/https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u",
-    "https://github.776512.xyz/https://raw.githubusercontent.com/yuanzl77/zf/refs/heads/main/testtg.txt",
+    #"https://github.776512.xyz/https://raw.githubusercontent.com/yuanzl77/zf/refs/heads/main/testtg.txt",
 ]
 
 # ── 订阅白名单（保底源）──────────────────────────────────────────────
@@ -47,7 +47,7 @@ hotel_config = {
     "hotel_api": "https://iptvs.pes.im",
     "enabled": True,
     "allowed_orgs": [],
-    "concurrency": 50,
+    "concurrency": 60,
     "max_hosts": 50,
 }
 
