@@ -15,15 +15,15 @@ for _h in logger.handlers:
     _h.setFormatter(_logger_fmt)
 
 
-async def _fetch_json(session, url, timeout):
+async def _fetch_json(session, url):
     """通用 JSON 请求"""
     try:
-        async with session.get(url, timeout=timeout) as resp:
+        async with session.get(url) as resp:
             resp.raise_for_status()
             text = await resp.text()
             return json.loads(text)
-    except Exception:
-        return None
+    except Exception as e:
+        logger.warning("[组播源] 请求失败: %s", e)
 
 
 async def fetch_multicast_channels():
@@ -43,7 +43,7 @@ async def fetch_multicast_channels():
     connector = aiohttp.TCPConnector(limit=5, ssl=False)
 
     async with aiohttp.ClientSession(connector=connector, timeout=timeout) as session:
-        data = await _fetch_json(session, mc_api, 15)
+        data = await _fetch_json(session, mc_api)
 
     if not data:
         logger.warning("[组播源] 未获取到数据")
@@ -75,11 +75,17 @@ async def fetch_multicast_channels():
     loc_skip = 0
     op_skip = 0
     channels = {}
+    seen = set()
 
     for item in items:
+        if not isinstance(item, dict):
+            continue
+
         channel_name = item.get("channel_name", "").strip()
         stream_url = item.get("stream_url", "").strip()
         if not channel_name or not stream_url:
+            continue
+        if (channel_name, stream_url) in seen:
             continue
 
         alive = item.get("alive")
@@ -99,6 +105,7 @@ async def fetch_multicast_channels():
             op_skip += 1
             continue
 
+        seen.add((channel_name, stream_url))
         channels.setdefault(channel_name, []).append(stream_url)
         alive_count += 1
 

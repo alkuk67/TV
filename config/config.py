@@ -26,14 +26,19 @@ enable_isp_split = False
 
 # ── 订阅源 ───────────────────────────────────────────────────────
 source_urls = [
-    "https://cdn.qd.je/live.m3u",
-    "http://rihou.cc:567/gggg.nzk",
-    "http://193.123.86.190:14888/TV/iptv.php",
-    "https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u",
+    #"https://cdn.qd.je/live.m3u",
+    #"http://rihou.cc:567/gggg.nzk",
+    #"http://193.123.86.190:14888/TV/iptv.php",
+    #"https://gh.927223.xyz/https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u",
+    "https://github.776512.xyz/https://raw.githubusercontent.com/yuanzl77/zf/refs/heads/main/testtg.txt",
 ]
 
 # ── 订阅白名单（保底源）──────────────────────────────────────────────
-subscription_whitelist = ["http://192.168.1.31:2134"]
+subscription_whitelist = [
+  "http://192.168.1.31:2134",
+  "http://192.168.1.31:18808/hoy-proxy.txt",
+  "http://192.168.1.31:18080/channels.txt",
+]
 
 # 订阅源抓取超时（秒）
 fetch_timeout = 10
@@ -42,6 +47,8 @@ hotel_config = {
     "hotel_api": "https://iptvs.pes.im",
     "enabled": True,
     "allowed_orgs": [],
+    "concurrency": 50,
+    "max_hosts": 50,
 }
 
 multicast_config = {
@@ -62,6 +69,9 @@ url_blacklist = [
 ]
 
 # ── 公告条目 ────────────────────────────────────────────────────────
+# True = 输出 announcements，False = 全局和运营商输出均跳过公告
+enable_announcements = True
+
 announcements = [
     {
         "channel": "公告-yuanzl77",
@@ -95,7 +105,7 @@ check_max_conn   = 10
 # enable_ffprobe     : True=启用 FFprobe 探流，False=仅 HTTP 快筛
 # ffprobe_path       : FFprobe 可执行文件路径（空=使用系统 PATH）
 # ffprobe_timeout    : 单个 URL FFprobe 超时（秒）
-# ffprobe_max_streams: ffprobe 并行流数量上限
+# ffprobe_max_streams: 解析 FFprobe 输出时最多保留前 N 个流，0=不限制
 # bitrate_sample_sec : 每次 ffprobe 采样的秒数（0=不采样）
 # min_bitrate        : 最低码率阈值（bps），0=不限制
 # min_resolution     : 最低分辨率宽度（如 "1080"），空字符串=不限制

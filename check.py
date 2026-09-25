@@ -184,6 +184,8 @@ def _m3u8_speed_test_sync(url, timeout):
     """
     import time
     import urllib.request
+    timeout = max(float(timeout), 0.001)
+    deadline = time.monotonic() + timeout
     result = {
         "status": "ok",
         "detail": "",
@@ -199,7 +201,10 @@ def _m3u8_speed_test_sync(url, timeout):
     # 下载 m3u8 playlist
     m3u8_start = time.time()
     try:
-        with urllib.request.urlopen(url, timeout=3) as resp:
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            raise TimeoutError
+        with urllib.request.urlopen(url, timeout=remaining) as resp:
             m3u8_content = resp.read().decode("utf-8", errors="replace")
         m3u8_elapsed = time.time() - m3u8_start
     except Exception:
@@ -245,7 +250,10 @@ def _m3u8_speed_test_sync(url, timeout):
         ts_url = ts_rel if ts_rel.startswith("http") else base_url + ts_rel
         try:
             ts_start = time.time()
-            with urllib.request.urlopen(ts_url, timeout=3) as ts_resp:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                break
+            with urllib.request.urlopen(ts_url, timeout=remaining) as ts_resp:
                 ts_data = ts_resp.read()
             ts_elapsed = time.time() - ts_start
             total_bytes += len(ts_data)
@@ -416,6 +424,7 @@ async def _unified_probe(session, clean_url, ffprobe_timeout):
             deep["detail"] = f"hls segments~{deep['segment_count']} target_dur={deep['target_duration']}s"
 
         if deep.get("status") == "ok":
+            result["layer"] = "deep"
             result["deep"] = deep
             if deep.get("stream_quality"):
                 result["stream_quality"] = deep["stream_quality"]
@@ -426,6 +435,7 @@ async def _unified_probe(session, clean_url, ffprobe_timeout):
             session, clean_url, getattr(config, "speed_test_timeout", 5)
         )
         if deep.get("status") in ("ok", "ok_unstable"):
+            result["layer"] = "deep"
             result["deep"] = deep
             if deep.get("stream_quality"):
                 result["stream_quality"] = deep["stream_quality"]
@@ -463,7 +473,7 @@ def _run_ffprobe(url, timeout, max_streams):
         "-show_format",
     ]
     if sample_sec > 0:
-        cmd += ["-show_entries", "packet=size,pts_time", "-read_intervals", f"%+{sample_sec}"]
+        cmd += ["-show_entries", "packet=stream_index,size,pts_time", "-read_intervals", f"%+{sample_sec}"]
     cmd += ["-rw_timeout", str(int(timeout * 1000000)), "-i", url]
     try:
         proc = subprocess.run(
@@ -474,6 +484,12 @@ def _run_ffprobe(url, timeout, max_streams):
             return {"status": "failed", "detail": f"ffprobe exit={proc.returncode}"}
         data = json.loads(proc.stdout.decode("utf-8", errors="replace"))
         streams = data.get("streams", [])
+        try:
+            stream_limit = int(max_streams)
+        except (TypeError, ValueError):
+            stream_limit = 0
+        if stream_limit > 0:
+            streams = streams[:stream_limit]
         video_stream = next((s for s in streams if s.get("codec_type") == "video"), None)
         audio_stream = next((s for s in streams if s.get("codec_type") == "audio"), None)
         fmt = data.get("format", {})
@@ -496,6 +512,9 @@ def _run_ffprobe(url, timeout, max_streams):
         # packet 采样计算真实码率（TS 无 bit_rate 字段时 fallback）
         if result["bitrate"] == 0 and sample_sec > 0:
             pkts = data.get("packets", [])
+            video_index = video_stream.get("index") if video_stream else None
+            if video_index is not None:
+                pkts = [p for p in pkts if p.get("stream_index") == video_index]
             if len(pkts) >= 2:
                 total_bytes = sum(int(p.get("size", 0) or 0) for p in pkts)
                 try:

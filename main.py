@@ -140,6 +140,12 @@ def fetch_channels(url):
                         channels[current_category].append((channel_name, channel_url))
                     elif line:
                         channels[current_category].append((line, ""))
+                elif not line.startswith("#"):
+                    match = re.match(r"^(.*?),(.*?)$", line)
+                    if match:
+                        channel_name = match.group(1).strip()
+                        channel_url = match.group(2).strip()
+                        channels.setdefault("未分类", []).append((channel_name, channel_url))
         if channels:
             categories = ", ".join(channels.keys())
             logging.info(f"url: {url} 抓取成功，包含频道分类: {categories}")
@@ -156,7 +162,7 @@ def _normalize(name: str) -> str:
     # 清理残余的孤立括号字符，以及名字中的 . 和 ?（旧版行为，保留避免已有匹配回归）
     s = re.sub(r'[（）()【\]】.?]', '', s)
     # 去掉末尾常见后缀
-    suffixes = '高清版|超高清版|频道|卫视频|高清|超高清|SD|sd|HD|hd|综艺|纪录|纪实|体育|电影|戏曲|科教|新闻|少儿|音乐|综合|法治|生活|军事|农业|农村|戏剧|文化|经济|社会|百科|世界|地理|历史|探索|发现|天文|游戏|汽车|旅游|时尚|女性|儿童|财经|老年|电视|公映|赛事|中文国际|国防军事|社会与法|奥林匹克|体育赛事|农业农村|电视剧'
+    suffixes = '高清版|超高清版|频道|卫视频|高清|超高清|SD|sd|HD|hd'
     s = re.sub(r'(' + suffixes + ')$', '', s)
     while re.search(r'(' + suffixes + ')$', s):
         s = re.sub(r'(' + suffixes + ')$', '', s)
@@ -338,6 +344,12 @@ async def fetch_channels_async(session, url, timeout):
                             channels[current_category].append((channel_name, channel_url))
                         elif line:
                             channels[current_category].append((line, ''))
+                    elif not line.startswith('#'):
+                        match = re.match(r'^(.*?),(.*?)$', line)
+                        if match:
+                            channel_name = match.group(1).strip()
+                            channel_url = match.group(2).strip()
+                            channels.setdefault('未分类', []).append((channel_name, channel_url))
             if channels:
                 total_urls = sum(len(urls) for urls in channels.values())
                 categories = ', '.join(channels.keys())
@@ -530,7 +542,8 @@ def _url_sort_key(url: str, check_results: dict, category: str = ""):
             jitter_ms = sq.get("jitter_ms", 0)
             packet_loss = sq.get("packet_loss", 0.0)
             response_time_ms = r.get("response_time_ms", 0)
-    layer_rank = 1 if layer in ("fast", "ffprobe") else 0
+    # 深度探测做过真实流下载测速，排序时应优于仅元数据/快筛结果
+    layer_rank = 1 if layer == "deep" else 0
     sort_mode = getattr(config, "sort_mode", "balanced")
     if sort_mode == "quality":
         quality_weight = 0.65
@@ -582,7 +595,7 @@ def _url_sort_key(url: str, check_results: dict, category: str = ""):
         latency_score = max(0, (1 - response_time_ms / max_latency)) * 1000
     else:
         latency_score = 500
-    final_score = latency_score * 0.3 + combined_score * 0.7
+    final_score = latency_score * 0.16 + combined_score * 0.84
     return (ipv6_rank, source_rank, -final_score)
 
 
@@ -735,11 +748,12 @@ def _write_channels_to_files(f_m3u, f_txt, channels, template_channels, epg_id_m
     output_url_count = 0
     for category, channel_list in template_channels.items():
         f_txt.write(f"{category},#genre#\n")
-        if category in channels:
+        if category in channels or category in _whitelist_matched:
             for channel_name in channel_list:
-                if channel_name in channels[category]:
+                whitelist_urls = _whitelist_matched.get(category, {}).get(channel_name, [])
+                if channels.get(category, {}).get(channel_name) or whitelist_urls:
                     sorted_urls = sorted(
-                        channels[category][channel_name],
+                        channels.get(category, {}).get(channel_name, []),
                         key=lambda url: _url_sort_key(url, check_results, category)
                     )
                     filtered_urls = []
@@ -749,7 +763,7 @@ def _write_channels_to_files(f_m3u, f_txt, channels, template_channels, epg_id_m
                             written_urls.add(url)
                     if config.max_lines_per_channel > 0 and len(filtered_urls) > config.max_lines_per_channel:
                         filtered_urls = filtered_urls[:config.max_lines_per_channel]
-                    for wl_url in _whitelist_matched.get(category, {}).get(channel_name, []):
+                    for wl_url in whitelist_urls:
                         if wl_url and wl_url not in written_urls:
                             filtered_urls.append(wl_url)
                             written_urls.add(wl_url)
@@ -799,7 +813,8 @@ def updateChannelUrlsM3U(channels, template_channels, epg_id_map=None, check_res
         f_m3u.write(f"#EXTM3U x-tvg-url={epg_attr}\n")
 
         with open(os.path.join(output_dir, "live.txt"), "w", encoding="utf-8") as f_txt:
-            for group in config.announcements:
+            announcement_groups = config.announcements if config.enable_announcements else []
+            for group in announcement_groups:
                 f_txt.write(f"{group['channel']},#genre#\n")
                 for announcement in group["entries"]:
                     f_m3u.write(f"""#EXTINF:-1 tvg-id="{announcement['name']}" tvg-name="{announcement['name']}" tvg-logo="{announcement['logo']}" group-title="{group['channel']}",{announcement['name']}\n""")
@@ -875,7 +890,8 @@ def _write_channel_file(filepath_txt, filepath_m3u, channels, template_channels,
         epg_attr = ','.join(chr(34)+epg_url+chr(34) for epg_url in config.epg_urls)
         f_m3u.write(f'#EXTM3U x-tvg-url={epg_attr}\n')
         with open(filepath_txt, 'w', encoding='utf-8') as f_txt:
-            for group in config.announcements:
+            announcement_groups = config.announcements if config.enable_announcements else []
+            for group in announcement_groups:
                 f_txt.write(f"{group['channel']},#genre#\n")
                 for announcement in group['entries']:
                     f_m3u.write(f"""#EXTINF:-1 tvg-id="{announcement['name']}" tvg-name="{announcement['name']}" tvg-logo="{announcement['logo']}" group-title="{group['channel']}",{announcement['name']}\n""")
@@ -929,5 +945,3 @@ def _output_isp_files(channels, template_channels, epg_id_map, check_results):
 if __name__ == "__main__":
     quality_checker.clear_stop_signal()
     asyncio.run(async_main())
-
-

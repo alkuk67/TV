@@ -1,9 +1,8 @@
-FROM python:3.11.2
+FROM python:3.11-slim
 WORKDIR /app
 
-RUN printf 'deb http://archive.debian.org/debian bullseye main\ndeb http://archive.debian.org/debian bullseye-updates main\n' > /etc/apt/sources.list \
-    && apt-get update && apt-get install -y --no-install-recommends \
-    ffmpeg curl procps tzdata && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ffmpeg tzdata && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
 ARG PIP_INDEX_URL=https://pypi.org/simple

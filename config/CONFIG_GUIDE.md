@@ -5,106 +5,174 @@
 ## 一、整体流程
 
 ```
-HTTP 快筛 → FFprobe 元数据探测 → 中度探测（仅 m3u8）→ 过滤 → 排序
-  第一层          第二层                第三层
+频道抓取与模板匹配 → HTTP 快筛 → FFprobe 元数据 → 流测速
+                    → 过滤 → 排序、去重 → 输出
 ```
 
-## 二、各层说明
+普通订阅、酒店源和组播源先统一匹配 `config/demo.txt`；订阅白名单在质量检测之后获取，不参与检测，输出时排在普通线路之后。
+
+## 二、频道输入格式
+
+### M3U
+
+- 根据前 15 行是否包含 `#EXTINF` 判断格式。
+- 从 `#EXTINF` 提取 `group-title` 和频道名，下一条非注释行作为 URL。
+
+### TXT
+
+- 有分组时识别：
+
+```text
+分类,#genre#
+频道名,URL
+```
+
+- 没有 `分类,#genre#` 时，也支持直接输入：
+
+```text
+频道名,URL
+```
+
+- 直接输入的频道暂存到“未分类”，后续仍由 `config/demo.txt` 决定最终分类、频道和输出顺序。
+- 未进入任何分组前，`#` 开头的注释行不会作为频道解析。
+- 同步抓取和主流程使用的异步抓取都支持上述 TXT 格式。
+
+## 三、检测各层说明
 
 ### 第一层：HTTP 快筛
-- 功能：检测 URL 是否可访问，获取响应时间
-- 超时：check_timeout = 3.5s
-- 并发：check_max_conn = 10
-- 特殊流：包含 /rtp/、/udp/ 的地址改用字节检查，至少读取 50KB 才通过
-- 结果：status 为 ok / ok_no_ts 时进入下一层
 
-### 第二层：FFprobe 元数据探测
-- 开关：enable_ffprobe = True；ffprobe_path 为空时使用系统 PATH 中的 ffprobe
-- 功能：获取分辨率、码率、编解码器、speed_x 等元数据
-- 超时：ffprobe_timeout = 5s；最多探测 ffprobe_max_streams = 3 个流
-- 采样：bitrate_sample_sec = 3，用 packet 大小计算真实码率；0 = 不采样
-- 过滤条件：
-  - 分辨率：min_resolution = "1080"，宽度 < 1080 的源被淘汰；"0"/空 = 不限制
-  - 码率：min_bitrate = 0，不限制；设为正数（如 2500000 = 2.5 Mbps）后低于阈值的源被淘汰，ffprobe 读不到码率的源不受影响
-- 失败：FFprobe 读不到元数据时 layer 记为 ffprobe_fail，不直接淘汰，排序时扣分
-- 测速：enable_speed_test = True 时下载流数据实测速率（上限 speed_test_max_bytes = 512KB），得到 speed_kbps、首帧延迟和抖动，只用于排序，不过滤
+- 功能：请求 URL，记录响应状态和响应时间。
+- 超时：`check_timeout = 3.5s`。
+- 并发：`check_max_conn = 10`。
+- 最多读取 64KB 响应体，避免无限直播流一直读取到超时。
+- M3u8 检查播放列表条目；空播放列表返回 `ok_no_ts`。
+- 当前主流程统一调用 `_http_fast_check`。`_http_byte_check` 虽然存在，但没有接入 `_check_single`，因此 `/rtp/`、`/udp/` 地址也走相同的 HTTP 快筛。
 
-### 第三层：中度探测（仅 m3u8 流）
-- 开关：enable_moderate_probe = True
-- 功能：解析 m3u8 清单，下载前 3 个 TS 分片计算综合速度（speed_kbps）
-- 超时：deep_probe_timeout = 6.5s
-- 结果：成功 → layer = "deep"；失败 → 回落为 layer = "ffprobe"
-- 复测：stability_test_count = 1 表示只测一次；调大后按 stability_test_interval 间隔重复探测，取中位速度
+### 第二层：FFprobe 元数据
 
-## 三、过滤逻辑（保留条件）
+- 开关：`enable_ffprobe = True`。
+- `ffprobe_path` 为空时使用系统 `PATH` 中的 `ffprobe`。
+- 超时：`ffprobe_timeout = 6s`。
+- `ffprobe_max_streams = 3` 表示解析 FFprobe 输出时最多保留前 3 个流；它不限制 ffprobe 内部读取，`0` 表示不限制。
+- `bitrate_sample_sec = 3` 时可通过 packet 大小估算真实码率，且只统计视频流。
+- 获取分辨率、码率、编码格式等元数据。
+- 当前质量检测流程依赖 FFprobe 结果；读取失败或没有宽度元数据时，配置 `min_resolution = "1080"` 会导致该 URL 被过滤。
 
-main.py 调用：
+### 第三层：流测速
+
+#### M3u8
+
+- FFprobe 成功后解析播放列表。
+- 下载播放列表及前 3 个 TS 分片，计算 `speed_kbps`、首帧延迟和抖动。
+- 测速成功时 `layer = "deep"`；失败时保留 FFprobe 结果，`layer` 回落为 `"ffprobe"`。
+- `deep_probe_timeout` 作为播放列表和 TS 分片的剩余时间预算；每次请求使用截至当前的剩余时间，配置会直接影响 M3u8 测速超时。
+
+#### 非 M3u8
+
+- 调用 `_download_speed_test`，按块下载并计算速度、首帧延迟和抖动。
+- 下载超时由 `speed_test_timeout = 5s` 控制。
+- 下载上限由 `speed_test_max_bytes = 512KB` 控制；修改配置即可调整字节数。
+- `speed_test_max_bytes` 不限制 M3u8，M3u8 当前固定下载播放列表和前 3 个 TS 分片。
+- 根据 `bursty_ratio` 和 `bursty_max_gap_ms` 判断脉冲流；命中后标记为 `ok_unstable`，过滤阶段会移除。
+
+## 四、过滤逻辑
+
+`main.py` 当前调用：
+
+```python
+filter_dead_urls(
+    channels,
+    check_results,
+    accept_layers=("fast", "ffprobe", "deep"),
+)
 ```
-filter_dead_urls(channels, check_results, accept_layers=("fast", "ffprobe", "deep", "ffprobe_fail"))
+
+URL 必须同时满足：
+
+- `layer` 属于 `fast`、`ffprobe`、`deep`；`ffprobe_fail` 不在接收范围内。
+- `status` 属于 `ok`、`ok_no_ts`。
+- 深度测速状态不能是 `ok_unstable`。
+- `min_resolution = "1080"` 时，FFprobe 宽度必须大于等于 1080；`0`、空字符串或非数字表示不限制。
+- `min_bitrate` 为正数时，已读取的码率必须达到阈值；读取不到码率时不受该阈值限制。
+- `min_speed_kbps` 为正数时，必须有达到阈值的测速结果；当前值为 0，因此测速不参与过滤。
+
+因此，当前配置下 FFprobe 失败或分辨率元数据不足的源会被过滤，而不是保留后仅做排序扣分。
+
+## 五、排序逻辑
+
+`main.py` 的排序键依次比较：
+
+1. IP 版本：`ip_version_priority = "ipv6"` 时 IPv6 排在 IPv4 前。
+2. 来源优先级：`["multicast", "hotel", "subscription"]`。
+3. 最终得分：得分越高越靠前；响应时间已经计入最终得分，不是单独的第三层排序键。
+
+得分组成：
+
+- `speed_score`：按“实测速度 / 视频码率”的余量比计算，范围约为 -1000 到 1000；码率未知时按 2500 kbps 估算。
+- `quality_score = 码率分 × 0.45 + 分辨率分 × 0.55`；码率以 10 Mbps 为满分，分辨率以宽 1920 为满分。
+- `layer = "deep"` 时综合分增加 500。
+- 根据首帧延迟、抖动和丢包进行加减分。
+- 元数据缺失扣分公式仍然存在，但 `ffprobe_fail` 通常已在过滤阶段被移除。
+- `quality_weight`：`sort_mode = "quality"` 时为 0.65，`"speed"` 时为 0.40，其他模式为 0.52。
+- 综合分：
+
+```text
+speed_score × 0.48
++ quality_score × quality_weight
++ deep 层加分
++ 流质量加减分
++ 元数据惩罚
 ```
 
-同时满足以下条件才保留：
-- layer 属于 ("fast", "ffprobe", "deep", "ffprobe_fail")
-- status 属于 ("ok", "ok_no_ts")
-- 分辨率符合 min_resolution（"1080" 表示宽 >= 1080；"0"/空/非数字 = 不限制）
-- 码率符合 min_bitrate（0 = 不限制；读不到码率的源不受影响）
-- 速度符合 min_speed_kbps（0 = 不限制；无测速结果的源保留）
+- 延迟分：响应时间越短越高；没有响应时间数据时为 500。
+- 最终分：
 
-即：FFprobe 失败的源不会被淘汰，速度不参与过滤，只影响排序。
+```text
+延迟分 × 0.16 + 综合分 × 0.84
+```
 
-## 四、排序逻辑（main.py 的 _url_sort_key）
-
-排序键依次为：
-1. IP 优先级：按 ip_version_priority（"ipv6" = IPv6 排前）
-2. 来源优先级：按 source_priority 顺序（multicast > hotel > subscription）
-3. 响应时间：越短越靠前
-4. 最终得分：越高越靠前
-
-打分项：
-- 速度分 speed_score：按「实测速度 / 视频码率」的余量比打分（-1000 ~ 1000），码率未知时按 2500 kbps 估算；余量 >= 4 倍为满分，< 0.8 倍为负分
-- 画质分 quality_score = 码率分 × 0.45 + 分辨率分 × 0.55（码率以 10 Mbps 为满分，分辨率以宽 1920 为满分）
-- 深度层加分：layer = "deep" 时综合分 +500
-- ffprobe speed_x：>= 1.0 加分（上限 600），< 1.0 扣分
-- 流质量：首帧延迟 <200ms 加 400、<500ms 加 200、>2s 扣分；抖动 <100ms 加 200、<300ms 加 100；丢包按比例扣分
-- 元数据缺失：layer = ffprobe_fail 时固定扣 300 分
-- 综合分 = 速度分 × 0.48 + 画质分 × quality_weight + ...；quality_weight 在 sort_mode = "quality" 时为 0.65，否则 0.52
-- 延迟分 = max(0, (1 - 响应时间/2000)) × 1000，无响应时间数据时给 500
-- 最终分 = 延迟分 × 0.3 + 综合分 × 0.7
-
-## 五、配置项对照表
+## 六、主要配置项
 
 | 配置项 | 当前值 | 说明 |
 |--------|--------|------|
-| ip_version_priority | "ipv6" | IPv6 地址优先排序 |
-| source_priority | ["multicast","hotel","subscription"] | 来源优先级，高的排前 |
-| max_lines_per_channel | 8 | 每频道最大线路数，0 = 不限制 |
-| sort_mode | "balanced" | 排序模式：speed / quality / balanced |
-| enable_isp_split | False | True = 生成运营商分类文件 |
-| fetch_timeout | 10 | 订阅源抓取超时（秒）|
-| enable_quality_check | True | False = 跳过检测直接输出 |
-| check_timeout | 3.5s | HTTP 快筛超时 |
-| check_max_conn | 10 | 并发检测数 |
-| enable_ffprobe | True | 是否启用 FFprobe |
-| ffprobe_path | "" | FFprobe 可执行文件路径；空 = 用系统 PATH |
-| ffprobe_max_streams | 3 | FFprobe 最多探测流数 |
-| ffprobe_timeout | 5s | FFprobe 超时 |
-| bitrate_sample_sec | 3 | 码率采样秒数；0 = 不采样 |
-| min_resolution | "1080" | 最低分辨率宽度；"0"/"" = 不限制 |
-| min_bitrate | 0 | 最低码率（bps）；0 = 不限制 |
-| enable_moderate_probe | True | 启用中度探测（仅 m3u8）|
-| deep_probe_timeout | 6.5s | 中度探测超时 |
-| stability_test_count | 1 | 额外复测次数；1 = 只测一次 |
-| stability_test_interval | 1.0s | 复测间隔 |
-| enable_speed_test | True | 启用下载测速（实测速率）|
-| speed_test_timeout | 5s | 测速下载超时 |
-| speed_test_segments | 3 | 取平均的分片数（当前实现按字节上限下载，此参数暂未生效）|
-| speed_test_max_bytes | 512KB | 测速下载字节上限 |
-| min_speed_kbps | 0 | 最低测速阈值；0 = 只排序不过滤 |
+| `ip_version_priority` | `"ipv6"` | IPv6 地址优先排序 |
+| `source_priority` | `["multicast","hotel","subscription"]` | 来源优先级，靠前优先 |
+| `max_lines_per_channel` | 8 | 每频道最大普通线路数；0 = 不限制 |
+| `sort_mode` | `"balanced"` | `speed` / `quality` / `balanced` |
+| `enable_isp_split` | `False` | 是否生成运营商分类文件 |
+| `enable_announcements` | `True` | 是否把 `announcements` 写入全局和运营商输出 |
+| `fetch_timeout` | 10 | 普通订阅源抓取超时（秒） |
+| `enable_quality_check` | `True` | 是否执行质量检测 |
+| `check_timeout` | 3.5 | HTTP 快筛超时（秒） |
+| `check_max_conn` | 10 | 质量检测并发数 |
+| `enable_ffprobe` | `True` | 是否执行 FFprobe 元数据探测 |
+| `ffprobe_path` | `""` | 空字符串 = 使用系统 `PATH` |
+| `ffprobe_max_streams` | 3 | 解析结果最多保留的前 N 个流；0 = 不限制 |
+| `ffprobe_timeout` | 6 | FFprobe 超时（秒） |
+| `bitrate_sample_sec` | 3 | packet 码率采样秒数；0 = 不采样 |
+| `min_resolution` | `"1080"` | 最低宽度；`"0"` / 空字符串 = 不限制 |
+| `min_bitrate` | 0 | 最低码率（bps）；0 = 不限制 |
+| `deep_probe_timeout` | 6 | M3u8 播放列表和分片测速的总时间预算（秒） |
+| `min_speed_kbps` | 0 | 最低测速阈值；0 = 只参与排序 |
+| `speed_test_timeout` | 5 | 非 M3u8 下载测速超时（秒） |
+| `speed_test_max_bytes` | 512KB | 非 M3u8 测速下载字节上限 |
+| `bursty_ratio` | 4.0 | 最大间隔达到平均间隔的倍数时判定脉冲 |
+| `bursty_max_gap_ms` | 800 | 判定脉冲所需的最大间隔（毫秒） |
 
-## 六、输出说明
+## 七、公告开关
 
-- layer="fast"：仅通过 HTTP 快筛（FFprobe 未启用时出现）
-- layer="ffprobe"：通过第二层，未做或未通过中度探测
-- layer="deep"：通过第三层，有速度数据
-- layer="ffprobe_fail"：HTTP 通过但 FFprobe 未读到元数据（保留，排序扣分）
-- speed_kbps：实测下载速度（kbps）
+```python
+enable_announcements = True
+```
+
+- `True`：把 `config.announcements` 写入 `live.m3u` 和 `live.txt`。
+- `False`：全局输出和运营商分类输出都完全跳过公告分组及公告条目。
+- 普通频道、检测、排序和线路数量限制不受该开关影响。
+
+## 八、输出层含义
+
+- `fast`：只取得 HTTP 快筛结果。
+- `ffprobe`：通过 FFprobe，但没有成功进入深度测速。
+- `deep`：完成真实流下载测速，带 `speed_kbps` 等数据。
+- `ffprobe_fail`：FFprobe 未读到有效元数据；当前主流程不接收该层。
+- `speed_kbps`：实测下载速度，单位 kbps。
