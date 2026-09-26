@@ -28,8 +28,8 @@ enable_isp_split = False
 source_urls = [
     "https://cdn.qd.je/live.m3u",
     "http://rihou.cc:567/gggg.nzk",
-    #"http://193.123.86.190:14888/TV/iptv.php",
-    #"https://gh.927223.xyz/https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u",
+    "http://193.123.86.190:14888/TV/iptv.php",
+    "https://gh.927223.xyz/https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u",
     #"https://github.776512.xyz/https://raw.githubusercontent.com/yuanzl77/zf/refs/heads/main/testtg.txt",
 ]
 
@@ -52,7 +52,7 @@ hotel_config = {
 }
 
 multicast_config = {
-    "multicast_api": "https://github.776512.xyz/https://raw.githubusercontent.com/alkuk67/iptv-scrape/refs/heads/main/data/channels_all.json",
+    "multicast_api": "https://raw.githubusercontent.com/alkuk67/iptv-scrape/refs/heads/main/data/channels_all.json",
     "enabled": True,
     "enabled_location": "",
     "enabled_operator": "",
