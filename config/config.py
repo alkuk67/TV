@@ -48,7 +48,7 @@ hotel_config = {
     "enabled": True,
     "allowed_orgs": [],
     "concurrency": 60,
-    "max_hosts": 60,
+    "max_hosts": 80,
 }
 
 multicast_config = {
