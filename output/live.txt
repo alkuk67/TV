@@ -1,225 +1,253 @@
 公告-yuanzl77,#genre#
 www.776512.xyz,https://liuliuliu.tv/api/channels/233/stream
-更新时间：2026-09-29,https://gitlab.com/lr77/IPTV/-/raw/main/%E4%B8%BB%E8%A7%92.mp4
+更新时间：2026-09-30,https://gitlab.com/lr77/IPTV/-/raw/main/%E4%B8%BB%E8%A7%92.mp4
 请勿传播,https://liuliuliu.tv/api/channels/1997/stream
 央视频道,#genre#
-CCTV1,http://111.59.24.227:8181/tsfile/live/0001_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@7467kbps 11Mbps】
-CCTV1,http://110.53.235.13:19901/tsfile/live/0001_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@5014kbps 5Mbps】
-CCTV1,http://61.143.43.2:9901/tsfile/live/0001_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@8375kbps 7Mbps】
-CCTV1,http://218.104.239.114:9901/tsfile/live/0001_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@8193kbps 4Mbps】
-CCTV1,http://183.223.157.33:9901/tsfile/live/0001_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@7842kbps 3Mbps】
-CCTV1,http://183.94.146.79:9901/tsfile/live/0001_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路6】 【1920x1080@8149kbps 2Mbps】
-CCTV1,http://120.238.84.45:9901/tsfile/live/1018_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路7】 【1920x1080@7861kbps 2Mbps】
-CCTV1,http://219.140.6.133:7777/tsfile/live/1040_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路8】 【1920x1080@8085kbps 509kbps】
-CCTV2,http://123.157.31.182:7912/rtp/233.50.201.119:5140$LR—IPV4【线路1】 【1920x1080@5174kbps 2Mbps】
-CCTV2,http://111.59.24.227:8181/tsfile/live/0002_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7219kbps 10Mbps】
-CCTV2,http://113.15.109.216:59901/tsfile/live/0002_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@7895kbps 7Mbps】
-CCTV2,http://183.94.146.79:9901/tsfile/live/0002_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@8133kbps 5Mbps】
-CCTV2,http://218.104.239.114:9901/tsfile/live/0002_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@7818kbps 3Mbps】
-CCTV2,http://222.169.85.8:9901/tsfile/live/0002_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路6】 【1920x1080@6585kbps 5Mbps】
-CCTV2,http://61.138.128.226:29901/tsfile/live/0002_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路7】 【1920x1080@8639kbps 418kbps】
-CCTV2,https://php.jdshipin.com/TVOD/iptv.php?id=cctv2$LR—IPV4【线路8】 【1920x1080@3322kbps 8kbps】
-CCTV3,http://123.157.31.182:7912/rtp/233.50.201.196:5140$LR—IPV4【线路1】 【1920x1080@5611kbps 2Mbps】
-CCTV3,http://59.39.89.130:60901/tsfile/live/0003_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7776kbps 10Mbps】
-CCTV3,http://61.143.43.2:9901/tsfile/live/0003_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@7921kbps 2Mbps】
-CCTV3,http://110.53.235.13:19901/tsfile/live/0003_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@4780kbps 975kbps】
-CCTV3,http://139.227.221.147:9901/tsfile/live/0003_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路5】 【1920x1080@8919kbps】
-CCTV3,https://php.jdshipin.com/TVOD/iptv.php?id=cctv3$LR—IPV4【线路6】 【1280x720@631kbps 7kbps】
-CCTV3,http://139.227.221.147:9901/tsfile/live/0003_1.m3u8?key=txiptv$LR—IPV4【线路7】 【1920x1080@8919kbps】
-CCTV4,http://111.59.24.227:8181/tsfile/live/0004_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@7945kbps 10Mbps】
-CCTV4,http://221.221.137.78:9000/tsfile/live/0004_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@8013kbps 7Mbps】
-CCTV4,http://59.39.89.130:60901/tsfile/live/0004_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@8070kbps 6Mbps】
-CCTV4,http://120.233.73.4:19901/tsfile/live/1014_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@8076kbps 5Mbps】
-CCTV4,http://120.238.84.45:9901/tsfile/live/1021_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@8093kbps 3Mbps】
-CCTV4,http://139.227.221.147:9901/tsfile/live/0004_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路6】 【1920x1080@8579kbps】
-CCTV4,https://php.jdshipin.com/TVOD/iptv.php?id=cctv4$LR—IPV4【线路7】 【1920x1080@3129kbps 10kbps】
-CCTV5,http://123.157.31.182:7912/rtp/233.50.201.227:5140$LR—IPV4【线路1】 【1920x1080@3732kbps 2Mbps】
-CCTV5,http://123.157.31.182:7912/rtp/233.50.201.197:5140$LR—IPV4【线路2】 【1920x1080@3931kbps 2Mbps】
-CCTV5,http://123.157.31.182:7912/rtp/233.50.201.195:5140$LR—IPV4【线路3】 【1920x1080@4151kbps 2Mbps】
-CCTV5,http://58.32.42.54:6140/央视/CCTV-5?cors$LR—IPV4【线路4】 【1920x1080@5589kbps 2Mbps】
-CCTV5,http://61.143.43.2:9901/tsfile/live/0005_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@7367kbps 5Mbps】
-CCTV5,http://59.39.89.130:60901/tsfile/live/0005_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路6】 【1920x1080@7868kbps 3Mbps】
-CCTV5+,http://123.157.31.182:7912/rtp/233.50.201.220:5140$LR—IPV4【线路1】 【1920x1080@4690kbps 2Mbps】
-CCTV5+,http://58.32.42.54:6140/央视/CCTV-5+?cors$LR—IPV4【线路2】 【1920x1080@6427kbps 2Mbps】
-CCTV5+,http://221.221.137.78:9000/tsfile/live/0016_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@10741kbps 7Mbps】
-CCTV5+,http://120.238.84.45:9901/tsfile/live/1023_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7778kbps 1Mbps】
-CCTV6,http://123.157.31.182:7912/rtp/233.50.201.198:5140$LR—IPV4【线路1】 【1920x1080@5806kbps 2Mbps】
-CCTV6,http://221.221.137.78:9000/tsfile/live/0006_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7638kbps 4Mbps】
-CCTV6,http://218.104.239.114:9901/tsfile/live/0006_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@7978kbps 3Mbps】
-CCTV6,http://59.39.89.130:60901/tsfile/live/0006_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7916kbps 4Mbps】
-CCTV6,http://61.143.43.2:9901/tsfile/live/0006_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@2053kbps 1Mbps】
-CCTV6,http://139.227.221.147:9901/tsfile/live/0006_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路6】 【1920x1080@8656kbps】
-CCTV6,https://php.jdshipin.com/TVOD/iptv.php?id=cctv6$LR—IPV4【线路7】 【1280x720@687kbps 10kbps】
-CCTV7,http://183.94.146.79:9901/tsfile/live/0007_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@7783kbps 4Mbps】
-CCTV7,http://221.221.137.78:9000/tsfile/live/0007_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@8092kbps 1Mbps】
-CCTV7,https://php.jdshipin.com/TVOD/iptv.php?id=cctv7$LR—IPV4【线路3】 【1920x1080@3540kbps 12kbps】
-CCTV8,http://123.157.31.182:7912/rtp/233.50.201.199:5140$LR—IPV4【线路1】 【1920x1080@5388kbps 2Mbps】
-CCTV8,http://183.94.146.79:9901/tsfile/live/0008_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@8046kbps 7Mbps】
-CCTV8,http://111.4.59.41:60901/tsfile/live/1007_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路3】 【1920x1080@8175kbps 4Mbps】
-CCTV8,http://113.15.109.216:59901/tsfile/live/0008_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7684kbps 710kbps】
-CCTV8,https://php.jdshipin.com/TVOD/iptv.php?id=cctv8$LR—IPV4【线路5】 【1920x1080@3596kbps 12kbps】
-CCTV8,http://139.227.221.147:9901/tsfile/live/0008_1.m3u8?key=txiptv$LR—IPV4【线路6】 【1920x1080@8970kbps】
-CCTV9,http://123.157.31.182:7912/rtp/233.50.201.121:5140$LR—IPV4【线路1】 【1920x1080@5163kbps 2Mbps】
-CCTV9,http://183.94.146.79:9901/tsfile/live/0009_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7835kbps 8Mbps】
-CCTV9,http://120.233.73.4:19901/tsfile/live/1031_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@7841kbps 7Mbps】
-CCTV9,http://219.140.6.133:7777/tsfile/live/1048_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@8168kbps 1Mbps】
-CCTV9,http://59.39.89.130:60901/tsfile/live/0009_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@8202kbps 2Mbps】
-CCTV9,https://php.jdshipin.com/TVOD/iptv.php?id=cctv9$LR—IPV4【线路6】 【1280x720@1163kbps 9kbps】
-CCTV9,http://139.227.221.147:9901/tsfile/live/0009_1.m3u8?key=txiptv$LR—IPV4【线路7】 【1920x1080@8498kbps】
-CCTV10,http://120.233.73.4:19901/tsfile/live/1032_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@7442kbps 637kbps】
-CCTV10,https://php.jdshipin.com/TVOD/iptv.php?id=cctv10$LR—IPV4【线路2】 【1280x720@760kbps 9kbps】
-CCTV11,http://183.94.146.79:9901/tsfile/live/0011_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@7860kbps 5Mbps】
-CCTV11,http://183.223.157.33:9901/tsfile/live/0011_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@8099kbps 3Mbps】
-CCTV11,https://php.jdshipin.com/TVOD/iptv.php?id=cctv11$LR—IPV4【线路3】 【1920x1080@3695kbps 9kbps】
-CCTV11,http://139.227.221.147:9901/tsfile/live/0011_1.m3u8?key=txiptv$LR—IPV4【线路4】 【1920x1080@8288kbps】
-CCTV12,http://123.157.31.182:7912/rtp/233.50.201.123:5140$LR—IPV4【线路1】 【1920x1080@4870kbps 2Mbps】
-CCTV12,http://183.94.146.79:9901/tsfile/live/0012_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@8588kbps 8Mbps】
-CCTV12,http://118.193.115.2:9901/tsfile/live/0012_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@8031kbps 1Mbps】
-CCTV12,http://113.15.109.216:59901/tsfile/live/0012_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7349kbps 937kbps】
-CCTV12,https://php.jdshipin.com/TVOD/iptv.php?id=cctv12$LR—IPV4【线路5】 【1920x1080@3516kbps 8kbps】
-CCTV12,http://139.227.221.147:9901/tsfile/live/0012_1.m3u8?key=txiptv$LR—IPV4【线路6】 【1920x1080@8693kbps】
-CCTV13,http://123.157.31.182:7912/rtp/233.50.201.246:5140$LR—IPV4【线路1】 【1920x1080@5919kbps 2Mbps】
-CCTV13,http://183.223.157.33:9901/tsfile/live/0013_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@8227kbps 2Mbps】
-CCTV13,http://139.227.221.147:9901/tsfile/live/0013_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路3】 【1920x1080@8556kbps】
-CCTV13,https://php.jdshipin.com/TVOD/iptv.php?id=cctv13$LR—IPV4【线路4】 【1920x1080@4017kbps 1kbps】
-CCTV13,http://139.227.221.147:9901/tsfile/live/0013_1.m3u8?key=txiptv$LR—IPV4【线路5】 【1920x1080@8556kbps】
-CCTV14,http://123.157.31.182:7912/rtp/233.50.201.124:5140$LR—IPV4【线路1】 【1920x1080@5073kbps 2Mbps】
-CCTV14,http://113.15.109.216:59901/tsfile/live/0014_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7649kbps 4Mbps】
-CCTV14,http://59.39.89.130:60901/tsfile/live/0014_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@8206kbps 4Mbps】
-CCTV14,http://120.238.84.45:9901/tsfile/live/1032_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7802kbps 2Mbps】
-CCTV14,http://111.4.59.41:60901/tsfile/live/1013_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路5】 【1920x1080@8170kbps 4Mbps】
-CCTV14,https://php.jdshipin.com/TVOD/iptv.php?id=cctv14$LR—IPV4【线路6】 【1920x1080@3491kbps 7kbps】
-CCTV15,http://111.4.59.41:60901/tsfile/live/1014_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路1】 【1920x1080@7841kbps 3Mbps】
-CCTV15,https://php.jdshipin.com/TVOD/iptv.php?id=cctv15$LR—IPV4【线路2】 【1280x720@255kbps 9kbps】
-CCTV16,http://123.157.31.182:7912/rtp/233.50.201.192:5140$LR—IPV4【线路1】 【1920x1080@4673kbps 2Mbps】
-CCTV16,https://php.jdshipin.com/TVOD/iptv.php?id=cctv16$LR—IPV4【线路2】 【1920x1080@3709kbps 10kbps】
-CCTV17,http://222.169.85.8:9901/tsfile/live/0007_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@7344kbps 5Mbps】
-CCTV17,http://120.238.84.45:9901/tsfile/live/1048_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7874kbps 5Mbps】
-CCTV17,https://php.jdshipin.com/TVOD/iptv.php?id=cctv17$LR—IPV4【线路3】 【1920x1080@3717kbps 9kbps】
+CCTV1,http://yulang132.cn:4022/udp/239.94.0.31:5140$LR—IPV4【线路1】 【1920x1080@3897kbps 2Mbps】
+CCTV1,http://yulang132.cn:4022/udp/239.94.2.69:5140$LR—IPV4【线路2】 【1920x1080@5712kbps 2Mbps】
+CCTV1,http://111.59.24.227:8181/tsfile/live/0001_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@8037kbps 10Mbps】
+CCTV1,http://183.223.157.33:9901/tsfile/live/0001_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@8111kbps 7Mbps】
+CCTV1,http://110.53.235.13:19901/tsfile/live/0001_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@5923kbps 5Mbps】
+CCTV1,http://61.143.43.2:9901/tsfile/live/0001_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路6】 【1920x1080@8056kbps 2Mbps】
+CCTV1,http://111.4.59.41:60901/tsfile/live/1001_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路7】 【1280x720@2320kbps 1Mbps】
+CCTV1,http://61.138.128.226:29901/tsfile/live/0001_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路8】 【1920x1080@7167kbps 542kbps】
+CCTV2,http://yulang132.cn:4022/udp/239.94.0.2:5140$LR—IPV4【线路1】 【1920x1080@4903kbps 2Mbps】
+CCTV2,http://yulang132.cn:4022/udp/239.94.2.35:5140$LR—IPV4【线路2】 【1920x1080@5129kbps 2Mbps】
+CCTV2,http://183.94.146.79:9901/tsfile/live/0002_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@8137kbps 10Mbps】
+CCTV2,http://111.59.24.227:8181/tsfile/live/0002_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7671kbps 9Mbps】
+CCTV2,http://110.53.235.13:19901/tsfile/live/0002_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@5229kbps 3Mbps】
+CCTV2,http://218.104.239.114:9901/tsfile/live/0002_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路6】 【1920x1080@8128kbps 4Mbps】
+CCTV2,http://223.14.160.166:9901/tsfile/live/0002_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路7】 【1920x1080@8033kbps 2Mbps】
+CCTV2,http://222.169.85.8:9901/tsfile/live/0002_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路8】 【1920x1080@7196kbps 4Mbps】
+CCTV3,http://yulang132.cn:4022/udp/239.94.0.3:5140$LR—IPV4【线路1】 【1920x1080@4554kbps 2Mbps】
+CCTV3,http://yulang132.cn:4022/udp/239.94.0.32:5140$LR—IPV4【线路2】 【1920x1080@4026kbps 2Mbps】
+CCTV3,http://183.94.146.79:9901/tsfile/live/0003_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@7743kbps 10Mbps】
+CCTV3,http://153.0.171.163:9901/tsfile/live/1002_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@2158kbps 3Mbps】
+CCTV3,http://110.53.235.13:19901/tsfile/live/0003_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@2929kbps 3Mbps】
+CCTV3,http://223.14.160.166:9901/tsfile/live/0003_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路6】 【1920x1080@8583kbps 6Mbps】
+CCTV3,http://183.223.157.33:9901/tsfile/live/0003_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路7】 【1920x1080@7761kbps 4Mbps】
+CCTV3,http://120.238.84.45:9901/tsfile/live/1020_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路8】 【1920x1080@7548kbps 2Mbps】
+CCTV4,http://yulang132.cn:4022/udp/239.94.0.4:5140$LR—IPV4【线路1】 【1920x1080@5328kbps 2Mbps】
+CCTV4,http://111.59.24.227:8181/tsfile/live/0004_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7601kbps 10Mbps】
+CCTV4,http://223.14.160.166:9901/tsfile/live/0004_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@8026kbps 5Mbps】
+CCTV4,http://183.94.146.79:9901/tsfile/live/0004_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@8089kbps 4Mbps】
+CCTV4,http://183.223.157.33:9901/tsfile/live/0004_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@8085kbps 3Mbps】
+CCTV4,http://139.227.221.147:9901/tsfile/live/0004_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路6】 【1920x1080@8568kbps】
+CCTV4,https://php.jdshipin.com/TVOD/iptv.php?id=cctv4$LR—IPV4【线路7】 【1920x1080@3656kbps 13kbps】
+CCTV4,http://139.227.221.147:9901/tsfile/live/0004_1.m3u8?key=txiptv$LR—IPV4【线路8】 【1920x1080@8815kbps】
+CCTV5,http://yulang132.cn:4022/udp/239.94.0.5:5140$LR—IPV4【线路1】 【1920x1080@4585kbps 2Mbps】
+CCTV5,http://58.32.42.54:6140/央视/CCTV-5?cors$LR—IPV4【线路2】 【1920x1080@8539kbps 2Mbps】
+CCTV5,http://61.143.43.2:9901/tsfile/live/0005_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@8369kbps 4Mbps】
+CCTV5,http://153.0.171.163:9901/tsfile/live/0005_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7921kbps 4Mbps】
+CCTV5,http://120.238.84.45:9901/tsfile/live/1022_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@7368kbps 2Mbps】
+CCTV5,http://221.221.137.78:9000/tsfile/live/0005_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路6】 【1920x1080@9973kbps 721kbps】
+CCTV5,http://139.227.221.147:9901/tsfile/live/0005_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路7】 【1920x1080@8618kbps】
+CCTV5,http://61.138.128.226:29901/tsfile/live/0005_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路8】 【1920x1080@7060kbps 471kbps】
+CCTV5+,http://yulang132.cn:4022/udp/239.94.0.23:5140$LR—IPV4【线路1】 【1920x1080@4836kbps 2Mbps】
+CCTV5+,http://58.32.42.54:6140/央视/CCTV-5+?cors$LR—IPV4【线路2】 【1920x1080@8787kbps 2Mbps】
+CCTV5+,http://153.0.171.163:9901/tsfile/live/1015_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@8262kbps 7Mbps】
+CCTV6,http://yulang132.cn:4022/udp/239.94.2.33:5140$LR—IPV4【线路1】 【1920x1080@5333kbps 2Mbps】
+CCTV6,http://yulang132.cn:4022/udp/239.94.0.6:5140$LR—IPV4【线路2】 【1920x1080@5241kbps 2Mbps】
+CCTV6,http://yulang132.cn:4022/udp/239.94.0.34:5140$LR—IPV4【线路3】 【1920x1080@4783kbps 2Mbps】
+CCTV6,http://153.0.171.163:9901/tsfile/live/0006_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@2143kbps 3Mbps】
+CCTV6,http://61.143.43.2:9901/tsfile/live/0006_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@2195kbps 3Mbps】
+CCTV6,http://223.14.160.166:9901/tsfile/live/0006_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路6】 【1920x1080@7688kbps 6Mbps】
+CCTV6,http://59.39.89.130:60901/tsfile/live/0006_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路7】 【1920x1080@7478kbps 3Mbps】
+CCTV6,https://php.jdshipin.com/TVOD/iptv.php?id=cctv6$LR—IPV4【线路8】 【1280x720@605kbps 12kbps】
+CCTV7,http://223.14.160.166:9901/tsfile/live/0007_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@7697kbps 6Mbps】
+CCTV7,http://183.223.157.33:9901/tsfile/live/0007_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7981kbps 3Mbps】
+CCTV7,http://139.227.221.147:9901/tsfile/live/0007_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路3】 【1920x1080@8527kbps】
+CCTV8,http://yulang132.cn:4022/udp/239.94.0.35:5140$LR—IPV4【线路1】 【1920x1080@5177kbps 1Mbps】
+CCTV8,http://yulang132.cn:4022/udp/239.94.2.29:5140$LR—IPV4【线路2】 【1920x1080@4404kbps 2Mbps】
+CCTV8,http://yulang132.cn:4022/udp/239.94.0.8:5140$LR—IPV4【线路3】 【1920x1080@4339kbps 2Mbps】
+CCTV8,http://111.4.59.41:60901/tsfile/live/1007_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路4】 【1920x1080@7822kbps 6Mbps】
+CCTV8,http://218.104.239.114:9901/tsfile/live/0008_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@8072kbps 4Mbps】
+CCTV8,http://61.143.43.2:9901/tsfile/live/0008_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路6】 【1920x1080@7907kbps 6Mbps】
+CCTV8,http://183.223.157.33:9901/tsfile/live/0008_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路7】 【1920x1080@7982kbps 4Mbps】
+CCTV8,http://219.140.6.133:7777/tsfile/live/1047_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路8】 【1920x1080@8127kbps 980kbps】
+CCTV9,http://yulang132.cn:4022/udp/239.94.0.9:5140$LR—IPV4【线路1】 【1920x1080@5043kbps 2Mbps】
+CCTV9,http://223.14.160.166:9901/tsfile/live/0009_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7911kbps 1Mbps】
+CCTV9,https://php.jdshipin.com/TVOD/iptv.php?id=cctv9$LR—IPV4【线路3】 【1280x720@460kbps 11kbps】
+CCTV10,http://111.4.59.41:60901/tsfile/live/1009_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路1】 【1920x1080@8253kbps 5Mbps】
+CCTV10,http://139.227.221.147:9901/tsfile/live/0010_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路2】 【1920x1080@8296kbps】
+CCTV10,https://php.jdshipin.com/TVOD/iptv.php?id=cctv10$LR—IPV4【线路3】 【1280x720@597kbps 12kbps】
+CCTV11,http://120.238.84.45:9901/tsfile/live/1029_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@7854kbps 1Mbps】
+CCTV11,https://php.jdshipin.com/TVOD/iptv.php?id=cctv11$LR—IPV4【线路2】 【1920x1080@3749kbps 14kbps】
+CCTV12,http://yulang132.cn:4022/udp/239.94.0.12:5140$LR—IPV4【线路1】 【1920x1080@4881kbps 2Mbps】
+CCTV12,http://59.39.89.130:60901/tsfile/live/0012_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7894kbps 4Mbps】
+CCTV12,http://218.104.239.114:9901/tsfile/live/0012_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@7467kbps 3Mbps】
+CCTV12,http://120.233.73.4:19901/tsfile/live/1033_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@8065kbps 2Mbps】
+CCTV12,http://120.238.84.45:9901/tsfile/live/1030_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@8288kbps 1Mbps】
+CCTV12,http://120.198.86.186:9901/tsfile/live/1032_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路6】 【1920x1080@6408kbps 2Mbps】
+CCTV12,http://139.227.221.147:9901/tsfile/live/0012_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路7】 【1920x1080@8295kbps】
+CCTV12,http://139.227.221.147:9901/tsfile/live/0012_1.m3u8?key=txiptv$LR—IPV4【线路8】 【1920x1080@8185kbps】
+CCTV13,http://yulang132.cn:4022/udp/239.94.0.13:5140$LR—IPV4【线路1】 【1920x1080@5268kbps 2Mbps】
+CCTV13,http://218.104.239.114:9901/tsfile/live/0013_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@8081kbps 3Mbps】
+CCTV13,http://183.223.157.33:9901/tsfile/live/0013_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@8068kbps 5Mbps】
+CCTV13,http://223.14.160.166:9901/tsfile/live/0013_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7844kbps 1Mbps】
+CCTV13,http://59.39.89.130:60901/tsfile/live/0013_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@7924kbps 2Mbps】
+CCTV13,http://139.227.221.147:9901/tsfile/live/0013_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路6】 【1920x1080@8440kbps】
+CCTV13,https://php.jdshipin.com/TVOD/iptv.php?id=cctv13$LR—IPV4【线路7】 【1920x1080@4122kbps 13kbps】
+CCTV13,http://139.227.221.147:9901/tsfile/live/0013_1.m3u8?key=txiptv$LR—IPV4【线路8】 【1920x1080@8728kbps】
+CCTV14,http://yulang132.cn:4022/udp/239.94.0.14:5140$LR—IPV4【线路1】 【1920x1080@4784kbps 2Mbps】
+CCTV14,http://120.238.84.45:9901/tsfile/live/1032_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@8421kbps 5Mbps】
+CCTV14,http://61.143.43.2:9901/tsfile/live/0014_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@8161kbps 4Mbps】
+CCTV14,http://183.94.146.79:9901/tsfile/live/0014_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7993kbps 4Mbps】
+CCTV14,http://183.223.157.33:9901/tsfile/live/0014_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@7898kbps 6Mbps】
+CCTV14,http://218.104.239.114:9901/tsfile/live/0014_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路6】 【1920x1080@7898kbps 4Mbps】
+CCTV14,http://42.225.117.174:11199/tsfile/live/0014_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路7】 【1920x1080@7917kbps 4Mbps】
+CCTV14,http://59.39.89.130:60901/tsfile/live/0014_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路8】 【1920x1080@7952kbps 3Mbps】
+CCTV15,http://218.104.239.114:9901/tsfile/live/0015_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@8074kbps 4Mbps】
+CCTV15,http://111.4.82.49:8008/tsfile/live/0015_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@8024kbps 3Mbps】
+CCTV15,http://183.223.157.33:9901/tsfile/live/0015_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@8074kbps 4Mbps】
+CCTV15,http://139.227.221.147:9901/tsfile/live/0015_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路4】 【1920x1080@8571kbps】
+CCTV15,https://php.jdshipin.com/TVOD/iptv.php?id=cctv15$LR—IPV4【线路5】 【1280x720@244kbps 12kbps】
+CCTV16,http://120.198.86.186:9901/tsfile/live/1094_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@8300kbps 6Mbps】
+CCTV16,http://218.104.239.114:9901/tsfile/live/0019_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7431kbps 4Mbps】
+CCTV16,https://php.jdshipin.com/TVOD/iptv.php?id=cctv16$LR—IPV4【线路3】 【1920x1080@3336kbps 13kbps】
+CCTV17,http://yulang132.cn:4022/udp/239.94.0.17:5140$LR—IPV4【线路1】 【1920x1080@5403kbps 1Mbps】
+CCTV17,http://yulang132.cn:4022/udp/239.94.0.39:5140$LR—IPV4【线路2】 【1920x1080@5145kbps 2Mbps】
+CCTV17,http://218.104.239.114:9901/tsfile/live/0019_2.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@8142kbps 4Mbps】
+CCTV17,http://120.198.86.186:9901/tsfile/live/1130_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7562kbps 954kbps】
+CCTV17,http://222.169.85.8:9901/tsfile/live/0007_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@7381kbps 1Mbps】
+CCTV17,https://php.jdshipin.com/TVOD/iptv.php?id=cctv17$LR—IPV4【线路6】 【1920x1080@4038kbps 10kbps】
+CETV1,http://yulang132.cn:4022/udp/239.94.1.2:5140$LR—IPV4【线路1】 【1920x1080@5237kbps 1Mbps】
+CETV1,http://120.198.86.186:9901/tsfile/live/1125_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@6767kbps 4Mbps】
 广东频道,#genre#
-广东珠江,https://cdn.qd.je/163189/gdzj$LR—IPV4 【1920x1080@7916kbps 18kbps】
-广东体育,https://cdn.qd.je/163189/gdty$LR—IPV4 【1920x1080@8146kbps 18kbps】
-广州综合,http://tencentplaygzrb01.gztv.com/live/zonghes.m3u8$LR—IPV4【线路1】 【1280x720@1614kbps 3Mbps】
-广州综合,https://cdn.qd.je/163189/gzzh$LR—IPV4【线路2】 【1280x720@1542kbps 26kbps】
-广州综合,http://rihou.cc:555/tv/[Cx]广州综合$LR—IPV4【线路3】 【1280x720@1614kbps 1kbps】
-广州综合,http://php.jdshipin.com:8880/gztv.php?id=zhonghe$LR—IPV4【线路4】 【1280x720@1614kbps 4kbps】
-深圳卫视,http://123.157.31.182:7912/rtp/233.50.201.101:5140$LR—IPV4【线路1】 【1920x1080@4882kbps 2Mbps】
-深圳卫视,http://183.94.146.79:9901/tsfile/live/0123_2.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@8087kbps 8Mbps】
-深圳卫视,http://111.59.24.227:8181/tsfile/live/0126_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@7664kbps 8Mbps】
-深圳卫视,http://222.169.85.8:9901/tsfile/live/0126_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7089kbps 3Mbps】
-深圳卫视,http://59.39.89.130:60901/tsfile/live/0125_11.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@8012kbps 3Mbps】
+广东珠江,http://120.198.86.186:9901/tsfile/live/1011_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@8778kbps 5Mbps】
+广东珠江,http://120.238.84.45:9901/tsfile/live/1009_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7594kbps】
+广东珠江,https://cdn.qd.je/163189/gdzj$LR—IPV4【线路3】 【1920x1080@8297kbps 24kbps】
+广东体育,http://120.238.84.45:9901/tsfile/live/1012_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@7801kbps 2Mbps】
+广东体育,http://120.198.86.186:9901/tsfile/live/1014_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@8236kbps 1Mbps】
+广东体育,https://cdn.qd.je/163189/gdty$LR—IPV4【线路3】 【1920x1080@8117kbps 31kbps】
+广州综合,http://tencentplaygzrb01.gztv.com/live/zonghes.m3u8$LR—IPV4【线路1】 【1280x720@1325kbps 2Mbps】
+广州综合,https://cdn.qd.je/163189/gzzh$LR—IPV4【线路2】 【1280x720@1397kbps 27kbps】
+广州综合,http://php.jdshipin.com:8880/gztv.php?id=zhonghe$LR—IPV4【线路3】 【1280x720@1193kbps 5kbps】
+广州综合,http://rihou.cc:555/tv/[Cx]广州综合$LR—IPV4【线路4】 【1280x720@1325kbps 3kbps】
+深圳卫视,http://yulang132.cn:4022/udp/239.94.0.66:5140$LR—IPV4【线路1】 【1920x1080@5203kbps 2Mbps】
+深圳卫视,http://111.59.24.227:8181/tsfile/live/0126_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7611kbps 10Mbps】
+深圳卫视,http://183.94.146.79:9901/tsfile/live/0123_2.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@7603kbps 5Mbps】
+深圳卫视,http://111.4.82.49:8008/tsfile/live/0126_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7630kbps 5Mbps】
+深圳卫视,http://110.53.235.13:19901/tsfile/live/0126_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@5253kbps 3Mbps】
+深圳卫视,http://218.104.239.114:9901/tsfile/live/0126_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路6】 【1920x1080@7696kbps 3Mbps】
+深圳卫视,http://59.39.89.130:60901/tsfile/live/0125_11.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路7】 【1920x1080@7620kbps 2Mbps】
+深圳卫视,http://139.227.221.147:9901/tsfile/live/0126_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路8】 【1920x1080@8557kbps】
 卫视频道,#genre#
-湖南卫视,http://123.157.31.182:7912/rtp/233.50.202.106:5140$LR—IPV4【线路1】 【3840x2160@1569kbps 2Mbps】
-湖南卫视,http://123.157.31.182:7912/rtp/233.50.201.103:5140$LR—IPV4【线路2】 【1920x1080@3669kbps 2Mbps】
-湖南卫视,http://111.59.24.227:8181/tsfile/live/0128_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@7670kbps 8Mbps】
-湖南卫视,http://110.53.235.13:19901/tsfile/live/0128_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@5032kbps 1Mbps】
-湖南卫视,http://139.227.221.147:9901/tsfile/live/0128_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路5】 【1920x1080@8746kbps】
-浙江卫视,http://111.59.24.227:8181/tsfile/live/0124_2.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@7781kbps 8Mbps】
-浙江卫视,http://222.169.85.8:9901/tsfile/live/0019_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7526kbps 2Mbps】
-浙江卫视,http://139.227.221.147:9901/tsfile/live/0124_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路3】 【1920x1080@8735kbps】
-浙江卫视,http://139.227.221.147:9901/tsfile/live/0124_1.m3u8?key=txiptv$LR—IPV4【线路4】 【1920x1080@8151kbps】
-东方卫视,http://123.157.31.182:7912/rtp/233.50.201.125:5140$LR—IPV4【线路1】 【1920x1080@6323kbps 2Mbps】
-东方卫视,http://120.238.84.45:9901/tsfile/live/1046_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@8015kbps 4Mbps】
-东方卫视,http://110.53.235.13:19901/tsfile/live/0107_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@5381kbps 2Mbps】
-北京卫视,http://123.157.31.182:7912/rtp/233.50.201.107:5140$LR—IPV4【线路1】 【1920x1080@3875kbps 2Mbps】
-北京卫视,http://123.157.31.182:7912/rtp/233.50.201.226:5140$LR—IPV4【线路2】 【1920x1080@3957kbps 2Mbps】
-北京卫视,http://111.59.24.227:8181/tsfile/live/0122_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@7640kbps 7Mbps】
-北京卫视,http://222.169.85.8:9901/tsfile/live/0017_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@6624kbps 6Mbps】
-北京卫视,http://111.4.59.41:60901/tsfile/live/1027_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路5】 【1920x1080@7764kbps 5Mbps】
-北京卫视,http://110.53.235.13:19901/tsfile/live/0122_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路6】 【1920x1080@5585kbps 1Mbps】
-北京卫视,http://139.227.221.147:9901/tsfile/live/0122_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路7】 【1920x1080@8379kbps】
-北京卫视,http://139.227.221.147:9901/tsfile/live/0122_1.m3u8?key=txiptv$LR—IPV4【线路8】 【1920x1080@8379kbps】
-江苏卫视,http://222.169.85.8:9901/tsfile/live/0127_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@7485kbps 6Mbps】
-江苏卫视,http://183.94.146.79:9901/tsfile/live/0127_2.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@8087kbps 4Mbps】
-江苏卫视,http://111.4.59.41:60901/tsfile/live/1029_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路3】 【1920x1080@7954kbps 2Mbps】
-江苏卫视,http://139.227.221.147:9901/tsfile/live/0127_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路4】 【1920x1080@8493kbps】
-江苏卫视,http://120.238.84.45:9901/tsfile/live/1045_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@8327kbps】
-安徽卫视,http://222.169.85.8:9901/tsfile/live/0130_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@7331kbps 6Mbps】
-安徽卫视,http://219.145.93.74:10000/tsfile/live/0135_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@8006kbps 1Mbps】
-安徽卫视,http://139.227.221.147:9901/tsfile/live/0130_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路3】 【1920x1080@8928kbps】
-安徽卫视,http://139.227.221.147:9901/tsfile/live/0130_1.m3u8?key=txiptv$LR—IPV4【线路4】 【1920x1080@8642kbps】
-重庆卫视,http://123.157.31.182:7912/rtp/233.50.201.143:5140$LR—IPV4【线路1】 【1920x1080@4891kbps 2Mbps】
-重庆卫视,http://111.4.59.41:60901/tsfile/live/1041_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路2】 【1920x1080@8033kbps 5Mbps】
-重庆卫视,http://222.169.85.8:9901/tsfile/live/0142_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@7299kbps 4Mbps】
-重庆卫视,http://120.238.84.45:9901/tsfile/live/1063_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@8035kbps 2Mbps】
-重庆卫视,http://139.227.221.147:9901/tsfile/live/0142_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路5】 【1920x1080@8344kbps】
-四川卫视,http://123.157.31.182:7912/rtp/233.50.201.139:5140$LR—IPV4【线路1】 【1920x1080@5186kbps 2Mbps】
-四川卫视,http://58.32.42.54:6140/4K频道/多彩文体4K?cors$LR—IPV4【线路2】 【3840x2160@8608kbps 2Mbps】
-四川卫视,http://111.59.24.227:8181/tsfile/live/0123_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@7552kbps 8Mbps】
-四川卫视,http://111.4.59.41:60901/tsfile/live/1037_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路4】 【1920x1080@8157kbps 3Mbps】
-四川卫视,http://222.169.85.8:9901/tsfile/live/0123_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@6935kbps 2Mbps】
-东南卫视,http://123.157.31.182:7912/rtp/233.50.201.146:5140$LR—IPV4【线路1】 【1920x1080@5286kbps 2Mbps】
-东南卫视,http://120.238.84.45:9901/tsfile/live/1065_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7850kbps】
-东南卫视,http://139.227.221.147:9901/tsfile/live/0137_1.m3u8?key=txiptv$LR—IPV4【线路3】 【1920x1080@8250kbps】
-深圳卫视,http://111.4.82.49:8008/tsfile/live/0126_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】
-深圳卫视,http://120.238.84.45:9901/tsfile/live/1054_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】
-深圳卫视,http://111.4.59.41:60901/tsfile/live/1040_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路3】
-广东卫视,http://123.157.31.182:7912/rtp/233.50.201.102:5140$LR—IPV4【线路1】 【1920x1080@5669kbps 2Mbps】
-广东卫视,http://111.59.24.227:8181/tsfile/live/0125_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7315kbps 8Mbps】
-广东卫视,http://111.4.59.41:60901/tsfile/live/1035_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路3】 【1920x1080@7923kbps 5Mbps】
-广东卫视,http://139.227.221.147:9901/tsfile/live/0125_1.m3u8?key=txiptv$LR—IPV4【线路4】 【1920x1080@8427kbps】
-广西卫视,http://61.143.43.2:9901/tsfile/live/0113_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@8955kbps 4Mbps】
-广西卫视,http://111.4.59.41:60901/tsfile/live/1044_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路2】 【1920x1080@7938kbps 5Mbps】
-甘肃卫视,http://118.193.115.2:9901/tsfile/live/0139_2.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4 【1920x1080@8092kbps 2Mbps】
-贵州卫视,http://123.157.31.182:7912/rtp/233.50.201.142:5140$LR—IPV4 【1920x1080@5326kbps 2Mbps】
-河北卫视,http://123.157.31.182:7912/rtp/233.50.201.140:5140$LR—IPV4【线路1】 【1920x1080@5811kbps 2Mbps】
-河北卫视,http://139.227.221.147:9901/tsfile/live/0117_1.m3u8?key=txiptv$LR—IPV4【线路2】 【1920x1080@8703kbps】
-河南卫视,http://123.157.31.182:7912/rtp/233.50.201.144:5140$LR—IPV4【线路1】 【1920x1080@4885kbps 2Mbps】
-河南卫视,http://120.238.84.45:9901/tsfile/live/1068_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7471kbps 2Mbps】
-黑龙江卫视,http://61.143.43.2:9901/tsfile/live/0019_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@7997kbps 3Mbps】
-黑龙江卫视,http://183.94.146.79:9901/tsfile/live/0138_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@8023kbps 1Mbps】
-湖北卫视,http://123.157.31.182:7912/rtp/233.50.201.114:5140$LR—IPV4【线路1】 【1920x1080@5095kbps 2Mbps】
-湖北卫视,http://183.94.146.79:9901/tsfile/live/0124_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7865kbps 5Mbps】
-湖北卫视,http://111.59.24.227:8181/tsfile/live/0132_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@7336kbps 5Mbps】
-湖北卫视,http://218.104.239.114:9901/tsfile/live/0132_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@6302kbps 3Mbps】
-湖北卫视,http://120.238.84.45:9901/tsfile/live/1055_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@6540kbps 3Mbps】
-湖北卫视,http://139.227.221.147:9901/tsfile/live/0132_1.m3u8?key=txiptv$LR—IPV4【线路6】 【1920x1080@9067kbps】
-江西卫视,http://123.157.31.182:7912/rtp/233.50.201.145:5140$LR—IPV4【线路1】 【1920x1080@4805kbps 2Mbps】
-江西卫视,http://120.238.84.45:9901/tsfile/live/1053_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@8122kbps 2Mbps】
-江西卫视,http://110.53.235.13:19901/tsfile/live/0138_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@5152kbps 1Mbps】
-吉林卫视,http://120.238.84.45:9901/tsfile/live/1066_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4 【1920x1080@7726kbps 6Mbps】
-内蒙古卫视,http://222.71.55.147:9901/tsfile/live/0109_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4 【1920x1080@8116kbps 11Mbps】
-辽宁卫视,http://yulang132.cn:4022/udp/239.94.0.101:5140$LR—IPV4【线路1】 【1920x1080@4042kbps 1Mbps】
-辽宁卫视,http://218.104.239.114:9901/tsfile/live/0121_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7974kbps 3Mbps】
-辽宁卫视,http://120.238.84.45:9901/tsfile/live/1056_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@7881kbps】
-辽宁卫视,http://139.227.221.147:9901/tsfile/live/0121_1.m3u8?key=txiptv$LR—IPV4【线路4】 【1920x1080@8569kbps】
-宁夏卫视,http://123.157.31.182:7912/rtp/233.50.202.45:5140$LR—IPV4【线路1】 【1920x1080@5829kbps 2Mbps】
-宁夏卫视,http://222.71.55.147:9901/tsfile/live/0112_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路2】 【1920x1080@8189kbps 6Mbps】
-山东卫视,http://123.157.31.182:7912/rtp/233.50.201.105:5140$LR—IPV4【线路1】 【1920x1080@5254kbps 2Mbps】
-山东卫视,http://111.59.24.227:8181/tsfile/live/0131_2.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7933kbps 8Mbps】
-山东卫视,http://183.94.146.79:9901/tsfile/live/0137_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@8073kbps 5Mbps】
-山东卫视,http://139.227.221.147:9901/tsfile/live/0131_1.m3u8?key=txiptv$LR—IPV4【线路4】 【1920x1080@8672kbps】
-天津卫视,http://123.157.31.182:7912/rtp/233.50.201.104:5140$LR—IPV4【线路1】 【1920x1080@5821kbps 2Mbps】
-天津卫视,http://111.59.24.227:8181/tsfile/live/0135_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7610kbps 8Mbps】
-天津卫视,http://139.227.221.147:9901/tsfile/live/0135_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路3】 【1920x1080@8552kbps】
-海南卫视,http://183.223.157.33:9901/tsfile/live/1008_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4 【1920x1080@7928kbps 4Mbps】
-新疆卫视,http://123.157.31.182:7912/rtp/233.50.202.46:5140$LR—IPV4【线路1】 【1920x1080@5821kbps 2Mbps】
-新疆卫视,http://222.71.55.147:9901/tsfile/live/0110_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路2】 【1920x1080@7990kbps 11Mbps】
-云南卫视,http://yulang132.cn:4022/udp/239.94.0.90:5140$LR—IPV4 【1920x1080@3077kbps 1Mbps】
-西藏卫视,http://123.157.31.182:7912/rtp/233.50.202.43:5140$LR—IPV4【线路1】 【1920x1080@5903kbps 2Mbps】
-西藏卫视,http://yulang132.cn:4022/udp/239.94.0.97:5140$LR—IPV4【线路2】 【1920x1080@2699kbps 937kbps】
-西藏卫视,http://222.71.55.147:9901/tsfile/live/0111_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路3】 【1920x1080@7932kbps 11Mbps】
-西藏卫视,http://120.198.86.186:9901/tsfile/live/1089_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@2091kbps 811kbps】
-海峡卫视,http://218.104.239.114:9901/tsfile/live/0150_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@7427kbps 3Mbps】
-海峡卫视,https://cdn.qd.je/163189/hxws2$LR—IPV4【线路2】 【1920x1080@7606kbps 26kbps】
-海峡卫视,https://cdn.qd.je/163189/hxws$LR—IPV4【线路3】 【1920x1080@4422kbps 40kbps】
-兵团卫视,http://222.71.55.147:9901/tsfile/live/0115_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4 【1920x1080@7767kbps 10Mbps】
+湖南卫视,http://yulang132.cn:4022/udp/239.94.0.61:5140$LR—IPV4【线路1】 【1920x1080@4920kbps 2Mbps】
+湖南卫视,http://yulang132.cn:4022/udp/239.94.0.116:5140$LR—IPV4【线路2】 【3840x2160@3635kbps 2Mbps】
+湖南卫视,http://58.32.42.54:6140/4K频道/江苏卫视4K?cors$LR—IPV4【线路3】 【3840x2160@34410kbps 2Mbps】
+湖南卫视,http://111.59.24.227:8181/tsfile/live/0128_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7651kbps 10Mbps】
+湖南卫视,http://120.238.84.45:9901/tsfile/live/1043_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@8035kbps 4Mbps】
+浙江卫视,http://yulang132.cn:4022/udp/239.94.0.63:5140$LR—IPV4【线路1】 【1920x1080@5175kbps 2Mbps】
+浙江卫视,http://111.4.59.41:60901/tsfile/live/1028_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路2】 【1920x1080@8273kbps 6Mbps】
+浙江卫视,http://61.143.43.2:9901/tsfile/live/0016_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@8016kbps 6Mbps】
+浙江卫视,http://183.94.146.79:9901/tsfile/live/0130_2.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@8133kbps 4Mbps】
+浙江卫视,http://110.53.235.13:19901/tsfile/live/0124_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@5640kbps 2Mbps】
+东方卫视,http://110.53.235.13:19901/tsfile/live/0107_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@5135kbps 4Mbps】
+东方卫视,http://139.227.221.147:9901/tsfile/live/0107_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路2】 【1920x1080@8285kbps】
+东方卫视,http://120.238.84.45:9901/tsfile/live/1046_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@8477kbps】
+东方卫视,http://139.227.221.147:9901/tsfile/live/0107_1.m3u8?key=txiptv$LR—IPV4【线路4】 【1920x1080@8263kbps】
+北京卫视,http://yulang132.cn:4022/udp/239.94.0.65:5140$LR—IPV4【线路1】 【1920x1080@4564kbps 2Mbps】
+北京卫视,http://111.59.24.227:8181/tsfile/live/0122_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7819kbps 10Mbps】
+北京卫视,http://110.53.235.13:19901/tsfile/live/0122_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@4653kbps 3Mbps】
+北京卫视,http://120.238.84.45:9901/tsfile/live/1050_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7871kbps 3Mbps】
+北京卫视,http://183.94.146.79:9901/tsfile/live/0122_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@7449kbps 2Mbps】
+北京卫视,http://120.198.86.186:9901/tsfile/live/1063_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路6】 【1920x1080@7501kbps 1Mbps】
+江苏卫视,http://yulang132.cn:4022/udp/239.94.0.62:5140$LR—IPV4【线路1】 【1920x1080@4968kbps 1Mbps】
+江苏卫视,http://111.59.24.227:8181/tsfile/live/0127_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7807kbps 10Mbps】
+江苏卫视,http://111.4.59.41:60901/tsfile/live/1029_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路3】 【1920x1080@7751kbps 6Mbps】
+江苏卫视,http://120.198.86.186:9901/tsfile/live/1060_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7729kbps 1Mbps】
+江苏卫视,http://139.227.221.147:9901/tsfile/live/0127_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路5】 【1920x1080@8583kbps】
+安徽卫视,http://yulang132.cn:4022/udp/239.94.0.85:5140$LR—IPV4【线路1】 【1920x1080@5593kbps 2Mbps】
+安徽卫视,http://123.138.216.44:9901/tsfile/live/0130_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@5962kbps 2Mbps】
+安徽卫视,http://139.227.221.147:9901/tsfile/live/0130_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路3】 【1920x1080@8344kbps】
+安徽卫视,http://139.227.221.147:9901/tsfile/live/0130_1.m3u8?key=txiptv$LR—IPV4【线路4】 【1920x1080@8475kbps】
+重庆卫视,http://yulang132.cn:4022/udp/239.94.0.82:5140$LR—IPV4【线路1】 【1920x1080@5175kbps 2Mbps】
+重庆卫视,http://111.4.59.41:60901/tsfile/live/1041_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路2】 【1920x1080@8095kbps 3Mbps】
+重庆卫视,http://120.198.86.186:9901/tsfile/live/1073_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@8060kbps 3Mbps】
+重庆卫视,http://59.39.89.130:60901/tsfile/live/0125_24.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@8010kbps 3Mbps】
+重庆卫视,http://139.227.221.147:9901/tsfile/live/0142_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路5】 【1920x1080@8362kbps】
+四川卫视,http://58.32.42.54:6140/4K频道/多彩文体4K?cors$LR—IPV4【线路1】 【3840x2160@38850kbps 2Mbps】
+四川卫视,http://111.59.24.227:8181/tsfile/live/0123_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7672kbps 10Mbps】
+四川卫视,http://120.198.86.186:9901/tsfile/live/1072_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@7661kbps 2Mbps】
+东南卫视,http://yulang132.cn:4022/udp/239.94.0.80:5140$LR—IPV4【线路1】 【1920x1080@4154kbps 2Mbps】
+东南卫视,http://139.227.221.147:9901/tsfile/live/0137_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路2】 【1920x1080@8585kbps】
+深圳卫视,http://120.198.86.186:9901/tsfile/live/1067_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4
+广东卫视,http://yulang132.cn:4022/udp/239.94.0.67:5140$LR—IPV4【线路1】 【1920x1080@3573kbps 2Mbps】
+广东卫视,http://111.59.24.227:8181/tsfile/live/0125_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7678kbps 9Mbps】
+广东卫视,http://120.198.86.186:9901/tsfile/live/1010_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@7535kbps 3Mbps】
+广东卫视,http://120.238.84.45:9901/tsfile/live/1008_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7522kbps 3Mbps】
+广东卫视,http://183.94.146.79:9901/tsfile/live/0142_2.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@7866kbps 5Mbps】
+广东卫视,http://218.104.239.114:9901/tsfile/live/0125_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路6】 【1920x1080@7897kbps 3Mbps】
+广东卫视,http://59.39.89.130:60901/tsfile/live/0125_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路7】 【1920x1080@7856kbps 5Mbps】
+广东卫视,http://111.4.59.41:60901/tsfile/live/1035_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路8】 【1920x1080@7914kbps 3Mbps】
+广西卫视,http://120.198.86.186:9901/tsfile/live/1082_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4 【1920x1080@8282kbps 4Mbps】
+贵州卫视,http://yulang132.cn:4022/udp/239.94.0.83:5140$LR—IPV4【线路1】 【1920x1080@1827kbps 1Mbps】
+贵州卫视,http://218.104.239.114:9901/tsfile/live/0120_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@6457kbps 3Mbps】
+贵州卫视,http://120.238.84.45:9901/tsfile/live/1057_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@7375kbps 5Mbps】
+河北卫视,http://120.198.86.186:9901/tsfile/live/1074_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@6380kbps 5Mbps】
+河北卫视,http://218.104.239.114:9901/tsfile/live/0117_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@4896kbps 3Mbps】
+河北卫视,http://120.238.84.45:9901/tsfile/live/1064_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@5919kbps 5Mbps】
+河北卫视,http://139.227.221.147:9901/tsfile/live/0117_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路4】 【1920x1080@8324kbps】
+河北卫视,http://139.227.221.147:9901/tsfile/live/0117_1.m3u8?key=txiptv$LR—IPV4【线路5】 【1920x1080@8324kbps】
+河南卫视,http://yulang132.cn:4022/udp/239.94.0.88:5140$LR—IPV4 【1920x1080@5051kbps 2Mbps】
+黑龙江卫视,http://yulang132.cn:4022/udp/239.94.0.81:5140$LR—IPV4【线路1】 【1920x1080@2223kbps 1Mbps】
+黑龙江卫视,http://120.198.86.186:9901/tsfile/live/1070_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@8043kbps 4Mbps】
+湖北卫视,http://111.59.24.227:8181/tsfile/live/0132_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@7509kbps 9Mbps】
+湖北卫视,http://183.94.146.79:9901/tsfile/live/0124_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@8271kbps 7Mbps】
+湖北卫视,http://111.4.82.49:8008/tsfile/live/0132_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@7829kbps 4Mbps】
+湖北卫视,http://218.104.239.114:9901/tsfile/live/0132_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7490kbps 3Mbps】
+湖北卫视,http://111.4.59.41:60901/tsfile/live/1016_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路5】 【1920x1080@8152kbps 3Mbps】
+湖北卫视,http://139.227.221.147:9901/tsfile/live/0132_1.m3u8?key=txiptv$LR—IPV4【线路6】 【1920x1080@8795kbps】
+江西卫视,http://yulang132.cn:4022/udp/239.94.0.79:5140$LR—IPV4【线路1】 【1920x1080@4822kbps 2Mbps】
+江西卫视,http://111.4.59.41:60901/tsfile/live/1036_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路2】 【1920x1080@8104kbps 5Mbps】
+江西卫视,http://120.238.84.45:9901/tsfile/live/1053_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@8055kbps 4Mbps】
+吉林卫视,http://61.143.43.2:9901/tsfile/live/0017_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4 【1920x1080@7802kbps 6Mbps】
+内蒙古卫视,http://222.71.55.147:9901/tsfile/live/0109_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4 【1920x1080@7831kbps 11Mbps】
+辽宁卫视,http://yulang132.cn:4022/udp/239.94.0.101:5140$LR—IPV4【线路1】 【1920x1080@5121kbps 2Mbps】
+辽宁卫视,http://111.59.24.227:8181/tsfile/live/0121_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@8219kbps 10Mbps】
+辽宁卫视,http://183.94.146.79:9901/tsfile/live/1000_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@7611kbps 6Mbps】
+辽宁卫视,http://139.227.221.147:9901/tsfile/live/0121_1.m3u8?key=txiptv$LR—IPV4【线路4】 【1920x1080@8455kbps】
+宁夏卫视,http://120.198.86.186:9901/tsfile/live/1088_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4 【1920x1080@2194kbps 2Mbps】
+山东卫视,http://yulang132.cn:4022/udp/239.94.0.69:5140$LR—IPV4【线路1】 【1920x1080@5521kbps 2Mbps】
+山东卫视,http://111.59.24.227:8181/tsfile/live/0131_2.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7908kbps 10Mbps】
+山东卫视,http://183.94.146.79:9901/tsfile/live/0137_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@8109kbps 7Mbps】
+山东卫视,http://120.198.86.186:9901/tsfile/live/1065_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7908kbps 1Mbps】
+山东卫视,http://139.227.221.147:9901/tsfile/live/0131_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路5】 【1920x1080@8458kbps】
+天津卫视,http://111.59.24.227:8181/tsfile/live/0135_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@7726kbps 10Mbps】
+天津卫视,http://183.94.146.79:9901/tsfile/live/0132_2.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7814kbps 7Mbps】
+海南卫视,http://183.223.157.33:9901/tsfile/live/1008_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4 【1920x1080@7831kbps 5Mbps】
+新疆卫视,http://yulang132.cn:4022/udp/239.94.0.98:5140$LR—IPV4【线路1】 【1920x1080@1430kbps 1Mbps】
+新疆卫视,http://222.71.55.147:9901/tsfile/live/0110_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路2】 【1920x1080@7860kbps 11Mbps】
+新疆卫视,http://120.198.86.186:9901/tsfile/live/1090_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@2162kbps 2Mbps】
+云南卫视,http://yulang132.cn:4022/udp/239.94.0.90:5140$LR—IPV4 【1920x1080@3284kbps 2Mbps】
+西藏卫视,http://yulang132.cn:4022/udp/239.94.0.97:5140$LR—IPV4【线路1】 【1920x1080@1558kbps 1Mbps】
+西藏卫视,http://120.198.86.186:9901/tsfile/live/1089_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@2108kbps 4Mbps】
+西藏卫视,http://222.71.55.147:9901/tsfile/live/0111_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路3】 【1920x1080@8268kbps 8Mbps】
+海峡卫视,https://cdn.qd.je/163189/hxws$LR—IPV4 【1920x1080@4320kbps 45kbps】
+兵团卫视,http://yulang132.cn:4022/udp/239.94.0.102:5140$LR—IPV4【线路1】 【1920x1080@3707kbps 1Mbps】
+兵团卫视,http://222.71.55.147:9901/tsfile/live/0115_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路2】 【1920x1080@8376kbps 11Mbps】
+兵团卫视,http://120.198.86.186:9901/tsfile/live/1092_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@2223kbps 1Mbps】
+康巴卫视,http://yulang132.cn:4022/udp/239.94.0.78:5140$LR—IPV4 【1920x1080@3093kbps 2Mbps】
 港·澳·台,#genre#
-凤凰中文,http://123.157.31.182:7912/rtp/233.50.202.35:5140$LR—IPV4【线路1】 【1920x1080@5359kbps 2Mbps】
-凤凰中文,https://cdn.qd.je/163189/fhzw$LR—IPV4【线路2】 【1920x1080@3585kbps 19kbps】
-凤凰资讯,http://123.157.31.182:7912/rtp/233.50.202.36:5140$LR—IPV4【线路1】 【1920x1080@5416kbps 2Mbps】
-凤凰资讯,https://cdn.qd.je/163189/fhzx$LR—IPV4【线路2】 【1920x1080@3580kbps 24kbps】
-凤凰香港,https://cdn.qd.je/163189/fhhk$LR—IPV4 【1920x1080@3913kbps 21kbps】
-翡翠台,https://cdn.qd.je/163189/fct$LR—IPV4【线路1】 【1920x1080@8212kbps 24kbps】
-翡翠台,https://cdn.qd.je/163189/fct2$LR—IPV4【线路2】 【1920x1080@3970kbps 81kbps】
-翡翠台,https://cdn.qd.je/163189/fctvtt$LR—IPV4【线路3】 【1920x1080@4956kbps 212kbps】
-明珠台,http://120.238.84.45:9901/tsfile/live/1000_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@7406kbps 2Mbps】
-明珠台,https://cdn.qd.je/163189/mztvtt$LR—IPV4【线路2】 【1920x1080@514kbps 215kbps】
-明珠台,https://cdn.qd.je/163189/mzt$LR—IPV4【线路3】 【1920x1080@2001kbps 34kbps】
-无线新闻,https://cdn.qd.je/163189/wxxwt$LR—IPV4 【1280x720@1682kbps 26kbps】
+凤凰中文,http://yulang132.cn:4022/udp/239.94.2.52:5140$LR—IPV4【线路1】 【1920x1080@2459kbps 1Mbps】
+凤凰中文,http://218.104.239.114:9901/tsfile/live/1013_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@8545kbps 3Mbps】
+凤凰中文,https://cdn.qd.je/163189/fhzw$LR—IPV4【线路3】 【1920x1080@3583kbps 22kbps】
+凤凰资讯,https://cdn.qd.je/163189/fhzx$LR—IPV4 【1920x1080@4190kbps 26kbps】
+凤凰香港,https://cdn.qd.je/163189/fhhk$LR—IPV4 【1920x1080@3913kbps 23kbps】
+翡翠台,http://120.198.86.186:9901/tsfile/live/1007_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@8078kbps 5Mbps】
+翡翠台,https://cdn.qd.je/163189/fctvtt$LR—IPV4【线路2】 【1920x1080@4568kbps 232kbps】
+翡翠台,https://cdn.qd.je/163189/fct2$LR—IPV4【线路3】 【1920x1080@3098kbps 90kbps】
+明珠台,http://120.198.86.186:9901/tsfile/live/1009_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@8053kbps 3Mbps】
+明珠台,https://cdn.qd.je/163189/mztvtt$LR—IPV4【线路2】 【1920x1080@540kbps 227kbps】
+明珠台,https://cdn.qd.je/163189/mzt$LR—IPV4【线路3】 【1920x1080@2227kbps 85kbps】
+无线新闻,https://cdn.qd.je/163189/wxxwt$LR—IPV4 【1280x720@1607kbps 24kbps】
 少儿频道,#genre#
-动漫秀场,http://yulang132.cn:4022/udp/239.94.1.171:5140$LR—IPV4 【1920x1080@3362kbps 1Mbps】
-金鹰卡通,http://111.4.59.41:60901/tsfile/live/1042_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4 【1920x1080@8683kbps 6Mbps】
+卡酷少儿,http://111.59.139.82:11888/tsfile/live/1056_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4 【1920x1080@8200kbps 10Mbps】
+金鹰卡通,http://111.4.59.41:60901/tsfile/live/1042_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路1】 【1920x1080@8498kbps 3Mbps】
+金鹰卡通,http://59.39.89.130:60901/tsfile/live/0125_25.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7984kbps 2Mbps】
 影视频道,#genre#
-CHC动作电影,http://120.238.84.45:9901/tsfile/live/1094_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4 【1920x1080@6990kbps 3Mbps】
+CHC影迷电影,http://111.59.139.82:11888/tsfile/live/1060_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4 【1920x1080@8035kbps 4Mbps】
+CHC动作电影,http://120.238.84.45:9901/tsfile/live/1094_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路1】 【1920x1080@7487kbps 4Mbps】
+CHC动作电影,http://120.198.86.186:9901/tsfile/live/1047_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7565kbps 1Mbps】
 
