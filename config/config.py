@@ -26,6 +26,7 @@ enable_isp_split = False
 
 # ── 订阅源 ───────────────────────────────────────────────────────
 source_urls = [
+    "http://145.239.65.119:20157/all.txt",
     "https://cdn.qd.je/live.m3u",
     "http://rihou.cc:567/gggg.nzk",
     "http://193.123.86.190:14888/TV/iptv.php",
