@@ -6362,3 +6362,74 @@
 2026-11-01 08:50:57 - INFO - root:main.py:734 - [订阅白名单] 匹配到 0 个频道
 2026-11-01 08:50:57 - INFO - root:main.py:738 - [汇总] 频道分类 6 个，总频道数 66，总URL数 464
 2026-11-01 08:50:57 - INFO - root:main.py:828 - [输出统计] 最终输出 66 频道 / 285 URL
+2026-11-02 09:12:16 - INFO - root:main.py:193 - [别名映射] 从 config/alias.txt 加载 10030 条别名规则
+2026-11-02 09:12:16 - INFO - root:main.py:666 - [抓取] 执行完整抓取流程，config.source_urls=5 个, hotel=True
+2026-11-02 09:12:16 - WARNING - root:main.py:87 - [EPG映射] 从 http://e.erw.cc/e.xml.gz 加载失败，尝试下一个源: HTTPConnectionPool(host='e.erw.cc', port=80): Max retries exceeded with url: /e.xml.gz (Caused by NameResolutionError("HTTPConnection(host='e.erw.cc', port=80): Failed to resolve 'e.erw.cc' ([Errno -5] No address associated with hostname)"))
+2026-11-02 09:12:22 - INFO - root:main.py:85 - [EPG映射] 从 https://gitee.com/taksssss/tv/raw/main/epg/112114.xml.gz 加载成功
+2026-11-02 09:12:23 - INFO - root:main.py:85 - [EPG映射] 从 http://epg.51zmt.top:8000/e.xml.gz 加载成功
+2026-11-02 09:12:23 - INFO - root:main.py:89 - [EPG映射] 共合并加载 435 个频道 ID
+2026-11-02 09:12:23 - INFO - root:main.py:303 - [抓取] 开始: http://145.239.65.119:20157/all.txt
+2026-11-02 09:12:23 - INFO - root:main.py:303 - [抓取] 开始: https://cdn.qd.je/live.m3u
+2026-11-02 09:12:23 - INFO - root:main.py:303 - [抓取] 开始: http://rihou.cc:567/gggg.nzk
+2026-11-02 09:12:23 - INFO - root:main.py:303 - [抓取] 开始: http://193.123.86.190:14888/TV/iptv.php
+2026-11-02 09:12:23 - INFO - root:main.py:303 - [抓取] 开始: https://gh.927223.xyz/https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u
+2026-11-02 09:12:23 - ERROR - root:main.py:369 - [抓取] http://rihou.cc:567/gggg.nzk 网络错误: ClientConnectorDNSError: Cannot connect to host rihou.cc:567 ssl:default [No address associated with hostname]
+2026-11-02 09:12:23 - ERROR - root:main.py:369 - [抓取] http://145.239.65.119:20157/all.txt 网络错误: ClientConnectorError: Cannot connect to host 145.239.65.119:20157 ssl:default [Connect call failed ('145.239.65.119', 20157)]
+2026-11-02 09:12:23 - INFO - root:main.py:312 - [抓取] http://193.123.86.190:14888/TV/iptv.php 获取成功，判断为m3u格式
+2026-11-02 09:12:23 - INFO - root:main.py:356 - [抓取] http://193.123.86.190:14888/TV/iptv.php 抓取成功，包含频道分类: 央视频道, 卫视频道, 睛彩频道, 咪视界, 历年春晚, 轮播
+2026-11-02 09:12:23 - INFO - root:main.py:357 - [抓取] http://193.123.86.190:14888/TV/iptv.php 共获取 188 个 URL
+2026-11-02 09:12:23 - INFO - root:main.py:363 - [抓取] http://193.123.86.190:14888/TV/iptv.php 样本频道: ['CCTV1', 'CCTV1', 'CCTV2', 'CCTV2', 'CCTV3', '安徽卫视', '安徽卫视', '北京卫视', '北京卫视', '重庆卫视']
+2026-11-02 09:12:23 - INFO - root:main.py:312 - [抓取] https://cdn.qd.je/live.m3u 获取成功，判断为m3u格式
+2026-11-02 09:12:23 - INFO - root:main.py:356 - [抓取] https://cdn.qd.je/live.m3u 抓取成功，包含频道分类: mytv
+2026-11-02 09:12:23 - INFO - root:main.py:357 - [抓取] https://cdn.qd.je/live.m3u 共获取 121 个 URL
+2026-11-02 09:12:23 - INFO - root:main.py:363 - [抓取] https://cdn.qd.je/live.m3u 样本频道: ['翡翠台4K(字幕)', '凤凰中文', 'CCTV1港澳版', 'CCTV13', 'TVB Plus(字幕)']
+2026-11-02 09:12:24 - ERROR - root:main.py:369 - [抓取] https://gh.927223.xyz/https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u 网络错误: ClientResponseError: 403, message='Forbidden', url='https://gh.927223.xyz/https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u'
+2026-11-02 09:12:24 - INFO - root:main.py:385 - [抓取] 等待所有源完成...
+2026-11-02 09:12:24 - INFO - root:main.py:276 - [匹配统计] 模板 137 频道，在线 309 URL，匹配 103 URL
+2026-11-02 09:12:24 - INFO - root:main.py:673 - [酒店源] 开始抓取...
+2026-11-02 09:12:24 - INFO - fetch_hotel:fetch_hotel.py:69 - [酒店源] 共获取 0 个节点
+2026-11-02 09:12:24 - INFO - fetch_hotel:fetch_hotel.py:79 - [酒店源] 类型分布: {}
+2026-11-02 09:12:24 - INFO - root:main.py:693 - [组播源] 开始抓取...
+2026-11-02 09:12:24 - INFO - fetch_multicast:fetch_multicast.py:112 - [组播源] 共 1707 条，保留 1697 条（dead=0，省份过滤=0，运营商过滤=0）
+2026-11-02 09:12:24 - INFO - root:main.py:276 - [匹配统计] 模板 137 频道，在线 1697 URL，匹配 964 URL
+2026-11-02 09:12:24 - INFO - root:main.py:707 - [组播源] 匹配到 78 个频道
+2026-11-02 09:12:24 - INFO - root:main.py:714 - [质量检测] 开始全量检测（无缓存模式）... enable_ffprobe=True, ffprobe_timeout=6s, min_resolution=1080
+2026-11-02 09:12:24 - INFO - check:check.py:714 - 开始质量检测，共 1067 个 URL，并发数 10，HTTP 超时 3.5s，FFprobe 启用，超时 6s
+2026-11-02 09:13:19 - INFO - check:check.py:699 - [质量检测] 进度: 100/1067 (9%)
+2026-11-02 09:14:13 - INFO - check:check.py:699 - [质量检测] 进度: 200/1067 (18%)
+2026-11-02 09:15:10 - INFO - check:check.py:699 - [质量检测] 进度: 300/1067 (28%)
+2026-11-02 09:16:01 - INFO - check:check.py:699 - [质量检测] 进度: 400/1067 (37%)
+2026-11-02 09:17:02 - INFO - check:check.py:699 - [质量检测] 进度: 500/1067 (46%)
+2026-11-02 09:18:01 - INFO - check:check.py:699 - [质量检测] 进度: 600/1067 (56%)
+2026-11-02 09:19:03 - INFO - check:check.py:699 - [质量检测] 进度: 700/1067 (65%)
+2026-11-02 09:20:05 - INFO - check:check.py:699 - [质量检测] 进度: 800/1067 (74%)
+2026-11-02 09:21:05 - INFO - check:check.py:699 - [质量检测] 进度: 900/1067 (84%)
+2026-11-02 09:22:11 - INFO - check:check.py:699 - [质量检测] 进度: 1000/1067 (93%)
+2026-11-02 09:22:55 - INFO - check:check.py:699 - [质量检测] 进度: 1067/1067 (100%)
+2026-11-02 09:22:55 - INFO - check:check.py:754 - 质量检测完成: 总计=851 通过=350 失败=12 超时=482 错误=7
+2026-11-02 09:22:55 - INFO - check:check.py:796 - 过滤后: 保留 287 个有效源，移除 721 个失效源
+2026-11-02 09:22:55 - INFO - root:main.py:655 - [黑名单建议] 以下域名检测频繁失败，可考虑加入 url_blacklist：
+2026-11-02 09:22:55 - INFO - root:main.py:657 -   http://59.173.122.230:10001  失败次数=106  (timeout=106)
+2026-11-02 09:22:55 - INFO - root:main.py:657 -   http://183.188.23.139:6000  失败次数=106  (timeout=106)
+2026-11-02 09:22:55 - INFO - root:main.py:657 -   http://www.siyao.xin:4000  失败次数=87  (timeout=87)
+2026-11-02 09:22:55 - INFO - root:main.py:657 -   http://118.77.151.9:8085  失败次数=83  (failed=4, timeout=79)
+2026-11-02 09:22:55 - INFO - root:main.py:657 -   http://125.42.200.209:9999  失败次数=49  (timeout=49)
+2026-11-02 09:22:55 - INFO - root:main.py:657 -   http://family-ph.vividnian.com:8188  失败次数=36  (timeout=36)
+2026-11-02 09:22:55 - INFO - root:main.py:657 -   http://110.249.126.119:9999  失败次数=35  (failed=2, timeout=33)
+2026-11-02 09:22:55 - INFO - root:main.py:657 -   http://www.221111.best:8012  失败次数=34  (timeout=34)
+2026-11-02 09:22:55 - INFO - root:main.py:657 -   http://139.227.221.147:9901  失败次数=31  (timeout=31)
+2026-11-02 09:22:55 - INFO - root:main.py:657 -   https://cdn.qd.je  失败次数=8  (failed=6, timeout=2)
+2026-11-02 09:22:55 - INFO - root:main.py:657 -   http://173.208.212.130:8181  失败次数=7  (error=7)
+2026-11-02 09:22:55 - INFO - root:main.py:657 -   https://php.jdshipin.com  失败次数=1  (failed=1)
+2026-11-02 09:22:55 - INFO - root:main.py:726 - [质量检测] 完成
+2026-11-02 09:22:55 - INFO - root:main.py:730 - [订阅白名单] 开始抓取保底源...
+2026-11-02 09:22:55 - INFO - root:main.py:303 - [抓取] 开始: http://192.168.1.31:2134
+2026-11-02 09:22:55 - INFO - root:main.py:303 - [抓取] 开始: http://192.168.1.31:18808/hoy-proxy.txt
+2026-11-02 09:22:55 - INFO - root:main.py:303 - [抓取] 开始: http://192.168.1.31:18080/channels.txt
+2026-11-02 09:23:06 - ERROR - root:main.py:367 - [抓取] http://192.168.1.31:2134 超时 (>10s)
+2026-11-02 09:23:06 - ERROR - root:main.py:367 - [抓取] http://192.168.1.31:18808/hoy-proxy.txt 超时 (>10s)
+2026-11-02 09:23:06 - ERROR - root:main.py:367 - [抓取] http://192.168.1.31:18080/channels.txt 超时 (>10s)
+2026-11-02 09:23:06 - INFO - root:main.py:276 - [匹配统计] 模板 137 频道，在线 0 URL，匹配 0 URL
+2026-11-02 09:23:06 - INFO - root:main.py:734 - [订阅白名单] 匹配到 0 个频道
+2026-11-02 09:23:06 - INFO - root:main.py:738 - [汇总] 频道分类 6 个，总频道数 62，总URL数 287
+2026-11-02 09:23:06 - INFO - root:main.py:828 - [输出统计] 最终输出 61 频道 / 173 URL
