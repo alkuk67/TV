@@ -1,423 +1,599 @@
 #EXTM3U x-tvg-url="http://e.erw.cc/e.xml.gz","https://gitee.com/taksssss/tv/raw/main/epg/112114.xml.gz","http://epg.51zmt.top:8000/e.xml.gz"
 #EXTINF:-1 tvg-id="www.776512.xyz" tvg-name="www.776512.xyz" tvg-logo="https://ts2.tc.mm.bing.net/th/id/OIP-C.2CL9t6gI2-c5n5DI9Sl_0QAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" group-title="公告-yuanzl77",www.776512.xyz
 https://liuliuliu.tv/api/channels/233/stream
-#EXTINF:-1 tvg-id="更新时间：2026-11-04" tvg-name="更新时间：2026-11-04" tvg-logo="https://ts2.tc.mm.bing.net/th/id/OIP-C.2CL9t6gI2-c5n5DI9Sl_0QAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" group-title="公告-yuanzl77",更新时间：2026-11-04
+#EXTINF:-1 tvg-id="更新时间：2026-11-05" tvg-name="更新时间：2026-11-05" tvg-logo="https://ts2.tc.mm.bing.net/th/id/OIP-C.2CL9t6gI2-c5n5DI9Sl_0QAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" group-title="公告-yuanzl77",更新时间：2026-11-05
 https://gitlab.com/lr77/IPTV/-/raw/main/%E4%B8%BB%E8%A7%92.mp4
 #EXTINF:-1 tvg-id="请勿传播" tvg-name="请勿传播" tvg-logo="https://ts2.tc.mm.bing.net/th/id/OIP-C.2CL9t6gI2-c5n5DI9Sl_0QAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" group-title="公告-yuanzl77",请勿传播
 https://liuliuliu.tv/api/channels/1997/stream
-#EXTINF:-1 tvg-id="1" tvg-name="CCTV1" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道",CCTV1
-http://www.siyao.xin:4000/rtp/225.1.4.73:1102$LR—IPV4【线路1】 【1920x1080@5107kbps 2Mbps】
-#EXTINF:-1 tvg-id="1" tvg-name="CCTV1" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道",CCTV1
-http://www.221111.best:8012/rtp/239.3.1.129:8008$LR—IPV4【线路2】 【1920x1080@5876kbps 2Mbps】
-#EXTINF:-1 tvg-id="1" tvg-name="CCTV1" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道",CCTV1
-http://113.57.140.161:10081/newlive/live/hls/1/live.m3u8$LR—IPV4【线路3】 【1920x1080@8423kbps 24Mbps】
-#EXTINF:-1 tvg-id="1" tvg-name="CCTV1" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道",CCTV1
-http://110.72.77.228:808/hls/54/index.m3u8$LR—IPV4【线路4】 【1920x1080@7948kbps 10Mbps】
-#EXTINF:-1 tvg-id="1" tvg-name="CCTV1" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道",CCTV1
-http://27.223.110.214:8009/newlive/live/hls/1/live.m3u8$LR—IPV4【线路5】 【1920x1080@8222kbps 21Mbps】
-#EXTINF:-1 tvg-id="1" tvg-name="CCTV1" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道",CCTV1
-http://219.147.245.238:25480/newlive/live/hls/1/live.m3u8$LR—IPV4【线路6】 【1920x1080@4035kbps 3Mbps】
-#EXTINF:-1 tvg-id="1" tvg-name="CCTV1" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道",CCTV1
-http://120.40.39.246:352/newlive/live/hls/1/live.m3u8$LR—IPV4【线路7】 【1920x1080@8261kbps 6Mbps】
-#EXTINF:-1 tvg-id="1" tvg-name="CCTV1" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道",CCTV1
-http://221.232.199.114:7777/tsfile/live/0001_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路8】 【1920x1080@8068kbps 1Mbps】
+#EXTINF:-1 tvg-id="CCTV1" tvg-name="CCTV1" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道",CCTV1
+http://218.71.18.154:8888/udp/233.50.200.143:5140$LR—IPV4【线路1】 【1920x1080@2374kbps 2Mbps】
+#EXTINF:-1 tvg-id="CCTV1" tvg-name="CCTV1" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道",CCTV1
+http://60.183.109.152:8000/udp/233.50.200.143:5140$LR—IPV4【线路2】 【1920x1080@1516kbps 1Mbps】
+#EXTINF:-1 tvg-id="CCTV1" tvg-name="CCTV1" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道",CCTV1
+http://218.71.18.154:8888/udp/233.50.201.118:5140$LR—IPV4【线路3】 【1920x1080@3271kbps 2Mbps】
+#EXTINF:-1 tvg-id="CCTV1" tvg-name="CCTV1" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道",CCTV1
+http://xs12dp121403.vicp.fun:9999/rtp/239.253.92.83:8012$LR—IPV4【线路4】 【1920x1080@6351kbps 2Mbps】
+#EXTINF:-1 tvg-id="CCTV1" tvg-name="CCTV1" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道",CCTV1
+http://remote.jackye.site:8000/rtp/239.61.3.61:9884$LR—IPV4【线路5】 【1920x1080@4989kbps 2Mbps】
+#EXTINF:-1 tvg-id="CCTV1" tvg-name="CCTV1" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道",CCTV1
+http://60.183.109.152:8000/udp/233.50.200.99:5140$LR—IPV4【线路6】 【1920x1080@2222kbps 1Mbps】
+#EXTINF:-1 tvg-id="CCTV1" tvg-name="CCTV1" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道",CCTV1
+http://218.71.18.154:8888/udp/233.50.200.99:5140$LR—IPV4【线路7】 【1920x1080@4144kbps 1Mbps】
+#EXTINF:-1 tvg-id="CCTV1" tvg-name="CCTV1" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道",CCTV1
+http://218.71.18.154:8888/udp/233.50.200.130:5140$LR—IPV4【线路8】 【1920x1080@6156kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV2" tvg-name="CCTV2" tvg-logo="https://tb.zbds.top/logo/CCTV2.png" group-title="央视频道",CCTV2
-http://113.205.168.98:8005/udp/225.0.4.132:7980$LR—IPV4【线路1】 【1920x1080@6168kbps 2Mbps】
+http://60.183.109.152:8000/udp/233.50.200.100:5140$LR—IPV4【线路1】 【1920x1080@2724kbps 1Mbps】
 #EXTINF:-1 tvg-id="CCTV2" tvg-name="CCTV2" tvg-logo="https://tb.zbds.top/logo/CCTV2.png" group-title="央视频道",CCTV2
-http://www.siyao.xin:4000/rtp/225.1.4.74:1103$LR—IPV4【线路2】 【1920x1080@6007kbps 2Mbps】
+http://xs12dp121403.vicp.fun:9999/rtp/239.253.92.190:6065$LR—IPV4【线路2】 【1920x1080@6566kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV2" tvg-name="CCTV2" tvg-logo="https://tb.zbds.top/logo/CCTV2.png" group-title="央视频道",CCTV2
-http://www.221111.best:8012/rtp/239.3.1.60:8084$LR—IPV4【线路3】 【1920x1080@5841kbps 2Mbps】
+http://218.71.18.154:8888/udp/233.50.200.25:5140$LR—IPV4【线路3】 【1920x1080@6207kbps 1Mbps】
 #EXTINF:-1 tvg-id="CCTV2" tvg-name="CCTV2" tvg-logo="https://tb.zbds.top/logo/CCTV2.png" group-title="央视频道",CCTV2
-http://vpn.ydcb.top:40000/udp/239.94.2.35:5140$LR—IPV4【线路4】 【1920x1080@4794kbps 213kbps】
+http://remote.jackye.site:8000/rtp/239.61.2.174:9032$LR—IPV4【线路4】 【1920x1080@5865kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV2" tvg-name="CCTV2" tvg-logo="https://tb.zbds.top/logo/CCTV2.png" group-title="央视频道",CCTV2
-http://113.57.140.161:10081/newlive/live/hls/2/live.m3u8$LR—IPV4【线路5】 【1920x1080@7782kbps 11Mbps】
+http://60.183.109.152:8000/udp/233.50.200.25:5140$LR—IPV4【线路5】 【1920x1080@5723kbps 1Mbps】
 #EXTINF:-1 tvg-id="CCTV2" tvg-name="CCTV2" tvg-logo="https://tb.zbds.top/logo/CCTV2.png" group-title="央视频道",CCTV2
-http://221.221.137.78:8000/tsfile/live/0002_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路6】 【1920x1080@8582kbps 8Mbps】
+http://218.71.18.154:8888/udp/233.50.200.100:5140$LR—IPV4【线路6】 【1920x1080@2994kbps 1Mbps】
 #EXTINF:-1 tvg-id="CCTV2" tvg-name="CCTV2" tvg-logo="https://tb.zbds.top/logo/CCTV2.png" group-title="央视频道",CCTV2
-http://60.223.94.64:9003/hls/2/index.m3u8$LR—IPV4【线路7】 【1920x1080@8308kbps 7Mbps】
+http://www.siyao.xin:4000/rtp/225.1.4.74:1103$LR—IPV4【线路7】 【1920x1080@6407kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV2" tvg-name="CCTV2" tvg-logo="https://tb.zbds.top/logo/CCTV2.png" group-title="央视频道",CCTV2
-http://221.232.199.114:7777/tsfile/live/0002_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路8】 【1920x1080@8113kbps 6Mbps】
+http://218.71.18.154:8888/udp/233.50.201.119:5140$LR—IPV4【线路8】 【1920x1080@4873kbps 1Mbps】
 #EXTINF:-1 tvg-id="CCTV3" tvg-name="CCTV3" tvg-logo="https://tb.zbds.top/logo/CCTV3.png" group-title="央视频道",CCTV3
-http://www.siyao.xin:4000/rtp/225.1.4.158:1194$LR—IPV4【线路1】 【1920x1080@5241kbps 2Mbps】
+http://60.183.109.152:8000/udp/233.50.200.107:5140$LR—IPV4【线路1】 【1920x1080@3441kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV3" tvg-name="CCTV3" tvg-logo="https://tb.zbds.top/logo/CCTV3.png" group-title="央视频道",CCTV3
-http://110.72.77.228:808/hls/37/index.m3u8$LR—IPV4【线路2】 【1920x1080@7993kbps 8Mbps】
+http://117.67.85.240:8888/rtp/238.1.78.170:7232$LR—IPV4【线路2】 【1920x1080@4815kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV3" tvg-name="CCTV3" tvg-logo="https://tb.zbds.top/logo/CCTV3.png" group-title="央视频道",CCTV3
-http://113.57.140.161:10081/newlive/live/hls/3/live.m3u8$LR—IPV4【线路3】 【1920x1080@6930kbps 5Mbps】
+http://218.71.18.154:8888/udp/233.50.201.196:5140$LR—IPV4【线路3】 【1920x1080@3669kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV3" tvg-name="CCTV3" tvg-logo="https://tb.zbds.top/logo/CCTV3.png" group-title="央视频道",CCTV3
-http://60.223.94.64:9003/hls/3/index.m3u8$LR—IPV4【线路4】 【1920x1080@7653kbps 4Mbps】
+http://218.71.18.154:8888/udp/233.50.200.107:5140$LR—IPV4【线路4】 【1920x1080@3054kbps 1Mbps】
 #EXTINF:-1 tvg-id="CCTV3" tvg-name="CCTV3" tvg-logo="https://tb.zbds.top/logo/CCTV3.png" group-title="央视频道",CCTV3
-http://111.4.82.49:8008/tsfile/live/0003_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@8404kbps 1Mbps】
+http://xs12dp121403.vicp.fun:9999/rtp/239.253.92.191:6057$LR—IPV4【线路5】 【1920x1080@6205kbps 1Mbps】
 #EXTINF:-1 tvg-id="CCTV3" tvg-name="CCTV3" tvg-logo="https://tb.zbds.top/logo/CCTV3.png" group-title="央视频道",CCTV3
-http://219.147.245.238:25480/newlive/live/hls/3/live.m3u8$LR—IPV4【线路6】 【1920x1080@4192kbps 2Mbps】
+http://110.72.59.198:808/hls/37/index.m3u8$LR—IPV4【线路6】 【1920x1080@7955kbps 8Mbps】
 #EXTINF:-1 tvg-id="CCTV3" tvg-name="CCTV3" tvg-logo="https://tb.zbds.top/logo/CCTV3.png" group-title="央视频道",CCTV3
-http://221.232.199.114:7777/tsfile/live/0003_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路7】 【1920x1080@7755kbps 1Mbps】
+http://113.57.140.161:10081/newlive/live/hls/3/live.m3u8$LR—IPV4【线路7】 【1920x1080@6866kbps 4Mbps】
 #EXTINF:-1 tvg-id="CCTV3" tvg-name="CCTV3" tvg-logo="https://tb.zbds.top/logo/CCTV3.png" group-title="央视频道",CCTV3
-http://221.232.199.235:7777/tsfile/live/0003_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路8】 【1920x1080@8499kbps 888kbps】
+http://219.147.245.238:25480/newlive/live/hls/3/live.m3u8$LR—IPV4【线路8】 【1920x1080@4090kbps 3Mbps】
 #EXTINF:-1 tvg-id="CCTV4" tvg-name="CCTV4" tvg-logo="https://tb.zbds.top/logo/CCTV4.png" group-title="央视频道",CCTV4
-http://www.siyao.xin:4000/rtp/225.1.5.30:1333$LR—IPV4【线路1】 【1920x1080@5959kbps 2Mbps】
+http://218.71.18.154:8888/udp/233.50.200.101:5140$LR—IPV4【线路1】 【1920x1080@2875kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV4" tvg-name="CCTV4" tvg-logo="https://tb.zbds.top/logo/CCTV4.png" group-title="央视频道",CCTV4
-http://111.59.24.227:8181/tsfile/live/0004_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@6890kbps 10Mbps】
+http://60.183.109.152:8000/udp/233.50.200.101:5140$LR—IPV4【线路2】 【1920x1080@2154kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV4" tvg-name="CCTV4" tvg-logo="https://tb.zbds.top/logo/CCTV4.png" group-title="央视频道",CCTV4
-http://60.223.94.64:9003/hls/4/index.m3u8$LR—IPV4【线路3】 【1920x1080@7455kbps 7Mbps】
+http://www.siyao.xin:4000/rtp/225.1.5.30:1333$LR—IPV4【线路3】 【1920x1080@6502kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV4" tvg-name="CCTV4" tvg-logo="https://tb.zbds.top/logo/CCTV4.png" group-title="央视频道",CCTV4
-http://113.57.140.161:10081/newlive/live/hls/4/live.m3u8$LR—IPV4【线路4】 【1920x1080@7188kbps 4Mbps】
+http://116.179.130.176:6001/rtp/226.0.2.156:9160$LR—IPV4【线路4】 【1920x1080@3071kbps 891kbps】
 #EXTINF:-1 tvg-id="CCTV4" tvg-name="CCTV4" tvg-logo="https://tb.zbds.top/logo/CCTV4.png" group-title="央视频道",CCTV4
-http://219.147.245.238:25480/newlive/live/hls/4/live.m3u8$LR—IPV4【线路5】 【1280x720@1541kbps 1Mbps】
+http://111.59.24.227:8181/tsfile/live/0004_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@7822kbps 11Mbps】
 #EXTINF:-1 tvg-id="CCTV4" tvg-name="CCTV4" tvg-logo="https://tb.zbds.top/logo/CCTV4.png" group-title="央视频道",CCTV4
-http://221.221.137.78:8000/tsfile/live/0004_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路6】 【1920x1080@7985kbps 5Mbps】
-#EXTINF:-1 tvg-id="CCTV4" tvg-name="CCTV4" tvg-logo="https://tb.zbds.top/logo/CCTV4.png" group-title="央视频道",CCTV4
-http://221.232.199.235:7777/tsfile/live/0004_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路7】 【1920x1080@8375kbps 2Mbps】
-#EXTINF:-1 tvg-id="CCTV4" tvg-name="CCTV4" tvg-logo="https://tb.zbds.top/logo/CCTV4.png" group-title="央视频道",CCTV4
-http://221.232.199.114:7777/tsfile/live/0004_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路8】 【1920x1080@8375kbps 2Mbps】
+http://219.147.245.238:25480/newlive/live/hls/4/live.m3u8$LR—IPV4【线路6】 【1280x720@1612kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV5" tvg-name="CCTV5" tvg-logo="https://tb.zbds.top/logo/CCTV5.png" group-title="央视频道",CCTV5
-http://113.205.168.98:8005/udp/225.0.4.143:7980$LR—IPV4【线路1】 【1920x1080@6062kbps 2Mbps】
+http://218.71.18.154:8888/udp/233.50.201.197:5140$LR—IPV4【线路1】 【1920x1080@2110kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV5" tvg-name="CCTV5" tvg-logo="https://tb.zbds.top/logo/CCTV5.png" group-title="央视频道",CCTV5
-http://vpn.ydcb.top:40000/udp/239.94.0.5:5140$LR—IPV4【线路2】 【1920x1080@4583kbps 681kbps】
+http://218.71.18.154:8888/udp/233.50.200.108:5140$LR—IPV4【线路2】 【1920x1080@2168kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV5" tvg-name="CCTV5" tvg-logo="https://tb.zbds.top/logo/CCTV5.png" group-title="央视频道",CCTV5
-http://vpn.ydcb.top:40000/udp/239.94.2.30:5140$LR—IPV4【线路3】 【1920x1080@4219kbps 187kbps】
+http://60.183.109.152:8000/udp/233.50.200.108:5140$LR—IPV4【线路3】 【1920x1080@3857kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV5" tvg-name="CCTV5" tvg-logo="https://tb.zbds.top/logo/CCTV5.png" group-title="央视频道",CCTV5
-http://60.223.94.64:9003/hls/5/index.m3u8$LR—IPV4【线路4】 【1920x1080@8004kbps 7Mbps】
+http://219.147.245.238:25480/newlive/live/hls/5/live.m3u8$LR—IPV4【线路4】 【1920x1080@4154kbps 3Mbps】
 #EXTINF:-1 tvg-id="CCTV5" tvg-name="CCTV5" tvg-logo="https://tb.zbds.top/logo/CCTV5.png" group-title="央视频道",CCTV5
-http://219.147.245.238:25480/newlive/live/hls/5/live.m3u8$LR—IPV4【线路5】 【1920x1080@4261kbps 3Mbps】
+http://110.72.59.198:808/hls/38/index.m3u8$LR—IPV4【线路5】 【1920x1080@7761kbps 1Mbps】
+#EXTINF:-1 tvg-id="CCTV5" tvg-name="CCTV5" tvg-logo="https://tb.zbds.top/logo/CCTV5.png" group-title="央视频道",CCTV5
+http://60.223.94.64:9003/hls/5/index.m3u8$LR—IPV4【线路6】 【1920x1080@7539kbps 1Mbps】
 #EXTINF:-1 tvg-id="CCTV5+" tvg-name="CCTV5+" tvg-logo="https://tb.zbds.top/logo/CCTV5+.png" group-title="央视频道",CCTV5+
-http://113.205.168.98:8005/udp/225.0.4.73:7980$LR—IPV4【线路1】 【1920x1080@5733kbps 2Mbps】
+http://116.179.130.176:6001/rtp/226.0.2.168:9256$LR—IPV4【线路1】 【1920x1080@3415kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV5+" tvg-name="CCTV5+" tvg-logo="https://tb.zbds.top/logo/CCTV5+.png" group-title="央视频道",CCTV5+
-http://www.siyao.xin:4000/rtp/225.1.4.75:1104$LR—IPV4【线路2】 【1920x1080@6012kbps 2Mbps】
+http://remote.jackye.site:8000/rtp/239.61.2.171:9014$LR—IPV4【线路2】 【1920x1080@5400kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV5+" tvg-name="CCTV5+" tvg-logo="https://tb.zbds.top/logo/CCTV5+.png" group-title="央视频道",CCTV5+
-http://113.57.140.161:10081/newlive/live/hls/6/live.m3u8$LR—IPV4【线路3】 【1920x1080@8106kbps 10Mbps】
+http://www.siyao.xin:4000/rtp/225.1.4.75:1104$LR—IPV4【线路3】 【1920x1080@6665kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV5+" tvg-name="CCTV5+" tvg-logo="https://tb.zbds.top/logo/CCTV5+.png" group-title="央视频道",CCTV5+
-http://219.147.245.238:25480/newlive/live/hls/6/live.m3u8$LR—IPV4【线路4】 【1920x1080@4252kbps 5Mbps】
+http://xs12dp121403.vicp.fun:9999/rtp/239.253.92.82:8013$LR—IPV4【线路4】 【1920x1080@5947kbps 1Mbps】
+#EXTINF:-1 tvg-id="CCTV5+" tvg-name="CCTV5+" tvg-logo="https://tb.zbds.top/logo/CCTV5+.png" group-title="央视频道",CCTV5+
+http://120.238.84.45:9901/tsfile/live/1023_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@7031kbps 1Mbps】
 #EXTINF:-1 tvg-id="CCTV6" tvg-name="CCTV6" tvg-logo="https://tb.zbds.top/logo/CCTV6.png" group-title="央视频道",CCTV6
-http://www.221111.best:8012/rtp/239.3.1.174:8001$LR—IPV4【线路1】 【1920x1080@5667kbps 2Mbps】
+http://remote.jackye.site:8000/rtp/239.61.3.36:9734$LR—IPV4【线路1】 【1920x1080@5618kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV6" tvg-name="CCTV6" tvg-logo="https://tb.zbds.top/logo/CCTV6.png" group-title="央视频道",CCTV6
-http://www.siyao.xin:4000/rtp/225.1.4.160:1196$LR—IPV4【线路2】 【1920x1080@6126kbps 2Mbps】
+http://xs12dp121403.vicp.fun:9999/rtp/239.253.92.193:6058$LR—IPV4【线路2】 【1920x1080@5686kbps 1Mbps】
 #EXTINF:-1 tvg-id="CCTV6" tvg-name="CCTV6" tvg-logo="https://tb.zbds.top/logo/CCTV6.png" group-title="央视频道",CCTV6
-http://113.205.168.98:8005/udp/225.0.4.144:7980$LR—IPV4【线路3】 【1920x1080@5911kbps 2Mbps】
+http://218.71.18.154:8888/udp/233.50.200.109:5140$LR—IPV4【线路3】 【1920x1080@3651kbps 1Mbps】
 #EXTINF:-1 tvg-id="CCTV6" tvg-name="CCTV6" tvg-logo="https://tb.zbds.top/logo/CCTV6.png" group-title="央视频道",CCTV6
-http://59.173.122.230:10001/rtp/239.69.1.124:10382$LR—IPV4【线路4】 【1920x1080@4635kbps 35kbps】
+http://120.238.84.45:9901/tsfile/live/1024_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7189kbps 1Mbps】
 #EXTINF:-1 tvg-id="CCTV6" tvg-name="CCTV6" tvg-logo="https://tb.zbds.top/logo/CCTV6.png" group-title="央视频道",CCTV6
-http://113.57.140.161:10081/newlive/live/hls/7/live.m3u8$LR—IPV4【线路5】 【1920x1080@7383kbps 12Mbps】
+http://219.147.245.238:25480/newlive/live/hls/7/live.m3u8$LR—IPV4【线路5】 【1920x1080@3897kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV6" tvg-name="CCTV6" tvg-logo="https://tb.zbds.top/logo/CCTV6.png" group-title="央视频道",CCTV6
-http://60.223.94.64:9003/hls/6/index.m3u8$LR—IPV4【线路6】 【1920x1080@7358kbps 7Mbps】
-#EXTINF:-1 tvg-id="CCTV6" tvg-name="CCTV6" tvg-logo="https://tb.zbds.top/logo/CCTV6.png" group-title="央视频道",CCTV6
-http://219.147.245.238:25480/newlive/live/hls/7/live.m3u8$LR—IPV4【线路7】 【1920x1080@3948kbps 3Mbps】
+http://118.122.144.115:8888/newlive/live/hls/7/live.m3u8$LR—IPV4【线路6】 【1920x1080@8400kbps 1Mbps】
 #EXTINF:-1 tvg-id="CCTV7" tvg-name="CCTV7" tvg-logo="https://tb.zbds.top/logo/CCTV7.png" group-title="央视频道",CCTV7
-http://www.221111.best:8012/rtp/239.3.1.61:8104$LR—IPV4【线路1】 【1920x1080@5225kbps 2Mbps】
+http://218.71.18.154:8888/udp/233.50.200.102:5140$LR—IPV4【线路1】 【1920x1080@3233kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV7" tvg-name="CCTV7" tvg-logo="https://tb.zbds.top/logo/CCTV7.png" group-title="央视频道",CCTV7
-http://www.siyao.xin:4000/rtp/225.1.4.76:1105$LR—IPV4【线路2】 【1920x1080@5952kbps 2Mbps】
+http://remote.jackye.site:8000/rtp/239.61.2.175:9038$LR—IPV4【线路2】 【1920x1080@4906kbps 1Mbps】
 #EXTINF:-1 tvg-id="CCTV7" tvg-name="CCTV7" tvg-logo="https://tb.zbds.top/logo/CCTV7.png" group-title="央视频道",CCTV7
-http://59.173.122.230:10001/rtp/239.69.1.103:10256$LR—IPV4【线路3】 【1920x1080@4905kbps 186kbps】
+http://xs12dp121403.vicp.fun:9999/rtp/239.253.92.194:6059$LR—IPV4【线路3】 【1920x1080@6301kbps 271kbps】
 #EXTINF:-1 tvg-id="CCTV7" tvg-name="CCTV7" tvg-logo="https://tb.zbds.top/logo/CCTV7.png" group-title="央视频道",CCTV7
-http://113.57.140.161:10081/newlive/live/hls/8/live.m3u8$LR—IPV4【线路4】 【1920x1080@8145kbps 9Mbps】
+http://111.59.24.227:8181/tsfile/live/0007_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@8432kbps 12Mbps】
 #EXTINF:-1 tvg-id="CCTV7" tvg-name="CCTV7" tvg-logo="https://tb.zbds.top/logo/CCTV7.png" group-title="央视频道",CCTV7
-http://110.72.77.228:808/hls/5/index.m3u8$LR—IPV4【线路5】 【1920x1080@7531kbps 11Mbps】
+http://60.223.94.64:9003/hls/7/index.m3u8$LR—IPV4【线路5】 【1920x1080@7774kbps 8Mbps】
 #EXTINF:-1 tvg-id="CCTV7" tvg-name="CCTV7" tvg-logo="https://tb.zbds.top/logo/CCTV7.png" group-title="央视频道",CCTV7
-http://219.147.245.238:25480/newlive/live/hls/8/live.m3u8$LR—IPV4【线路6】 【1920x1080@3947kbps 6Mbps】
+http://120.40.39.246:352/newlive/live/hls/8/live.m3u8$LR—IPV4【线路6】 【1920x1080@7777kbps 6Mbps】
 #EXTINF:-1 tvg-id="CCTV7" tvg-name="CCTV7" tvg-logo="https://tb.zbds.top/logo/CCTV7.png" group-title="央视频道",CCTV7
-http://60.223.94.64:9003/hls/7/index.m3u8$LR—IPV4【线路7】 【1920x1080@7211kbps 5Mbps】
+http://219.147.245.238:25480/newlive/live/hls/8/live.m3u8$LR—IPV4【线路7】 【1920x1080@3882kbps 4Mbps】
 #EXTINF:-1 tvg-id="CCTV8" tvg-name="CCTV8" tvg-logo="https://tb.zbds.top/logo/CCTV8.png" group-title="央视频道",CCTV8
-http://www.221111.best:8012/rtp/239.3.1.175:8001$LR—IPV4【线路1】 【1920x1080@5394kbps 2Mbps】
+http://60.183.109.152:8000/udp/233.50.200.110:5140$LR—IPV4【线路1】 【1920x1080@2275kbps 1Mbps】
 #EXTINF:-1 tvg-id="CCTV8" tvg-name="CCTV8" tvg-logo="https://tb.zbds.top/logo/CCTV8.png" group-title="央视频道",CCTV8
-http://www.siyao.xin:4000/rtp/225.1.4.161:1197$LR—IPV4【线路2】 【1920x1080@6290kbps 2Mbps】
+http://117.67.85.240:8888/rtp/238.1.78.173:7256$LR—IPV4【线路2】 【1920x1080@5592kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV8" tvg-name="CCTV8" tvg-logo="https://tb.zbds.top/logo/CCTV8.png" group-title="央视频道",CCTV8
-http://vpn.ydcb.top:40000/udp/239.94.0.8:5140$LR—IPV4【线路3】 【1920x1080@4820kbps 561kbps】
+http://218.71.18.154:8888/udp/233.50.200.110:5140$LR—IPV4【线路3】 【1920x1080@2214kbps 1Mbps】
 #EXTINF:-1 tvg-id="CCTV8" tvg-name="CCTV8" tvg-logo="https://tb.zbds.top/logo/CCTV8.png" group-title="央视频道",CCTV8
-http://59.173.122.230:10001/rtp/239.69.1.125:10388$LR—IPV4【线路4】 【1920x1080@4922kbps 757kbps】
+http://219.147.245.238:25480/newlive/live/hls/9/live.m3u8$LR—IPV4【线路4】 【1920x1080@4054kbps 5Mbps】
 #EXTINF:-1 tvg-id="CCTV8" tvg-name="CCTV8" tvg-logo="https://tb.zbds.top/logo/CCTV8.png" group-title="央视频道",CCTV8
-http://vpn.ydcb.top:40000/udp/239.94.2.29:5140$LR—IPV4【线路5】 【1920x1080@4785kbps 237kbps】
+http://60.223.94.64:9003/hls/8/index.m3u8$LR—IPV4【线路5】 【1920x1080@7722kbps 1Mbps】
 #EXTINF:-1 tvg-id="CCTV8" tvg-name="CCTV8" tvg-logo="https://tb.zbds.top/logo/CCTV8.png" group-title="央视频道",CCTV8
-http://113.57.140.161:10081/newlive/live/hls/9/live.m3u8$LR—IPV4【线路6】 【1920x1080@8476kbps 10Mbps】
+http://118.122.144.115:8888/newlive/live/hls/9/live.m3u8$LR—IPV4【线路6】 【1920x1080@8355kbps 969kbps】
 #EXTINF:-1 tvg-id="CCTV8" tvg-name="CCTV8" tvg-logo="https://tb.zbds.top/logo/CCTV8.png" group-title="央视频道",CCTV8
-http://219.147.245.238:25480/newlive/live/hls/9/live.m3u8$LR—IPV4【线路7】 【1920x1080@4263kbps 6Mbps】
-#EXTINF:-1 tvg-id="CCTV8" tvg-name="CCTV8" tvg-logo="https://tb.zbds.top/logo/CCTV8.png" group-title="央视频道",CCTV8
-http://60.223.94.64:9003/hls/8/index.m3u8$LR—IPV4【线路8】 【1920x1080@7853kbps 6Mbps】
+http://58.56.162.102:4466/newlive/live/hls/9/live.m3u8$LR—IPV4【线路7】 【1920x1080@8614kbps 1Mbps】
 #EXTINF:-1 tvg-id="CCTV9" tvg-name="CCTV9" tvg-logo="https://tb.zbds.top/logo/CCTV9.png" group-title="央视频道",CCTV9
-http://113.205.168.98:8005/udp/225.0.4.131:7980$LR—IPV4【线路1】 【1920x1080@4005kbps 2Mbps】
+http://218.71.18.154:8888/udp/233.50.200.23:5140$LR—IPV4【线路1】 【1920x1080@2999kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV9" tvg-name="CCTV9" tvg-logo="https://tb.zbds.top/logo/CCTV9.png" group-title="央视频道",CCTV9
-http://www.siyao.xin:4000/rtp/225.1.4.77:1106$LR—IPV4【线路2】 【1920x1080@6103kbps 2Mbps】
+http://218.71.18.154:8888/udp/233.50.201.121:5140$LR—IPV4【线路2】 【1920x1080@5910kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV9" tvg-name="CCTV9" tvg-logo="https://tb.zbds.top/logo/CCTV9.png" group-title="央视频道",CCTV9
-http://www.221111.best:8012/rtp/239.3.1.62:8112$LR—IPV4【线路3】 【1920x1080@5913kbps 2Mbps】
+http://120.40.39.246:352/newlive/live/hls/10/live.m3u8$LR—IPV4【线路3】 【1920x1080@8099kbps 6Mbps】
 #EXTINF:-1 tvg-id="CCTV9" tvg-name="CCTV9" tvg-logo="https://tb.zbds.top/logo/CCTV9.png" group-title="央视频道",CCTV9
-http://219.147.245.238:25480/newlive/live/hls/10/live.m3u8$LR—IPV4【线路4】 【1920x1080@4028kbps 6Mbps】
+http://219.147.245.238:25480/newlive/live/hls/10/live.m3u8$LR—IPV4【线路4】 【1920x1080@4056kbps 5Mbps】
 #EXTINF:-1 tvg-id="CCTV9" tvg-name="CCTV9" tvg-logo="https://tb.zbds.top/logo/CCTV9.png" group-title="央视频道",CCTV9
-http://60.223.94.64:9003/hls/9/index.m3u8$LR—IPV4【线路5】 【1920x1080@7563kbps 7Mbps】
+http://60.223.94.64:9003/hls/9/index.m3u8$LR—IPV4【线路5】 【1920x1080@7499kbps 7Mbps】
+#EXTINF:-1 tvg-id="CCTV9" tvg-name="CCTV9" tvg-logo="https://tb.zbds.top/logo/CCTV9.png" group-title="央视频道",CCTV9
+http://58.56.162.102:4466/newlive/live/hls/10/live.m3u8$LR—IPV4【线路6】 【1920x1080@8137kbps 4Mbps】
+#EXTINF:-1 tvg-id="CCTV9" tvg-name="CCTV9" tvg-logo="https://tb.zbds.top/logo/CCTV9.png" group-title="央视频道",CCTV9
+http://120.238.84.45:9901/tsfile/live/1027_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路7】 【1920x1080@7988kbps】
 #EXTINF:-1 tvg-id="CCTV10" tvg-name="CCTV10" tvg-logo="https://tb.zbds.top/logo/CCTV10.png" group-title="央视频道",CCTV10
-http://www.221111.best:8012/rtp/239.3.1.63:8116$LR—IPV4【线路1】 【1920x1080@2972kbps 2Mbps】
+http://218.71.18.154:8888/udp/233.50.200.22:5140$LR—IPV4【线路1】 【1920x1080@3042kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV10" tvg-name="CCTV10" tvg-logo="https://tb.zbds.top/logo/CCTV10.png" group-title="央视频道",CCTV10
-http://www.siyao.xin:4000/rtp/225.1.4.78:1107$LR—IPV4【线路2】 【1920x1080@5848kbps 2Mbps】
+http://60.183.109.152:8000/udp/233.50.200.22:5140$LR—IPV4【线路2】 【1920x1080@3045kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV10" tvg-name="CCTV10" tvg-logo="https://tb.zbds.top/logo/CCTV10.png" group-title="央视频道",CCTV10
-http://113.205.168.98:8005/udp/225.0.4.130:7980$LR—IPV4【线路3】 【1920x1080@6124kbps 2Mbps】
+http://remote.jackye.site:8000/rtp/239.61.2.176:9044$LR—IPV4【线路3】 【1920x1080@5914kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV10" tvg-name="CCTV10" tvg-logo="https://tb.zbds.top/logo/CCTV10.png" group-title="央视频道",CCTV10
-http://vpn.ydcb.top:40000/udp/239.94.2.31:5140$LR—IPV4【线路4】 【1920x1080@4769kbps 705kbps】
+http://www.siyao.xin:4000/rtp/225.1.4.78:1107$LR—IPV4【线路4】 【1920x1080@6493kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV10" tvg-name="CCTV10" tvg-logo="https://tb.zbds.top/logo/CCTV10.png" group-title="央视频道",CCTV10
-http://59.173.122.230:10001/rtp/239.69.1.105:10268$LR—IPV4【线路5】 【1920x1080@4842kbps 252kbps】
+http://60.223.94.64:9003/hls/10/index.m3u8$LR—IPV4【线路5】 【1920x1080@8198kbps 7Mbps】
 #EXTINF:-1 tvg-id="CCTV10" tvg-name="CCTV10" tvg-logo="https://tb.zbds.top/logo/CCTV10.png" group-title="央视频道",CCTV10
-http://113.57.140.161:10081/newlive/live/hls/11/live.m3u8$LR—IPV4【线路6】 【1920x1080@6836kbps 10Mbps】
+http://113.57.140.161:10081/newlive/live/hls/11/live.m3u8$LR—IPV4【线路6】 【1920x1080@6882kbps 4Mbps】
 #EXTINF:-1 tvg-id="CCTV10" tvg-name="CCTV10" tvg-logo="https://tb.zbds.top/logo/CCTV10.png" group-title="央视频道",CCTV10
-http://60.223.94.64:9003/hls/10/index.m3u8$LR—IPV4【线路7】 【1920x1080@8607kbps 8Mbps】
+http://120.238.84.45:9901/tsfile/live/1028_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路7】 【1920x1080@8265kbps 4Mbps】
 #EXTINF:-1 tvg-id="CCTV10" tvg-name="CCTV10" tvg-logo="https://tb.zbds.top/logo/CCTV10.png" group-title="央视频道",CCTV10
-http://219.147.245.238:25480/newlive/live/hls/11/live.m3u8$LR—IPV4【线路8】 【1920x1080@4185kbps 3Mbps】
+http://58.56.162.102:4466/newlive/live/hls/11/live.m3u8$LR—IPV4【线路8】 【1920x1080@8350kbps 664kbps】
 #EXTINF:-1 tvg-id="CCTV11" tvg-name="CCTV11" tvg-logo="https://tb.zbds.top/logo/CCTV11.png" group-title="央视频道",CCTV11
-http://www.siyao.xin:4000/rtp/225.1.4.215:1268$LR—IPV4【线路1】 【1920x1080@5897kbps 2Mbps】
+http://xs12dp121403.vicp.fun:9999/rtp/239.253.93.153:6321$LR—IPV4【线路1】 【1920x1080@6088kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV11" tvg-name="CCTV11" tvg-logo="https://tb.zbds.top/logo/CCTV11.png" group-title="央视频道",CCTV11
-http://www.221111.best:8012/rtp/239.3.1.152:8120$LR—IPV4【线路2】 【1920x1080@5919kbps 2Mbps】
+http://www.siyao.xin:4000/rtp/225.1.4.215:1268$LR—IPV4【线路2】 【1920x1080@6391kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV11" tvg-name="CCTV11" tvg-logo="https://tb.zbds.top/logo/CCTV11.png" group-title="央视频道",CCTV11
-http://113.205.168.98:8005/udp/225.0.4.218:7980$LR—IPV4【线路3】 【1920x1080@5742kbps 2Mbps】
+http://remote.jackye.site:8000/rtp/239.61.2.21:8120$LR—IPV4【线路3】 【1920x1080@5272kbps 1Mbps】
 #EXTINF:-1 tvg-id="CCTV11" tvg-name="CCTV11" tvg-logo="https://tb.zbds.top/logo/CCTV11.png" group-title="央视频道",CCTV11
-http://113.57.140.161:10081/newlive/live/hls/12/live.m3u8$LR—IPV4【线路4】 【1920x1080@8381kbps 10Mbps】
+http://113.57.140.161:10081/newlive/live/hls/12/live.m3u8$LR—IPV4【线路4】 【1920x1080@7616kbps 10Mbps】
 #EXTINF:-1 tvg-id="CCTV11" tvg-name="CCTV11" tvg-logo="https://tb.zbds.top/logo/CCTV11.png" group-title="央视频道",CCTV11
-http://60.223.94.64:9003/hls/11/index.m3u8$LR—IPV4【线路5】 【1920x1080@8429kbps 7Mbps】
-#EXTINF:-1 tvg-id="CCTV11" tvg-name="CCTV11" tvg-logo="https://tb.zbds.top/logo/CCTV11.png" group-title="央视频道",CCTV11
-http://219.147.245.238:25480/newlive/live/hls/12/live.m3u8$LR—IPV4【线路6】 【1280x720@1600kbps 2Mbps】
-#EXTINF:-1 tvg-id="CCTV11" tvg-name="CCTV11" tvg-logo="https://tb.zbds.top/logo/CCTV11.png" group-title="央视频道",CCTV11
-http://120.238.84.45:9901/tsfile/live/1029_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路7】 【1920x1080@8074kbps 1Mbps】
+http://219.147.245.238:25480/newlive/live/hls/12/live.m3u8$LR—IPV4【线路5】 【1280x720@1668kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV12" tvg-name="CCTV12" tvg-logo="https://tb.zbds.top/logo/CCTV12.png" group-title="央视频道",CCTV12
-http://www.siyao.xin:4000/rtp/225.1.4.79:1108$LR—IPV4【线路1】 【1920x1080@5852kbps 2Mbps】
+http://www.siyao.xin:4000/rtp/225.1.4.79:1108$LR—IPV4【线路1】 【1920x1080@6318kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV12" tvg-name="CCTV12" tvg-logo="https://tb.zbds.top/logo/CCTV12.png" group-title="央视频道",CCTV12
-http://113.205.168.98:8005/udp/225.0.4.129:7980$LR—IPV4【线路2】 【1920x1080@5758kbps 2Mbps】
+http://218.71.18.154:8888/udp/233.50.201.123:5140$LR—IPV4【线路2】 【1920x1080@5875kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV12" tvg-name="CCTV12" tvg-logo="https://tb.zbds.top/logo/CCTV12.png" group-title="央视频道",CCTV12
-http://www.221111.best:8012/rtp/239.3.1.64:8124$LR—IPV4【线路3】 【1920x1080@5839kbps 2Mbps】
+http://218.71.18.154:8888/udp/233.50.200.21:5140$LR—IPV4【线路3】 【1920x1080@2999kbps 64kbps】
+#EXTINF:-1 tvg-id="CCTV12" tvg-name="CCTV12" tvg-logo="https://tb.zbds.top/logo/CCTV12.png" group-title="央视频道",CCTV12
+http://60.223.94.64:9003/hls/12/index.m3u8$LR—IPV4【线路4】 【1920x1080@7562kbps 8Mbps】
+#EXTINF:-1 tvg-id="CCTV12" tvg-name="CCTV12" tvg-logo="https://tb.zbds.top/logo/CCTV12.png" group-title="央视频道",CCTV12
+http://219.147.245.238:25480/newlive/live/hls/13/live.m3u8$LR—IPV4【线路5】 【1920x1080@4054kbps 5Mbps】
+#EXTINF:-1 tvg-id="CCTV12" tvg-name="CCTV12" tvg-logo="https://tb.zbds.top/logo/CCTV12.png" group-title="央视频道",CCTV12
+http://118.122.144.115:8888/newlive/live/hls/13/live.m3u8$LR—IPV4【线路6】 【1920x1080@8105kbps 4Mbps】
+#EXTINF:-1 tvg-id="CCTV12" tvg-name="CCTV12" tvg-logo="https://tb.zbds.top/logo/CCTV12.png" group-title="央视频道",CCTV12
+http://113.57.140.161:10081/newlive/live/hls/13/live.m3u8$LR—IPV4【线路7】 【1920x1080@7985kbps 3Mbps】
+#EXTINF:-1 tvg-id="CCTV12" tvg-name="CCTV12" tvg-logo="https://tb.zbds.top/logo/CCTV12.png" group-title="央视频道",CCTV12
+http://58.56.162.102:4466/newlive/live/hls/13/live.m3u8$LR—IPV4【线路8】 【1920x1080@8061kbps 780kbps】
 #EXTINF:-1 tvg-id="CCTV13" tvg-name="CCTV13" tvg-logo="https://tb.zbds.top/logo/CCTV13.png" group-title="央视频道",CCTV13
-http://113.205.168.98:8005/udp/225.0.4.219:7980$LR—IPV4【线路1】 【1920x1080@5641kbps 2Mbps】
+http://218.71.18.154:8888/udp/233.50.200.111:5140$LR—IPV4【线路1】 【1920x1080@3270kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV13" tvg-name="CCTV13" tvg-logo="https://tb.zbds.top/logo/CCTV13.png" group-title="央视频道",CCTV13
-http://www.221111.best:8012/rtp/239.3.1.124:8128$LR—IPV4【线路2】 【1920x1080@5878kbps 2Mbps】
+http://60.183.109.152:8000/udp/233.50.200.97:5140$LR—IPV4【线路2】 【1920x1080@2816kbps 1Mbps】
 #EXTINF:-1 tvg-id="CCTV13" tvg-name="CCTV13" tvg-logo="https://tb.zbds.top/logo/CCTV13.png" group-title="央视频道",CCTV13
-http://www.siyao.xin:4000/rtp/225.1.4.113:1293$LR—IPV4【线路3】 【1920x1080@5461kbps 2Mbps】
+http://www.siyao.xin:4000/rtp/225.1.4.113:1293$LR—IPV4【线路3】 【1920x1080@6454kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV13" tvg-name="CCTV13" tvg-logo="https://tb.zbds.top/logo/CCTV13.png" group-title="央视频道",CCTV13
-http://vpn.ydcb.top:40000/udp/239.94.0.37:5140$LR—IPV4【线路4】 【1920x1080@4410kbps 878kbps】
+http://218.71.18.154:8888/udp/233.50.200.97:5140$LR—IPV4【线路4】 【1920x1080@2919kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV13" tvg-name="CCTV13" tvg-logo="https://tb.zbds.top/logo/CCTV13.png" group-title="央视频道",CCTV13
-http://59.173.122.230:10001/rtp/239.254.96.161:9040$LR—IPV4【线路5】 【1920x1080@5116kbps 163kbps】
+http://60.223.94.64:9003/hls/13/index.m3u8$LR—IPV4【线路5】 【1920x1080@7487kbps 7Mbps】
 #EXTINF:-1 tvg-id="CCTV13" tvg-name="CCTV13" tvg-logo="https://tb.zbds.top/logo/CCTV13.png" group-title="央视频道",CCTV13
-http://60.223.94.64:9003/hls/13/index.m3u8$LR—IPV4【线路6】 【1920x1080@7394kbps 8Mbps】
+http://113.57.140.161:10081/newlive/live/hls/14/live.m3u8$LR—IPV4【线路6】 【1920x1080@7622kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV13" tvg-name="CCTV13" tvg-logo="https://tb.zbds.top/logo/CCTV13.png" group-title="央视频道",CCTV13
-http://219.147.245.238:25480/newlive/live/hls/14/live.m3u8$LR—IPV4【线路7】 【1280x720@1538kbps 2Mbps】
+http://219.147.245.238:25480/newlive/live/hls/14/live.m3u8$LR—IPV4【线路7】 【1280x720@1702kbps 1Mbps】
 #EXTINF:-1 tvg-id="CCTV14" tvg-name="CCTV14" tvg-logo="https://tb.zbds.top/logo/CCTV14.png" group-title="央视频道",CCTV14
-http://113.205.168.98:8005/udp/225.0.4.128:7980$LR—IPV4【线路1】 【1920x1080@5839kbps 2Mbps】
+http://60.183.109.152:8000/udp/233.50.200.103:5140$LR—IPV4【线路1】 【1920x1080@2913kbps 1Mbps】
 #EXTINF:-1 tvg-id="CCTV14" tvg-name="CCTV14" tvg-logo="https://tb.zbds.top/logo/CCTV14.png" group-title="央视频道",CCTV14
-http://120.40.39.246:352/newlive/live/hls/15/live.m3u8$LR—IPV4【线路2】 【1920x1080@7984kbps 5Mbps】
+http://218.71.18.154:8888/udp/233.50.200.20:5140$LR—IPV4【线路2】 【1920x1080@6094kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV14" tvg-name="CCTV14" tvg-logo="https://tb.zbds.top/logo/CCTV14.png" group-title="央视频道",CCTV14
-http://60.223.94.64:9003/hls/14/index.m3u8$LR—IPV4【线路3】 【1920x1080@6889kbps 4Mbps】
+http://www.siyao.xin:4000/rtp/225.1.4.80:1109$LR—IPV4【线路3】 【1920x1080@6382kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV14" tvg-name="CCTV14" tvg-logo="https://tb.zbds.top/logo/CCTV14.png" group-title="央视频道",CCTV14
-http://113.57.140.161:10081/newlive/live/hls/15/live.m3u8$LR—IPV4【线路4】 【1920x1080@8281kbps 1Mbps】
+http://60.183.109.152:8000/udp/233.50.201.124:5140$LR—IPV4【线路4】 【1920x1080@5729kbps 2Mbps】
+#EXTINF:-1 tvg-id="CCTV14" tvg-name="CCTV14" tvg-logo="https://tb.zbds.top/logo/CCTV14.png" group-title="央视频道",CCTV14
+http://remote.jackye.site:8000/rtp/239.61.2.178:9056$LR—IPV4【线路5】 【1920x1080@3542kbps 2Mbps】
+#EXTINF:-1 tvg-id="CCTV14" tvg-name="CCTV14" tvg-logo="https://tb.zbds.top/logo/CCTV14.png" group-title="央视频道",CCTV14
+http://218.71.18.154:8888/udp/233.50.201.124:5140$LR—IPV4【线路6】 【1920x1080@5550kbps 2Mbps】
+#EXTINF:-1 tvg-id="CCTV14" tvg-name="CCTV14" tvg-logo="https://tb.zbds.top/logo/CCTV14.png" group-title="央视频道",CCTV14
+http://218.71.18.154:8888/udp/233.50.200.103:5140$LR—IPV4【线路7】 【1920x1080@3215kbps 1Mbps】
+#EXTINF:-1 tvg-id="CCTV14" tvg-name="CCTV14" tvg-logo="https://tb.zbds.top/logo/CCTV14.png" group-title="央视频道",CCTV14
+http://60.223.94.64:9003/hls/14/index.m3u8$LR—IPV4【线路8】 【1920x1080@5798kbps 7Mbps】
 #EXTINF:-1 tvg-id="CCTV15" tvg-name="CCTV15" tvg-logo="https://tb.zbds.top/logo/CCTV15.png" group-title="央视频道",CCTV15
-http://vpn.ydcb.top:40000/udp/239.94.0.38:5140$LR—IPV4【线路1】 【1920x1080@5082kbps 738kbps】
+http://www.siyao.xin:4000/rtp/225.1.4.216:1269$LR—IPV4【线路1】 【1920x1080@6451kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV15" tvg-name="CCTV15" tvg-logo="https://tb.zbds.top/logo/CCTV15.png" group-title="央视频道",CCTV15
-http://120.40.39.246:352/newlive/live/hls/16/live.m3u8$LR—IPV4【线路2】 【1920x1080@7900kbps 9Mbps】
+http://113.57.140.161:10081/newlive/live/hls/16/live.m3u8$LR—IPV4【线路2】 【1920x1080@8119kbps 11Mbps】
 #EXTINF:-1 tvg-id="CCTV15" tvg-name="CCTV15" tvg-logo="https://tb.zbds.top/logo/CCTV15.png" group-title="央视频道",CCTV15
-http://60.223.94.64:9003/hls/15/index.m3u8$LR—IPV4【线路3】 【1920x1080@8224kbps 7Mbps】
+http://60.223.94.64:9003/hls/15/index.m3u8$LR—IPV4【线路3】 【1920x1080@8237kbps 5Mbps】
 #EXTINF:-1 tvg-id="CCTV15" tvg-name="CCTV15" tvg-logo="https://tb.zbds.top/logo/CCTV15.png" group-title="央视频道",CCTV15
-http://219.147.245.238:25480/newlive/live/hls/16/live.m3u8$LR—IPV4【线路4】 【1280x720@1663kbps 1Mbps】
+http://219.147.245.238:25480/newlive/live/hls/16/live.m3u8$LR—IPV4【线路4】 【1280x720@1583kbps 2Mbps】
+#EXTINF:-1 tvg-id="CCTV15" tvg-name="CCTV15" tvg-logo="https://tb.zbds.top/logo/CCTV15.png" group-title="央视频道",CCTV15
+http://120.40.39.246:352/newlive/live/hls/16/live.m3u8$LR—IPV4【线路5】 【1920x1080@7964kbps 5Mbps】
+#EXTINF:-1 tvg-id="CCTV15" tvg-name="CCTV15" tvg-logo="https://tb.zbds.top/logo/CCTV15.png" group-title="央视频道",CCTV15
+http://58.56.162.102:4466/newlive/live/hls/16/live.m3u8$LR—IPV4【线路6】 【1920x1080@8155kbps 1Mbps】
 #EXTINF:-1 tvg-id="CCTV16" tvg-name="CCTV16" tvg-logo="https://tb.zbds.top/logo/CCTV16.png" group-title="央视频道",CCTV16
-http://www.221111.best:8012/rtp/239.3.1.184:8001$LR—IPV4【线路1】 【1920x1080@5924kbps 2Mbps】
+http://218.71.18.154:8888/udp/233.50.200.112:5140$LR—IPV4【线路1】 【1920x1080@5448kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV16" tvg-name="CCTV16" tvg-logo="https://tb.zbds.top/logo/CCTV16.png" group-title="央视频道",CCTV16
-http://59.173.122.230:10001/rtp/239.69.1.247:11124$LR—IPV4【线路2】 【1920x1080@4871kbps 108kbps】
+http://60.183.109.152:8000/udp/233.50.201.63:5140$LR—IPV4【线路2】 【3840x2160@6976kbps 2Mbps】
+#EXTINF:-1 tvg-id="CCTV16" tvg-name="CCTV16" tvg-logo="https://tb.zbds.top/logo/CCTV16.png" group-title="央视频道",CCTV16
+http://218.71.18.154:8888/udp/233.50.201.192:5140$LR—IPV4【线路3】 【1920x1080@5287kbps 2Mbps】
+#EXTINF:-1 tvg-id="CCTV16" tvg-name="CCTV16" tvg-logo="https://tb.zbds.top/logo/CCTV16.png" group-title="央视频道",CCTV16
+http://113.57.140.161:10081/newlive/live/hls/17/live.m3u8$LR—IPV4【线路4】 【1920x1080@8057kbps 12Mbps】
+#EXTINF:-1 tvg-id="CCTV16" tvg-name="CCTV16" tvg-logo="https://tb.zbds.top/logo/CCTV16.png" group-title="央视频道",CCTV16
+http://219.147.245.238:25480/newlive/live/hls/17/live.m3u8$LR—IPV4【线路5】 【1920x1080@3989kbps 5Mbps】
+#EXTINF:-1 tvg-id="CCTV16" tvg-name="CCTV16" tvg-logo="https://tb.zbds.top/logo/CCTV16.png" group-title="央视频道",CCTV16
+http://221.221.137.78:8000/tsfile/live/1001_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路6】 【1920x1080@10338kbps 2Mbps】
+#EXTINF:-1 tvg-id="CCTV16" tvg-name="CCTV16" tvg-logo="https://tb.zbds.top/logo/CCTV16.png" group-title="央视频道",CCTV16
+http://58.56.162.102:4466/newlive/live/hls/17/live.m3u8$LR—IPV4【线路7】 【1920x1080@8340kbps 958kbps】
 #EXTINF:-1 tvg-id="CCTV17" tvg-name="CCTV17" tvg-logo="https://tb.zbds.top/logo/CCTV17.png" group-title="央视频道",CCTV17
-http://www.221111.best:8012/rtp/239.3.1.151:8144$LR—IPV4【线路1】 【1920x1080@6015kbps 2Mbps】
+http://218.71.18.154:8888/udp/233.50.200.113:5140$LR—IPV4【线路1】 【1920x1080@3025kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV17" tvg-name="CCTV17" tvg-logo="https://tb.zbds.top/logo/CCTV17.png" group-title="央视频道",CCTV17
-http://vpn.ydcb.top:40000/udp/239.94.0.17:5140$LR—IPV4【线路2】 【1920x1080@4800kbps 639kbps】
+http://60.183.109.152:8000/udp/233.50.200.113:5140$LR—IPV4【线路2】 【1920x1080@3043kbps 2Mbps】
 #EXTINF:-1 tvg-id="CCTV17" tvg-name="CCTV17" tvg-logo="https://tb.zbds.top/logo/CCTV17.png" group-title="央视频道",CCTV17
-http://120.238.84.45:9901/tsfile/live/1048_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@6612kbps 1Mbps】
-#EXTINF:-1 tvg-id="CETV1" tvg-name="CETV1" tvg-logo="https://tb.zbds.top/logo/CETV1.png" group-title="央视频道",CETV1
-http://www.221111.best:8012/rtp/239.3.1.68:4120$LR—IPV4【线路1】 【1920x1080@1974kbps 1Mbps】
-#EXTINF:-1 tvg-id="CETV1" tvg-name="CETV1" tvg-logo="https://tb.zbds.top/logo/CETV1.png" group-title="央视频道",CETV1
-http://113.205.168.98:8005/udp/225.0.4.186:7980$LR—IPV4【线路2】 【1920x1080@5651kbps 2Mbps】
-#EXTINF:-1 tvg-id="CETV2" tvg-name="CETV2" tvg-logo="https://tb.zbds.top/logo/CETV2.png" group-title="央视频道",CETV2
-http://www.221111.best:8012/rtp/239.3.1.80:4120$LR—IPV4 【1920x1080@1953kbps 1Mbps】
-#EXTINF:-1 tvg-id="CETV3" tvg-name="CETV3" tvg-logo="https://tb.zbds.top/logo/CETV3.png" group-title="央视频道",CETV3
-http://www.221111.best:8012/rtp/239.3.1.69:4120$LR—IPV4 【1920x1080@2305kbps 1Mbps】
-#EXTINF:-1 tvg-id="CETV4" tvg-name="CETV4" tvg-logo="https://tb.zbds.top/logo/CETV4.png" group-title="央视频道",CETV4
-http://www.221111.best:8012/rtp/239.3.1.85:4120$LR—IPV4【线路1】 【1920x1080@2221kbps 1Mbps】
-#EXTINF:-1 tvg-id="CETV4" tvg-name="CETV4" tvg-logo="https://tb.zbds.top/logo/CETV4.png" group-title="央视频道",CETV4
-http://113.205.168.98:8005/udp/225.0.4.182:7980$LR—IPV4【线路2】 【1920x1080@6385kbps 2Mbps】
-#EXTINF:-1 tvg-id="CETV4" tvg-name="CETV4" tvg-logo="https://tb.zbds.top/logo/CETV4.png" group-title="央视频道",CETV4
-http://vpn.ydcb.top:40000/udp/239.94.1.20:5140$LR—IPV4【线路3】 【1920x1080@5357kbps 212kbps】
+http://117.67.85.240:8888/rtp/238.1.78.178:7296$LR—IPV4【线路3】 【1920x1080@5668kbps 2Mbps】
 #EXTINF:-1 tvg-id="深圳卫视" tvg-name="深圳卫视" tvg-logo="https://tb.zbds.top/logo/深圳卫视.png" group-title="广东频道",深圳卫视
-http://www.221111.best:8012/rtp/239.3.1.210:8056$LR—IPV4【线路1】 【1920x1080@4353kbps 2Mbps】
+http://remote.jackye.site:8000/rtp/239.61.3.46:9794$LR—IPV4【线路1】 【1920x1080@4021kbps 2Mbps】
 #EXTINF:-1 tvg-id="深圳卫视" tvg-name="深圳卫视" tvg-logo="https://tb.zbds.top/logo/深圳卫视.png" group-title="广东频道",深圳卫视
-http://113.205.168.98:8005/udp/225.0.4.202:7980$LR—IPV4【线路2】 【1920x1080@5798kbps 229kbps】
+http://117.67.85.240:8888/rtp/238.1.78.156:7120$LR—IPV4【线路2】 【1920x1080@5846kbps 2Mbps】
+#EXTINF:-1 tvg-id="深圳卫视" tvg-name="深圳卫视" tvg-logo="https://tb.zbds.top/logo/深圳卫视.png" group-title="广东频道",深圳卫视
+http://60.183.109.152:8000/udp/233.50.201.101:5140$LR—IPV4【线路3】 【1920x1080@5780kbps 2Mbps】
+#EXTINF:-1 tvg-id="深圳卫视" tvg-name="深圳卫视" tvg-logo="https://tb.zbds.top/logo/深圳卫视.png" group-title="广东频道",深圳卫视
+http://111.59.24.227:8181/tsfile/live/0126_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7381kbps 11Mbps】
+#EXTINF:-1 tvg-id="深圳卫视" tvg-name="深圳卫视" tvg-logo="https://tb.zbds.top/logo/深圳卫视.png" group-title="广东频道",深圳卫视
+http://120.40.39.246:352/newlive/live/hls/37/live.m3u8$LR—IPV4【线路5】 【1920x1080@7974kbps 12Mbps】
+#EXTINF:-1 tvg-id="深圳卫视" tvg-name="深圳卫视" tvg-logo="https://tb.zbds.top/logo/深圳卫视.png" group-title="广东频道",深圳卫视
+http://113.57.140.161:10081/newlive/live/hls/37/live.m3u8$LR—IPV4【线路6】 【1920x1080@8234kbps 6Mbps】
+#EXTINF:-1 tvg-id="深圳卫视" tvg-name="深圳卫视" tvg-logo="https://tb.zbds.top/logo/深圳卫视.png" group-title="广东频道",深圳卫视
+http://221.221.137.78:8000/tsfile/live/0126_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路7】 【1920x1080@7727kbps 4Mbps】
 #EXTINF:-1 tvg-id="湖南卫视" tvg-name="湖南卫视" tvg-logo="https://tb.zbds.top/logo/湖南卫视.png" group-title="卫视频道",湖南卫视
-http://113.205.168.98:8005/udp/225.0.4.75:7980$LR—IPV4【线路1】 【1920x1080@5945kbps 2Mbps】
+http://60.183.109.152:8000/udp/233.50.200.190:5140$LR—IPV4【线路1】 【1920x1080@3094kbps 2Mbps】
 #EXTINF:-1 tvg-id="湖南卫视" tvg-name="湖南卫视" tvg-logo="https://tb.zbds.top/logo/湖南卫视.png" group-title="卫视频道",湖南卫视
-http://www.221111.best:8012/rtp/239.3.1.122:8160$LR—IPV4【线路2】 【1920x1080@5476kbps 2Mbps】
+http://www.siyao.xin:4000/rtp/225.1.4.82:1111$LR—IPV4【线路2】 【1920x1080@6438kbps 2Mbps】
 #EXTINF:-1 tvg-id="湖南卫视" tvg-name="湖南卫视" tvg-logo="https://tb.zbds.top/logo/湖南卫视.png" group-title="卫视频道",湖南卫视
-http://vpn.ydcb.top:40000/udp/239.94.0.61:5140$LR—IPV4【线路3】 【1920x1080@3723kbps 527kbps】
+http://218.71.18.154:8888/udp/233.50.201.103:5140$LR—IPV4【线路3】 【1920x1080@5887kbps 2Mbps】
 #EXTINF:-1 tvg-id="湖南卫视" tvg-name="湖南卫视" tvg-logo="https://tb.zbds.top/logo/湖南卫视.png" group-title="卫视频道",湖南卫视
-http://120.238.84.45:9901/tsfile/live/1043_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@8154kbps 3Mbps】
+http://remote.jackye.site:8000/rtp/239.61.2.31:8180$LR—IPV4【线路4】 【1920x1080@5307kbps 2Mbps】
 #EXTINF:-1 tvg-id="湖南卫视" tvg-name="湖南卫视" tvg-logo="https://tb.zbds.top/logo/湖南卫视.png" group-title="卫视频道",湖南卫视
-http://111.59.24.227:8181/tsfile/live/0128_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@7268kbps 2Mbps】
+http://60.183.109.152:8000/udp/233.50.201.103:5140$LR—IPV4【线路5】 【1920x1080@5864kbps 2Mbps】
+#EXTINF:-1 tvg-id="湖南卫视" tvg-name="湖南卫视" tvg-logo="https://tb.zbds.top/logo/湖南卫视.png" group-title="卫视频道",湖南卫视
+http://218.71.18.154:8888/udp/233.50.200.190:5140$LR—IPV4【线路6】 【1920x1080@3109kbps 1Mbps】
+#EXTINF:-1 tvg-id="湖南卫视" tvg-name="湖南卫视" tvg-logo="https://tb.zbds.top/logo/湖南卫视.png" group-title="卫视频道",湖南卫视
+http://113.57.140.161:10081/newlive/live/hls/30/live.m3u8$LR—IPV4【线路7】 【1920x1080@7472kbps 8Mbps】
+#EXTINF:-1 tvg-id="湖南卫视" tvg-name="湖南卫视" tvg-logo="https://tb.zbds.top/logo/湖南卫视.png" group-title="卫视频道",湖南卫视
+http://111.59.24.227:8181/tsfile/live/0128_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路8】 【1920x1080@7442kbps 4Mbps】
 #EXTINF:-1 tvg-id="浙江卫视" tvg-name="浙江卫视" tvg-logo="https://tb.zbds.top/logo/浙江卫视.png" group-title="卫视频道",浙江卫视
-http://59.173.122.230:10001/rtp/239.254.96.143:8932$LR—IPV4【线路1】 【1920x1080@5198kbps 62kbps】
+http://117.67.85.240:8888/rtp/238.1.78.164:7184$LR—IPV4【线路1】 【1920x1080@3805kbps 2Mbps】
 #EXTINF:-1 tvg-id="浙江卫视" tvg-name="浙江卫视" tvg-logo="https://tb.zbds.top/logo/浙江卫视.png" group-title="卫视频道",浙江卫视
-http://183.239.248.218:8181/tsfile/live/0124_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@8003kbps 1Mbps】
+http://www.siyao.xin:4000/rtp/225.1.4.84:1113$LR—IPV4【线路2】 【1920x1080@6584kbps 2Mbps】
+#EXTINF:-1 tvg-id="浙江卫视" tvg-name="浙江卫视" tvg-logo="https://tb.zbds.top/logo/浙江卫视.png" group-title="卫视频道",浙江卫视
+http://218.71.18.154:8888/udp/233.50.200.145:5140$LR—IPV4【线路3】 【1920x1080@5883kbps 2Mbps】
+#EXTINF:-1 tvg-id="浙江卫视" tvg-name="浙江卫视" tvg-logo="https://tb.zbds.top/logo/浙江卫视.png" group-title="卫视频道",浙江卫视
+http://60.183.109.152:8000/udp/233.50.201.100:5140$LR—IPV4【线路4】 【1920x1080@5715kbps 2Mbps】
+#EXTINF:-1 tvg-id="浙江卫视" tvg-name="浙江卫视" tvg-logo="https://tb.zbds.top/logo/浙江卫视.png" group-title="卫视频道",浙江卫视
+http://remote.jackye.site:8000/rtp/239.61.2.29:8168$LR—IPV4【线路5】 【1920x1080@5205kbps 1Mbps】
+#EXTINF:-1 tvg-id="浙江卫视" tvg-name="浙江卫视" tvg-logo="https://tb.zbds.top/logo/浙江卫视.png" group-title="卫视频道",浙江卫视
+http://113.57.140.161:10081/newlive/live/hls/32/live.m3u8$LR—IPV4【线路6】 【1920x1080@7527kbps 3Mbps】
 #EXTINF:-1 tvg-id="东方卫视" tvg-name="东方卫视" tvg-logo="https://tb.zbds.top/logo/东方卫视.png" group-title="卫视频道",东方卫视
-http://www.siyao.xin:4000/rtp/225.1.4.85:1114$LR—IPV4 【1920x1080@5808kbps 2Mbps】
+http://60.183.109.152:8000/udp/233.50.200.146:5140$LR—IPV4【线路1】 【1920x1080@2958kbps 2Mbps】
+#EXTINF:-1 tvg-id="东方卫视" tvg-name="东方卫视" tvg-logo="https://tb.zbds.top/logo/东方卫视.png" group-title="卫视频道",东方卫视
+http://xs12dp121403.vicp.fun:9999/rtp/239.253.92.89:8019$LR—IPV4【线路2】 【1920x1080@3739kbps 2Mbps】
+#EXTINF:-1 tvg-id="东方卫视" tvg-name="东方卫视" tvg-logo="https://tb.zbds.top/logo/东方卫视.png" group-title="卫视频道",东方卫视
+http://60.183.109.152:8000/udp/233.50.201.125:5140$LR—IPV4【线路3】 【1920x1080@5615kbps 2Mbps】
+#EXTINF:-1 tvg-id="东方卫视" tvg-name="东方卫视" tvg-logo="https://tb.zbds.top/logo/东方卫视.png" group-title="卫视频道",东方卫视
+http://www.siyao.xin:4000/rtp/225.1.4.85:1114$LR—IPV4【线路4】 【1920x1080@6029kbps 2Mbps】
+#EXTINF:-1 tvg-id="东方卫视" tvg-name="东方卫视" tvg-logo="https://tb.zbds.top/logo/东方卫视.png" group-title="卫视频道",东方卫视
+http://117.67.85.240:8888/rtp/238.1.78.163:7176$LR—IPV4【线路5】 【1920x1080@6084kbps 2Mbps】
+#EXTINF:-1 tvg-id="东方卫视" tvg-name="东方卫视" tvg-logo="https://tb.zbds.top/logo/东方卫视.png" group-title="卫视频道",东方卫视
+http://218.71.18.154:8888/udp/233.50.200.146:5140$LR—IPV4【线路6】 【1920x1080@2302kbps 1Mbps】
+#EXTINF:-1 tvg-id="东方卫视" tvg-name="东方卫视" tvg-logo="https://tb.zbds.top/logo/东方卫视.png" group-title="卫视频道",东方卫视
+http://remote.jackye.site:8000/rtp/239.61.2.28:8162$LR—IPV4【线路7】 【1920x1080@5111kbps 274kbps】
+#EXTINF:-1 tvg-id="东方卫视" tvg-name="东方卫视" tvg-logo="https://tb.zbds.top/logo/东方卫视.png" group-title="卫视频道",东方卫视
+http://60.223.94.64:9003/hls/25/index.m3u8$LR—IPV4【线路8】 【1920x1080@8461kbps 9Mbps】
 #EXTINF:-1 tvg-id="北京卫视" tvg-name="北京卫视" tvg-logo="https://tb.zbds.top/logo/北京卫视.png" group-title="卫视频道",北京卫视
-http://www.siyao.xin:4000/rtp/225.1.4.81:1110$LR—IPV4【线路1】 【1920x1080@5815kbps 1Mbps】
+http://218.71.18.154:8888/udp/233.50.200.179:5140$LR—IPV4【线路1】 【1920x1080@2431kbps 2Mbps】
 #EXTINF:-1 tvg-id="北京卫视" tvg-name="北京卫视" tvg-logo="https://tb.zbds.top/logo/北京卫视.png" group-title="卫视频道",北京卫视
-http://59.173.122.230:10001/rtp/239.69.2.22:11286$LR—IPV4【线路2】 【3840x2160@5860kbps 112kbps】
+http://60.183.109.152:8000/udp/233.50.200.179:5140$LR—IPV4【线路2】 【1920x1080@2322kbps 2Mbps】
 #EXTINF:-1 tvg-id="北京卫视" tvg-name="北京卫视" tvg-logo="https://tb.zbds.top/logo/北京卫视.png" group-title="卫视频道",北京卫视
-http://60.223.94.64:9003/hls/17/index.m3u8$LR—IPV4【线路3】 【1920x1080@7463kbps 4Mbps】
+http://218.71.18.154:8888/udp/233.50.201.107:5140$LR—IPV4【线路3】 【1920x1080@5450kbps 2Mbps】
 #EXTINF:-1 tvg-id="北京卫视" tvg-name="北京卫视" tvg-logo="https://tb.zbds.top/logo/北京卫视.png" group-title="卫视频道",北京卫视
-http://120.238.84.45:9901/tsfile/live/1050_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7956kbps 2Mbps】
+http://xs12dp121403.vicp.fun:9999/rtp/239.253.92.87:8014$LR—IPV4【线路4】 【1920x1080@5103kbps 2Mbps】
 #EXTINF:-1 tvg-id="北京卫视" tvg-name="北京卫视" tvg-logo="https://tb.zbds.top/logo/北京卫视.png" group-title="卫视频道",北京卫视
-http://111.59.24.227:8181/tsfile/live/0122_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@7499kbps 894kbps】
+http://60.183.109.152:8000/udp/233.50.201.107:5140$LR—IPV4【线路5】 【1920x1080@5590kbps 2Mbps】
+#EXTINF:-1 tvg-id="北京卫视" tvg-name="北京卫视" tvg-logo="https://tb.zbds.top/logo/北京卫视.png" group-title="卫视频道",北京卫视
+http://www.siyao.xin:4000/rtp/225.1.4.81:1110$LR—IPV4【线路6】 【1920x1080@6239kbps 2Mbps】
+#EXTINF:-1 tvg-id="北京卫视" tvg-name="北京卫视" tvg-logo="https://tb.zbds.top/logo/北京卫视.png" group-title="卫视频道",北京卫视
+http://111.59.24.227:8181/tsfile/live/0122_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路7】 【1920x1080@7621kbps 6Mbps】
+#EXTINF:-1 tvg-id="北京卫视" tvg-name="北京卫视" tvg-logo="https://tb.zbds.top/logo/北京卫视.png" group-title="卫视频道",北京卫视
+http://221.221.137.78:8000/tsfile/live/0122_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路8】 【1920x1080@8362kbps 6Mbps】
 #EXTINF:-1 tvg-id="江苏卫视" tvg-name="江苏卫视" tvg-logo="https://tb.zbds.top/logo/江苏卫视.png" group-title="卫视频道",江苏卫视
-http://www.221111.best:8012/rtp/239.3.1.148:8072$LR—IPV4【线路1】 【1920x1080@2375kbps 2Mbps】
+http://60.183.109.152:8000/udp/233.50.200.144:5140$LR—IPV4【线路1】 【1920x1080@2073kbps 2Mbps】
 #EXTINF:-1 tvg-id="江苏卫视" tvg-name="江苏卫视" tvg-logo="https://tb.zbds.top/logo/江苏卫视.png" group-title="卫视频道",江苏卫视
-http://113.205.168.98:8005/udp/225.0.4.79:7980$LR—IPV4【线路2】 【1920x1080@5922kbps 341kbps】
+http://remote.jackye.site:8000/rtp/239.61.2.30:8174$LR—IPV4【线路2】 【1920x1080@5349kbps 2Mbps】
 #EXTINF:-1 tvg-id="江苏卫视" tvg-name="江苏卫视" tvg-logo="https://tb.zbds.top/logo/江苏卫视.png" group-title="卫视频道",江苏卫视
-http://111.59.24.227:8181/tsfile/live/0127_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@7807kbps 4Mbps】
+http://117.67.85.240:8888/rtp/238.1.78.165:7192$LR—IPV4【线路3】 【1920x1080@6036kbps 2Mbps】
+#EXTINF:-1 tvg-id="江苏卫视" tvg-name="江苏卫视" tvg-logo="https://tb.zbds.top/logo/江苏卫视.png" group-title="卫视频道",江苏卫视
+http://60.183.109.152:8000/udp/233.50.201.106:5140$LR—IPV4【线路4】 【1920x1080@6255kbps 2Mbps】
+#EXTINF:-1 tvg-id="江苏卫视" tvg-name="江苏卫视" tvg-logo="https://tb.zbds.top/logo/江苏卫视.png" group-title="卫视频道",江苏卫视
+http://218.71.18.154:8888/udp/233.50.200.144:5140$LR—IPV4【线路5】 【1920x1080@3043kbps 2Mbps】
+#EXTINF:-1 tvg-id="江苏卫视" tvg-name="江苏卫视" tvg-logo="https://tb.zbds.top/logo/江苏卫视.png" group-title="卫视频道",江苏卫视
+http://218.71.18.154:8888/udp/233.50.201.106:5140$LR—IPV4【线路6】 【1920x1080@6468kbps 1Mbps】
+#EXTINF:-1 tvg-id="江苏卫视" tvg-name="江苏卫视" tvg-logo="https://tb.zbds.top/logo/江苏卫视.png" group-title="卫视频道",江苏卫视
+http://113.57.140.161:10081/newlive/live/hls/31/live.m3u8$LR—IPV4【线路7】 【1920x1080@8100kbps 11Mbps】
+#EXTINF:-1 tvg-id="江苏卫视" tvg-name="江苏卫视" tvg-logo="https://tb.zbds.top/logo/江苏卫视.png" group-title="卫视频道",江苏卫视
+http://111.59.24.227:8181/tsfile/live/0127_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路8】 【1920x1080@7956kbps 5Mbps】
 #EXTINF:-1 tvg-id="安徽卫视" tvg-name="安徽卫视" tvg-logo="https://tb.zbds.top/logo/安徽卫视.png" group-title="卫视频道",安徽卫视
-http://vpn.ydcb.top:40000/udp/239.94.0.85:5140$LR—IPV4【线路1】 【1920x1080@4988kbps 869kbps】
+http://218.71.18.154:8888/udp/233.50.200.106:5140$LR—IPV4【线路1】 【1920x1080@2408kbps 1Mbps】
 #EXTINF:-1 tvg-id="安徽卫视" tvg-name="安徽卫视" tvg-logo="https://tb.zbds.top/logo/安徽卫视.png" group-title="卫视频道",安徽卫视
-http://60.223.94.64:9003/hls/23/index.m3u8$LR—IPV4【线路2】 【1920x1080@7628kbps 2Mbps】
+http://117.67.85.240:8888/rtp/238.1.79.27:4328$LR—IPV4【线路2】 【1920x1080@5613kbps 2Mbps】
+#EXTINF:-1 tvg-id="安徽卫视" tvg-name="安徽卫视" tvg-logo="https://tb.zbds.top/logo/安徽卫视.png" group-title="卫视频道",安徽卫视
+http://xs12dp121403.vicp.fun:9999/rtp/239.253.92.209:6566$LR—IPV4【线路3】 【1920x1080@6072kbps 2Mbps】
+#EXTINF:-1 tvg-id="安徽卫视" tvg-name="安徽卫视" tvg-logo="https://tb.zbds.top/logo/安徽卫视.png" group-title="卫视频道",安徽卫视
+http://60.183.109.152:8000/udp/233.50.200.106:5140$LR—IPV4【线路4】 【1920x1080@2648kbps 1Mbps】
+#EXTINF:-1 tvg-id="安徽卫视" tvg-name="安徽卫视" tvg-logo="https://tb.zbds.top/logo/安徽卫视.png" group-title="卫视频道",安徽卫视
+http://218.71.18.154:8888/udp/233.50.201.113:5140$LR—IPV4【线路5】 【1920x1080@5818kbps 1Mbps】
+#EXTINF:-1 tvg-id="安徽卫视" tvg-name="安徽卫视" tvg-logo="https://tb.zbds.top/logo/安徽卫视.png" group-title="卫视频道",安徽卫视
+http://219.147.245.238:25480/newlive/live/hls/40/live.m3u8$LR—IPV4【线路6】 【1920x1080@7153kbps 10Mbps】
+#EXTINF:-1 tvg-id="安徽卫视" tvg-name="安徽卫视" tvg-logo="https://tb.zbds.top/logo/安徽卫视.png" group-title="卫视频道",安徽卫视
+http://60.223.94.64:9003/hls/23/index.m3u8$LR—IPV4【线路7】 【1920x1080@7652kbps 6Mbps】
 #EXTINF:-1 tvg-id="重庆卫视" tvg-name="重庆卫视" tvg-logo="https://tb.zbds.top/logo/重庆卫视.png" group-title="卫视频道",重庆卫视
-http://113.205.168.98:8005/udp/225.0.4.187:7980$LR—IPV4【线路1】 【1920x1080@6348kbps 321kbps】
+http://60.183.109.152:8000/udp/233.50.201.143:5140$LR—IPV4【线路1】 【1920x1080@4925kbps 2Mbps】
 #EXTINF:-1 tvg-id="重庆卫视" tvg-name="重庆卫视" tvg-logo="https://tb.zbds.top/logo/重庆卫视.png" group-title="卫视频道",重庆卫视
-http://60.223.94.64:9003/hls/24/index.m3u8$LR—IPV4【线路2】 【1920x1080@7987kbps 7Mbps】
+http://60.183.109.152:8000/udp/233.50.200.114:5140$LR—IPV4【线路2】 【1920x1080@6091kbps 2Mbps】
 #EXTINF:-1 tvg-id="重庆卫视" tvg-name="重庆卫视" tvg-logo="https://tb.zbds.top/logo/重庆卫视.png" group-title="卫视频道",重庆卫视
-http://120.238.84.45:9901/tsfile/live/1063_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@8392kbps 4Mbps】
+http://xs12dp121403.vicp.fun:9999/rtp/239.253.92.10:6053$LR—IPV4【线路3】 【1920x1080@5887kbps 1Mbps】
+#EXTINF:-1 tvg-id="重庆卫视" tvg-name="重庆卫视" tvg-logo="https://tb.zbds.top/logo/重庆卫视.png" group-title="卫视频道",重庆卫视
+http://117.67.85.240:8888/rtp/238.1.78.31:6176$LR—IPV4【线路4】 【1920x1080@5134kbps 1Mbps】
+#EXTINF:-1 tvg-id="重庆卫视" tvg-name="重庆卫视" tvg-logo="https://tb.zbds.top/logo/重庆卫视.png" group-title="卫视频道",重庆卫视
+http://218.71.18.154:8888/udp/233.50.201.143:5140$LR—IPV4【线路5】 【1920x1080@5875kbps 1Mbps】
+#EXTINF:-1 tvg-id="重庆卫视" tvg-name="重庆卫视" tvg-logo="https://tb.zbds.top/logo/重庆卫视.png" group-title="卫视频道",重庆卫视
+http://60.223.94.64:9003/hls/24/index.m3u8$LR—IPV4【线路6】 【1920x1080@7583kbps 8Mbps】
 #EXTINF:-1 tvg-id="四川卫视" tvg-name="四川卫视" tvg-logo="https://tb.zbds.top/logo/四川卫视.png" group-title="卫视频道",四川卫视
-http://111.59.24.227:8181/tsfile/live/0123_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4 【1920x1080@7789kbps 1Mbps】
+http://116.179.130.176:6001/rtp/226.0.2.179:9344$LR—IPV4【线路1】 【1920x1080@4579kbps 2Mbps】
+#EXTINF:-1 tvg-id="四川卫视" tvg-name="四川卫视" tvg-logo="https://tb.zbds.top/logo/四川卫视.png" group-title="卫视频道",四川卫视
+http://xs12dp121403.vicp.fun:9999/rtp/239.253.92.16:6043$LR—IPV4【线路2】 【1920x1080@5687kbps 2Mbps】
+#EXTINF:-1 tvg-id="四川卫视" tvg-name="四川卫视" tvg-logo="https://tb.zbds.top/logo/四川卫视.png" group-title="卫视频道",四川卫视
+http://218.71.18.154:8888/udp/233.50.201.139:5140$LR—IPV4【线路3】 【1920x1080@5857kbps 2Mbps】
 #EXTINF:-1 tvg-id="东南卫视" tvg-name="东南卫视" tvg-logo="https://tb.zbds.top/logo/东南卫视.png" group-title="卫视频道",东南卫视
-http://www.siyao.xin:4000/rtp/225.1.4.228:1274$LR—IPV4【线路1】 【1920x1080@5415kbps 2Mbps】
+http://218.71.18.154:8888/udp/233.50.201.146:5140$LR—IPV4【线路1】 【1920x1080@6127kbps 2Mbps】
 #EXTINF:-1 tvg-id="东南卫视" tvg-name="东南卫视" tvg-logo="https://tb.zbds.top/logo/东南卫视.png" group-title="卫视频道",东南卫视
-http://60.223.94.64:9003/hls/26/index.m3u8$LR—IPV4【线路2】 【1920x1080@7605kbps 8Mbps】
+http://60.183.109.152:8000/udp/233.50.201.146:5140$LR—IPV4【线路2】 【1920x1080@5431kbps 2Mbps】
+#EXTINF:-1 tvg-id="东南卫视" tvg-name="东南卫视" tvg-logo="https://tb.zbds.top/logo/东南卫视.png" group-title="卫视频道",东南卫视
+http://xs12dp121403.vicp.fun:9999/rtp/239.253.92.201:6146$LR—IPV4【线路3】 【1920x1080@5754kbps 2Mbps】
+#EXTINF:-1 tvg-id="东南卫视" tvg-name="东南卫视" tvg-logo="https://tb.zbds.top/logo/东南卫视.png" group-title="卫视频道",东南卫视
+http://113.57.140.161:10081/newlive/live/hls/20/live.m3u8$LR—IPV4【线路4】 【1920x1080@8126kbps 14Mbps】
+#EXTINF:-1 tvg-id="东南卫视" tvg-name="东南卫视" tvg-logo="https://tb.zbds.top/logo/东南卫视.png" group-title="卫视频道",东南卫视
+http://60.223.94.64:9003/hls/26/index.m3u8$LR—IPV4【线路5】 【1920x1080@7653kbps 8Mbps】
+#EXTINF:-1 tvg-id="东南卫视" tvg-name="东南卫视" tvg-logo="https://tb.zbds.top/logo/东南卫视.png" group-title="卫视频道",东南卫视
+http://120.238.84.45:9901/tsfile/live/1065_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路6】 【1920x1080@7926kbps 2Mbps】
 #EXTINF:-1 tvg-id="深圳卫视" tvg-name="深圳卫视" tvg-logo="https://tb.zbds.top/logo/深圳卫视.png" group-title="卫视频道",深圳卫视
-http://vpn.ydcb.top:40000/udp/239.94.0.66:5140$LR—IPV4【线路1】
+http://60.183.109.152:8000/udp/233.50.200.188:5140$LR—IPV4【线路1】 【6076kbps 2Mbps】
 #EXTINF:-1 tvg-id="深圳卫视" tvg-name="深圳卫视" tvg-logo="https://tb.zbds.top/logo/深圳卫视.png" group-title="卫视频道",深圳卫视
-http://111.59.24.227:8181/tsfile/live/0126_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】
+http://218.71.18.154:8888/udp/233.50.201.101:5140$LR—IPV4【线路2】
 #EXTINF:-1 tvg-id="深圳卫视" tvg-name="深圳卫视" tvg-logo="https://tb.zbds.top/logo/深圳卫视.png" group-title="卫视频道",深圳卫视
-http://120.40.39.246:352/newlive/live/hls/37/live.m3u8$LR—IPV4【线路3】
+http://111.4.82.49:8008/tsfile/live/0126_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】
 #EXTINF:-1 tvg-id="广东卫视" tvg-name="广东卫视" tvg-logo="https://tb.zbds.top/logo/广东卫视.png" group-title="卫视频道",广东卫视
-http://www.221111.best:8012/rtp/239.3.1.138:8044$LR—IPV4【线路1】 【1920x1080@4372kbps 2Mbps】
+http://218.71.18.154:8888/udp/233.50.201.102:5140$LR—IPV4【线路1】 【1920x1080@5161kbps 2Mbps】
 #EXTINF:-1 tvg-id="广东卫视" tvg-name="广东卫视" tvg-logo="https://tb.zbds.top/logo/广东卫视.png" group-title="卫视频道",广东卫视
-http://60.223.94.64:9003/hls/28/index.m3u8$LR—IPV4【线路2】 【1920x1080@7858kbps 7Mbps】
+http://60.183.109.152:8000/udp/233.50.201.102:5140$LR—IPV4【线路2】 【1920x1080@5903kbps 2Mbps】
 #EXTINF:-1 tvg-id="广东卫视" tvg-name="广东卫视" tvg-logo="https://tb.zbds.top/logo/广东卫视.png" group-title="卫视频道",广东卫视
-http://113.57.140.161:10081/newlive/live/hls/34/live.m3u8$LR—IPV4【线路3】 【1920x1080@7479kbps 5Mbps】
+http://remote.jackye.site:8000/rtp/239.61.2.33:8192$LR—IPV4【线路3】 【1920x1080@5154kbps 2Mbps】
 #EXTINF:-1 tvg-id="广东卫视" tvg-name="广东卫视" tvg-logo="https://tb.zbds.top/logo/广东卫视.png" group-title="卫视频道",广东卫视
-http://111.59.24.227:8181/tsfile/live/0125_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7743kbps 5Mbps】
+http://www.siyao.xin:4000/rtp/225.1.4.166:1207$LR—IPV4【线路4】 【1920x1080@6079kbps 2Mbps】
+#EXTINF:-1 tvg-id="广东卫视" tvg-name="广东卫视" tvg-logo="https://tb.zbds.top/logo/广东卫视.png" group-title="卫视频道",广东卫视
+http://60.223.94.64:9003/hls/28/index.m3u8$LR—IPV4【线路5】 【1920x1080@7493kbps 9Mbps】
+#EXTINF:-1 tvg-id="广东卫视" tvg-name="广东卫视" tvg-logo="https://tb.zbds.top/logo/广东卫视.png" group-title="卫视频道",广东卫视
+http://110.72.59.198:808/hls/11/index.m3u8$LR—IPV4【线路6】 【1920x1080@7485kbps 7Mbps】
+#EXTINF:-1 tvg-id="广东卫视" tvg-name="广东卫视" tvg-logo="https://tb.zbds.top/logo/广东卫视.png" group-title="卫视频道",广东卫视
+http://113.57.140.161:10081/newlive/live/hls/34/live.m3u8$LR—IPV4【线路7】 【1920x1080@7633kbps 13Mbps】
+#EXTINF:-1 tvg-id="广东卫视" tvg-name="广东卫视" tvg-logo="https://tb.zbds.top/logo/广东卫视.png" group-title="卫视频道",广东卫视
+http://111.59.24.227:8181/tsfile/live/0125_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路8】 【1920x1080@7686kbps 5Mbps】
 #EXTINF:-1 tvg-id="广西卫视" tvg-name="广西卫视" tvg-logo="https://tb.zbds.top/logo/广西卫视.png" group-title="卫视频道",广西卫视
-http://60.223.94.64:9003/hls/29/index.m3u8$LR—IPV4 【1920x1080@7698kbps 6Mbps】
+http://www.siyao.xin:4000/rtp/225.1.4.31:1060$LR—IPV4【线路1】 【1920x1080@6519kbps 2Mbps】
+#EXTINF:-1 tvg-id="广西卫视" tvg-name="广西卫视" tvg-logo="https://tb.zbds.top/logo/广西卫视.png" group-title="卫视频道",广西卫视
+http://116.179.130.176:6001/rtp/226.0.2.231:9760$LR—IPV4【线路2】 【1920x1080@4719kbps 1Mbps】
+#EXTINF:-1 tvg-id="广西卫视" tvg-name="广西卫视" tvg-logo="https://tb.zbds.top/logo/广西卫视.png" group-title="卫视频道",广西卫视
+http://110.72.59.198:808/hls/9/index.m3u8$LR—IPV4【线路3】 【1920x1080@7671kbps 8Mbps】
+#EXTINF:-1 tvg-id="广西卫视" tvg-name="广西卫视" tvg-logo="https://tb.zbds.top/logo/广西卫视.png" group-title="卫视频道",广西卫视
+http://60.223.94.64:9003/hls/29/index.m3u8$LR—IPV4【线路4】 【1920x1080@7647kbps 8Mbps】
 #EXTINF:-1 tvg-id="厦门卫视" tvg-name="厦门卫视" tvg-logo="https://tb.zbds.top/logo/厦门卫视.png" group-title="卫视频道",厦门卫视
-http://113.57.140.161:10081/newlive/live/hls/28/live.m3u8$LR—IPV4 【1920x1080@8340kbps 3Mbps】
+http://118.122.144.115:8888/newlive/live/hls/28/live.m3u8$LR—IPV4 【1920x1080@7986kbps 2Mbps】
 #EXTINF:-1 tvg-id="甘肃卫视" tvg-name="甘肃卫视" tvg-logo="https://tb.zbds.top/logo/甘肃卫视.png" group-title="卫视频道",甘肃卫视
-http://113.205.168.98:8005/udp/225.0.4.181:7980$LR—IPV4【线路1】 【1920x1080@6248kbps 2Mbps】
+http://116.179.130.176:6001/rtp/226.0.2.55:8352$LR—IPV4【线路1】 【1920x1080@5386kbps 2Mbps】
 #EXTINF:-1 tvg-id="甘肃卫视" tvg-name="甘肃卫视" tvg-logo="https://tb.zbds.top/logo/甘肃卫视.png" group-title="卫视频道",甘肃卫视
-http://vpn.ydcb.top:40000/udp/239.94.0.99:5140$LR—IPV4【线路2】 【1920x1080@5288kbps 292kbps】
-#EXTINF:-1 tvg-id="甘肃卫视" tvg-name="甘肃卫视" tvg-logo="https://tb.zbds.top/logo/甘肃卫视.png" group-title="卫视频道",甘肃卫视
-http://60.223.94.64:9003/hls/27/index.m3u8$LR—IPV4【线路3】 【1920x1080@7428kbps 6Mbps】
+http://60.223.94.64:9003/hls/27/index.m3u8$LR—IPV4【线路2】 【1920x1080@7747kbps 9Mbps】
 #EXTINF:-1 tvg-id="贵州卫视" tvg-name="贵州卫视" tvg-logo="https://tb.zbds.top/logo/贵州卫视.png" group-title="卫视频道",贵州卫视
-http://113.205.168.98:8005/udp/225.0.4.175:7980$LR—IPV4【线路1】 【1920x1080@5582kbps 2Mbps】
+http://60.183.109.152:8000/udp/233.50.201.142:5140$LR—IPV4【线路1】 【1920x1080@5420kbps 2Mbps】
 #EXTINF:-1 tvg-id="贵州卫视" tvg-name="贵州卫视" tvg-logo="https://tb.zbds.top/logo/贵州卫视.png" group-title="卫视频道",贵州卫视
-http://vpn.ydcb.top:40000/udp/239.94.0.83:5140$LR—IPV4【线路2】 【1920x1080@3361kbps 925kbps】
+http://116.179.130.176:6001/rtp/226.0.2.180:9352$LR—IPV4【线路2】 【1920x1080@5273kbps 2Mbps】
 #EXTINF:-1 tvg-id="贵州卫视" tvg-name="贵州卫视" tvg-logo="https://tb.zbds.top/logo/贵州卫视.png" group-title="卫视频道",贵州卫视
-http://60.223.94.64:9003/hls/30/index.m3u8$LR—IPV4【线路3】 【1920x1080@7697kbps 7Mbps】
+http://218.71.18.154:8888/udp/233.50.201.142:5140$LR—IPV4【线路3】 【1920x1080@5702kbps 2Mbps】
 #EXTINF:-1 tvg-id="贵州卫视" tvg-name="贵州卫视" tvg-logo="https://tb.zbds.top/logo/贵州卫视.png" group-title="卫视频道",贵州卫视
-http://59.174.162.54:7777/tsfile/live/1078_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7740kbps 521kbps】
+http://111.4.82.49:8008/tsfile/live/0120_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7349kbps 4Mbps】
+#EXTINF:-1 tvg-id="贵州卫视" tvg-name="贵州卫视" tvg-logo="https://tb.zbds.top/logo/贵州卫视.png" group-title="卫视频道",贵州卫视
+http://60.223.94.64:9003/hls/30/index.m3u8$LR—IPV4【线路5】 【1920x1080@7851kbps 4Mbps】
 #EXTINF:-1 tvg-id="河北卫视" tvg-name="河北卫视" tvg-logo="https://tb.zbds.top/logo/河北卫视.png" group-title="卫视频道",河北卫视
-http://60.223.94.64:9003/hls/19/index.m3u8$LR—IPV4【线路1】 【1920x1080@8019kbps 5Mbps】
+http://60.183.109.152:8000/udp/233.50.200.105:5140$LR—IPV4【线路1】 【1920x1080@2928kbps 1Mbps】
 #EXTINF:-1 tvg-id="河北卫视" tvg-name="河北卫视" tvg-logo="https://tb.zbds.top/logo/河北卫视.png" group-title="卫视频道",河北卫视
-http://113.57.140.161:10081/newlive/live/hls/33/live.m3u8$LR—IPV4【线路2】 【1920x1080@8160kbps 5Mbps】
+http://218.71.18.154:8888/udp/233.50.200.105:5140$LR—IPV4【线路2】 【1920x1080@2960kbps 1Mbps】
+#EXTINF:-1 tvg-id="河北卫视" tvg-name="河北卫视" tvg-logo="https://tb.zbds.top/logo/河北卫视.png" group-title="卫视频道",河北卫视
+http://xs12dp121403.vicp.fun:9999/rtp/239.253.92.154:6011$LR—IPV4【线路3】 【1920x1080@5990kbps 2Mbps】
+#EXTINF:-1 tvg-id="河北卫视" tvg-name="河北卫视" tvg-logo="https://tb.zbds.top/logo/河北卫视.png" group-title="卫视频道",河北卫视
+http://113.57.140.161:10081/newlive/live/hls/33/live.m3u8$LR—IPV4【线路4】 【1920x1080@8420kbps 14Mbps】
+#EXTINF:-1 tvg-id="河北卫视" tvg-name="河北卫视" tvg-logo="https://tb.zbds.top/logo/河北卫视.png" group-title="卫视频道",河北卫视
+http://60.223.94.64:9003/hls/19/index.m3u8$LR—IPV4【线路5】 【1920x1080@7708kbps 7Mbps】
+#EXTINF:-1 tvg-id="河北卫视" tvg-name="河北卫视" tvg-logo="https://tb.zbds.top/logo/河北卫视.png" group-title="卫视频道",河北卫视
+http://221.221.137.78:8000/tsfile/live/0117_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路6】 【1920x1080@7809kbps 1Mbps】
 #EXTINF:-1 tvg-id="河南卫视" tvg-name="河南卫视" tvg-logo="https://tb.zbds.top/logo/河南卫视.png" group-title="卫视频道",河南卫视
-http://www.siyao.xin:4000/rtp/225.1.4.98:1127$LR—IPV4【线路1】 【1920x1080@5854kbps 1Mbps】
+http://remote.jackye.site:8000/rtp/239.61.2.59:8348$LR—IPV4【线路1】 【1920x1080@3297kbps 2Mbps】
 #EXTINF:-1 tvg-id="河南卫视" tvg-name="河南卫视" tvg-logo="https://tb.zbds.top/logo/河南卫视.png" group-title="卫视频道",河南卫视
-http://113.205.168.98:8005/udp/225.0.4.124:7980$LR—IPV4【线路2】 【1920x1080@5923kbps 2Mbps】
+http://www.siyao.xin:4000/rtp/225.1.4.98:1127$LR—IPV4【线路2】 【1920x1080@6253kbps 2Mbps】
 #EXTINF:-1 tvg-id="河南卫视" tvg-name="河南卫视" tvg-logo="https://tb.zbds.top/logo/河南卫视.png" group-title="卫视频道",河南卫视
-http://vpn.ydcb.top:40000/udp/239.94.0.88:5140$LR—IPV4【线路3】 【1920x1080@4680kbps 877kbps】
+http://117.67.85.240:8888/rtp/238.1.79.65:4632$LR—IPV4【线路3】 【1920x1080@3026kbps 2Mbps】
 #EXTINF:-1 tvg-id="河南卫视" tvg-name="河南卫视" tvg-logo="https://tb.zbds.top/logo/河南卫视.png" group-title="卫视频道",河南卫视
-http://60.223.94.64:9003/hls/20/index.m3u8$LR—IPV4【线路4】 【1920x1080@7605kbps 7Mbps】
+http://218.71.18.154:8888/udp/233.50.201.144:5140$LR—IPV4【线路4】 【1920x1080@4447kbps 1Mbps】
 #EXTINF:-1 tvg-id="河南卫视" tvg-name="河南卫视" tvg-logo="https://tb.zbds.top/logo/河南卫视.png" group-title="卫视频道",河南卫视
-http://120.238.84.45:9901/tsfile/live/1068_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@7497kbps 2Mbps】
+http://60.223.94.64:9003/hls/20/index.m3u8$LR—IPV4【线路5】 【1920x1080@7536kbps 8Mbps】
 #EXTINF:-1 tvg-id="黑龙江卫视" tvg-name="黑龙江卫视" tvg-logo="https://tb.zbds.top/logo/黑龙江卫视.png" group-title="卫视频道",黑龙江卫视
-http://www.siyao.xin:4000/rtp/225.1.4.91:1120$LR—IPV4【线路1】 【1920x1080@5262kbps 2Mbps】
+http://remote.jackye.site:8000/rtp/239.61.2.34:8198$LR—IPV4【线路1】 【1920x1080@5199kbps 2Mbps】
 #EXTINF:-1 tvg-id="黑龙江卫视" tvg-name="黑龙江卫视" tvg-logo="https://tb.zbds.top/logo/黑龙江卫视.png" group-title="卫视频道",黑龙江卫视
-http://60.223.94.64:9003/hls/31/index.m3u8$LR—IPV4【线路2】 【1920x1080@7611kbps 6Mbps】
+http://xs12dp121403.vicp.fun:9999/rtp/239.253.92.85:8016$LR—IPV4【线路2】 【1920x1080@5870kbps 2Mbps】
 #EXTINF:-1 tvg-id="黑龙江卫视" tvg-name="黑龙江卫视" tvg-logo="https://tb.zbds.top/logo/黑龙江卫视.png" group-title="卫视频道",黑龙江卫视
-http://120.238.84.45:9901/tsfile/live/1049_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@8206kbps 2Mbps】
+http://218.71.18.154:8888/udp/233.50.200.189:5140$LR—IPV4【线路3】 【1920x1080@6382kbps 2Mbps】
 #EXTINF:-1 tvg-id="黑龙江卫视" tvg-name="黑龙江卫视" tvg-logo="https://tb.zbds.top/logo/黑龙江卫视.png" group-title="卫视频道",黑龙江卫视
-http://221.232.199.235:7777/tsfile/live/0143_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7510kbps 3Mbps】
+http://218.71.18.154:8888/udp/233.50.201.115:5140$LR—IPV4【线路4】 【1920x1080@5729kbps 1Mbps】
+#EXTINF:-1 tvg-id="黑龙江卫视" tvg-name="黑龙江卫视" tvg-logo="https://tb.zbds.top/logo/黑龙江卫视.png" group-title="卫视频道",黑龙江卫视
+http://111.4.82.49:8008/tsfile/live/0122_2.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@8047kbps 6Mbps】
+#EXTINF:-1 tvg-id="黑龙江卫视" tvg-name="黑龙江卫视" tvg-logo="https://tb.zbds.top/logo/黑龙江卫视.png" group-title="卫视频道",黑龙江卫视
+http://60.223.94.64:9003/hls/31/index.m3u8$LR—IPV4【线路6】 【1920x1080@7499kbps 6Mbps】
+#EXTINF:-1 tvg-id="黑龙江卫视" tvg-name="黑龙江卫视" tvg-logo="https://tb.zbds.top/logo/黑龙江卫视.png" group-title="卫视频道",黑龙江卫视
+http://118.122.144.115:8888/newlive/live/hls/38/live.m3u8$LR—IPV4【线路7】 【1920x1080@2095kbps 4Mbps】
+#EXTINF:-1 tvg-id="黑龙江卫视" tvg-name="黑龙江卫视" tvg-logo="https://tb.zbds.top/logo/黑龙江卫视.png" group-title="卫视频道",黑龙江卫视
+http://120.40.39.246:352/newlive/live/hls/38/live.m3u8$LR—IPV4【线路8】 【1920x1080@7440kbps 5Mbps】
 #EXTINF:-1 tvg-id="湖北卫视" tvg-name="湖北卫视" tvg-logo="https://tb.zbds.top/logo/湖北卫视.png" group-title="卫视频道",湖北卫视
-http://vpn.ydcb.top:40000/udp/239.94.0.84:5140$LR—IPV4【线路1】 【1920x1080@2449kbps】
+http://117.67.85.240:8888/rtp/238.1.78.168:7216$LR—IPV4【线路1】 【1920x1080@3795kbps 2Mbps】
 #EXTINF:-1 tvg-id="湖北卫视" tvg-name="湖北卫视" tvg-logo="https://tb.zbds.top/logo/湖北卫视.png" group-title="卫视频道",湖北卫视
-http://113.57.140.161:10081/newlive/live/hls/36/live.m3u8$LR—IPV4【线路2】 【1920x1080@8297kbps 11Mbps】
+http://60.183.109.152:8000/udp/233.50.200.147:5140$LR—IPV4【线路2】 【1920x1080@4199kbps 2Mbps】
 #EXTINF:-1 tvg-id="湖北卫视" tvg-name="湖北卫视" tvg-logo="https://tb.zbds.top/logo/湖北卫视.png" group-title="卫视频道",湖北卫视
-http://60.223.94.64:9003/hls/32/index.m3u8$LR—IPV4【线路3】 【1920x1080@7729kbps 7Mbps】
+http://remote.jackye.site:8000/rtp/239.61.2.120:8714$LR—IPV4【线路3】 【1920x1080@3707kbps 2Mbps】
 #EXTINF:-1 tvg-id="湖北卫视" tvg-name="湖北卫视" tvg-logo="https://tb.zbds.top/logo/湖北卫视.png" group-title="卫视频道",湖北卫视
-http://111.59.24.227:8181/tsfile/live/0132_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@6893kbps 4Mbps】
+http://www.siyao.xin:4000/rtp/225.1.4.89:1118$LR—IPV4【线路4】 【1920x1080@6064kbps 2Mbps】
 #EXTINF:-1 tvg-id="湖北卫视" tvg-name="湖北卫视" tvg-logo="https://tb.zbds.top/logo/湖北卫视.png" group-title="卫视频道",湖北卫视
-http://120.238.84.45:9901/tsfile/live/1055_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路5】 【1920x1080@5549kbps 1Mbps】
+http://xs12dp121403.vicp.fun:9999/rtp/239.253.92.210:6567$LR—IPV4【线路5】 【1920x1080@3777kbps 2Mbps】
+#EXTINF:-1 tvg-id="湖北卫视" tvg-name="湖北卫视" tvg-logo="https://tb.zbds.top/logo/湖北卫视.png" group-title="卫视频道",湖北卫视
+http://60.183.109.152:8000/udp/233.50.201.114:5140$LR—IPV4【线路6】 【1920x1080@6636kbps 2Mbps】
+#EXTINF:-1 tvg-id="湖北卫视" tvg-name="湖北卫视" tvg-logo="https://tb.zbds.top/logo/湖北卫视.png" group-title="卫视频道",湖北卫视
+http://218.71.18.154:8888/udp/233.50.201.114:5140$LR—IPV4【线路7】 【1920x1080@5372kbps 2Mbps】
+#EXTINF:-1 tvg-id="湖北卫视" tvg-name="湖北卫视" tvg-logo="https://tb.zbds.top/logo/湖北卫视.png" group-title="卫视频道",湖北卫视
+http://218.71.18.154:8888/udp/233.50.200.147:5140$LR—IPV4【线路8】 【1920x1080@4201kbps 2Mbps】
 #EXTINF:-1 tvg-id="江西卫视" tvg-name="江西卫视" tvg-logo="https://tb.zbds.top/logo/江西卫视.png" group-title="卫视频道",江西卫视
-http://113.205.168.98:8005/udp/225.0.4.203:7980$LR—IPV4 【1920x1080@5649kbps 2Mbps】
+http://xs12dp121403.vicp.fun:9999/rtp/239.253.92.19:6145$LR—IPV4【线路1】 【1920x1080@6178kbps 718kbps】
+#EXTINF:-1 tvg-id="江西卫视" tvg-name="江西卫视" tvg-logo="https://tb.zbds.top/logo/江西卫视.png" group-title="卫视频道",江西卫视
+http://111.4.82.49:8008/tsfile/live/0138_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7974kbps 7Mbps】
+#EXTINF:-1 tvg-id="江西卫视" tvg-name="江西卫视" tvg-logo="https://tb.zbds.top/logo/江西卫视.png" group-title="卫视频道",江西卫视
+http://221.221.137.78:8000/tsfile/live/0138_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@7946kbps 2Mbps】
 #EXTINF:-1 tvg-id="吉林卫视" tvg-name="吉林卫视" tvg-logo="https://tb.zbds.top/logo/吉林卫视.png" group-title="卫视频道",吉林卫视
-http://59.173.122.230:10001/rtp/239.69.1.212:10914$LR—IPV4【线路1】 【1920x1080@5485kbps 281kbps】
+http://116.179.130.176:6001/rtp/226.0.2.58:8376$LR—IPV4【线路1】 【1920x1080@5416kbps 2Mbps】
 #EXTINF:-1 tvg-id="吉林卫视" tvg-name="吉林卫视" tvg-logo="https://tb.zbds.top/logo/吉林卫视.png" group-title="卫视频道",吉林卫视
-http://120.238.84.45:9901/tsfile/live/1066_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@8037kbps 1Mbps】
+http://remote.jackye.site:8000/rtp/239.61.2.223:9326$LR—IPV4【线路2】 【1920x1080@5469kbps 1Mbps】
+#EXTINF:-1 tvg-id="吉林卫视" tvg-name="吉林卫视" tvg-logo="https://tb.zbds.top/logo/吉林卫视.png" group-title="卫视频道",吉林卫视
+http://120.238.84.45:9901/tsfile/live/1066_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@8115kbps 2Mbps】
 #EXTINF:-1 tvg-id="内蒙古卫视" tvg-name="内蒙古卫视" tvg-logo="https://tb.zbds.top/logo/内蒙古卫视.png" group-title="卫视频道",内蒙古卫视
-http://www.221111.best:8012/rtp/239.3.1.214:4220$LR—IPV4 【1920x1080@4863kbps 2Mbps】
+http://222.71.55.147:9901/tsfile/live/0109_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4 【1920x1080@8857kbps 12Mbps】
 #EXTINF:-1 tvg-id="辽宁卫视" tvg-name="辽宁卫视" tvg-logo="https://tb.zbds.top/logo/辽宁卫视.png" group-title="卫视频道",辽宁卫视
-http://113.205.168.98:8005/udp/225.0.4.98:7980$LR—IPV4【线路1】 【1920x1080@3518kbps 2Mbps】
+http://remote.jackye.site:8000/rtp/239.61.2.181:9074$LR—IPV4【线路1】 【1920x1080@3049kbps 2Mbps】
 #EXTINF:-1 tvg-id="辽宁卫视" tvg-name="辽宁卫视" tvg-logo="https://tb.zbds.top/logo/辽宁卫视.png" group-title="卫视频道",辽宁卫视
-http://vpn.ydcb.top:40000/udp/239.94.0.101:5140$LR—IPV4【线路2】 【1920x1080@4638kbps 881kbps】
+http://60.183.109.152:8000/udp/233.50.201.141:5140$LR—IPV4【线路2】 【1920x1080@6058kbps 2Mbps】
 #EXTINF:-1 tvg-id="辽宁卫视" tvg-name="辽宁卫视" tvg-logo="https://tb.zbds.top/logo/辽宁卫视.png" group-title="卫视频道",辽宁卫视
-http://111.59.24.227:8181/tsfile/live/0121_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@7902kbps 6Mbps】
+http://218.71.18.154:8888/udp/233.50.201.141:5140$LR—IPV4【线路3】 【1920x1080@6216kbps 2Mbps】
+#EXTINF:-1 tvg-id="辽宁卫视" tvg-name="辽宁卫视" tvg-logo="https://tb.zbds.top/logo/辽宁卫视.png" group-title="卫视频道",辽宁卫视
+http://xs12dp121403.vicp.fun:9999/rtp/239.253.92.115:6056$LR—IPV4【线路4】 【1920x1080@4898kbps 2Mbps】
+#EXTINF:-1 tvg-id="辽宁卫视" tvg-name="辽宁卫视" tvg-logo="https://tb.zbds.top/logo/辽宁卫视.png" group-title="卫视频道",辽宁卫视
+http://117.67.85.240:8888/rtp/238.1.78.21:6096$LR—IPV4【线路5】 【1920x1080@2814kbps 1Mbps】
+#EXTINF:-1 tvg-id="辽宁卫视" tvg-name="辽宁卫视" tvg-logo="https://tb.zbds.top/logo/辽宁卫视.png" group-title="卫视频道",辽宁卫视
+http://111.4.82.49:8008/tsfile/live/0121_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路6】 【1920x1080@6488kbps 2Mbps】
 #EXTINF:-1 tvg-id="宁夏卫视" tvg-name="宁夏卫视" tvg-logo="https://tb.zbds.top/logo/宁夏卫视.png" group-title="卫视频道",宁夏卫视
-http://222.71.55.147:9901/tsfile/live/0112_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4 【1920x1080@7823kbps 9Mbps】
+http://remote.jackye.site:8000/rtp/239.61.2.56:8330$LR—IPV4【线路1】 【1920x1080@5676kbps 2Mbps】
+#EXTINF:-1 tvg-id="宁夏卫视" tvg-name="宁夏卫视" tvg-logo="https://tb.zbds.top/logo/宁夏卫视.png" group-title="卫视频道",宁夏卫视
+http://222.71.55.147:9901/tsfile/live/0112_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路2】 【1920x1080@8159kbps 12Mbps】
 #EXTINF:-1 tvg-id="青海卫视" tvg-name="青海卫视" tvg-logo="https://tb.zbds.top/logo/青海卫视.png" group-title="卫视频道",青海卫视
-http://www.siyao.xin:4000/rtp/225.1.4.44:1073$LR—IPV4【线路1】 【1920x1080@5541kbps 2Mbps】
-#EXTINF:-1 tvg-id="青海卫视" tvg-name="青海卫视" tvg-logo="https://tb.zbds.top/logo/青海卫视.png" group-title="卫视频道",青海卫视
-http://www.221111.best:8012/rtp/239.3.1.213:4220$LR—IPV4【线路2】 【1920x1080@5811kbps 2Mbps】
+http://www.siyao.xin:4000/rtp/225.1.4.44:1073$LR—IPV4 【1920x1080@6414kbps 2Mbps】
 #EXTINF:-1 tvg-id="山东卫视" tvg-name="山东卫视" tvg-logo="https://tb.zbds.top/logo/山东卫视.png" group-title="卫视频道",山东卫视
-http://www.221111.best:8012/rtp/239.3.1.123:8164$LR—IPV4【线路1】 【1920x1080@5933kbps 2Mbps】
+http://60.183.109.152:8000/udp/233.50.201.105:5140$LR—IPV4【线路1】 【1920x1080@5695kbps 2Mbps】
 #EXTINF:-1 tvg-id="山东卫视" tvg-name="山东卫视" tvg-logo="https://tb.zbds.top/logo/山东卫视.png" group-title="卫视频道",山东卫视
-http://113.57.140.161:10081/newlive/live/hls/35/live.m3u8$LR—IPV4【线路2】 【1920x1080@7402kbps 9Mbps】
+http://www.siyao.xin:4000/rtp/225.1.4.88:1117$LR—IPV4【线路2】 【1920x1080@6960kbps 2Mbps】
 #EXTINF:-1 tvg-id="山东卫视" tvg-name="山东卫视" tvg-logo="https://tb.zbds.top/logo/山东卫视.png" group-title="卫视频道",山东卫视
-http://111.59.24.227:8181/tsfile/live/0131_2.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@7758kbps 6Mbps】
+http://117.67.85.240:8888/rtp/238.1.78.169:7224$LR—IPV4【线路3】 【1920x1080@6100kbps 2Mbps】
 #EXTINF:-1 tvg-id="山东卫视" tvg-name="山东卫视" tvg-logo="https://tb.zbds.top/logo/山东卫视.png" group-title="卫视频道",山东卫视
-http://60.223.94.64:9003/hls/18/index.m3u8$LR—IPV4【线路4】 【1920x1080@7694kbps 4Mbps】
+http://116.179.130.176:6001/rtp/226.0.2.149:9104$LR—IPV4【线路4】 【1920x1080@6005kbps 2Mbps】
 #EXTINF:-1 tvg-id="山东卫视" tvg-name="山东卫视" tvg-logo="https://tb.zbds.top/logo/山东卫视.png" group-title="卫视频道",山东卫视
-http://120.40.39.246:352/newlive/live/hls/35/live.m3u8$LR—IPV4【线路5】 【1920x1080@7892kbps 4Mbps】
+http://xs12dp121403.vicp.fun:9999/rtp/239.253.92.207:8109$LR—IPV4【线路5】 【1920x1080@6374kbps 2Mbps】
+#EXTINF:-1 tvg-id="山东卫视" tvg-name="山东卫视" tvg-logo="https://tb.zbds.top/logo/山东卫视.png" group-title="卫视频道",山东卫视
+http://remote.jackye.site:8000/rtp/239.61.2.119:8708$LR—IPV4【线路6】 【1920x1080@5468kbps 2Mbps】
+#EXTINF:-1 tvg-id="山东卫视" tvg-name="山东卫视" tvg-logo="https://tb.zbds.top/logo/山东卫视.png" group-title="卫视频道",山东卫视
+http://60.223.94.64:9003/hls/18/index.m3u8$LR—IPV4【线路7】 【1920x1080@7266kbps 7Mbps】
+#EXTINF:-1 tvg-id="山东卫视" tvg-name="山东卫视" tvg-logo="https://tb.zbds.top/logo/山东卫视.png" group-title="卫视频道",山东卫视
+http://111.4.82.49:8008/tsfile/live/0131_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路8】 【1920x1080@8034kbps 7Mbps】
 #EXTINF:-1 tvg-id="天津卫视" tvg-name="天津卫视" tvg-logo="https://tb.zbds.top/logo/天津卫视.png" group-title="卫视频道",天津卫视
-http://113.205.168.98:8005/udp/225.0.4.82:7980$LR—IPV4【线路1】 【1920x1080@5568kbps 2Mbps】
+http://60.183.109.152:8000/udp/233.50.201.104:5140$LR—IPV4【线路1】 【1920x1080@5494kbps 2Mbps】
 #EXTINF:-1 tvg-id="天津卫视" tvg-name="天津卫视" tvg-logo="https://tb.zbds.top/logo/天津卫视.png" group-title="卫视频道",天津卫视
-http://vpn.ydcb.top:40000/udp/239.94.0.68:5140$LR—IPV4【线路2】 【1920x1080@4289kbps】
+http://218.71.18.154:8888/udp/233.50.201.104:5140$LR—IPV4【线路2】 【1920x1080@5422kbps 2Mbps】
 #EXTINF:-1 tvg-id="天津卫视" tvg-name="天津卫视" tvg-logo="https://tb.zbds.top/logo/天津卫视.png" group-title="卫视频道",天津卫视
-http://60.223.94.64:9003/hls/22/index.m3u8$LR—IPV4【线路3】 【1920x1080@7627kbps 7Mbps】
+http://www.siyao.xin:4000/rtp/225.1.4.86:1115$LR—IPV4【线路3】 【1920x1080@6553kbps 2Mbps】
 #EXTINF:-1 tvg-id="天津卫视" tvg-name="天津卫视" tvg-logo="https://tb.zbds.top/logo/天津卫视.png" group-title="卫视频道",天津卫视
-http://111.59.24.227:8181/tsfile/live/0135_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路4】 【1920x1080@7620kbps 6Mbps】
+http://116.179.130.176:6001/rtp/226.0.2.148:9096$LR—IPV4【线路4】 【1920x1080@5433kbps 2Mbps】
+#EXTINF:-1 tvg-id="天津卫视" tvg-name="天津卫视" tvg-logo="https://tb.zbds.top/logo/天津卫视.png" group-title="卫视频道",天津卫视
+http://remote.jackye.site:8000/rtp/239.61.2.180:9068$LR—IPV4【线路5】 【1920x1080@5970kbps 2Mbps】
+#EXTINF:-1 tvg-id="天津卫视" tvg-name="天津卫视" tvg-logo="https://tb.zbds.top/logo/天津卫视.png" group-title="卫视频道",天津卫视
+http://117.67.85.240:8888/rtp/238.1.78.20:6088$LR—IPV4【线路6】 【1920x1080@6141kbps 2Mbps】
+#EXTINF:-1 tvg-id="天津卫视" tvg-name="天津卫视" tvg-logo="https://tb.zbds.top/logo/天津卫视.png" group-title="卫视频道",天津卫视
+http://60.223.94.64:9003/hls/22/index.m3u8$LR—IPV4【线路7】 【1920x1080@7351kbps 6Mbps】
+#EXTINF:-1 tvg-id="天津卫视" tvg-name="天津卫视" tvg-logo="https://tb.zbds.top/logo/天津卫视.png" group-title="卫视频道",天津卫视
+http://111.59.24.227:8181/tsfile/live/0135_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路8】 【1920x1080@7517kbps 3Mbps】
+#EXTINF:-1 tvg-id="海南卫视" tvg-name="海南卫视" tvg-logo="https://tb.zbds.top/logo/海南卫视.png" group-title="卫视频道",海南卫视
+http://remote.jackye.site:8000/rtp/239.61.2.42:8246$LR—IPV4【线路1】 【1920x1080@4973kbps 2Mbps】
+#EXTINF:-1 tvg-id="海南卫视" tvg-name="海南卫视" tvg-logo="https://tb.zbds.top/logo/海南卫视.png" group-title="卫视频道",海南卫视
+http://116.179.130.176:6001/rtp/226.0.2.212:9608$LR—IPV4【线路2】 【1920x1080@5078kbps 1Mbps】
+#EXTINF:-1 tvg-id="海南卫视" tvg-name="海南卫视" tvg-logo="https://tb.zbds.top/logo/海南卫视.png" group-title="卫视频道",海南卫视
+http://xs12dp121403.vicp.fun:9999/rtp/239.253.93.155:6323$LR—IPV4【线路3】 【1920x1080@4175kbps 216kbps】
 #EXTINF:-1 tvg-id="新疆卫视" tvg-name="新疆卫视" tvg-logo="https://tb.zbds.top/logo/新疆卫视.png" group-title="卫视频道",新疆卫视
-http://www.221111.best:8012/rtp/239.3.1.188:8001$LR—IPV4【线路1】 【1920x1080@4592kbps 2Mbps】
+http://116.179.130.176:6001/rtp/226.0.2.67:8448$LR—IPV4【线路1】 【1920x1080@2150kbps 2Mbps】
 #EXTINF:-1 tvg-id="新疆卫视" tvg-name="新疆卫视" tvg-logo="https://tb.zbds.top/logo/新疆卫视.png" group-title="卫视频道",新疆卫视
-http://59.173.122.230:10001/rtp/239.69.2.30:11334$LR—IPV4【线路2】 【1920x1080@5098kbps 284kbps】
+http://www.siyao.xin:4000/rtp/225.1.4.47:1076$LR—IPV4【线路2】 【1920x1080@6251kbps 2Mbps】
+#EXTINF:-1 tvg-id="新疆卫视" tvg-name="新疆卫视" tvg-logo="https://tb.zbds.top/logo/新疆卫视.png" group-title="卫视频道",新疆卫视
+http://222.71.55.147:9901/tsfile/live/0110_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路3】 【1920x1080@8237kbps 12Mbps】
 #EXTINF:-1 tvg-id="云南卫视" tvg-name="云南卫视" tvg-logo="https://tb.zbds.top/logo/云南卫视.png" group-title="卫视频道",云南卫视
-http://vpn.ydcb.top:40000/udp/239.94.0.90:5140$LR—IPV4 【1920x1080@4709kbps 702kbps】
+http://remote.jackye.site:8000/rtp/239.61.2.61:8360$LR—IPV4【线路1】 【1920x1080@5058kbps 2Mbps】
+#EXTINF:-1 tvg-id="云南卫视" tvg-name="云南卫视" tvg-logo="https://tb.zbds.top/logo/云南卫视.png" group-title="卫视频道",云南卫视
+http://218.71.18.154:8888/udp/233.50.200.115:5140$LR—IPV4【线路2】 【1920x1080@6141kbps 2Mbps】
+#EXTINF:-1 tvg-id="云南卫视" tvg-name="云南卫视" tvg-logo="https://tb.zbds.top/logo/云南卫视.png" group-title="卫视频道",云南卫视
+http://183.239.248.218:8181/tsfile/live/0119_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路3】 【1920x1080@8063kbps 2Mbps】
 #EXTINF:-1 tvg-id="西藏卫视" tvg-name="西藏卫视" tvg-logo="https://tb.zbds.top/logo/西藏卫视.png" group-title="卫视频道",西藏卫视
-http://www.221111.best:8012/rtp/239.3.1.154:8001$LR—IPV4【线路1】 【1920x1080@4490kbps 2Mbps】
+http://remote.jackye.site:8000/rtp/239.61.2.229:9362$LR—IPV4【线路1】 【1920x1080@5241kbps 1Mbps】
 #EXTINF:-1 tvg-id="西藏卫视" tvg-name="西藏卫视" tvg-logo="https://tb.zbds.top/logo/西藏卫视.png" group-title="卫视频道",西藏卫视
-http://www.siyao.xin:4000/rtp/225.1.4.46:1075$LR—IPV4【线路2】 【1920x1080@5769kbps 2Mbps】
-#EXTINF:-1 tvg-id="西藏卫视" tvg-name="西藏卫视" tvg-logo="https://tb.zbds.top/logo/西藏卫视.png" group-title="卫视频道",西藏卫视
-http://vpn.ydcb.top:40000/udp/239.94.0.97:5140$LR—IPV4【线路3】 【1920x1080@4936kbps 839kbps】
-#EXTINF:-1 tvg-id="西藏卫视" tvg-name="西藏卫视" tvg-logo="https://tb.zbds.top/logo/西藏卫视.png" group-title="卫视频道",西藏卫视
-http://222.71.55.147:9901/tsfile/live/0111_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路4】 【1920x1080@8005kbps 10Mbps】
+http://222.71.55.147:9901/tsfile/live/0111_1.m3u8?key=txiptv&playlive=0&authid=0$LR—IPV4【线路2】 【1920x1080@8221kbps 14Mbps】
 #EXTINF:-1 tvg-id="海峡卫视" tvg-name="海峡卫视" tvg-logo="https://tb.zbds.top/logo/海峡卫视.png" group-title="卫视频道",海峡卫视
-http://113.57.140.161:10081/newlive/live/hls/27/live.m3u8$LR—IPV4 【1920x1080@7401kbps 12Mbps】
-#EXTINF:-1 tvg-id="康巴卫视" tvg-name="康巴卫视" tvg-logo="https://tb.zbds.top/logo/康巴卫视.png" group-title="卫视频道",康巴卫视
-http://vpn.ydcb.top:40000/udp/239.94.0.78:5140$LR—IPV4 【1920x1080@4619kbps 157kbps】
-#EXTINF:-1 tvg-id="141" tvg-name="凤凰中文" tvg-logo="https://tb.zbds.top/logo/凤凰中文.png" group-title="港·澳·台",凤凰中文
-http://vpn.ydcb.top:40000/udp/239.94.2.51:5140$LR—IPV4 【1920x1080@5073kbps 892kbps】
+http://113.57.140.161:10081/newlive/live/hls/27/live.m3u8$LR—IPV4【线路1】 【1920x1080@7101kbps 7Mbps】
+#EXTINF:-1 tvg-id="海峡卫视" tvg-name="海峡卫视" tvg-logo="https://tb.zbds.top/logo/海峡卫视.png" group-title="卫视频道",海峡卫视
+http://118.122.144.115:8888/newlive/live/hls/27/live.m3u8$LR—IPV4【线路2】 【1920x1080@8309kbps 1Mbps】
+#EXTINF:-1 tvg-id="兵团卫视" tvg-name="兵团卫视" tvg-logo="https://tb.zbds.top/logo/兵团卫视.png" group-title="卫视频道",兵团卫视
+http://www.siyao.xin:4000/rtp/225.1.4.97:1126$LR—IPV4【线路1】 【1920x1080@6282kbps 2Mbps】
+#EXTINF:-1 tvg-id="兵团卫视" tvg-name="兵团卫视" tvg-logo="https://tb.zbds.top/logo/兵团卫视.png" group-title="卫视频道",兵团卫视
+http://remote.jackye.site:8000/rtp/239.61.2.228:9356$LR—IPV4【线路2】 【1920x1080@6132kbps 2Mbps】
+#EXTINF:-1 tvg-id="三沙卫视" tvg-name="三沙卫视" tvg-logo="https://tb.zbds.top/logo/三沙卫视.png" group-title="卫视频道",三沙卫视
+http://remote.jackye.site:8000/rtp/239.61.3.10:9578$LR—IPV4【线路1】 【1920x1080@3178kbps 2Mbps】
+#EXTINF:-1 tvg-id="三沙卫视" tvg-name="三沙卫视" tvg-logo="https://tb.zbds.top/logo/三沙卫视.png" group-title="卫视频道",三沙卫视
+http://183.239.248.218:8181/tsfile/live/1016_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@7941kbps 1Mbps】
+#EXTINF:-1 tvg-id="凤凰中文" tvg-name="凤凰中文" tvg-logo="https://tb.zbds.top/logo/凤凰中文.png" group-title="港·澳·台",凤凰中文
+http://remote.jackye.site:8000/rtp/239.61.2.184:9092$LR—IPV4 【1920x1080@5887kbps 2Mbps】
+#EXTINF:-1 tvg-id="凤凰资讯" tvg-name="凤凰资讯" tvg-logo="https://tb.zbds.top/logo/凤凰资讯.png" group-title="港·澳·台",凤凰资讯
+http://remote.jackye.site:8000/rtp/239.61.2.183:9086$LR—IPV4 【1920x1080@4990kbps 375kbps】
+#EXTINF:-1 tvg-id="明珠台" tvg-name="明珠台" tvg-logo="https://tb.zbds.top/logo/明珠台.png" group-title="港·澳·台",明珠台
+http://120.238.84.45:9901/tsfile/live/1000_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4 【1920x1080@7582kbps 2Mbps】
 #EXTINF:-1 tvg-id="动漫秀场" tvg-name="动漫秀场" tvg-logo="https://tb.zbds.top/logo/动漫秀场.png" group-title="少儿频道",动漫秀场
-http://vpn.ydcb.top:40000/udp/239.94.1.171:5140$LR—IPV4 【1920x1080@5013kbps 958kbps】
-#EXTINF:-1 tvg-id="1969" tvg-name="CHC影迷电影" tvg-logo="https://tb.zbds.top/logo/CHC影迷电影.png" group-title="影视频道",CHC影迷电影
-http://113.205.168.98:8005/udp/225.0.4.230:7980$LR—IPV4 【1920x1080@5898kbps 2Mbps】
+http://218.71.18.154:8888/udp/233.50.200.12:5140$LR—IPV4【线路1】 【1920x1080@5487kbps 2Mbps】
+#EXTINF:-1 tvg-id="动漫秀场" tvg-name="动漫秀场" tvg-logo="https://tb.zbds.top/logo/动漫秀场.png" group-title="少儿频道",动漫秀场
+http://60.183.109.152:8000/udp/233.50.200.12:5140$LR—IPV4【线路2】 【1920x1080@3522kbps】
+#EXTINF:-1 tvg-id="金鹰卡通" tvg-name="金鹰卡通" tvg-logo="https://tb.zbds.top/logo/金鹰卡通.png" group-title="少儿频道",金鹰卡通
+http://www.siyao.xin:4000/rtp/225.1.4.49:1078$LR—IPV4【线路1】 【1920x1080@6543kbps 2Mbps】
+#EXTINF:-1 tvg-id="金鹰卡通" tvg-name="金鹰卡通" tvg-logo="https://tb.zbds.top/logo/金鹰卡通.png" group-title="少儿频道",金鹰卡通
+http://xs12dp121403.vicp.fun:9999/rtp/239.253.92.163:8055$LR—IPV4【线路2】 【1920x1080@6564kbps】
 #EXTINF:-1 tvg-id="CHC动作电影" tvg-name="CHC动作电影" tvg-logo="https://tb.zbds.top/logo/CHC动作电影.png" group-title="影视频道",CHC动作电影
-http://113.205.168.98:8005/udp/225.0.4.229:7980$LR—IPV4【线路1】 【1920x1080@6214kbps 2Mbps】
+http://www.siyao.xin:4000/rtp/225.1.4.208:1261$LR—IPV4【线路1】 【1920x1080@5762kbps 2Mbps】
 #EXTINF:-1 tvg-id="CHC动作电影" tvg-name="CHC动作电影" tvg-logo="https://tb.zbds.top/logo/CHC动作电影.png" group-title="影视频道",CHC动作电影
-http://59.173.122.230:10001/rtp/239.69.1.242:11094$LR—IPV4【线路2】 【1920x1080@5352kbps 130kbps】
+http://120.238.84.45:9901/tsfile/live/1094_1.m3u8?key=txiptv&playlive=1&authid=0$LR—IPV4【线路2】 【1920x1080@6876kbps 2Mbps】
 #EXTINF:-1 tvg-id="CHC家庭影院" tvg-name="CHC家庭影院" tvg-logo="https://tb.zbds.top/logo/CHC家庭影院.png" group-title="影视频道",CHC家庭影院
-http://www.221111.best:8012/rtp/239.3.1.71:4120$LR—IPV4【线路1】 【1920x1080@1837kbps 1Mbps】
-#EXTINF:-1 tvg-id="CHC家庭影院" tvg-name="CHC家庭影院" tvg-logo="https://tb.zbds.top/logo/CHC家庭影院.png" group-title="影视频道",CHC家庭影院
-http://www.siyao.xin:4000/rtp/225.1.4.209:1262$LR—IPV4【线路2】 【1920x1080@5610kbps 2Mbps】
-#EXTINF:-1 tvg-id="CHC家庭影院" tvg-name="CHC家庭影院" tvg-logo="https://tb.zbds.top/logo/CHC家庭影院.png" group-title="影视频道",CHC家庭影院
-http://113.205.168.98:8005/udp/225.0.4.228:7980$LR—IPV4【线路3】 【1920x1080@3897kbps 2Mbps】
-#EXTINF:-1 tvg-id="CHC家庭影院" tvg-name="CHC家庭影院" tvg-logo="https://tb.zbds.top/logo/CHC家庭影院.png" group-title="影视频道",CHC家庭影院
-http://vpn.ydcb.top:40000/udp/239.94.1.173:5140$LR—IPV4【线路4】 【1920x1080@4679kbps 960kbps】
+http://www.siyao.xin:4000/rtp/225.1.4.209:1262$LR—IPV4 【1920x1080@6627kbps 2Mbps】
