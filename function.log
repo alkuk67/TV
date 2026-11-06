@@ -6745,3 +6745,125 @@
 2026-11-05 10:26:09 - INFO - root:main.py:734 - [订阅白名单] 匹配到 0 个频道
 2026-11-05 10:26:09 - INFO - root:main.py:738 - [汇总] 频道分类 6 个，总频道数 60，总URL数 502
 2026-11-05 10:26:09 - INFO - root:main.py:828 - [输出统计] 最终输出 60 频道 / 299 URL
+2026-11-06 09:57:19 - INFO - root:main.py:193 - [别名映射] 从 config/alias.txt 加载 10030 条别名规则
+2026-11-06 09:57:19 - INFO - root:main.py:666 - [抓取] 执行完整抓取流程，config.source_urls=5 个, hotel=True
+2026-11-06 09:57:19 - WARNING - root:main.py:87 - [EPG映射] 从 http://e.erw.cc/e.xml.gz 加载失败，尝试下一个源: HTTPConnectionPool(host='e.erw.cc', port=80): Max retries exceeded with url: /e.xml.gz (Caused by NameResolutionError("HTTPConnection(host='e.erw.cc', port=80): Failed to resolve 'e.erw.cc' ([Errno -5] No address associated with hostname)"))
+2026-11-06 09:57:29 - INFO - root:main.py:85 - [EPG映射] 从 https://gitee.com/taksssss/tv/raw/main/epg/112114.xml.gz 加载成功
+2026-11-06 09:57:30 - WARNING - root:main.py:87 - [EPG映射] 从 http://epg.51zmt.top:8000/e.xml.gz 加载失败，尝试下一个源: Not a gzipped file (b'<?')
+2026-11-06 09:57:30 - INFO - root:main.py:89 - [EPG映射] 共合并加载 489 个频道 ID
+2026-11-06 09:57:30 - INFO - root:main.py:303 - [抓取] 开始: http://145.239.65.119:20157/all.txt
+2026-11-06 09:57:30 - INFO - root:main.py:303 - [抓取] 开始: https://cdn.qd.je/live.m3u
+2026-11-06 09:57:30 - INFO - root:main.py:303 - [抓取] 开始: http://rihou.cc:567/gggg.nzk
+2026-11-06 09:57:30 - INFO - root:main.py:303 - [抓取] 开始: http://193.123.86.190:14888/TV/iptv.php
+2026-11-06 09:57:30 - INFO - root:main.py:303 - [抓取] 开始: https://gh.927223.xyz/https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u
+2026-11-06 09:57:30 - ERROR - root:main.py:369 - [抓取] http://rihou.cc:567/gggg.nzk 网络错误: ClientConnectorDNSError: Cannot connect to host rihou.cc:567 ssl:default [No address associated with hostname]
+2026-11-06 09:57:30 - ERROR - root:main.py:369 - [抓取] http://145.239.65.119:20157/all.txt 网络错误: ClientConnectorError: Cannot connect to host 145.239.65.119:20157 ssl:default [Connect call failed ('145.239.65.119', 20157)]
+2026-11-06 09:57:30 - INFO - root:main.py:312 - [抓取] http://193.123.86.190:14888/TV/iptv.php 获取成功，判断为m3u格式
+2026-11-06 09:57:30 - INFO - root:main.py:356 - [抓取] http://193.123.86.190:14888/TV/iptv.php 抓取成功，包含频道分类: 央视频道, 卫视频道, 睛彩频道, 咪视界, 历年春晚, 轮播
+2026-11-06 09:57:30 - INFO - root:main.py:357 - [抓取] http://193.123.86.190:14888/TV/iptv.php 共获取 188 个 URL
+2026-11-06 09:57:30 - INFO - root:main.py:363 - [抓取] http://193.123.86.190:14888/TV/iptv.php 样本频道: ['CCTV1', 'CCTV1', 'CCTV2', 'CCTV2', 'CCTV3', '安徽卫视', '安徽卫视', '北京卫视', '北京卫视', '重庆卫视']
+2026-11-06 09:57:31 - INFO - root:main.py:312 - [抓取] https://cdn.qd.je/live.m3u 获取成功，判断为m3u格式
+2026-11-06 09:57:31 - INFO - root:main.py:356 - [抓取] https://cdn.qd.je/live.m3u 抓取成功，包含频道分类: mytv
+2026-11-06 09:57:31 - INFO - root:main.py:357 - [抓取] https://cdn.qd.je/live.m3u 共获取 121 个 URL
+2026-11-06 09:57:31 - INFO - root:main.py:363 - [抓取] https://cdn.qd.je/live.m3u 样本频道: ['翡翠台4K(字幕)', '凤凰中文', 'CCTV1港澳版', 'CCTV13', 'TVB Plus(字幕)']
+2026-11-06 09:57:31 - ERROR - root:main.py:369 - [抓取] https://gh.927223.xyz/https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u 网络错误: ClientResponseError: 403, message='Forbidden', url='https://gh.927223.xyz/https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u'
+2026-11-06 09:57:31 - INFO - root:main.py:385 - [抓取] 等待所有源完成...
+2026-11-06 09:57:31 - INFO - root:main.py:276 - [匹配统计] 模板 137 频道，在线 309 URL，匹配 103 URL
+2026-11-06 09:57:31 - INFO - root:main.py:673 - [酒店源] 开始抓取...
+2026-11-06 09:57:32 - INFO - fetch_hotel:fetch_hotel.py:69 - [酒店源] 共获取 369 个节点
+2026-11-06 09:57:32 - INFO - fetch_hotel:fetch_hotel.py:79 - [酒店源] 类型分布: {'txiptv': 187, 'zhgxtv': 97, 'hsmdtv': 35, 'jsmpeg': 50}
+2026-11-06 09:57:41 - INFO - fetch_hotel:fetch_hotel.py:272 - [酒店源] 延迟探测 369 个 host，存活 119，取最快 80 个
+2026-11-06 09:57:57 - INFO - fetch_hotel:fetch_hotel.py:306 - [酒店源] 解析完成，共 2616 个频道-URL 组合
+2026-11-06 09:57:57 - INFO - root:main.py:276 - [匹配统计] 模板 137 频道，在线 2616 URL，匹配 1665 URL
+2026-11-06 09:57:57 - INFO - root:main.py:688 - [酒店源] 匹配到 87 个频道
+2026-11-06 09:57:57 - INFO - root:main.py:693 - [组播源] 开始抓取...
+2026-11-06 09:57:57 - INFO - fetch_multicast:fetch_multicast.py:112 - [组播源] 共 838 条，保留 830 条（dead=0，省份过滤=0，运营商过滤=0）
+2026-11-06 09:57:57 - INFO - root:main.py:276 - [匹配统计] 模板 137 频道，在线 830 URL，匹配 512 URL
+2026-11-06 09:57:57 - INFO - root:main.py:707 - [组播源] 匹配到 88 个频道
+2026-11-06 09:57:57 - INFO - root:main.py:714 - [质量检测] 开始全量检测（无缓存模式）... enable_ffprobe=True, ffprobe_timeout=6s, min_resolution=1080
+2026-11-06 09:57:57 - INFO - check:check.py:714 - 开始质量检测，共 2280 个 URL，并发数 10，HTTP 超时 3.5s，FFprobe 启用，超时 6s
+2026-11-06 09:59:26 - INFO - check:check.py:699 - [质量检测] 进度: 100/2280 (4%)
+2026-11-06 10:00:35 - INFO - check:check.py:699 - [质量检测] 进度: 200/2280 (8%)
+2026-11-06 10:01:37 - INFO - check:check.py:699 - [质量检测] 进度: 300/2280 (13%)
+2026-11-06 10:02:30 - INFO - check:check.py:699 - [质量检测] 进度: 400/2280 (17%)
+2026-11-06 10:03:38 - INFO - check:check.py:699 - [质量检测] 进度: 500/2280 (21%)
+2026-11-06 10:04:34 - INFO - check:check.py:699 - [质量检测] 进度: 600/2280 (26%)
+2026-11-06 10:05:32 - INFO - check:check.py:699 - [质量检测] 进度: 700/2280 (30%)
+2026-11-06 10:06:23 - INFO - check:check.py:699 - [质量检测] 进度: 800/2280 (35%)
+2026-11-06 10:07:24 - INFO - check:check.py:699 - [质量检测] 进度: 900/2280 (39%)
+2026-11-06 10:08:10 - INFO - check:check.py:699 - [质量检测] 进度: 1000/2280 (43%)
+2026-11-06 10:09:18 - INFO - check:check.py:699 - [质量检测] 进度: 1100/2280 (48%)
+2026-11-06 10:10:18 - INFO - check:check.py:699 - [质量检测] 进度: 1200/2280 (52%)
+2026-11-06 10:11:23 - INFO - check:check.py:699 - [质量检测] 进度: 1300/2280 (57%)
+2026-11-06 10:12:20 - INFO - check:check.py:699 - [质量检测] 进度: 1400/2280 (61%)
+2026-11-06 10:13:33 - INFO - check:check.py:699 - [质量检测] 进度: 1500/2280 (65%)
+2026-11-06 10:14:35 - INFO - check:check.py:699 - [质量检测] 进度: 1600/2280 (70%)
+2026-11-06 10:15:39 - INFO - check:check.py:699 - [质量检测] 进度: 1700/2280 (74%)
+2026-11-06 10:16:52 - INFO - check:check.py:699 - [质量检测] 进度: 1800/2280 (78%)
+2026-11-06 10:17:37 - INFO - check:check.py:699 - [质量检测] 进度: 1900/2280 (83%)
+2026-11-06 10:18:32 - INFO - check:check.py:699 - [质量检测] 进度: 2000/2280 (87%)
+2026-11-06 10:19:24 - INFO - check:check.py:699 - [质量检测] 进度: 2100/2280 (92%)
+2026-11-06 10:20:28 - INFO - check:check.py:699 - [质量检测] 进度: 2200/2280 (96%)
+2026-11-06 10:21:03 - INFO - check:check.py:699 - [质量检测] 进度: 2280/2280 (100%)
+2026-11-06 10:21:03 - INFO - check:check.py:754 - 质量检测完成: 总计=2072 通过=555 失败=712 超时=735 错误=70
+2026-11-06 10:21:03 - INFO - check:check.py:796 - 过滤后: 保留 365 个有效源，移除 1788 个失效源
+2026-11-06 10:21:03 - INFO - root:main.py:655 - [黑名单建议] 以下域名检测频繁失败，可考虑加入 url_blacklist：
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://120.78.151.79  失败次数=148  (failed=148)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://116.179.130.176:6001  失败次数=75  (timeout=75)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://www.lfyqh.cn  失败次数=65  (failed=64, timeout=1)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://121.19.134.149:808  失败次数=65  (failed=16, timeout=49)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://60.220.147.116:808  失败次数=63  (failed=58, timeout=5)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://171.124.27.172:18000  失败次数=58  (failed=31, timeout=27)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://120.238.94.82:9901udp:  失败次数=58  (error=58)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://211.149.143.188:88  失败次数=56  (failed=56)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://121.19.134.33:808  失败次数=48  (failed=3, timeout=45)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://125.93.74.27:9002  失败次数=46  (timeout=46)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://183.239.248.218:8181  失败次数=46  (timeout=46)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://222.134.245.16:9901  失败次数=44  (failed=1, timeout=43)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://110.72.87.54:808  失败次数=44  (failed=31, timeout=13)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://180.142.178.74:8181  失败次数=39  (failed=26, timeout=13)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://219.140.4.76:7777  失败次数=37  (failed=14, timeout=23)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://222.86.14.254:9999  失败次数=37  (timeout=37)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://59.173.54.77:7777  失败次数=36  (timeout=36)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://219.139.231.209:7777  失败次数=36  (failed=14, timeout=22)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://120.211.62.180:8000  失败次数=35  (failed=35)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://192.168.10.200:8008  失败次数=34  (timeout=34)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://139.196.214.238:5079  失败次数=33  (failed=32, timeout=1)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://171.8.74.166:8888  失败次数=33  (failed=31, timeout=2)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://101.75.215.190:8008  失败次数=32  (failed=32)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://219.145.93.74:10000  失败次数=32  (failed=9, timeout=23)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://zzssw01.55555.io:9901  失败次数=32  (error=3, timeout=29)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://120.238.84.45:9901  失败次数=32  (timeout=32)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://114.252.117.159:7000  失败次数=32  (timeout=32)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://139.227.221.147:9901  失败次数=31  (timeout=31)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://110.72.56.37:8181  失败次数=30  (failed=26, timeout=4)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://110.72.54.88:8181  失败次数=30  (failed=27, timeout=3)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://16.0.0.1:4001  失败次数=28  (timeout=28)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://111.59.24.227:8181  失败次数=28  (failed=25, timeout=3)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://221.205.59.211:8888  失败次数=23  (failed=23)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://183.234.143.5:5555  失败次数=23  (failed=15, timeout=8)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://221.221.137.78:9000  失败次数=21  (timeout=21)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://221.221.137.78:8000  失败次数=21  (timeout=21)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   https://cdn.qd.je  失败次数=21  (failed=21)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   https://php.jdshipin.com  失败次数=17  (failed=17)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://111.4.82.49:8008  失败次数=13  (timeout=13)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://183.223.157.33:9901  失败次数=11  (error=3, failed=1, timeout=7)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://173.208.212.130:8181  失败次数=8  (error=8)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://119.129.172.179:9901  失败次数=7  (timeout=7)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://112.123.243.37:50085  失败次数=7  (failed=4, timeout=3)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://remote.jackye.site:8000  失败次数=6  (timeout=6)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://36.136.38.87:9901  失败次数=6  (failed=2, timeout=4)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://117.28.103.212:34567  失败次数=6  (failed=3, timeout=3)
+2026-11-06 10:21:03 - INFO - root:main.py:657 -   http://110.7.131.163:4022  失败次数=2  (timeout=2)
+2026-11-06 10:21:03 - INFO - root:main.py:726 - [质量检测] 完成
+2026-11-06 10:21:03 - INFO - root:main.py:730 - [订阅白名单] 开始抓取保底源...
+2026-11-06 10:21:03 - INFO - root:main.py:303 - [抓取] 开始: http://192.168.1.31:2134
+2026-11-06 10:21:03 - INFO - root:main.py:303 - [抓取] 开始: http://192.168.1.31:18808/hoy-proxy.txt
+2026-11-06 10:21:03 - INFO - root:main.py:303 - [抓取] 开始: http://192.168.1.31:18080/channels.txt
+2026-11-06 10:21:14 - ERROR - root:main.py:367 - [抓取] http://192.168.1.31:2134 超时 (>10s)
+2026-11-06 10:21:14 - ERROR - root:main.py:367 - [抓取] http://192.168.1.31:18808/hoy-proxy.txt 超时 (>10s)
+2026-11-06 10:21:14 - ERROR - root:main.py:367 - [抓取] http://192.168.1.31:18080/channels.txt 超时 (>10s)
+2026-11-06 10:21:14 - INFO - root:main.py:276 - [匹配统计] 模板 137 频道，在线 0 URL，匹配 0 URL
+2026-11-06 10:21:14 - INFO - root:main.py:734 - [订阅白名单] 匹配到 0 个频道
+2026-11-06 10:21:14 - INFO - root:main.py:738 - [汇总] 频道分类 6 个，总频道数 60，总URL数 365
+2026-11-06 10:21:14 - INFO - root:main.py:828 - [输出统计] 最终输出 60 频道 / 261 URL
